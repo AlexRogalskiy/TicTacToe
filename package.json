@@ -21,6 +21,10 @@
   ],
   "author": "Alexander R <alexander.rogalsky@yandex.ru> (https://linkedin.com/in/alexander-rogalsky-985a4828)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexRogalskiy/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/AlexRogalskiy/tic-tac-toe#readme",
   "devDependencies": {
     "babel-core": "6.26.3",
     "babel-loader": "7.1.5",

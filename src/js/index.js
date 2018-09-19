@@ -7,12 +7,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import TicTacToeBoard from './containers/tictactoeboard';
+import AppView from './layouts/view';
 import store from './resources/store';
 
 ReactDOM.render(
     <Provider store={store}>
-        <TicTacToeBoard player="X" />
+        <AppView />
     </Provider>,
     document.getElementById('root')
 );

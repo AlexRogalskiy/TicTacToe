@@ -6,7 +6,7 @@ import Flashline from './flashline';
 
 class Board extends Component {
     render() {
-        const game = this;
+        const self = this;
         return (
             <div>
                 <Flashline message={this.props.message} />
@@ -14,14 +14,14 @@ class Board extends Component {
                     {
                         this.props.cells.map((value, cell) => (
                             <Cell key={cell} state={value} onPress={(evt) => {
-                                game.props.onSetCell(cell, this.props.cells, this.props.player)
+                                self.props.onSetCell(cell, this.props.cells, this.props.player)
                             }}/>
                         ))
                     }
                 </div>
                 <div className="panel">
                     <Button label="Reset" onPress={(evt) => {
-                        game.props.onReset()
+                        self.props.onReset()
                     }} />
                 </div>
             </div>
