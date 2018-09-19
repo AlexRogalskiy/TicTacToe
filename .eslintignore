@@ -1,0 +1,6 @@
+temp/**
+build/**
+node_modules/**
+contracts/**
+migrations/**
+tests/**
