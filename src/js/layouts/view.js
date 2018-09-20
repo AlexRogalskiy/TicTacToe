@@ -6,12 +6,17 @@ import Header from './particles/header';
 import Footer from './particles/footer';
 import TicTacToeBoard from '../containers/tictactoeboard';
 
+const config = require('../config.json');
+
 const LoggerMixin = {
 	log: function(message) {
 		console.log(message);
 	},
 	componentWillMount: function() {
-		this.log('componentWillMount: Mixin1');
+		this.log('LoggerMixin: componentWillMount');
+	},
+	componentWillUnmount: function() {
+		this.log('LoggerMixin: componentWillUnmount');
 	}
 };
 
@@ -21,7 +26,7 @@ class AppView extends Component {
         return (
 				<div>
 					<Header />
-					<TicTacToeBoard player="X" {...this.props} />
+					<TicTacToeBoard player={config.default.player1.marker} {...this.props} />
 					<Footer />
 				</div>
 		)

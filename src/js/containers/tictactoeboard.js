@@ -74,7 +74,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSetCell: (cell, cells, player) => {
-            if (isValidMove(cells, cell)) dispatch(addMove(cell, player));
+            if (isValidMove(cells, cell)) {
+				dispatch(addMove(cell, player));
+			}
         },
         onReset: () => {
             dispatch(resetGame());

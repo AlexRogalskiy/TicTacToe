@@ -13,14 +13,14 @@ class Board extends Component {
                 <div className="grid">
                     {
                         this.props.cells.map((value, cell) => (
-                            <Cell key={cell} state={value} onPress={(evt) => {
+                            <Cell key={cell} state={value} onPress={(e) => {
                                 self.props.onSetCell(cell, this.props.cells, this.props.player)
                             }}/>
                         ))
                     }
                 </div>
                 <div className="panel">
-                    <Button label="Reset" onPress={(evt) => {
+                    <Button label="Reset" onPress={(e) => {
                         self.props.onReset()
                     }} />
                 </div>

@@ -1,0 +1,12 @@
+{
+	"default" : {
+		"player1" : {
+			"name" : "Player 1",
+			"marker" : "X"
+		},
+		"player2" : {
+			"name" : "Player 2",
+			"marker" : "O"
+		}
+	}
+}

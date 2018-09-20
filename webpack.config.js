@@ -16,7 +16,7 @@ const CONFIG = {
 		rules: [
 			//{ test: /\.ts$/, loader: 'ts-loader' }
 			{ test: /\.css$/i, loader: [ 'style-loader', 'css-loader' ] },
-			{ test: /\.json$/i, loader: 'json-loader' },
+			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
 			{ test: /\.sass|scss$/i, loader: 'sass-loader' },
 			//{ test: /\.scss$/i, loader: ExtractTextPlugin.extract(['css', 'sass'])},
 			{ test: /\.(js|jsx|es6)$/, include: APP_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: ['es2016', 'react'], plugins: ['transform-runtime'] }}
@@ -29,6 +29,9 @@ const CONFIG = {
 		], { ignore: [ '*.js', '*.css' ], copyUnmodified: true, debug: true })
 	],
 	devServer: {
+		inline: true,
+        contentBase: BUILD_DIR,
+        port: 2000,
 		stats: 'errors-only',
 	}
 };
