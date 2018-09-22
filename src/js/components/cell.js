@@ -1,10 +1,38 @@
-import React, { Component } from 'react';
+"use strict";
 
-class Cell extends Component {
+/**
+ * Module dependencies
+ */
+import React, { Component } from 'react';
+import { style, classes } from 'typestyle';
+
+class Cell extends React.Component {
+	displayName: 'Cell'
+	
+	propTypes: {
+		winnerClassName: React.PropTypes.string
+	}
+	
+	constructor(props) {
+		super(props);
+		this.state = { isWinner: false };
+	}
+	
+	static get defaultProps() {
+		return {
+        	className: 'cell',
+			winnerClassName: 'cell-winner'
+        };
+    }
+
     render() {
-		const self = this;
+		const { onPress, winnerClassName, state, ...rest } = this.props;
+		const className = classes(
+			this.props.className,
+			this.state.isWinner && winnerClassName
+		);
         return (
-            <div onClick={this.props.onPress} className="cell">{ this.props.state }</div>
+            <div onClick={onPress} className={className} {...rest}>{state}</div>
         )
     }
 }

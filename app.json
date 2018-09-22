@@ -1,0 +1,12 @@
+{
+  "name": "tic-tac-toe",
+  "description": "Tic-Tac-Toe Node JS application",
+  "keywords": [ "Tic-Tac-Toe", "Node.js", "Online multiplayer game", "React UI" ],
+  "repository": "https://github.com/AlexRogalskiy/tic-tac-toe",
+  "logo": "https://facebook.github.io/react/img/logo.svg",
+  "website": "http://facebook.github.io/react/docs/tutorial.html",
+  "success_url": "/",
+  "env" : {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+  }
+}

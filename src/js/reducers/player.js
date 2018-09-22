@@ -1,3 +1,8 @@
+"use strict";
+
+/**
+ * Module dependencies
+ */
 const config = require('../config.json');
 
 const player = (state = config.default.player1.marker, action) => {

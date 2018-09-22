@@ -1,10 +1,23 @@
+"use strict";
+
+/**
+ * Module dependencies
+ */
 import React, { Component } from 'react';
 
 class Button extends Component {
+	displayName: 'Button'
+	
+	static get defaultProps() {
+		return {
+        	className: 'button'
+        };
+    }
+	
     render() {
-		const self = this;
+		const {label, onPress, ...rest} = this.props;
         return (
-            <div onClick={this.props.onPress} className="button">{ this.props.label }</div>
+            <div onClick={onPress} {...rest}>{label}</div>
         )
     }
 }

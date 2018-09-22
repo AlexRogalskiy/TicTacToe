@@ -1,3 +1,5 @@
+"use strict";
+
 export const addMove = (cell, player) => {
     return {
         type: 'ADD_MOVE',

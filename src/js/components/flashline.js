@@ -1,10 +1,23 @@
+"use strict";
+
+/**
+ * Module dependencies
+ */
 import React, { Component } from 'react';
 
 class Flashline extends Component {
+	displayName: 'Flashline'
+	
+	static get defaultProps() {
+		return {
+        	className: 'flashline'
+        };
+    }
+	
     render() {
-		const self = this;
+		const { message, ...rest } = this.props;
         return (
-            <div className="flashline">{ this.props.message }</div>
+            <div {...rest}>{message}</div>
         )
     }
 }

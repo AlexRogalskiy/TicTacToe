@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 import { connect } from 'react-redux';
 
 import { addMove, resetGame } from '../actions/types';

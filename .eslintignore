@@ -1,6 +1,7 @@
 temp/**
 build/**
 node_modules/**
+bower_components/**
 contracts/**
 migrations/**
 tests/**

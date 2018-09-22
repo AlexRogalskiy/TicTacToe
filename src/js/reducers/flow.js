@@ -1,3 +1,8 @@
+"use strict";
+
+/**
+ * Module dependencies
+ */
 import { combineReducers } from 'redux';
 
 import cells from './cells';

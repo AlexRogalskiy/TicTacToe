@@ -4,8 +4,24 @@ body, html {
 
 body {
     font-family: Verdana, serif;
-    background-color: #EEEEEE;
+    background-color: #eeeeee;
     font-size: 20px;
+}
+
+.board {
+	
+}
+
+.view {
+	
+}
+
+.footer {
+	
+}
+
+.header {
+	
 }
 
 .grid, .panel {
@@ -20,8 +36,12 @@ body {
     display: inline-block;
     padding: 20px 40px;
     background-color: #555555;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
+}
+
+.button-reset {
+    background-color: #444444;
 }
 
 .cell {
@@ -31,11 +51,15 @@ body {
     width: 100px;
     height: 100px;
     margin: 10px;
-    color: #FFFFFF;
+    color: #ffffff;
     text-align: center;
     font-size: 40px;
     line-height: 100px;
     cursor: pointer;
+}
+
+.cell-winner {
+	background-color: #ff00ff;
 }
 
 .cell:nth-child(3n+1) {

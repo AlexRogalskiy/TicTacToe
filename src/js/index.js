@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 require('../css/reset.css');
 require('../css/normalize.css');
 //require('../css/font.css');

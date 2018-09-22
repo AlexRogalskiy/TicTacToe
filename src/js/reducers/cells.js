@@ -1,3 +1,5 @@
+"use strict";
+
 const cells = (state = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined], action) => {
     switch (action.type) {
         case 'ADD_MOVE':
