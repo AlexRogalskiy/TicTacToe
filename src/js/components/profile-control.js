@@ -9,17 +9,18 @@ import { style, classes } from 'typestyle';
 import BasicImage from './basic-image';
 import BasicInput from './basic-input';
 
+import reactMixin from 'react-mixin';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 import update from 'react-addons-update';
 
 import Forms from '../validators/forms';
 import Fields from '../mixins/fields';
+import LifeCycle from '../mixins/lifecycle';
 
+//@reactMixin.decorate(Fields)
 class ProfileControl extends Component {
 	displayName: 'ProfileControl'
-	
-	mixins: [ Fields ]
 	
 	propTypes: {
 		dataClass: React.PropTypes.object,
@@ -34,7 +35,7 @@ class ProfileControl extends Component {
 	
 	constructor(props) {
         super(props);
-		this.validatorTypes = Forms[props.validator];
+		this.validatorTypes = Forms[props.validator] || [];
 		//this.state = { validity: {} };
 	}
 	
@@ -107,4 +108,6 @@ class ProfileControl extends Component {
     }
 }
 
+reactMixin.onClass(ProfileControl, LifeCycle);
+reactMixin.onClass(ProfileControl, Fields);
 export default Validation(Strategy)(ProfileControl);

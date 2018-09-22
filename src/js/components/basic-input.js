@@ -8,8 +8,6 @@ import { style, classes } from 'typestyle';
 
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
-//import update       from 'react-addons-update';
-//this.setState(update(this.state, { validity: validationState }));
 
 import { MessageList } from '../libs/utils';
 import Forms from '../validators/forms';
@@ -27,16 +25,21 @@ class BasicInput extends Component {
         super(props);
         this.onBlur = this.onBlur.bind(this);
         this.onChange = this.onChange.bind(this);
-		this.validatorTypes = Forms[props.validator];
+		this.validatorTypes = Forms[props.validator] || [];
 	}
 	
 	static get defaultProps() {
 		return {
 			className: 'basic-input input-group',
         	dataClass: { controlClass: 'row no-gutters', errorClass: 'error', inputClass: 'form-control' },
+			dataError: [],
 			validator: 'textInput'
         };
     }
+	
+	getValidatorData() {
+	    return this.state;
+	}
 	
 	onBlur(field) {
     	return event => {
@@ -56,6 +59,7 @@ class BasicInput extends Component {
 		return event => {
 	      	let state = {};
 	      	state[field] = event.target.src;
+			Strategy.activateRule(this.validatorTypes, field);
 	      	this.setState(state, () => {
 				this.props.handleValidation(field)(event);
 			});
@@ -66,10 +70,10 @@ class BasicInput extends Component {
 	}
 
     render() {
-		const { className, children, dataClass, dataError, ...rest } = this.props;
+		const { className, children, dataClass, dataError, isValid, getValidationMessages, clearValidations, handleValidation, validate, ...rest } = this.props;
 		const errorMessages = getValidationMessages(this.props.name) || dataError;
 		const controlClass = classes(
-			dataClass.controlClass
+			dataClass.controlClass,
 			errorMessages.length > 0 && dataClass.errorClass
 		);
 		rest.className = dataClass.inputClass;

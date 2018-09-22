@@ -11,9 +11,11 @@ const LifeCycle = {
 	},
 	componentWillUnmount: function() {
 		Logger.debug('LifeCycle: componentWillUnmount');
+		this.setState({ isMounted: false });
 	},
 	componentDidMount: function() {
 		Logger.debug('LifeCycle: componentDidMount');
+		this.setState({ isMounted: true });
 	},
 	componentWillReceiveProps: function(nextProps) {
 		Logger.debug(`LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`);

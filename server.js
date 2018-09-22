@@ -24,16 +24,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(PUBLIC_PATH));
 
-app.get("/users", function(req, res) {
-  res.send(USERS);
-});
-
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
 
+app.get("/users", function(req, res, next) {
+	res.send(USERS);
+});
+
+app.get("/profile", function(req, res, next) {
+	//var schema = strategy.createSchema(...);
+    //strategy.validateServer(req.body, schema).then(function () {
+    //    // Submit the data
+    //})
+    //.catch(next);
+});
+
+// 4400
 app.use(function(err, req, res, next) {
   if (err instanceof strategy.Error) {
     res.status(400).json(err.errors);

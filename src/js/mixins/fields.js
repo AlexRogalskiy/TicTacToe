@@ -4,13 +4,13 @@ import { validate } from '../libs/utils';
 /**
  * get input element by ref to Basic Input or input name attr
  */
-export Fields = { 
+const Fields = {
 	getInputField: function (ref) {
-		if(!this.isMounted()) {return;}
+		if(!this.state.isMounted) {return;}
 		//if (!this.isChecked || !this.isMounted) { return; }
 		// if(!this.refs[ref]) { return; }
-		// if (!this.refs[ref].isMounted) { return; }
-		return this.refs[ref] ? 
+		//if (!this.refs[ref].isMounted) { return; }
+		return this.refs && this.refs[ref] ? 
 			ReactDOM.findDOMNode(this.refs[ref]).querySelector('input') : 
 			ReactDOM.findDOMNode(this).querySelector('[name=' + ref + '] input'); 
 	},

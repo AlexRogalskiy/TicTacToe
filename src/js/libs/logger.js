@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import { dateFormat } from 'dateformat';
+import dateFormat from 'dateformat';
 
 const output = (dateTime, message, ...args) => `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 const DEFAULT_DATETIME_FORMAT = "dddd, mmmm dS, yyyy, h:MM:ss TT";

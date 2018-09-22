@@ -3,14 +3,14 @@
 /**
  * Module dependencies
  */
-import { Strategy } from 'react-validatorjs-strategy';
+import Strategy   from 'react-validatorjs-strategy';
 
-function checkValidity(validator) {
+var checkValidity = function(validator) {
     validator.lang = 'en';
 }
 
 const Forms = {
-    profileControl: Strategy.createInactiveSchema(
+    profileControl: Strategy.createSchema(
         {
             // author: 'required',
             // text: 'required|min:10|max:50',
@@ -25,31 +25,25 @@ const Forms = {
             // "required.src": "Enter valid image :attribute",
             // "numeric.name": "Enter valid numeric :attribute"
         },
-        function checkValidity(validator) {
-            validator.lang = 'en';
-        }
+        checkValidity
     ),
-    textInput: Strategy.createInactiveSchema(
+    textInput: Strategy.createSchema(
         {
-
+			name: 'required'
         },
         {
-
+			"required.email": "Without an :attribute we can't reach you!"
         },
-        function checkValidity(validator) {
-            validator.lang = 'en';
-        }
+        checkValidity
     ),
-    imageInput: Strategy.createInactiveSchema(
+    imageInput: Strategy.createSchema(
         {
 
         },
         {
 
         },
-        function checkValidity(validator) {
-            validator.lang = 'en';
-        }
+        checkValidity
     )
 };
 

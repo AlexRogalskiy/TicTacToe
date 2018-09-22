@@ -11,6 +11,7 @@ import Header from './particles/header';
 import Footer from './particles/footer';
 import LifeCycle from '../mixins/lifecycle';
 import TicTacToeBoard from '../containers/tictactoeboard';
+import ProfileControl from '../components/profile-control';
 
 const config = require('../config.json');
 
@@ -29,6 +30,7 @@ class AppView extends Component {
         return (
 			<div {...this.props}>
 				<Header />
+				<ProfileControl name="profile" />
 				<TicTacToeBoard player={config.default.player1.marker} />
 				<Footer />
 			</div>
