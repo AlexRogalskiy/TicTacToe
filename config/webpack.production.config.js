@@ -15,7 +15,6 @@ const JS_DIR = path.resolve(__dirname, '../src/js');
 const PRODUCTION_CONFIG = {
 	mode: 'production',
     entry: path.resolve(JS_DIR, "index.js"),
-	devtool: null,
     output: {
 		path: BUILD_DIR,
         filename: "bundle.min.js",
@@ -31,7 +30,7 @@ const PRODUCTION_CONFIG = {
 			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { sourceMap: true }}, { loader: 'postcss-loader', options: { plugins: [ require('cssnano'), require('autoprefixer')({ browsers: ['last 2 versions'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [CSS_DIR] }}] },
 			//{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]'},
 			//{ test: /\.scss$/i, loader: ExtractTextPlugin.extract(['css', 'sass'])},
-			{ test: /\.(js|jsx|es6)$/i, include: JS_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: ['es2016', 'react'], plugins: ['transform-runtime'] }}
+			{ test: /\.(js|jsx|es6)$/i, include: JS_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
 		]
     },
 	plugins: [

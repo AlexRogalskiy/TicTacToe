@@ -7,11 +7,14 @@ import React, { Component } from 'react';
 
 import Cell from './cell';
 import Button from './button';
-import Flashline from './flashline';
+import StatusBar from './statusbar';
 import Grid from './grid';
 
 class Board extends Component {
-	displayName: 'Board'
+	
+	get displayName() {
+		return 'Board';
+	}
 
 	static get defaultProps() {
 		return {
@@ -24,7 +27,7 @@ class Board extends Component {
 		const {message, className, ...rest} = this.props;
         return (
             <div className={className}>
-                <Flashline message={message} />
+                <StatusBar message={message} />
 				<Grid {...rest} />
                 <div className="panel">
                     <Button label="Reset" className="button button-reset" onPress={(e) => {

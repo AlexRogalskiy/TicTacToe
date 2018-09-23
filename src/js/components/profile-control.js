@@ -4,7 +4,8 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
-import { style, classes } from 'typestyle';
+import PropTypes from 'prop-types';
+//import { style, classes } from 'typestyle';
 
 import BasicImage from './basic-image';
 import BasicInput from './basic-input';
@@ -12,27 +13,34 @@ import BasicInput from './basic-input';
 import reactMixin from 'react-mixin';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
-//import update from 'react-addons-update';
 
 import Forms from '../validators/forms';
 import Fields from '../mixins/fields';
 import LifeCycle from '../mixins/lifecycle';
-import { autobind } from '../libs/utils';
 
 class ProfileControl extends Component {
-	displayName: 'ProfileControl'
 	
-	mixins: [ LifeCycle ]
-	
-	propTypes: {
-		dataClass: React.PropTypes.object,
-		validator: React.PropTypes.string
+	get mixins() {
+		return [ LifeCycle, Fields ];
 	}
 	
-	constraints: {
-		'profileImage': {
-			required: false
-		}
+	get displayName() {
+		return 'ProfileControl';
+	}
+	
+	static get propTypes() {
+		return {
+			dataClass: PropTypes.object,
+			validator: PropTypes.string
+		};
+	}
+	
+	get constraints() {
+		return {
+			'profileImage': {
+				required: false
+			}
+		};
 	}
 	
 	constructor(props) {
@@ -59,7 +67,7 @@ class ProfileControl extends Component {
 	
 	chooseFile(field) {
 		return event => {
-			this.getInputField('profileImage').click();
+			this.getInputField('profileInput').click();
 			if(this.props.onClick) {
 				this.props.onClick(event);
 			}
@@ -131,14 +139,13 @@ class ProfileControl extends Component {
             <div className={className}>
 				<BasicImage name="profileImage" ref="profileImage" label="Profile Image" src={this.state.profileImageData} dataError={this.state.validity.profileImage} className={dataClass.imageClass} {...rest} />
 				<BasicInput name="profileInput" ref="profileInput" type="file" onChange={this.userImageUpload(this.props.name)} dataError={this.state.validity.profileInput} className={dataClass.inputClass}>
-					<button onClick={this.chooseFile(this.props.name)}>Upload</button>
+					<button onClick={this.chooseFile(this.props)}>Upload</button>
 				</BasicInput>
 			</div>
         )
     }
 }
 
-//reactMixin.onClass(ProfileControl, autobind(Object.keys(Fields)));
 reactMixin.onClass(ProfileControl, LifeCycle);
 reactMixin.onClass(ProfileControl, Fields);
 

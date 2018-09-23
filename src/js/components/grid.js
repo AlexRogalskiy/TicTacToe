@@ -8,7 +8,10 @@ import React, { Component } from 'react';
 import Cell from './cell';
 
 class Grid extends Component {
-	displayName: 'Grid'
+	
+	get displayName() {
+		return 'Grid';
+	}
 	
 	static get defaultProps() {
 		return {

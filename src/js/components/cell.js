@@ -4,13 +4,19 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 class Cell extends React.Component {
-	displayName: 'Cell'
 	
-	propTypes: {
-		winnerClassName: React.PropTypes.string
+	get displayName() {
+		return 'Cell';
+	}
+	
+	static get propTypes() {
+		return {
+			winnerClassName: PropTypes.string
+		};
 	}
 	
 	constructor(props) {

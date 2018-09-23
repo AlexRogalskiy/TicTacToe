@@ -6,7 +6,10 @@
 import React, { Component } from 'react';
 
 class Footer extends Component {
-	displayName: 'Footer'
+	
+	get displayName() {
+		return 'Footer';
+	}
 	
 	static get defaultProps() {
 		return {

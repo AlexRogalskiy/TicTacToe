@@ -4,12 +4,18 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ResourceNotFoundError extends Component {
-	displayName: 'ResourceNotFoundError'
 	
-	propTypes: {
-		message: React.PropTypes.string
+	get displayName() {
+		return 'ResourceNotFoundError';
+	}
+	
+	static get propTypes() {
+		return {
+			message: PropTypes.string
+		};
 	}
 	
 	static get defaultProps() {

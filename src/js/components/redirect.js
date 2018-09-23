@@ -4,12 +4,18 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Redirect extends Component {
-	displayName: 'Redirect'
 	
-	propTypes: {
-		path: React.PropTypes.string
+	get displayName() {
+		return 'Redirect';
+	}
+	
+	static get propTypes() {
+		return {
+			path: PropTypes.string
+		};
 	}
 	
 	static get defaultProps() {

@@ -9,7 +9,10 @@ const express = require('express');
 const path = require('path');
 const strategy = require('react-validatorjs-strategy');
 
-const PUBLIC_PATH = path.resolve(__dirname, 'public');
+//const Logger = require('./src/js/libs/logger');
+//const tag = require('./src/js/libs/logger');
+
+const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
 const PUBLIC_PORT = 8080;
 const PUBLIC_HOST = 'localhost';
 
@@ -42,13 +45,13 @@ app.get("/profile", function(req, res, next) {
     //.catch(next);
 });
 
-// 4400
+// 400
 app.use(function(err, req, res, next) {
-  if (err instanceof strategy.Error) {
-    res.status(400).json(err.errors);
-  } else {
-    next(err, req, res);
-  }
+	if (err instanceof strategy.Error) {
+		res.status(400).json(err.errors);
+	} else {
+		next(err, req, res);
+	}
 });
 
 // 404
@@ -66,5 +69,5 @@ app.use(function(req, res) {
 });
 
 app.listen(app.get('port'), function() {
-  console.log(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}>...`);
+	console.log(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}>...`);
 });

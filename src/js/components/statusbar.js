@@ -5,12 +5,15 @@
  */
 import React, { Component } from 'react';
 
-class Flashline extends Component {
-	displayName: 'Flashline'
+class StatusBar extends Component {
+	
+	get displayName() {
+		return 'StatusBar';
+	}
 	
 	static get defaultProps() {
 		return {
-        	className: 'flashline'
+        	className: 'statusbar'
         };
     }
 	
@@ -22,4 +25,4 @@ class Flashline extends Component {
     }
 }
 
-export default Flashline;
+export default StatusBar;

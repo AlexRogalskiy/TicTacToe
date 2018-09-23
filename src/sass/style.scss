@@ -1,3 +1,14 @@
+$color: teal;
+
+h1 {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: $color;
+  color: white;
+  text-align: center;
+}
+
 body, html {
     margin: 0;
 }
@@ -126,7 +137,7 @@ button {
     clear: left;
 }
 
-.flashline {
+.statusbar {
     display: block;
     width: 100%;
     font-size: 30px;

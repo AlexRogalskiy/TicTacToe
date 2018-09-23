@@ -3,49 +3,49 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+//import React, { Component } from 'react';
+import { createReactClass } from 'create-react-class';
 
-import Logger from '../libs/logger';
-//import { createReactClass } from 'create-react-class';
+import Logger, { tag } from '../libs/logger';
 
 export default function wrapper(WrappedComponent) {
-  	//return createReactClass({
-		return new Component {
+  	return createReactClass({
+			displayName: "LifeCycleWrapper"
 			
 			constructor(props) {
 				super(props);
 				this.state = { isMounted: false };
+			}	
+			componentWillMount() {
+				Logger.debug(tag`LifeCycle: componentWillMount`);
+				this.setState({ isMounted: false });
+			}
+			componentWillUnmount() {
+				Logger.debug(tag`LifeCycle: componentWillUnmount`);
+				this.setState({ isMounted: false });
+			}
+			componentDidMount() {
+				Logger.debug(tag`LifeCycle: componentDidMount`);
+				this.setState({ isMounted: true });
+			}
+			componentWillReceiveProps(nextProps) {
+				Logger.debug(tag`LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`);
+			}
+			shouldComponentUpdate(nextProps, nextState) {
+				Logger.debug(tag`LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
+				return true;
+			}
+			componentWillUpdate(nextProps, nextState) {
+				Logger.debug(tag`LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
+			}
+			componentDidUpdate(prevProps, prevState) {
+				Logger.debug(tag`LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`);
 			}
 			
-			componentWillMount() {
-				Logger.debug('componentWillMount');
-			},
-			componentDidMount() {
-				Logger.debug('componentDidMount');
-				this.setState({ isMounted: true });
-			},
-			componentWillUnmount() {
-				Logger.debug('componentWillUnmount');
-				this.setState({ isMounted: false });
-			},
-			componentWillReceiveProps(nextProps) {
-				Logger.debug('componentWillReceiveProps', { nextProps: nextProps });
-			},
-			shouldComponentUpdate(nextProps, nextState) {
-				Logger.debug('shouldComponentUpdate', { nextProps: nextProps, nextState: nextState });
-				return true;
-			},
-			componentWillUpdate(nextProps, nextState) {
-				Logger.debug('componentWillUpdate', { nextProps: nextProps, nextState: nextState });
-			},
-			componentDidUpdate(prevProps, prevState) {
-				Logger.debug('componentDidUpdate', { prevProps: prevProps, prevState: prevState });
-			},
 			render() {
 				return (
 					<WrappedComponent isMounted={this.state.isMounted} {...this.props} />
 				);
 			}
-		};
-  	//});
+  	});
 };

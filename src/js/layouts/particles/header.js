@@ -6,7 +6,10 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
-	displayName: 'Header'
+	
+	get displayName() {
+		return 'Header';
+	}
 	
 	static get defaultProps() {
 		return {

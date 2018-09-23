@@ -4,15 +4,21 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Loader extends Component {
-	displayName: 'Loader'
 	
-	propTypes: {
-		dataClass: React.PropTypes.object
+	get displayName() {
+		return 'Loader';
 	}
 	
-	static get defaultProps() {
+	static get propTypes() {
+		return {
+			dataClass: PropTypes.object
+		};
+	}
+	
+	get static defaultProps() {
 		return {
         	className: 'loader'
 			dataClass: { containerClass: 'loader-container' },

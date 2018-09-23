@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Strategy   from 'react-validatorjs-strategy';
@@ -13,12 +14,17 @@ import { MessageList } from '../libs/utils';
 import Forms from '../validators/forms';
 
 class BasicImage extends Component {
-	displayName: 'BasicImage'
 	
-	propTypes: {
-		dataClass: React.PropTypes.object,
-		dataError: React.PropTypes.array,
-		validator: React.PropTypes.string
+	get displayName() {
+		return 'BasicImage';
+	}
+	
+	static get propTypes() {
+		return {
+			dataClass: PropTypes.object,
+			dataError: PropTypes.array,
+			validator: PropTypes.string
+		};
 	}
 	
 	constructor(props) {

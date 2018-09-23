@@ -6,7 +6,10 @@
 import React, { Component } from 'react';
 
 class Button extends Component {
-	displayName: 'Button'
+	
+	get displayName() {
+		return 'Button';
+	}
 	
 	static get defaultProps() {
 		return {
