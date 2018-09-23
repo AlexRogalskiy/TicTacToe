@@ -1,11 +1,13 @@
 "use strict";
 
+import ReactDOM from 'react-dom';
+
 import { validate } from '../libs/utils';
 /**
  * get input element by ref to Basic Input or input name attr
  */
 const Fields = {
-	getInputField: function (ref) {
+	getInputField: function(ref) {
 		if(!this.state.isMounted) {return;}
 		//if (!this.isChecked || !this.isMounted) { return; }
 		// if(!this.refs[ref]) { return; }
@@ -14,7 +16,7 @@ const Fields = {
 			ReactDOM.findDOMNode(this.refs[ref]).querySelector('input') : 
 			ReactDOM.findDOMNode(this).querySelector('[name=' + ref + '] input'); 
 	},
-	validateField: function (fieldName, constraintOverride) {
+	validateField: function(fieldName, constraintOverride) {
 		let fieldVal = this.getInputField(fieldName).value;
 		if (fieldName in this.constraints) {
 			let currentConstraint = constraintOverride || this.constraints[fieldName];
@@ -23,7 +25,7 @@ const Fields = {
 		}
 		return true;
 	},
-	validateFields: function (nodes) {
+	validateFields: function(nodes) {
 		let detail = {}, validationState = {}, hasErrors = false;
 		e.preventDefault();
 		nodes = nodes || this.refs.form.querySelectorAll('input');

@@ -4,15 +4,15 @@
  */
 const path = require('path');
 const webpack = require('webpack');
-//const Config = require('webpack-config');
+const Config = require('webpack-config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, '../public/build');
-const APP_DIR = path.resolve(__dirname, '../src/js');
+const JS_DIR = path.resolve(__dirname, '../src/js');
 
-const CONFIG = {
-    entry: path.resolve(APP_DIR, "index.js"),
+const BASE_CONFIG = {
+    entry: path.resolve(JS_DIR, "index.js"),
 	devtool:'source-map',
     output: {
 		path: BUILD_DIR,
@@ -23,25 +23,28 @@ const CONFIG = {
     },
     module: {
 		rules: [
-			{ test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/, loader: 'file?name=[path][name].[ext]' },
-			{ test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
+			{ test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/i, loader: 'file?name=[path][name].[ext]' },
+			{ test: /\.(png|jpg|svg)$/i, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
 			//{ test: /\.ts$/, loader: 'ts-loader' }
 			{ test: /\.css$/i, loader: [ 'style-loader', 'css-loader' ] },
 			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
-			{ test: /\.sass|scss$/i, loader: 'sass-loader' },
+			{ test: /\.(sass|scss)$/i, use: ['style-loader', 'css-loader', 'sass-loader'] },
 			//{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]'},
 			//{ test: /\.scss$/i, loader: ExtractTextPlugin.extract(['css', 'sass'])},
-			{ test: /\.(js|jsx|es6)$/, include: APP_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: ['es2016', 'react'], plugins: ['transform-runtime'] }}
+			{ test: /\.(js|jsx|es6)$/i, include: JS_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: ['es2016', 'react'], plugins: ['transform-runtime'] }}
 		]
     },
 	plugins: [
-		new CopyWebpackPlugin([
-		  { from: './src/images', to: 'images', cache: true },
-		  { from: './src/fonts', to: 'fonts', cache: true }
-		], { ignore: [ '*.js', '*.css' ], copyUnmodified: true, debug: true }),
+		new CopyWebpackPlugin(
+			[
+				{ from: './src/images', to: 'images', cache: true },
+				{ from: './src/fonts', to: 'fonts', cache: true }
+			],
+			{ ignore: [ '*.js', '*.css' ], copyUnmodified: true, debug: true }
+		),
 		new HtmlWebpackPlugin({
-			template: '../public/index.html',
-			inject: "body"
+			template: '../src/index.html',
+			inject: 'body'
 		})
 	],
 	resolve: {
@@ -49,23 +52,23 @@ const CONFIG = {
 			'node_modules',
 			'bower_modules'
 		],
-		extensions: ['.js', '.json', '.jsx', '.less', '.scss'],
+		extensions: ['.js', '.json', '.jsx', '.scss', '.sass'],
 		alias: {
-			'appRoot': APP_DIR
+			'appRoot': JS_DIR
 		}
 	}
 };
 
 /*module.exports = (env, argv) => {
 	if (argv.mode === 'development') {
-		CONFIG.devtool = 'source-map';
+		BASE_CONFIG.devtool = 'source-map';
 	}
 	if (argv.mode === 'production') {
 		
 	}
-	CONFIG.mode = argv.mode || 'none';
-	return CONFIG;
+	BASE_CONFIG.mode = argv.mode || 'none';
+	return BASE_CONFIG;
 };*/
 
-module.exports = CONFIG;
-//module.exports = new Config().merge(CONFIG);
+//module.exports = BASE_CONFIG;
+module.exports = new Config().merge(BASE_CONFIG);

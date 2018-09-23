@@ -12,15 +12,17 @@ import BasicInput from './basic-input';
 import reactMixin from 'react-mixin';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
-import update from 'react-addons-update';
+//import update from 'react-addons-update';
 
 import Forms from '../validators/forms';
 import Fields from '../mixins/fields';
 import LifeCycle from '../mixins/lifecycle';
+import { autobind } from '../libs/utils';
 
-//@reactMixin.decorate(Fields)
 class ProfileControl extends Component {
 	displayName: 'ProfileControl'
+	
+	mixins: [ LifeCycle ]
 	
 	propTypes: {
 		dataClass: React.PropTypes.object,
@@ -36,7 +38,7 @@ class ProfileControl extends Component {
 	constructor(props) {
         super(props);
 		this.validatorTypes = Forms[props.validator] || [];
-		//this.state = { validity: {} };
+		this.state = { validity: {} };
 	}
 	
 	static get defaultProps() {
@@ -47,8 +49,21 @@ class ProfileControl extends Component {
         };
     }
 	
-	chooseFile() {
-		this.getInputEle('profileImage').click();
+	getValidatorData() {
+	    return this.state;
+	}
+	
+	/*chooseFile() {
+		this.getInputField('profileImage').click();
+	}*/
+	
+	chooseFile(field) {
+		return event => {
+			this.getInputField('profileImage').click();
+			if(this.props.onClick) {
+				this.props.onClick(event);
+			}
+	    };
 	}
 	
 	setPlaceholderImage(e) {
@@ -62,33 +77,48 @@ class ProfileControl extends Component {
 		}
 	}
 	
-	imageLoadedHandler(e) {
-		const imageSize = atob(decodeURI(e.target.result).replace(/^.*base64,/, '')).length;
-		this.setState(update(this.state, { sizeExceeded: imageSize > 1024 * 1000 }));
-		
-		
-		Strategy.activateRule(this.validatorTypes, field);
-		//const validationState = this.validateFields([this.getInputField('profileImage'), this.getInputField('profileInput')]);
-		//this.setState(update(this.state, { validity: validationState }));
-		
-	      	this.state[field] = e.target.src;
-	      	Strategy.activateRule(this.validatorTypes, field);
-	      	this.setState(update(this.state, () => {
-				this.props.handleValidation(field)(e);
-			}));
+	imageLoadedHandler(field) {
+		return event => {
+			const imageSize = atob(decodeURI(event.target.result).replace(/^.*base64,/, '')).length;
+			this.setState({ sizeExceeded: imageSize > 1024 * 1000 });
 			
-		if (this.state.sizeExceeded) {
-			this.setPlaceholderImage();
-		} else {
-			this.setState(update(this.state, { profileImageData: e.target.result }));
-		}
+			Strategy.activateRule(this.validatorTypes, field);
+			//const validationState = this.validateFields([this.getInputField('profileImage'), this.getInputField('profileInput')]);
+			//this.setState(update(this.state, { validity: validationState }));
+			
+				this.state[field] = event.target.src;
+				Strategy.activateRule(this.validatorTypes, field);
+				this.setState(() => {
+					this.props.handleValidation(field)(event);
+				});
+				
+			if (this.state.sizeExceeded) {
+				console.log('a');
+				this.setPlaceholderImage();
+			} else {
+				console.log('b');
+				this.setState({ profileImageData: event.target.result });
+			}
+	    };
 	}
 	
-	userImageUpload(e) {
+	/*userImageUpload(e) {
 		const file = e.target.files[0];
 		const reader = new FileReader();
 		reader.onload = this.imageLoadedHandler;
 		reader.readAsDataURL(file);
+	}*/
+	
+	userImageUpload(field) {
+		return event => {
+	      	const file = event.target.files[0];
+			const reader = new FileReader();
+			reader.onload = this.imageLoadedHandler(field).bind(this);
+			reader.readAsDataURL(file);
+			if(this.props.onChange) {
+				this.props.onChange(event);
+			}
+	    };
 	}
 	
 	componentWillMount() {
@@ -100,14 +130,16 @@ class ProfileControl extends Component {
         return (
             <div className={className}>
 				<BasicImage name="profileImage" ref="profileImage" label="Profile Image" src={this.state.profileImageData} dataError={this.state.validity.profileImage} className={dataClass.imageClass} {...rest} />
-				<BasicInput name="profileInput" ref="profileInput" type="file" onChange={this.userImageUpload} dataError={this.state.validity.profileInput} className={dataClass.inputClass}>
-					<Button onClick={this.chooseFile}>Upload</Button>
+				<BasicInput name="profileInput" ref="profileInput" type="file" onChange={this.userImageUpload(this.props.name)} dataError={this.state.validity.profileInput} className={dataClass.inputClass}>
+					<button onClick={this.chooseFile(this.props.name)}>Upload</button>
 				</BasicInput>
 			</div>
         )
     }
 }
 
+//reactMixin.onClass(ProfileControl, autobind(Object.keys(Fields)));
 reactMixin.onClass(ProfileControl, LifeCycle);
 reactMixin.onClass(ProfileControl, Fields);
+
 export default Validation(Strategy)(ProfileControl);

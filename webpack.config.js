@@ -2,7 +2,7 @@
 /**
  * Module dependencies
  */
-require('babel-register');
+//require('babel-register');
 module.exports = require('./config/webpack.development.config.js');
 
 //const Config = require('webpack-config');

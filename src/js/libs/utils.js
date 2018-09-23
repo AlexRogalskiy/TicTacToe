@@ -1,7 +1,12 @@
 "use strict";
 
 /**
- * returns text block with messages
+ * Module dependencies
+ */
+import { isString, isArray, isNullOrUndefined }  from './helpers';
+
+/**
+ * returns message block
  */
 export function MessageList(props) {
 	const { messages, messageClass, ...rest } = props;
@@ -15,7 +20,7 @@ export function MessageList(props) {
 };
 
 /**
- * returns text block with message
+ * returns single message block
  */
 export function Message(props) {
 	const { message, ...rest } = props;
@@ -36,7 +41,7 @@ export function validate(val, constraints) {
 	var validators = {
 		minlength: {
 			fn: function (val, cVal) {
-				return typeof val === 'string' && val.length >= cVal;
+				return isString(val) && val.length >= cVal;
 			},
 			msg: function (val, cVal) {
 				return 'minimum ' + cVal + ' characters';
@@ -44,8 +49,7 @@ export function validate(val, constraints) {
 		},
 		required: {
 			fn: function (val) {
-				return typeof val === 'string' ? 
-					!/^\s*$/.test(val) : val !== undefined && val !== null;
+				return isString(val) ? !/^\s*$/.test(val) : !isNullOrUndefined(val);
 			},
 			msg: function () {
 				return 'required field';
@@ -53,7 +57,7 @@ export function validate(val, constraints) {
 		},
 		exclusive: {
 			fn: function (val, list) {
-				if (!(list instanceof Array)) { return false; }
+				if (!isArray(list)) { return false; }
 				return list.filter(function (v) { return v === val; }) < 1;
 			},
 			msg: function (val) {
@@ -69,11 +73,8 @@ export function validate(val, constraints) {
 	for (let constraint in constraints) {
 		let validator, currentConstraint;
 
-		if (
-			constraints.hasOwnProperty(constraint) && 
-			validators.hasOwnProperty(constraint.toLowerCase())
-		) {
-			validator         = validators[constraint.toLowerCase()];
+		if (constraints.hasOwnProperty(constraint) && validators.hasOwnProperty(constraint.toLowerCase())) {
+			validator = validators[constraint.toLowerCase()];
 			currentConstraint = constraints[constraint];
 
 			if (!validator.fn(val, currentConstraint)) {
@@ -84,5 +85,28 @@ export function validate(val, constraints) {
 			};
 		}
 	}
-	return errors.length > 0 ? {errors: errors} : true;
+	return errors.length > 0 ? { errors: errors } : true;
+};
+
+/**
+ * returns autobind function
+ */
+export function autobind(methodNames) {
+	methodNames = isArray(methodNames) ? methodNames : [];
+    return {
+        componentWillMount: function() {
+            methodNames.forEach((name) => {
+                this[name] = this[name].bind(this);
+            });
+        }
+    };
+};
+
+/**
+ * returns mixin function
+ */
+export function mixin(...mixins) {
+	var base = function() {};
+	Object.assign(base.prototype, ...mixins);
+	return base;
 };
