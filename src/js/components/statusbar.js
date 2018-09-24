@@ -18,9 +18,14 @@ class StatusBar extends Component {
     }
 	
     render() {
-		const { message, ...rest } = this.props;
+		const { message, children, ...rest } = this.props;
+		const messages = message ? <div>{message}</div> : '';
+	const childs = children ? <div>{children}</div> : '';
         return (
-            <div {...rest}>{message}</div>
+            <div {...rest}>
+				{messages}
+				{childs}
+			</div>
         )
     }
 }

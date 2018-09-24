@@ -35,6 +35,14 @@ class ProfileControl extends Component {
 		};
 	}
 	
+	static get defaultProps() {
+		return {
+        	className: 'profile-image-container',
+			dataClass: { imageClass: 'imageClass', inputClass: 'inputClass'},
+			validator: 'profileControl'
+        };
+    }
+	
 	get constraints() {
 		return {
 			'profileImage': {
@@ -48,14 +56,6 @@ class ProfileControl extends Component {
 		this.validatorTypes = Forms[props.validator] || [];
 		this.state = { validity: {} };
 	}
-	
-	static get defaultProps() {
-		return {
-        	className: 'profile-image-container',
-			dataClass: { imageClass: 'imageClass', inputClass: 'inputClass'},
-			validator: 'profileControl'
-        };
-    }
 	
 	getValidatorData() {
 	    return this.state;

@@ -26,6 +26,7 @@ const PRODUCTION_CONFIG = {
 		rules: [
 			//{ test: /\.ts$/, loader: 'ts-loader' }
 			{ test: /\.css$/i, loader: [ 'style-loader', 'css-loader' ] },
+			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: true } }]},
 			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
 			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { sourceMap: true }}, { loader: 'postcss-loader', options: { plugins: [ require('cssnano'), require('autoprefixer')({ browsers: ['last 2 versions'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [CSS_DIR] }}] },
 			//{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]'},

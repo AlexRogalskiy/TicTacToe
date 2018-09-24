@@ -25,7 +25,7 @@ const BASE_CONFIG = {
     module: {
 		rules: [
 			{ test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/i, loader: 'file?name=[path][name].[ext]' },
-			{ test: /\.(png|jpg|svg)$/i, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
+			{ test: /\.(png|jpg)$/i, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
 			//{ test: /\.ts$/, loader: 'ts-loader' }
 			{ test: /\.css$/i, loader: [ 'style-loader', 'css-loader' ] },
 			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },

@@ -12,6 +12,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import style from "../css/style.css";
+
 import AppView from './layouts/view';
 import store from './resources/store';
 

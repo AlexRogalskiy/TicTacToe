@@ -20,13 +20,13 @@ class Grid extends Component {
     }
 	
 	render() {
-        const self = this;
+		const { cells, player, onSetCell, ...rest } = this.props;
         return (
-			<div className={this.props.className}>
+			<div {...rest}>
                 {
-                    this.props.cells.map((value, cell) => (
+                    cells.map((value, cell) => (
                         <Cell key={cell} state={value} onPress={(e) => {
-                             self.props.onSetCell(cell, this.props.cells, this.props.player)
+                             onSetCell(cell, cells, player)
                         }}/>
                     ))
                 }
