@@ -3,8 +3,9 @@
 /**
  * Module dependencies
  */
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 //const connect = require('connect');
+const axios = require('axios');
 const express = require('express');
 //const io = require('socket.io');
 const path = require('path');
@@ -26,21 +27,21 @@ app.set('view cache', false);
 app.set('port', (process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
 
-app.get("/users", function(req, res, next) {
+app.get("/users", (req, res, next) => {
 	res.send(USERS);
 });
 
-app.get("/profile", function(req, res, next) {
+app.get("/profile", (req, res, next) => {
 	//var schema = strategy.createSchema(...);
     //strategy.validateServer(req.body, schema).then(function () {
     //    // Submit the data
@@ -48,8 +49,15 @@ app.get("/profile", function(req, res, next) {
     //.catch(next);
 });
 
+app.route('/echo')
+    .all((req, res) => {
+		let params = (Object.keys(req.body).length > 0) ? req.body : req.query;
+		res.send(params);
+	}
+);
+
 // 400
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
 	if (err instanceof strategy.Error) {
 		res.status(400).json(err.errors);
 	} else {
@@ -58,19 +66,21 @@ app.use(function(err, req, res, next) {
 });
 
 // 404
-app.use(function(req, res) {
+app.use((req, res) => {
 	res.type('text/html');
+	res.charset = 'utf-8';
 	res.status(404);
 	res.render('404');
 });
 
 // 500
-app.use(function(req, res) {
+app.use((req, res) => {
 	res.type('text/html');
+	res.charset = 'utf-8';
 	res.status(500);
 	res.render('500');
 });
 
-app.listen(app.get('port'), function() {
-	console.log(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}>...`);
+app.listen(app.get('port'), () => {
+	console.log(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}> ...`);
 });

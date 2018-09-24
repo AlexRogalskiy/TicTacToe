@@ -5,14 +5,13 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import { style, classes } from 'typestyle';
-
-import BasicImage from './basic-image';
-import BasicInput from './basic-input';
 
 import reactMixin from 'react-mixin';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
+
+import BasicImage from './basic-image';
+import BasicInput from './basic-input';
 
 import Forms from '../validators/forms';
 import Fields from '../mixins/fields';
@@ -61,10 +60,6 @@ class ProfileControl extends Component {
 	    return this.state;
 	}
 	
-	/*chooseFile() {
-		this.getInputField('profileImage').click();
-	}*/
-	
 	chooseFile(field) {
 		return event => {
 			this.getInputField('profileInput').click();
@@ -109,13 +104,6 @@ class ProfileControl extends Component {
 			}
 	    };
 	}
-	
-	/*userImageUpload(e) {
-		const file = e.target.files[0];
-		const reader = new FileReader();
-		reader.onload = this.imageLoadedHandler;
-		reader.readAsDataURL(file);
-	}*/
 	
 	userImageUpload(field) {
 		return event => {

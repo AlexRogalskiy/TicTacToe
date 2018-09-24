@@ -1,11 +1,18 @@
 "use strict";
+
 /**
  * Module dependencies
  */
 import { connect } from 'react-redux';
+import LocalizedStrings from 'react-localization';
 
-import { addMove, resetGame } from '../actions/types';
+import { addMove, resetGame } from '../actions/index';
 import Board from '../components/board';
+
+import { isNullOrUndefined } from '../libs/helpers';
+import Locale from '../resources/locale';
+
+const localStrings = new LocalizedStrings(Locale);
 
 const getWinner = (cells) => {
     const winningStates = [
@@ -19,52 +26,58 @@ const getWinner = (cells) => {
         [2, 5, 8]
     ];
 
-    var winner = undefined;
+    var winner = null;
     winningStates.forEach((winningState) => {
         const potentialWinner = cells[winningState[0]];
-        if (potentialWinner !== undefined) {
+        if (!isNullOrUndefined(potentialWinner)) {
             var hasWonCurrentState = true;
             winningState.forEach((winningCell) => {
-                if (cells[winningCell] !== potentialWinner) hasWonCurrentState = false;
+                if (cells[winningCell] !== potentialWinner) {
+					hasWonCurrentState = false;
+				}
             });
-            if (hasWonCurrentState) winner = potentialWinner;
+            if (hasWonCurrentState) {
+				winner = potentialWinner;
+			}
         }
     });
-
     return winner;
 };
 
 const isTie = (cells) => {
-    // No tie when the game is won
-    if (getWinner(cells) !== undefined) return false;
-
+    if (!isNullOrUndefined(getWinner(cells))) {
+		return false;
+	}
     var isTie = true;
     cells.forEach((cell) => {
-        if (cell === undefined) isTie = false;
+        if (isNullOrUndefined(cell)) {
+			isTie = false;
+		}
     });
-
     return isTie;
 };
 
 const isValidMove = (cells, cell) => {
     // Invalid move when the cell is not free
-    if (cells[cell] !== undefined) return false;
-
+    if (!isNullOrUndefined(cells[cell])) {
+		return false;
+	}
     // Do not update when the game is over
-    if (getWinner(cells) !== undefined || isTie(cells)) return false;
-
+    if (!isNullOrUndefined(getWinner(cells)) || isTie(cells)) {
+		return false;
+	}
     return true;
 };
 
 const getStatusMessage = (cells, player) => {
-    if (isTie(cells)) return 'It is a tie!';
-
+    if (isTie(cells)) {
+		return localStrings.tie;
+	}
     const winner = getWinner(cells);
-    if (winner !== undefined) {
-        return winner + ' has won the game!';
-    } else {
-        return 'Player ' + player;
+    if (!isNullOrUndefined(winner)) {
+        return localStrings.formatString(localStrings.winner, winner);
     }
+	return localStrings.formatString(localStrings.player, player);
 };
 
 const mapStateToProps = (state) => {

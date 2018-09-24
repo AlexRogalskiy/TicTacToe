@@ -8,9 +8,6 @@ import reactMixin from 'react-mixin';
 //import { BrowserRouter, Router, Route } from 'react-router-dom';
 
 import TicTacToeBoard from '../containers/tictactoeboard';
-//import ProfileControl from '../components/profile-control';
-//<ProfileControl name="profile" />
-
 import Board from '../components/board';
 
 import Header from './particles/header';
@@ -18,7 +15,7 @@ import Footer from './particles/footer';
 
 import LifeCycle from '../mixins/lifecycle';
 
-const config = require('../config.json');
+import config from '../resources/config.json';
 
 class AppView extends Component {
 	

@@ -15,6 +15,7 @@ const JS_DIR = path.resolve(__dirname, '../src/js');
 const PRODUCTION_CONFIG = {
 	mode: 'production',
     entry: path.resolve(JS_DIR, "index.js"),
+	cache: true,
     output: {
 		path: BUILD_DIR,
         filename: "bundle.min.js",
@@ -52,14 +53,17 @@ const PRODUCTION_CONFIG = {
             chunkFilename: "[id].css"
         }),
 		new webpack.optimize.UglifyJsPlugin({
-		  minimize: true,
-		  compress: {
+			minimize: true,
+			mangle: true,
+			output {
+				comments: false  
+			},
+			compress: {
 				sourceMap: true,
-				warnings: true,
+				warnings: false,
 				drop_console: true,
-				unsafe: true,
-				mangle: false
-		  }
+				unsafe: true
+			}
 		})
 	],
 	optimization: {

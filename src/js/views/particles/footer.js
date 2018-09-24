@@ -20,9 +20,9 @@ class Footer extends Component {
     render() {
 		const { children, ...rest } = this.props;
         return  (
-			<div {...rest}>
+			<footer {...rest}>
 				{children}
-			</div>
+			</footer>
 		)
     }
 }

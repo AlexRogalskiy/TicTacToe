@@ -3,9 +3,11 @@
 /**
  * Module dependencies
  */
-//require('babel-register');
+require('@babel/register');
+
 module.exports = require('./config/webpack.development.config.js');
 
+//import Config, { environment } from 'webpack-config';
 //const Config = require('webpack-config');
 //const environment = require('webpack-config');
 

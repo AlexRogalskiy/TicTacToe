@@ -1,4 +1,14 @@
-$color: teal;
+@charset "UTF-8";
+
+// Imports [vendor]
+@import "vendor/reset/reset";
+@import "vendor/normalize/normalize";
+
+// Imports [fonts]
+@import "modules/fonts/font";
+
+// Imports [variables]
+@import "settings/variables";
 
 h1 {
   display: flex;

@@ -20,9 +20,9 @@ class Header extends Component {
     render() {
 		const { children, ...rest } = this.props;
         return  (
-			<div {...rest}>
+			<header {...rest}>
 				{children}
-			</div>
+			</header>
 		)
     }
 }
