@@ -10,13 +10,13 @@ npm install
 2. Build application
 
 ```
-npm run-script build
+npm run build-dev
 ```
 
 3. Run node js server
 
 ```
-npm run-script serve
+npm run serve
 ```
 
 4. Check the following url:
