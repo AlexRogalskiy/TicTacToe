@@ -4,27 +4,21 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
-import reactMixin from 'react-mixin';
-//import { BrowserRouter, Router, Route } from 'react-router-dom';
 
 import TicTacToeBoard from '../containers/tictactoeboard';
-import Board from '../components/board';
+import WeatherWidget from '../components/weather-widget';
 
 import Header from './partials/header';
 import Footer from './partials/footer';
 
-import LifeCycle from '../mixins/lifecycle';
+import wrapper from '../mixins/socket-wrapper';
 
 import config from '../resources/config.json';
 
-class AppView extends Component {
-	
-	get mixins() {
-		return [ LifeCycle ];
-	}
+class App extends Component {
 	
 	get displayName() {
-		return 'AppView';
+		return 'App';
 	}
 	
 	static get defaultProps() {
@@ -34,16 +28,15 @@ class AppView extends Component {
     }
 	
     render() {
+		const WeatherWidgetWrapper = wrapper(WeatherWidget);
         return (
 			<div {...this.props}>
 				<Header />
 				<TicTacToeBoard player={config.default.player1.marker} />
-				<Footer />
+				<Footer><WeatherWidgetWrapper /></Footer>
 			</div>
 		)
     }
 }
 
-reactMixin.onClass(AppView, LifeCycle);
-//<Route exact path="/" component={Board}/>
-export default AppView;
+export default App;

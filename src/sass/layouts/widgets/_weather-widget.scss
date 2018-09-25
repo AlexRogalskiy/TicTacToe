@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.weather-widget {
+	display: inline-block;
+	margin: 0;
+	text-align: center;
+	
+	&.weather-widget-info {
+		font-size: 16px;
+		text-transform: uppercase;
+		font-weight: 200;
+		letter-spacing: 2px;
+		color: black;
+	}
+	
+	&:focus {
+		outline: none;
+	}
+}

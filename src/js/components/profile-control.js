@@ -15,13 +15,13 @@ import BasicInput from './basic-input';
 
 import Forms from '../validators/forms';
 
-import Fields from '../mixins/fields';
+import Field from '../mixins/field';
 import LifeCycle from '../mixins/lifecycle';
 
 class ProfileControl extends Component {
 	
 	get mixins() {
-		return [ LifeCycle, Fields ];
+		return [ LifeCycle, Field ];
 	}
 	
 	get displayName() {
@@ -136,6 +136,6 @@ class ProfileControl extends Component {
 }
 
 reactMixin.onClass(ProfileControl, LifeCycle);
-reactMixin.onClass(ProfileControl, Fields);
+reactMixin.onClass(ProfileControl, Field);
 
 export default Validation(Strategy)(ProfileControl);

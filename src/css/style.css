@@ -468,6 +468,35 @@ template {
   color: #666;
 }
 
+.button {
+  display: inline-block;
+  padding: 20px 40px;
+  background-color: #555555;
+  color: #ffffff;
+  cursor: pointer;
+}
+.button.button-reset {
+  background-color: #444444;
+}
+
+button {
+  background-color: #bbb;
+  color: black;
+  line-height: 40px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 0 10px;
+  border: none;
+  outline: none;
+  box-shadow: 1px 3px 2px 0px #666;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+button:active {
+  transform: translateY(2px);
+  box-shadow: 1px 1px 2px 0px #666;
+}
+
 .loader .loader-container {
   perspective: 1000px;
   position: absolute;
@@ -542,6 +571,41 @@ template {
     transform: rotateX(90deg);
   }
 }
+.weather-widget {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+}
+.weather-widget.weather-widget-info {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 2px;
+  color: black;
+}
+.weather-widget:focus {
+  outline: none;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  background-color: #ff8600;
+}
+
+.statusbar {
+  display: block;
+  width: 100%;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #ff8600;
+}
+
 h1 {
   display: flex;
   justify-content: center;
@@ -569,71 +633,6 @@ body {
   clear: both;
 }
 
-.button {
-  display: inline-block;
-  padding: 20px 40px;
-  background-color: #555555;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.button-reset {
-  background-color: #444444;
-}
-
-button {
-  background-color: #bbb;
-  color: black;
-  line-height: 40px;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-  padding: 0 10px;
-  border: none;
-  outline: none;
-  box-shadow: 1px 3px 2px 0px #666;
-  transition: transform 100ms ease, box-shadow 100ms ease;
-}
-button:active {
-  transform: translateY(2px);
-  box-shadow: 1px 1px 2px 0px #666;
-}
-
-.profile-image-container {
-  font-size: 12px;
-  margin: 20px 0;
-}
-.profile-image-container label {
-  display: block;
-  color: gray;
-  letter-spacing: 2px;
-  line-height: 40px;
-}
-.profile-image-container img {
-  vertical-align: middle;
-}
-.profile-image-container .basic-input {
-  width: 300px;
-  margin: 0 0 0 40px;
-  height: 40px;
-}
-.profile-image-container .basic-input input {
-  width: 0;
-  height: 0;
-  visibility: hidden;
-}
-.profile-image-container .basic-input button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 120px;
-}
-.profile-image-container .basic-input aside {
-  float: none;
-  right: auto;
-  left: 140px;
-}
-
 .cell {
   display: inline-block;
   float: left;
@@ -654,13 +653,4 @@ button:active {
 
 .cell:nth-child(3n+1) {
   clear: left;
-}
-
-.statusbar {
-  display: block;
-  width: 100%;
-  font-size: 30px;
-  line-height: 60px;
-  text-align: center;
-  background-color: #ff8600;
 }

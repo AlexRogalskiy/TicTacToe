@@ -3,59 +3,75 @@
 /**
  * Module dependencies
  */
-import { createReactClass } from 'create-react-class';
+import React, { Component } from 'react';
 
 import { Logger } from '../libs/logger';
 import { isFunction } from '../libs/helpers';
 
 export default function wrapper(WrappedComponent) {
-	let emptyFunction = function() {};
-	
-  	return createReactClass({
-			displayName: "TransitionWrapper"
-			
-			constructor(props) {
-				super(props);
-				this.state = { isMounted: false, isActivated: false };
-			}
-			
-			componentWillAppear(callback) {
-				Logger.debug('componentWillAppear');
-				callback = isFunction(callback) ? callback : emptyFunction;
-				this.setState({ isMounted: true });
+  	return class extends Component {
+		
+		get displayName() {
+			return 'TransitionWrapper';
+		}
+		
+		constructor(props) {
+			super(props);
+			this.state = { isMounted: false, isActivated: false };
+		}
+		
+		componentWillAppear(callback) {
+			Logger.debug('componentWillAppear');
+			this.setState({ isMounted: false, isActivated: false });
+			if(isFunction(callback)) {
 				callback();
 			}
-			
-			componentDidAppear() {
-				Logger.debug('componentDidAppear');
-			}
-			
-			componentWillEnter(callback) {
-				Logger.debug('componentWillEnter');
-				callback = isFunction(callback) ? callback : emptyFunction;
-				this.setState({ isActivated: true });
+		}
+		
+		componentDidAppear(callback) {
+			Logger.debug('componentDidAppear');
+			this.setState({ isMounted: true, isActivated: false });
+			if(isFunction(callback)) {
 				callback();
 			}
-			
-			componentDidEnter() {
-				Logger.debug('componentDidEnter');
-			}
-			
-			componentWillLeave(callback) {
-				Logger.debug('componentWillLeave');
-				callback = isFunction(callback) ? callback : emptyFunction;
-				this.setState({ isActivated: false });
+		}
+		
+		componentWillEnter(callback) {
+			Logger.debug('componentWillEnter');
+			this.setState({ isMounted: true, isActivated: false });
+			if(isFunction(callback)) {
 				callback();
 			}
-			
-			componentDidLeave() {
-				Logger.debug('componentDidLeave');
+		}
+		
+		componentDidEnter(callback) {
+			Logger.debug('componentDidEnter');
+			this.setState({ isMounted: true, isActivated: true });
+			if(isFunction(callback)) {
+				callback();
 			}
-			
-			render() {
-				return (
-					<WrappedComponent isMounted={this.state.isMounted} isActivated={this.state.isActivated} {...this.props} />
-				);
+		}
+		
+		componentWillLeave(callback) {
+			Logger.debug('componentWillLeave');
+			this.setState({ isMounted: true, isActivated: false });
+			if(isFunction(callback)) {
+				callback();
 			}
+		}
+		
+		componentDidLeave(callback) {
+			Logger.debug('componentDidLeave');
+			this.setState({ isMounted: true, isActivated: false });
+			if(isFunction(callback)) {
+				callback();
+			}
+		}
+		
+		render() {
+			return (
+				<WrappedComponent isMounted={this.state.isMounted} isActivated={this.state.isActivated} {...this.props} />
+			);
+		}
   	});
 };

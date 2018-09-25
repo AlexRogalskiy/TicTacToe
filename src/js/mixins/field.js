@@ -7,7 +7,7 @@ import { validate } from '../libs/utils';
 /**
  * get input elements by reference to basic input / input name attribute
  */
-const Fields = {
+const Field = {
 	getInputField: function(ref) {
 		if(!this.state.isMounted) {return;}
 		return this.refs && this.refs[ref] ? 
@@ -39,4 +39,4 @@ const Fields = {
 	}
 };
 
-export default Fields;
+export default Field;

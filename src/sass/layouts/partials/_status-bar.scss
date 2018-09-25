@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+// Imports [variables]
+@import "../../settings/variables";
+
+.statusbar {
+    display: block;
+    width: 100%;
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+    background-color: $color-toolbox-background;
+}
