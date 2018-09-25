@@ -47,17 +47,21 @@ app.use('/', indexRouter);
 const server = http.createServer(app);
 const io = socketIo(server);
 
-let interval;
-io.on('connection', (socket) => {
-	Logger.debug(`Connected: new client with id=${socket.id}`);
-	if (interval) {
-		clearInterval(interval);
-	}
-	interval = setInterval(() => getApiAndEmit(socket), 10000);
-	socket.on('disconnect', () => {
-		Logger.debug(`Dicsonnected: client with id=${socket.id}`);
-	});
-});
+io.on('connection', onConnect(10000));
+
+function onConnect(delay) {
+	let interval;
+	return function (socket) {
+		Logger.debug(`Connected: new client with id=${socket.id}`);
+		if (interval) {
+			clearInterval(interval);
+		}
+		interval = setInterval(() => getApiAndEmit(socket), 10000);
+		socket.on('disconnect', () => {
+			Logger.debug(`Dicsonnected: client with id=${socket.id}`);
+		});
+	};
+};
 
 const getApiAndEmit = async socket => {
 	try {
