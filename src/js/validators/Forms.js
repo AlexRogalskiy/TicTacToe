@@ -3,10 +3,10 @@
 /**
  * Module dependencies
  */
-import Strategy   from 'react-validatorjs-strategy';
+import Strategy from 'react-validatorjs-strategy';
 
-var checkValidity = function(validator) {
-    validator.lang = 'en';
+function(validator) {
+	validator.lang = 'en';
 }
 
 const Forms = {

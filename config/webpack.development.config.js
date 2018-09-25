@@ -1,17 +1,15 @@
 "use strict";
+
 /**
  * Module dependencies
  */
 const path = require('path');
 const webpack = require('webpack');
-const Config = require('webpack-config');
+const { Config } = require('webpack-config');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const BUILD_DIR = path.resolve(__dirname, '../public/build');
-
 const SOURCE_DIR = path.resolve(__dirname, '../src');
 const JS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'js');
 const SASS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'sass');
@@ -32,14 +30,9 @@ const DEVELOPMENT_CONFIG = {
     },
     module: {
 		rules: [
-			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name][hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name][hash].[ext]' }}, { loader: 'image-webpack-loader', options: { mozjpeg: { progressive: true, quality: 70 }, optipng: { enabled: false }, pngquant: { quality: '65-90', speed: 4 }, gifsicle: { interlaced: false }, webp: { quality: 75 }}}]},
-			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name][hash].[ext]' }}]},
-			//{ test: /\.ts$/i, loader: 'ts-loader' },
-			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: false } }]},
+			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader', options: { mozjpeg: { progressive: true, quality: 70 }, optipng: { enabled: false }, pngquant: { quality: '65-90', speed: 4 }, gifsicle: { interlaced: false }, webp: { quality: 75 }}}]},
 			{ test: /\.css$/i, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true }}]},
-			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
-			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true, modules: true }}, { loader: 'postcss-loader', options: { plugins: [ require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [SASS_SOURCE_DIR], outputStyle: 'expanded', sourceMap: true }}] },
-			//{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[name][hash].[ext]'},
+			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true, modules: true }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { plugins: [ require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [SASS_SOURCE_DIR], outputStyle: 'expanded', sourceMap: true }}] },
 			{ test: /\.(js|jsx|es6)$/i, include: JS_SOURCE_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
 		]
     },
@@ -53,19 +46,6 @@ const DEVELOPMENT_CONFIG = {
 	        	NODE_ENV: JSON.stringify('development')
 	      	}
 	    }),
-		new CopyWebpackPlugin(
-			[
-				{ from: path.join(SOURCE_DIR, 'images'), to: 'images', cache: true },
-				{ from: path.join(SOURCE_DIR, 'fonts'), to: 'fonts', cache: true },
-				{ from: path.join(SOURCE_DIR, 'manifest'), to: 'manifest', cache: true },
-			],
-			{ ignore: [ '*.js', '*.css' ], copyUnmodified: true, debug: true }
-		),
-		 new HtmlWebpackPlugin({
-			template: path.join(SOURCE_DIR, 'index.html'),
-			filename: 'index.html',
-			inject: 'body'
-		}),
 		new MiniCssExtractPlugin({
             filename: path.join('css', '[name].[hash].css'),
             chunkFilename: path.join('css', '[id].[chunkhash].chunk.css'),
@@ -76,7 +56,7 @@ const DEVELOPMENT_CONFIG = {
 			'src',
 			'node_modules'
 		],
-		extensions: ['.json', '.js', 'jsx']
+		extensions: ['.js', '.json', '.jsx', '.scss', '.sass']
 	},
 	devServer: {
 		clientLogLevel: 'warn',
@@ -99,5 +79,4 @@ const DEVELOPMENT_CONFIG = {
     }
 };
 
-module.exports = DEVELOPMENT_CONFIG;
-//module.exports = new Config().extend('./webpack.base.config.js').merge(DEVELOPMENT_CONFIG);
+module.exports = new Config().extend('config/webpack.base.config.js').merge(DEVELOPMENT_CONFIG);

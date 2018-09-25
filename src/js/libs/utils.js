@@ -3,7 +3,8 @@
 /**
  * Module dependencies
  */
-import { isString, isArray, isNullOrUndefined }  from './helpers';
+import { isString, isPositive, isArray, isObject, isDate, isNullOrUndefined }  from './helpers';
+import { Logger } from './logger';
 
 /**
  * returns message block
@@ -66,7 +67,7 @@ export function validate(val, constraints) {
 		}
 	};
 
-	if (!constraints || typeof constraints !== 'object') {
+	if (!constraints || !isObject(constraints)) {
 		return true;
 	}
 
@@ -109,4 +110,43 @@ export function mixin(...mixins) {
 	var base = function() {};
 	Object.assign(base.prototype, ...mixins);
 	return base;
+};
+
+
+function wait (timeout) {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve()
+		}, timeout)
+	});
+};
+
+/**
+ *  returns request with retries function
+ */
+export async function requestWithRetry (url, count) {
+	const MAX_RETRIES = isPositive(count) ? count : 10;
+	for (let i = 0; i <= MAX_RETRIES; i++) {
+		try {
+			return await request(url)
+		} catch (err) {
+			const timeout = Math.pow(2, i);
+			Logger.log('Waiting', timeout, 'ms');
+			await wait(timeout);
+			Logger.log('Retrying', err.message, i);
+		}
+	}
+};
+
+/**
+ *  returns execute asynchronously task functions
+ */
+export async function executeAsyncTask(fn1, fn2, fn3) {
+	try {
+		const valueA = await fn1();
+		const valueB = await fn2(valueA);
+		return fn3(valueA, valueB);
+	} catch (err) {
+		Logger.error(err);
+	}
 };

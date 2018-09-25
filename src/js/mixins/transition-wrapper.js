@@ -3,10 +3,9 @@
 /**
  * Module dependencies
  */
-//import React, { Component } from 'react';
 import { createReactClass } from 'create-react-class';
 
-import Logger, { tag } from '../libs/logger';
+import { Logger } from '../libs/logger';
 import { isFunction } from '../libs/helpers';
 
 export default function wrapper(WrappedComponent) {
@@ -26,24 +25,29 @@ export default function wrapper(WrappedComponent) {
 				this.setState({ isMounted: true });
 				callback();
 			}
+			
 			componentDidAppear() {
 				Logger.debug('componentDidAppear');
 			}
+			
 			componentWillEnter(callback) {
 				Logger.debug('componentWillEnter');
 				callback = isFunction(callback) ? callback : emptyFunction;
 				this.setState({ isActivated: true });
 				callback();
 			}
+			
 			componentDidEnter() {
 				Logger.debug('componentDidEnter');
 			}
+			
 			componentWillLeave(callback) {
 				Logger.debug('componentWillLeave');
 				callback = isFunction(callback) ? callback : emptyFunction;
 				this.setState({ isActivated: false });
 				callback();
 			}
+			
 			componentDidLeave() {
 				Logger.debug('componentDidLeave');
 			}

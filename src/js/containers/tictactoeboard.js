@@ -26,7 +26,7 @@ const getWinner = (cells) => {
         [2, 5, 8]
     ];
 
-    var winner = null;
+	let currentState = { winner: null, winningState: null };
     winningStates.forEach((winningState) => {
         const potentialWinner = cells[winningState[0]];
         if (!isNullOrUndefined(potentialWinner)) {
@@ -37,18 +37,19 @@ const getWinner = (cells) => {
 				}
             });
             if (hasWonCurrentState) {
-				winner = potentialWinner;
+				currentState.winner = potentialWinner;
+				currentState.winningState = winningState;
 			}
         }
     });
-    return winner;
+    return currentState;
 };
 
 const isTie = (cells) => {
-    if (!isNullOrUndefined(getWinner(cells))) {
+    if (!isNullOrUndefined(getWinner(cells).winner)) {
 		return false;
 	}
-    var isTie = true;
+    let isTie = true;
     cells.forEach((cell) => {
         if (isNullOrUndefined(cell)) {
 			isTie = false;
@@ -58,12 +59,12 @@ const isTie = (cells) => {
 };
 
 const isValidMove = (cells, cell) => {
-    // Invalid move when the cell is not free
+    // cannot put marker if the cell is not free
     if (!isNullOrUndefined(cells[cell])) {
 		return false;
 	}
-    // Do not update when the game is over
-    if (!isNullOrUndefined(getWinner(cells)) || isTie(cells)) {
+    // cannot make a move if the game is over
+    if (!isNullOrUndefined(getWinner(cells).winner) || isTie(cells)) {
 		return false;
 	}
     return true;
@@ -73,7 +74,7 @@ const getStatusMessage = (cells, player) => {
     if (isTie(cells)) {
 		return localStrings.tie;
 	}
-    const winner = getWinner(cells);
+    const winner = getWinner(cells).winner;
     if (!isNullOrUndefined(winner)) {
         return localStrings.formatString(localStrings.winner, winner);
     }
@@ -84,6 +85,7 @@ const mapStateToProps = (state) => {
     return {
         player: state['player'],
         cells: state['cells'],
+		winningState: getWinner(state['cells']).winningState,
         message: getStatusMessage(state['cells'], state['player'])
     };
 };

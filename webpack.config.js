@@ -4,15 +4,10 @@
  * Module dependencies
  */
 require('@babel/register');
+const { Config, environment } = require('webpack-config');
 
-module.exports = require('./config/webpack.development.config.js');
+environment.setAll({
+  env: () => process.env.NODE_ENV.trim()
+});
 
-//import Config, { environment } from 'webpack-config';
-//const Config = require('webpack-config');
-//const environment = require('webpack-config');
-
-//environment.setAll({
-//  env: () => process.env.NODE_ENV
-//});
-
-//module.exports = new Config().extend('config/webpack.[env].config.js');
+module.exports = new Config().extend('config/webpack.[env].config.js');

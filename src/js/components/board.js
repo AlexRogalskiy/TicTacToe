@@ -5,7 +5,6 @@
  */
 import React, { Component } from 'react';
 
-import Cell from './cell';
 import Button from './button';
 import StatusBar from './statusbar';
 import Grid from './grid';
@@ -23,16 +22,13 @@ class Board extends Component {
     }
 	
     render() {
-        const self = this;
-		const {message, className, ...rest} = this.props;
+		const {message, className, onReset, ...rest} = this.props;
         return (
             <div className={className}>
                 <StatusBar message={message} />
 				<Grid {...rest} />
                 <div className="panel">
-                    <Button label="Reset" className="button button-reset" onPress={(e) => {
-                        self.props.onReset()
-                    }} />
+                    <Button label="Reset" className="button button-reset" onPress={(e) => {onReset()}} />
                 </div>
             </div>
         )

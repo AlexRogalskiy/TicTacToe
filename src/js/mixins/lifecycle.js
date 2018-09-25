@@ -3,33 +3,39 @@
 /**
  * Module dependencies
  */
-import Logger, { tag } from '../libs/logger';
+import { Logger } from '../libs/logger';
 
 const LifeCycle = {
 	componentWillMount: function() {
-		Logger.debug(tag`LifeCycle: componentWillMount`);
+		Logger.debug(`LifeCycle: componentWillMount`);
 		this.setState({ isMounted: false });
 	},
+	
 	componentWillUnmount: function() {
-		Logger.debug(tag`LifeCycle: componentWillUnmount`);
+		Logger.debug(`LifeCycle: componentWillUnmount`);
 		this.setState({ isMounted: false });
 	},
+	
 	componentDidMount: function() {
-		Logger.debug(tag`LifeCycle: componentDidMount`);
+		Logger.debug(`LifeCycle: componentDidMount`);
 		this.setState({ isMounted: true });
 	},
+	
 	componentWillReceiveProps: function(nextProps) {
-		Logger.debug(tag`LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`);
+		Logger.debug(`LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`);
 	},
+	
 	shouldComponentUpdate: function(nextProps, nextState) {
-		Logger.debug(tag`LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
+		Logger.debug(`LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
 		return true;
 	},
+	
 	componentWillUpdate: function(nextProps, nextState) {
-		Logger.debug(tag`LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
+		Logger.debug(`LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`);
 	},
+	
 	componentDidUpdate: function(prevProps, prevState) {
-		Logger.debug(tag`LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`);
+		Logger.debug(`LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`);
 	}
 };
 

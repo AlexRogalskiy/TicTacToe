@@ -14,6 +14,7 @@ import BasicImage from './basic-image';
 import BasicInput from './basic-input';
 
 import Forms from '../validators/forms';
+
 import Fields from '../mixins/fields';
 import LifeCycle from '../mixins/lifecycle';
 

@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class Cell extends React.Component {
+class Cell extends Component {
 	
 	get displayName() {
 		return 'Cell';
@@ -15,30 +15,31 @@ class Cell extends React.Component {
 	
 	static get propTypes() {
 		return {
-			winnerClassName: PropTypes.string
+			dataClass: PropTypes.object,
+			isWinner: PropTypes.bool
 		};
-	}
-	
-	constructor(props) {
-		super(props);
-		this.state = { isWinner: false };
 	}
 	
 	static get defaultProps() {
 		return {
         	className: 'cell',
-			winnerClassName: 'cell-winner'
+			dataClass: { winnerClass: 'cell-winner' },
+			isWinner: false
         };
     }
+	
+	constructor(props) {
+		super(props);
+	}
 
     render() {
-		const { onPress, winnerClassName, state, ...rest } = this.props;
-		const className = classes(
-			this.props.className,
-			this.state.isWinner && winnerClassName
+		const { className, onPress, dataClass, state, isWinner, ...rest } = this.props;
+		const cellClass = classes(
+			className,
+			isWinner && dataClass.winnerClass
 		);
         return (
-            <div onClick={onPress} className={className} {...rest}>{state}</div>
+            <div onClick={onPress} className={cellClass} {...rest}>{state}</div>
         )
     }
 }

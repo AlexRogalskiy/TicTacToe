@@ -1,16 +1,20 @@
 "use strict";
+
 /**
  * Module dependencies
  */
 const path = require('path');
 const webpack = require('webpack');
-const Config = require('webpack-config');
+const { Config } = require('webpack-config');
+
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, '../public/build');
-const JS_DIR = path.resolve(__dirname, '../src/js');
+const SOURCE_DIR = path.resolve(__dirname, '../src');
+const JS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'js');
+const SASS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'sass');
 
 const PRODUCTION_CONFIG = {
 	mode: 'production',
@@ -84,5 +88,4 @@ const PRODUCTION_CONFIG = {
 	}
 };
 
-//module.exports = PRODUCTION_CONFIG;
-module.exports = new Config().extend('./webpack.base.config.js').merge(PRODUCTION_CONFIG);
+module.exports = new Config().extend('config/webpack.base.config.js').merge(PRODUCTION_CONFIG);
