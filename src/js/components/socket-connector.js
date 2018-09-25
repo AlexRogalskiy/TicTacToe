@@ -30,36 +30,44 @@ class SocketConnector extends Component {
 	
 	constructor() {
 		super();
-		this.state = { response: false };
+		this.state = { connected: false, response: false };
 	}
 	
-	onConnect() {
-		Logger.debug(`Connected by socket id = ${socket.id}`);
+	onConnect(socket) {
+		return () => {
+			Logger.debug(`Connected by socket with id=${socket.id}`);
+			this.setState({ connected: true });
+	    };
 	}
 	
-	onEvent(data) {
-		Logger.debug(`Data ${data} from socket id=${socket.id}`);
-		this.setState({ response: data });
+	onEvent(socket) {
+		return data => {
+			Logger.debug(`Data ${data} from socket with id=${socket.id}`);
+			this.setState({ response: data });
+	    };
 	}
 	
-	onDisconnect() {
-		Logger.debug(`Disconnected from socket id=${socket.id}`);
+	onDisconnect(socket) {
+		return () => {
+			Logger.debug(`Disconnected from socket with id=${socket.id}`);
+			this.setState({ connected: false });
+	    };
 	}
 	
 	componentDidMount() {
 		const socket = socketIOClient(this.props.endpoint);
-		socket.on('connect', this.onConnect);
-		socket.on('event', this.onEvent);
-		socket.on('disconnect', this.onDisconnect);
+		socket.on('connect', this.onConnect(socket));
+		socket.on('event', this.onEvent(socket));
+		socket.on('disconnect', this.onDisconnect(socket));
 	}
 	
 	render() {
-		const { response } = this.state;
+		const { connected, response } = this.state;
 		return (
 			<div style={{ textAlign: "center" }}>
 				{	
 					response
-						? <p>The temperature in Florence is: {response} °F</p>
+						? <div>{response}</div>
 						: <Loader />
 				}
 			</div>

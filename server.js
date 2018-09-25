@@ -47,27 +47,23 @@ app.use('/', indexRouter);
 const server = http.createServer(app);
 const io = socketIo(server);
 
-function onConnection(socket) {
-	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-};
-io.on('connection', onConnection);
-
 let interval;
 io.on('connection', (socket) => {
-	Logger.debug('New client connected');
+	Logger.debug(`Connected: new client with id=${socket.id}`);
 	if (interval) {
 		clearInterval(interval);
 	}
 	interval = setInterval(() => getApiAndEmit(socket), 10000);
 	socket.on('disconnect', () => {
-		Logger.debug('Client disconnected');
+		Logger.debug(`Dicsonnected: client with id=${socket.id}`);
 	});
 });
 
 const getApiAndEmit = async socket => {
 	try {
-		const res = await axios.get('https://api.darksky.net/forecast/PUT_YOUR_API_KEY_HERE/43.7695,11.2558');
-		socket.emit('FromAPI', res.data.currently.temperature);
+		const res = await axios.get('https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/37.8267,-122.4233');
+		socket.emit('event', `Current temperature degrees are ${res.data.currently.temperature}`);
+		//socket.broadcast.emit('event', data));
 	} catch (error) {
 		Logger.error(`Error: ${error.code}`);
 	}
@@ -124,9 +120,6 @@ app.use((req, res) => {
 	createError(500);
 });
 
-server.on('error', onError);
-server.on('listening', onListening);
-
 /**
  * Event listener for HTTP server "error" event.
  */
@@ -158,6 +151,9 @@ function onListening() {
 	var bind = isString(addr) ? 'pipe ' + addr : 'port ' + addr.port;
 	Logger.debug(`Listening on ${bind}`);
 };
+
+server.on('error', onError);
+server.on('listening', onListening);
 
 server.listen(app.get('port'), () => {
 	Logger.debug(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}>`);
