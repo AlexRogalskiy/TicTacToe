@@ -7,32 +7,6 @@ import { isString, isPositive, isArray, isObject, isDate, isNullOrUndefined }  f
 import { Logger } from './logger';
 
 /**
- * returns message block
- */
-export function MessageList(props) {
-	const { messages, messageClass, ...rest } = props;
-	if (messages && messages.length) {
-        let elements = messages.map((item, index) => <li key={index} className={messageClass}>{item}</li>);
-		return (
-			<ul {...rest}>{elements}</ul>
-		);
-	}
-	return null;
-};
-
-/**
- * returns single message block
- */
-export function Message(props) {
-	const { message, ...rest } = props;
-	return (
-	    <div {...rest}>
-	    	{message}
-	    </div>
- 	);
-};
-
-/**
  *  returns the failed constraints { errors: [] } or true if valid
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
@@ -112,7 +86,46 @@ export function mixin(...mixins) {
 	return base;
 };
 
+/**
+ * returns object filtered by predicate
+ */
+export function filter(obj, predicate) {
+    var result = {}, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+            result[key] = obj[key];
+        }
+    }
+    return result;
+};
 
+/**
+ * returns lexical representation of memory volume
+ */
+export function lexicalSize(size) {
+    if(size < 0) return;
+    var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    var ord = Math.floor(Math.log(size) / Math.log(1024));
+    ord = Math.min( Math.max(0, ord), units.length - 1);
+    var s = Math.round((size / Math.pow(1024, ord)) * 100) / 100;
+    return s + ' ' + units[ord];
+};
+
+/**
+ * returns color representation in RGB format
+ */
+export function colorize(color, params = {r: 0.299, g: 0.587, b: 0.114}) {
+	color = (color.startsWith('#') ? color.substring(1) : color);
+	let c = parseInt(color, 16);
+    let r = (c & 0xFF0000) >> 16;
+    let g = (c & 0x00FF00) >> 8;
+    let b = (c & 0x0000FF);
+    return (params.r * r + params.g * g + params.b * b);
+};
+
+/**
+ * returns promise result by timeout
+ */
 function wait (timeout) {
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -131,15 +144,15 @@ export async function requestWithRetry (url, count) {
 			return await request(url)
 		} catch (err) {
 			const timeout = Math.pow(2, i);
-			Logger.log('Waiting', timeout, 'ms');
+			Logger.debug(`Waiting ${timeout} ms`);
 			await wait(timeout);
-			Logger.log('Retrying', err.message, i);
+			Logger.debug(`Retrying with message=$err.message}, count=${i}`);
 		}
 	}
 };
 
 /**
- *  returns execute asynchronously task functions
+ *  returns result of task functions executeed asynchronously
  */
 export async function executeAsyncTask(fn1, fn2, fn3) {
 	try {
@@ -150,3 +163,4 @@ export async function executeAsyncTask(fn1, fn2, fn3) {
 		Logger.error(err);
 	}
 };
+

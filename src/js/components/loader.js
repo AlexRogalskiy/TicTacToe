@@ -5,6 +5,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 
 class Loader extends Component {
 	
@@ -14,23 +15,28 @@ class Loader extends Component {
 	
 	static get propTypes() {
 		return {
-			dataClass: PropTypes.object
+			dataClass: PropTypes.object,
+			inline: PropTypes.bool
 		};
 	}
 	
-	get static defaultProps() {
+	static get defaultProps() {
 		return {
-        	className: 'loader'
-			dataClass: { containerClass: 'loader-container' },
+        	className: 'loader',
+			dataClass: { containerClass: 'loader-container', nestedContainerClass: 'inline' },
+			inline: false
         };
 	}
 	
 	render() {
-		const { className, dataClass, ...rest } = this.props;
-		rest.className = dataClass.containerClass;
+		const { className, dataClass, inline, ...rest } = this.props;
+		const containerClassName = classes(
+			dataClass.containerClass,
+			inline && dataClass.nestedContainerClass
+		);
 		return (
 			<div className={className}>
-				<div {...rest}>
+				<div className={containerClassName} {...rest}>
 					<aside></aside>
 					<aside></aside>
 					<aside></aside>

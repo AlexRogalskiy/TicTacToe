@@ -10,7 +10,7 @@ import { style, classes } from 'typestyle';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from '../libs/utils';
+import { MessageList } from '../libs/elements';
 import Forms from '../validators/forms';
 
 class BasicInput extends Component {
@@ -26,14 +26,7 @@ class BasicInput extends Component {
 			validator: PropTypes.string
 		};
 	}
-	
-	constructor(props) {
-        super(props);
-        this.onBlur = this.onBlur.bind(this);
-        this.onChange = this.onChange.bind(this);
-		this.validatorTypes = Forms[props.validator] || [];
-	}
-	
+		
 	static get defaultProps() {
 		return {
 			className: 'basic-input input-group',
@@ -42,6 +35,13 @@ class BasicInput extends Component {
 			validator: 'textInput'
         };
     }
+	
+	constructor(props) {
+        super(props);
+        this.onBlur = this.onBlur.bind(this);
+        this.onChange = this.onChange.bind(this);
+		this.validatorTypes = Forms[props.validator] || [];
+	}
 	
 	getValidatorData() {
 	    return this.state;
@@ -78,14 +78,14 @@ class BasicInput extends Component {
     render() {
 		const { className, children, dataClass, dataError, isValid, getValidationMessages, clearValidations, handleValidation, validate, ...rest } = this.props;
 		const errorMessages = getValidationMessages(this.props.name) || dataError;
-		const controlClass = classes(
+		const controlClassName = classes(
 			dataClass.controlClass,
 			errorMessages.length > 0 && dataClass.errorClass
 		);
 		rest.className = dataClass.inputClass;
 		return (
 			<div className={className}>
-				<div className={controlClass}>
+				<div className={controlClassName}>
 					<input ref={(input) => {this.textInput = input}} onChange={this.onChange(this.props.name)} onBlur={this.onBlur(this.props.name)} {...rest} />
 					{children}
 				</div>

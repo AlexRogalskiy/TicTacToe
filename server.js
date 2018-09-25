@@ -47,6 +47,11 @@ app.use('/', indexRouter);
 const server = http.createServer(app);
 const io = socketIo(server);
 
+function onConnection(socket) {
+	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+};
+io.on('connection', onConnection);
+
 let interval;
 io.on('connection', (socket) => {
 	Logger.debug('New client connected');

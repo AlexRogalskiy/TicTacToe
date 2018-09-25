@@ -44,7 +44,7 @@ const Logger = {
 	},
 	
 	error: function(message, ...args) {
-		console.err(output(getTime(), message, args));
+		console.error(output(getTime(), message, args));
 	},
 	
 	warn: function(message, ...args) {

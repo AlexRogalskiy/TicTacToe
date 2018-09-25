@@ -10,8 +10,8 @@ import reactMixin from 'react-mixin';
 import TicTacToeBoard from '../containers/tictactoeboard';
 import Board from '../components/board';
 
-import Header from './particles/header';
-import Footer from './particles/footer';
+import Header from './partials/header';
+import Footer from './partials/footer';
 
 import LifeCycle from '../mixins/lifecycle';
 

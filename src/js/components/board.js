@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import Button from './button';
 import StatusBar from './statusbar';
 import Grid from './grid';
+import SocketConnector from './socket-connector';
 
 class Board extends Component {
 	
@@ -26,6 +27,7 @@ class Board extends Component {
         return (
             <div className={className}>
                 <StatusBar message={message} />
+				<SocketConnector />
 				<Grid {...rest} />
                 <div className="panel">
                     <Button label="Reset" className="button button-reset" onPress={(e) => {onReset()}} />

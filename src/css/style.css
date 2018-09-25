@@ -404,6 +404,144 @@ template {
   font-weight: normal;
   font-style: normal;
 }
+.basic-input {
+  display: inline-block;
+  position: relative;
+  margin: 0 0 10px 0;
+}
+.basic-input input[type=text], .basic-input input[type=email], .basic-input input[type=password], .basic-input input[type=url] {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  width: 100%;
+  border-style: dotted;
+  border-width: 0 0 1px 0;
+  border-color: #888;
+  line-height: 40px;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.basic-input input[type=text]:before, .basic-input input[type=email]:before, .basic-input input[type=password]:before, .basic-input input[type=url]:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.15s ease-in-out 0s;
+}
+.basic-input input[type=text]:hover:before, .basic-input input[type=text]:focus:before, .basic-input input[type=email]:hover:before, .basic-input input[type=email]:focus:before, .basic-input input[type=password]:hover:before, .basic-input input[type=password]:focus:before, .basic-input input[type=url]:hover:before, .basic-input input[type=url]:focus:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+.basic-input input[type=text]::placeholder, .basic-input input[type=email]::placeholder, .basic-input input[type=password]::placeholder, .basic-input input[type=url]::placeholder {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: gray;
+}
+.basic-input input[type=text]:focus, .basic-input input[type=email]:focus, .basic-input input[type=password]:focus, .basic-input input[type=url]:focus {
+  border-style: solid;
+  outline: none;
+  border-color: #0000aa;
+  border-color: #666;
+}
+.basic-input.error input {
+  border-color: #aa0000;
+}
+.basic-input.error input:focus {
+  border-color: #aa0000;
+}
+.basic-input.error aside {
+  color: #aa0000;
+  font-weight: 600;
+}
+.basic-input aside {
+  position: absolute;
+  right: 0;
+  font-size: 11px;
+  float: right;
+  line-height: 16px;
+  color: #666;
+}
+
+.loader .loader-container {
+  perspective: 1000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -55px;
+  margin-top: -10px;
+  width: 120px;
+  white-space: nowrap;
+}
+.loader .loader-container.inline {
+  display: block;
+  position: initial;
+  margin: 0 auto;
+  min-height: 80px;
+}
+.loader .loader-container.inline aside {
+  margin-top: 30px;
+}
+.loader .loader-container aside {
+  display: inline-block;
+  margin: 0 2px;
+  width: 20px;
+  height: 20px;
+  float: left;
+  background-color: #000;
+  transform-origin: 0 0;
+  animation-name: flippy;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform: rotateX(-90deg);
+  opacity: 0.1;
+}
+.loader .loader-container aside:nth-child(0) {
+  animation-delay: 0s;
+}
+.loader .loader-container aside:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.loader .loader-container aside:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.loader .loader-container aside:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.loader .loader-container aside:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.loader .loader-container aside:nth-child(5) {
+  animation-delay: 1s;
+}
+@keyframes flippy {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform-origin: 15px 15px;
+    transform-origin: 20px 20px;
+    opacity: 1;
+    transform: rotateX(0deg);
+    background-color: #bb2233;
+  }
+  75% {
+    transform-origin: 15px 15px;
+    transform-origin: 20px 20px;
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform-origin: 15px 15px;
+    transform-origin: 20px 20px;
+    transform: rotateX(90deg);
+  }
+}
 h1 {
   display: flex;
   justify-content: center;

@@ -34,12 +34,12 @@ class Cell extends Component {
 
     render() {
 		const { className, onPress, dataClass, state, isWinner, ...rest } = this.props;
-		const cellClass = classes(
+		const cellClassName = classes(
 			className,
 			isWinner && dataClass.winnerClass
 		);
         return (
-            <div onClick={onPress} className={cellClass} {...rest}>{state}</div>
+            <div onClick={onPress} className={cellClassName} {...rest}>{state}</div>
         )
     }
 }

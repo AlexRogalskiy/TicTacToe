@@ -4,7 +4,11 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
+
+import Loader from './loader';
+import { Logger } from '../libs/logger';
 
 class SocketConnector extends Component {
 	
@@ -29,9 +33,24 @@ class SocketConnector extends Component {
 		this.state = { response: false };
 	}
 	
+	onConnect() {
+		Logger.debug(`Connected by socket id = ${socket.id}`);
+	}
+	
+	onEvent(data) {
+		Logger.debug(`Data ${data} from socket id=${socket.id}`);
+		this.setState({ response: data });
+	}
+	
+	onDisconnect() {
+		Logger.debug(`Disconnected from socket id=${socket.id}`);
+	}
+	
 	componentDidMount() {
 		const socket = socketIOClient(this.props.endpoint);
-		socket.on('FromAPI', (data) => this.setState({ response: data }));
+		socket.on('connect', this.onConnect);
+		socket.on('event', this.onEvent);
+		socket.on('disconnect', this.onDisconnect);
 	}
 	
 	render() {
@@ -41,7 +60,7 @@ class SocketConnector extends Component {
 				{	
 					response
 						? <p>The temperature in Florence is: {response} °F</p>
-						: <p>Loading...</p>
+						: <Loader />
 				}
 			</div>
 		);
