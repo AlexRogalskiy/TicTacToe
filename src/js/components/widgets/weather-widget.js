@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
 import Loader from '../loader';
-import { Logger } from '../../libs/logger';
+import { Logger, tag } from '../../libs/logger';
 
 class WeatherWidget extends Component {
 	
@@ -57,7 +57,7 @@ class WeatherWidget extends Component {
 	
 	onEvent(socket) {
 		return data => {
-			Logger.debug(`onEvent: data ${data} from socket with id=${socket.id}`);
+			Logger.debug(tag`onEvent: data ${data} from socket with id=${socket.id}`);
 			this.setState({ response: data });
 	    };
 	}
