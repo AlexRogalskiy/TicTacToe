@@ -77,7 +77,7 @@ function onConnect(delay) {
 		}
 		interval = setInterval(() => getApiAndEmit(PUBLIC_API_URL)(socket), 10000);
 		
-		var addedUser = false;
+		/*var addedUser = false;
 		socket.on('new message', (data) => {
 			socket.broadcast.emit('new message', {
 				username: socket.username,
@@ -115,7 +115,7 @@ function onConnect(delay) {
 					numUsers: --numUsers
 				});
 			}
-		});
+		});*/
 	};
 };
 

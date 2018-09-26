@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const { Config } = require('webpack-config');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const paths = {
 	BUILD_DIR: path.resolve(__dirname, '../public/build'),
@@ -52,6 +53,9 @@ const DEVELOPMENT_CONFIG = {
             filename: path.join('css', '[name].[hash].css'),
             chunkFilename: path.join('css', '[id].[chunkhash].chunk.css'),
         })
+		// new BundleAnalyzerPlugin({
+		//   analyzerMode: 'static'
+		// })
 	],
 	resolve: {
 		modules: [
@@ -64,13 +68,15 @@ const DEVELOPMENT_CONFIG = {
 		clientLogLevel: 'warn',
 		filename: path.join('js', 'bundle.js'),
 		contentBase: paths.BUILD_DIR,
+		disableHostCheck: true,
 		inline: true,
 		compress: true,
 		open: true,
 		historyApiFallback: true,
         port: 8080,
 		stats: 'errors-only',
-		hot: true
+		hot: true,
+		useLocalIp: true
 	},
 	watchOptions: {
 		poll: 1000,

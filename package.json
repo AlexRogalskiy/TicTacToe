@@ -8,12 +8,13 @@
     "clean": "rimraf public",
     "serve": "node server.js",
     "prebuild": "npm run clean && npm install",
-    "build": "webpack --config webpack.config.js --mode development --colors --progress",
+    "build": "webpack --config webpack.config.js --mode development --colors --progress --devtool sourcemap",
+    "build-css": "node-sass src/sass/style.scss src/css/style.css",
     "build:umd": "webpack --output-filename index.umd.js",
     "build:umd.min": "webpack --output-filename index.umd.min.js -p",
     "watch": "webpack --watch --config webpack.config.js --mode development",
-    "build-dev": "set NODE_ENV=development && npm run build",
-    "build-prod": "set NODE_ENV=production && npm run build",
+    "build-dev": "set NODE_ENV=development && npm run build-css && npm run build",
+    "build-prod": "set NODE_ENV=production && npm run build-css && npm run build",
     "start": "webpack-dev-server --hot --mode development --config webpack.config.js --progress --colors --watch --inline --open",
     "test": "mocha --ui tdd --reporter spec --watch tests/*.js --compilers js:@babel/register",
     "publish": "npm publish"
@@ -54,6 +55,9 @@
     "css-loader": "1.0.0",
     "cssnano": "4.1.0",
     "dateformat": "3.0.2",
+    "eslint": "5.6.0",
+    "eslint-plugin-node": "7.0.1",
+    "eslint-plugin-react": "7.11.1",
     "file-loader": "2.0.0",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
@@ -106,7 +110,8 @@
     "socket.io-json-parser": "2.1.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": "^6.0.0",
+    "npm": "^5.0.0"
   },
   "sideEffects": "false",
   "browserslist": [

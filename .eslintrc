@@ -1,15 +1,81 @@
 {
-  "parser": "babel-eslint",
+	"parser"						: "babel-eslint",
     "extends": [
-      "standard"
-    ],
+		"eslint:recommended",
+		"plugin:node/recommended",
+		"plugin:react/recommended",
+	],
+	"env": {
+        "browser"					: true,
+        "node"						: true
+    },
+	"ecmaFeatures": {
+        "modules"					: true,
+		"jsx"						: true
+    },
+    "globals": {
+        "self"						: false,
+        "window"					: false,
+        "document"					: false,
+        "alert"						: false,
+        "console"					: false,
+        "require"					: false
+    },
     "plugins": [
-      "babel"
+      "babel",
+	  "react"
     ],
     "rules": {
-      "key-spacing"          : 0,
-      "jsx-quotes"           : [2, "prefer-single"],
-      "max-len"              : [2, 120, 2],
-      "object-curly-spacing" : [2, "always"]
+	  "react/jsx-uses-react"		: 2,
+	  "react/jsx-uses-vars" 		: 2,
+	
+	  "comma-dangle"		 		: 0,
+      "func-names"			 		: 0,
+      "no-alert"			 		: 1,
+      "no-use-before-define"		: 0,
+      "prefer-rest-params"			: 0,
+      "prefer-template"				: 0,
+      "no-mixed-operators"			: 0,
+      "no-underscore-dangle"		: 0,
+      "prefer-arrow-callback"		: 0,
+      "space-before-function-paren"	: 0,
+      "global-require"				: 0,
+      "object-shorthand"			: 0,
+      "no-param-reassign"			: 0,
+      "consistent-return"			: 0,
+      "no-restricted-syntax"		: 1,
+      "no-bitwise"					: 0,
+      "no-plusplus"					: 0,
+      "key-spacing"          		: 0,
+      "jsx-quotes"           		: [2, "prefer-single"],
+      "max-len"              		: [2, 120, 2],
+      "object-curly-spacing" 		: [2, "always"],
+	  "curly"				 		: 2,
+      "eqeqeq"				 		: 1,
+      "no-eq-null"			 		: 1,
+      "no-console"			 		: 0,
+      "no-inner-declarations"		: 0,
+      "arrow-parens"		 		: 2,
+      "arrow-spacing"		 		: 2,
+      "wrap-iife"			 		: 2,
+      "quotes": [
+          2,
+          "single",
+          {
+              "avoidEscape"			 : true,
+              "allowTemplateLiterals": true
+          }
+      ],
+      "no-undef"			 		: 2,
+      "no-unused-vars"		 		: 2,
+      "no-unused-expressions": [
+          2,
+          {
+              "allowShortCircuit"	: true,
+              "allowTernary"		: true
+          }
+      ],
+      "no-trailing-spaces"	 		: 1,
+      "no-floating-decimal"	 		: 1
     }
 }

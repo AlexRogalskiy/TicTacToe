@@ -10,18 +10,21 @@ const { Config } = require('webpack-config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const BundleBuddyWebpackPlugin = require("bundle-buddy-webpack-plugin");
 
-const BUILD_DIR = path.resolve(__dirname, '../public/build');
-const SOURCE_DIR = path.resolve(__dirname, '../src');
-const JS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'js');
-const SASS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'sass');
+const paths = {
+	BUILD_DIR: path.resolve(__dirname, '../public/build'),
+	SOURCE_DIR: path.resolve(__dirname, '../src'),
+	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js'),
+	SASS_SOURCE_DIR: path.resolve(__dirname, '../src', 'sass')
+};
 
 const PRODUCTION_CONFIG = {
 	mode: 'production',
-    entry: path.resolve(JS_DIR, "index.js"),
+    entry: path.resolve(paths.JS_SOURCE_DIR, "index.js"),
 	cache: true,
     output: {
-		path: BUILD_DIR,
+		path: paths.BUILD_DIR,
         filename: "bundle.min.js",
 		sourceMapFilename: 'bundle.map',
 		libraryTarget: 'umd',
@@ -29,14 +32,10 @@ const PRODUCTION_CONFIG = {
     },
     module: {
 		rules: [
-			//{ test: /\.ts$/, loader: 'ts-loader' }
 			{ test: /\.css$/i, loader: [ 'style-loader', 'css-loader' ] },
 			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: true } }]},
-			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
 			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { sourceMap: true }}, { loader: 'postcss-loader', options: { plugins: [ require('cssnano'), require('autoprefixer')({ browsers: ['last 2 versions'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [CSS_DIR] }}] },
-			//{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]'},
-			//{ test: /\.scss$/i, loader: ExtractTextPlugin.extract(['css', 'sass'])},
-			{ test: /\.(js|jsx|es6)$/i, include: JS_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
+			{ test: /\.(js|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
 		]
     },
 	plugins: [
@@ -56,7 +55,7 @@ const PRODUCTION_CONFIG = {
             filename: "[name].css",
             chunkFilename: "[id].css"
         }),
-		new webpack.optimize.UglifyJsPlugin({
+		/*new webpack.optimize.UglifyJsPlugin({
 			minimize: true,
 			mangle: true,
 			output {
@@ -68,19 +67,24 @@ const PRODUCTION_CONFIG = {
 				drop_console: true,
 				unsafe: true
 			}
-		})
+		})*/
+		// new BundleBuddyWebpackPlugin()
 	],
 	optimization: {
 		minimizer: [
 			new UglifyJsPlugin({
-				sourceMap: true,
+				minimize: true,
 				uglifyOptions: {
 					compress: {
+						sourceMap: true,
 						inline: false,
 						drop_console: true,
 						warnings: true,
 						unsafe: true,
 						mangle: false
+					},
+					output {
+						comments: false  
 					}
 				}
 			})

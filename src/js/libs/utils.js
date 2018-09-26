@@ -7,6 +7,12 @@ import { isString, isPositive, isArray, isObject, isDate, isNullOrUndefined }  f
 import { Logger } from './logger';
 
 /**
+ * @private
+ */
+const invLog2 = 1/Math.log(2);
+const defaultExcept = [ '127.0.0.1', '0.0.0.0', 'localhost', '::1' ];
+
+/**
  *  returns the failed constraints { errors: [] } or true if valid
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
@@ -64,7 +70,7 @@ export function validate(val: string, constraints: Object) {
 };
 
 /**
- * returns autobind function
+ * 	executed autobinding on object properties
  */
 export function autobind(methodNames: Array) {
 	methodNames = isArray(methodNames) ? methodNames : [];
@@ -78,7 +84,7 @@ export function autobind(methodNames: Array) {
 };
 
 /**
- * returns mixin function
+ * 	returns new object enriched with mixins
  */
 export function mixin(...mixins: Array) {
 	var base = function() {};
@@ -87,7 +93,7 @@ export function mixin(...mixins: Array) {
 };
 
 /**
- * returns object filtered by predicate
+ * 	returns object with properties filtered by predicate
  */
 export function filter(obj: Object, predicate: Function) {
     var result = {}, key;
@@ -100,7 +106,7 @@ export function filter(obj: Object, predicate: Function) {
 };
 
 /**
- * returns lexical representation of memory volume
+ * 	returns lexical representation of memory volume
  */
 export function lexicalSize(size: Number) {
     if(size < 0) return;
@@ -112,7 +118,7 @@ export function lexicalSize(size: Number) {
 };
 
 /**
- * returns color representation in RGB format
+ * 	returns color representation in RGB format
  */
 export function colorize(color: string, params: Object = {r: 0.299, g: 0.587, b: 0.114}) {
 	color = (color.startsWith('#') ? color.substring(1) : color);
@@ -124,7 +130,7 @@ export function colorize(color: string, params: Object = {r: 0.299, g: 0.587, b:
 };
 
 /**
- * returns promise result by timeout
+ * 	returns result of promise by timeout
  */
 function wait(timeout: Number) {
 	return new Promise((resolve) => {
@@ -135,9 +141,9 @@ function wait(timeout: Number) {
 };
 
 /**
- *  returns request with retries function
+ *  returns result of request by retries count
  */
-export async function requestWithRetry (url: string, count: Number) {
+export async function requestWithRetry(url: string, count: Number) {
 	const MAX_RETRIES = isPositive(count) ? count : 10;
 	for (let i = 0; i <= MAX_RETRIES; i++) {
 		try {
@@ -152,9 +158,9 @@ export async function requestWithRetry (url: string, count: Number) {
 };
 
 /**
- *  returns result of task functions executeed asynchronously
+ *  returns result functions executeed asynchronously
  */
-export async function executeAsyncTask(fn1: Function, fn2: Function, fn3: Function) {
+export async function executeAsync(fn1: Function, fn2: Function, fn3: Function) {
 	try {
 		const valueA = await fn1();
 		const valueB = await fn2(valueA);
@@ -165,7 +171,7 @@ export async function executeAsyncTask(fn1: Function, fn2: Function, fn3: Functi
 };
 
 /**
- *  returns result of objects recursive merging
+ *  returns merged object
  */
 export const mergeRecursive = (obj1: Object, obj2: Object) => {
 	if (obj1 && isNullOrUndefined(obj2)) {
@@ -183,8 +189,8 @@ export const mergeRecursive = (obj1: Object, obj2: Object) => {
 };
 
 /**
-* returns function to execute callback for eack key - >value pair
-*/
+ * 	executes callback for eack key - >value pair
+ */
 export function forEach(obj: Object, callback: Function) {
 	if (obj) {
 		for (const key in obj) {
@@ -196,8 +202,8 @@ export function forEach(obj: Object, callback: Function) {
 };
 
 /**
-* returns true - if object contains property, false - otherwise
-*/
+ * 	returns true - if object contains property, false - otherwise
+ */
 export function hasProperty(obj: Object, property: string) {
 	let result = false;
 	if (obj) {
@@ -211,3 +217,31 @@ export function hasProperty(obj: Object, property: string) {
 	return result;
 };
 
+/**
+ * 	returns next element from array
+ */
+export function step(array: Array) {
+    const next = Array.prototype.pop.call(array);
+    Array.prototype.unshift.call(array, next);
+    return next;
+}
+
+/**
+ * 	returns element from array by rebased index
+ */
+export const wrapIndex = (index: Number, array: Array) => array[(array.length + Math.round(index)) % array.length];
+
+/**
+ * 	returns next power of two
+ */
+export const nextPow2 = (x: Number) => Math.pow(2, Math.ceil(Math.log(x)*invLog2));
+
+/**
+ * 	changes type of protocol of the current url
+ */
+export const redirect = (protocol = 'https', except = defaultExcept) => {
+    const proto = protocol + ':';
+    if(document.location.protocol !== proto && except.indexOf(document.location.hostname) < 0) {
+        document.location.protocol = proto;
+    }
+};

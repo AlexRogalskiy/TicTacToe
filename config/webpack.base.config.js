@@ -32,6 +32,7 @@ const BASE_CONFIG = {
     module: {
 		rules: [
 			//{ test: /\.ts$/i, loader: 'ts-loader' },
+			//{test: /\.hbs$/, loader: 'handlebars-loader'},
 			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
 			//{ test: /\.txt$/, use: [{ loader: 'raw-loader', options: { name: '[path]/[name].[ext]' }}] },
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
