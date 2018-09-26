@@ -11,7 +11,7 @@ import { Logger } from './logger';
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
  */
-export function validate(val, constraints) {
+export function validate(val: string, constraints: Object) {
 	var errors = [];
 	var validators = {
 		minlength: {
@@ -66,7 +66,7 @@ export function validate(val, constraints) {
 /**
  * returns autobind function
  */
-export function autobind(methodNames) {
+export function autobind(methodNames: Array) {
 	methodNames = isArray(methodNames) ? methodNames : [];
     return {
         componentWillMount: function() {
@@ -80,7 +80,7 @@ export function autobind(methodNames) {
 /**
  * returns mixin function
  */
-export function mixin(...mixins) {
+export function mixin(...mixins: Array) {
 	var base = function() {};
 	Object.assign(base.prototype, ...mixins);
 	return base;
@@ -89,7 +89,7 @@ export function mixin(...mixins) {
 /**
  * returns object filtered by predicate
  */
-export function filter(obj, predicate) {
+export function filter(obj: Object, predicate: Function) {
     var result = {}, key;
     for (key in obj) {
         if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
@@ -102,7 +102,7 @@ export function filter(obj, predicate) {
 /**
  * returns lexical representation of memory volume
  */
-export function lexicalSize(size) {
+export function lexicalSize(size: Number) {
     if(size < 0) return;
     var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
     var ord = Math.floor(Math.log(size) / Math.log(1024));
@@ -114,7 +114,7 @@ export function lexicalSize(size) {
 /**
  * returns color representation in RGB format
  */
-export function colorize(color, params = {r: 0.299, g: 0.587, b: 0.114}) {
+export function colorize(color: string, params: Object = {r: 0.299, g: 0.587, b: 0.114}) {
 	color = (color.startsWith('#') ? color.substring(1) : color);
 	let c = parseInt(color, 16);
     let r = (c & 0xFF0000) >> 16;
@@ -126,7 +126,7 @@ export function colorize(color, params = {r: 0.299, g: 0.587, b: 0.114}) {
 /**
  * returns promise result by timeout
  */
-function wait(timeout) {
+function wait(timeout: Number) {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve()
@@ -137,7 +137,7 @@ function wait(timeout) {
 /**
  *  returns request with retries function
  */
-export async function requestWithRetry (url, count) {
+export async function requestWithRetry (url: string, count: Number) {
 	const MAX_RETRIES = isPositive(count) ? count : 10;
 	for (let i = 0; i <= MAX_RETRIES; i++) {
 		try {
@@ -154,7 +154,7 @@ export async function requestWithRetry (url, count) {
 /**
  *  returns result of task functions executeed asynchronously
  */
-export async function executeAsyncTask(fn1, fn2, fn3) {
+export async function executeAsyncTask(fn1: Function, fn2: Function, fn3: Function) {
 	try {
 		const valueA = await fn1();
 		const valueB = await fn2(valueA);
@@ -162,5 +162,52 @@ export async function executeAsyncTask(fn1, fn2, fn3) {
 	} catch (err) {
 		Logger.error(err);
 	}
+};
+
+/**
+ *  returns result of objects recursive merging
+ */
+export const mergeRecursive = (obj1: Object, obj2: Object) => {
+	if (obj1 && isNullOrUndefined(obj2)) {
+		return obj1;
+	}
+	const mergedValue = {};
+	forEach(obj1, (key, value) => {
+		if (isMap(value)) {
+			mergedValue[key] = mergeRecursive(value, obj2[key]);
+		} else {
+			mergedValue[key] = !isNullOrUndefined(obj2[key]) ? obj2[key] : value;
+		}
+	});
+	return mergedValue;
+};
+
+/**
+* returns function to execute callback for eack key - >value pair
+*/
+export function forEach(obj: Object, callback: Function) {
+	if (obj) {
+		for (const key in obj) {
+			if ({}.hasOwnProperty.call(obj, key)) {
+				callback(key, obj[key]);
+			}
+		}
+	}
+};
+
+/**
+* returns true - if object contains property, false - otherwise
+*/
+export function hasProperty(obj: Object, property: string) {
+	let result = false;
+	if (obj) {
+		for (const key in obj) {
+			if ({}.hasOwnProperty.call(obj, key) && property === key) {
+				result = true;
+				break;
+			}
+		}
+	}
+	return result;
 };
 

@@ -10,6 +10,7 @@ module.exports = function(api) {
 		['@babel/plugin-proposal-optional-chaining'],
 		['@babel/plugin-proposal-nullish-coalescing-operator'],
 		['@babel/plugin-transform-async-to-generator'],
+		['@babel/plugin-transform-flow-strip-types'],
 		['@babel/plugin-transform-react-display-name']
 	];
 	const comments = false;

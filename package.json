@@ -5,8 +5,9 @@
   "private": true,
   "main": "server.js",
   "scripts": {
+    "clean": "rimraf public",
     "serve": "node server.js",
-    "prebuild": "rimraf public && npm install",
+    "prebuild": "npm run clean && npm install",
     "build": "webpack --config webpack.config.js --mode development --colors --progress",
     "build:umd": "webpack --output-filename index.umd.js",
     "build:umd.min": "webpack --output-filename index.umd.min.js -p",
@@ -40,6 +41,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/plugin-transform-async-to-generator": "^7.0.0",
+    "@babel/plugin-transform-flow-strip-types": "7.0.0",
     "@babel/plugin-transform-react-display-name": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -61,6 +63,7 @@
     "node-sass": "4.9.3",
     "postcss-loader": "3.0.0",
     "prop-types": "15.6.2",
+    "raw-loader": "0.5.1",
     "resolve-url-loader": "3.0.0",
     "rimraf": "2.6.2",
     "sass-loader": "7.1.0",
@@ -110,5 +113,8 @@
     "last 2 versions",
     "Firefox ESR",
     "not ie < 9"
+  ],
+  "workspaces": [
+    "src/*"
   ]
 }

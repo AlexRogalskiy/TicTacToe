@@ -33,7 +33,7 @@ const BASE_CONFIG = {
 		rules: [
 			//{ test: /\.ts$/i, loader: 'ts-loader' },
 			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
-			//{ test: /\.txt$/, use: 'raw-loader' },
+			//{ test: /\.txt$/, use: [{ loader: 'raw-loader', options: { name: '[path]/[name].[ext]' }}] },
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
 			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash].[ext]' } }]},
 			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: false } }]}
@@ -45,10 +45,11 @@ const BASE_CONFIG = {
 	plugins: [
 		new CopyWebpackPlugin(
 			[
-				{ from: path.join(paths.SOURCE_DIR, 'images'), to: 'images', cache: true },
 				//{ from: path.join(paths.SOURCE_DIR, 'fonts'), to: 'fonts', cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'images'), to: 'images', cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'robots.txt'), to: paths.BUILD_DIR, cache: true },
 				{ from: path.join(paths.SOURCE_DIR, 'manifest.json'), to: paths.BUILD_DIR, cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'favicon.ico'), to: paths.BUILD_DIR, cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'favicon.ico'), to: paths.BUILD_DIR, cache: true }
 			],
 			{ ignore: [ '*.js', '*.css', '*.scss', '*.sass' ], copyUnmodified: true, debug: true }
 		),
