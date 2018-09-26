@@ -5,6 +5,7 @@
  */
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const errorhandler = require('errorhandler')
 const express = require('express');
 
 // http / web-sockets
@@ -28,15 +29,20 @@ const indexRouter = require("./routes/index");
 const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
 const PUBLIC_PORT = 8080;
 const PUBLIC_HOST = 'localhost';
+const PUBLIC_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
 
 const app = express();
 app.disable('x-powered-by');
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-app.set("view options", { layout: true });
+app.set("view options", { layout: false });
 app.set('views', path.join(PUBLIC_PATH, 'views'));
-app.set('view cache', false);
+app.set('/js', path.join(PUBLIC_PATH, 'js'));
+app.set('/css', path.join(PUBLIC_PATH, 'css'));
+app.set('/images', path.join(PUBLIC_PATH, 'images'));
+app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
+//app.set('view cache', false);
 app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 
@@ -46,6 +52,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
 
 app.use('/', indexRouter);
+
+if(process.env.NODE_ENV === 'development') {
+     app.use(errorhandler({ dumpExceptions: true, showStack: true }));
+     app.set('view cache', false);
+}
+if(process.env.NODE_ENV === 'production') {
+    app.use(errorhandler());
+    app.set('view cache', true);
+}
 
 // web-socket configuration
 const server = http.createServer(app);
@@ -60,7 +75,7 @@ function onConnect(delay) {
 		if (interval) {
 			clearInterval(interval);
 		}
-		interval = setInterval(() => getApiAndEmit(socket), 10000);
+		interval = setInterval(() => getApiAndEmit(PUBLIC_API_URL)(socket), 10000);
 		
 		var addedUser = false;
 		socket.on('new message', (data) => {
@@ -104,14 +119,16 @@ function onConnect(delay) {
 	};
 };
 
-const getApiAndEmit = async socket => {
-	try {
-		const res = await axios.get('https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551');
-		socket.emit('event', `Current temperature in timezone ${res.data.timezone} is ${res.data.currently.temperature}`);
-	} catch (error) {
-		Logger.error(`Error: ${error.code}`);
-	}
-};
+function getApiAndEmit(url) {
+	return async socket => {
+		try {
+			const response = await axios.get(url);
+			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
+		} catch (error) {
+			Logger.error(`Error: ${error.code}`);
+		}
+	};
+}
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

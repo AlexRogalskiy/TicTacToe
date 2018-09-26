@@ -9,18 +9,20 @@ const { Config } = require('webpack-config');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const BUILD_DIR = path.resolve(__dirname, '../public/build');
-const SOURCE_DIR = path.resolve(__dirname, '../src');
-const JS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'js');
-const SASS_SOURCE_DIR = path.resolve(SOURCE_DIR, 'sass');
+const paths = {
+	BUILD_DIR: path.resolve(__dirname, '../public/build'),
+	SOURCE_DIR: path.resolve(__dirname, '../src'),
+	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js'),
+	SASS_SOURCE_DIR: path.resolve(__dirname, '../src', 'sass')
+};
 
 const DEVELOPMENT_CONFIG = {
 	mode: 'development',
-    entry: path.resolve(JS_SOURCE_DIR, 'index.js'),
+    entry: path.resolve(paths.JS_SOURCE_DIR, 'index.js'),
 	devtool: 'source-map',
 	cache: false,
     output: {
-		path: BUILD_DIR,
+		path: paths.BUILD_DIR,
         filename: path.join('js', '[name].[hash].js'),
 		sourceMapFilename: path.join('js', '[name].[hash].map'),
 		chunkFilename: path.join('js', '[id].[chunkhash].chunk.js'),
@@ -32,8 +34,8 @@ const DEVELOPMENT_CONFIG = {
 		rules: [
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader', options: { mozjpeg: { progressive: true, quality: 70 }, optipng: { enabled: false }, pngquant: { quality: '65-90', speed: 4 }, gifsicle: { interlaced: false }, webp: { quality: 75 }}}]},
 			{ test: /\.css$/i, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true }}]},
-			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true, modules: true }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { plugins: [ require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [SASS_SOURCE_DIR], outputStyle: 'expanded', sourceMap: true }}] },
-			{ test: /\.(js|jsx|es6)$/i, include: JS_SOURCE_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
+			{ test: /\.(sass|scss)$/i, exclude: [/(node_modules|bower_components)/], use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true, modules: true }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { plugins: [ require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [paths.SASS_SOURCE_DIR], outputStyle: 'expanded', sourceMap: true }}] },
+			{ test: /\.(js|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
 		]
     },
 	plugins: [
@@ -61,7 +63,7 @@ const DEVELOPMENT_CONFIG = {
 	devServer: {
 		clientLogLevel: 'warn',
 		filename: path.join('js', 'bundle.js'),
-		contentBase: BUILD_DIR,
+		contentBase: paths.BUILD_DIR,
 		inline: true,
 		compress: true,
 		open: true,

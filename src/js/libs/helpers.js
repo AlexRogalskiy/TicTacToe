@@ -1,5 +1,11 @@
 "use strict";
 
+var DEFAULT_COLORS_PRESET = [
+    '#e21400', '#91580f', '#f8a700', '#f78b00',
+    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+];
+
 /**
  * returns native string representation of object
  */
@@ -168,6 +174,19 @@ function normalizePort(val) {
 	return false;
 };
 
+/**
+ * returns the color of a username
+ */
+function getUsernameColor(username, colors) {
+	colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
+    var hash = 7;
+    for (var i = 0; i < username.length; i++) {
+		hash = username.charCodeAt(i) + (hash << 5) - hash;
+    }
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+};
+
 module.exports = {
 	isNumber,
 	isIntNumber,
@@ -188,5 +207,6 @@ module.exports = {
 	wrapChars,
 	wrapWords,
 	wrapLines,
-	normalizePort
+	normalizePort,
+	getUsernameColor
 };

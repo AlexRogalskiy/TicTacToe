@@ -13,10 +13,13 @@ import style from "../css/style.css";
 import App from './views/app';
 import store from './stores/index';
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
-registerServiceWorker();
+const wrapper = document.getElementById("root");
+if(wrapper) {
+	ReactDOM.render(
+		<Provider store={store}>
+			<App />
+		</Provider>,
+		wrapper
+	);
+	registerServiceWorker();	
+}
