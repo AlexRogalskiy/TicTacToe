@@ -29,7 +29,9 @@ const indexRouter = require("./routes/index");
 const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
 const PUBLIC_PORT = 8080;
 const PUBLIC_HOST = 'localhost';
-const PUBLIC_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
+
+const REMOTE_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
+const REMOTE_API_FETCH_DELAY = 10000;
 
 const app = express();
 app.disable('x-powered-by');
@@ -62,21 +64,33 @@ if(process.env.NODE_ENV === 'production') {
     app.set('view cache', true);
 }
 
-// web-socket configuration
+// sockets configuration
 const server = http.createServer(app);
 const io = socketIo(server, {}); //{ parser: jsonParser }
 
-io.on('connection', onConnect(10000));
-
-function onConnect(delay) {
-	let interval;
-	return function (socket) {
-		Logger.debug(`Connected: new client with id=${socket.id}`);
-		if (interval) {
-			clearInterval(interval);
+io.on('connection', (socket) => {
+	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+	
+	let start = 0;
+	socket.on('start', () => {
+		if (start == 1) {
+			socket.emit("handshake", p2);
+			start++;
+			//board = new game.Board(p1, p2);
+			socket.emit("go", { "plays": board.getPlays(), "err": "" });
+		} else if (start == 0) {
+			socket.emit("handshake", p1);
+			socket.emit("status", "Waiting for the second player...");
+			start++;
 		}
-		interval = setInterval(() => getApiAndEmit(PUBLIC_API_URL)(socket), 10000);
-		
+	});
+	
+	socket.on('disconnect', () => {
+		Logger.debug(`SERVER: disconnected client with id=${socket.id}`);
+		start = 0;
+		socket.emit("win", "The other player left the game...");
+	});
+	
 		/*var addedUser = false;
 		socket.on('new message', (data) => {
 			socket.broadcast.emit('new message', {
@@ -116,7 +130,14 @@ function onConnect(delay) {
 				});
 			}
 		});*/
-	};
+});
+
+function fetchRemoteApi(url, socket, delay) {
+	Logger.debug(`SERVER: connected new client with id=${socket.id}`);
+	if (interval) {
+		clearInterval(interval);
+	}
+	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
 
 function getApiAndEmit(url) {
@@ -125,7 +146,7 @@ function getApiAndEmit(url) {
 			const response = await axios.get(url);
 			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
 		} catch (error) {
-			Logger.error(`Error: ${error.code}`);
+			Logger.error(`SERVER: error ${error.code}`);
 		}
 	};
 }
@@ -180,11 +201,11 @@ function onError(error) {
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
 		case 'EACCES':
-			Logger.error(`${bind} requires elevated privileges`);
+			Logger.error(`SERVER: ${bind} requires elevated privileges`);
 			process.exit(1);
 			break;
 		case 'EADDRINUSE':
-			Logger.error(`${bind} is already in use`);
+			Logger.error(`SERVER: ${bind} is already in use`);
 			process.exit(1);
 			break;
 		default:
@@ -198,12 +219,12 @@ function onError(error) {
 function onListening() {
 	var addr = server.address();
 	var bind = isString(addr) ? 'pipe ' + addr : 'port ' + addr.port;
-	Logger.debug(`Listening on ${bind}`);
+	Logger.debug(`SERVER: listening on ${bind}`);
 };
 
 server.on('error', onError);
 server.on('listening', onListening);
 
 server.listen(app.get('port'), () => {
-	Logger.debug(`Server is ruuning on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+	Logger.debug(`SERVER: running on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 });

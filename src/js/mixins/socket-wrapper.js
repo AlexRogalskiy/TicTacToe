@@ -36,14 +36,14 @@ export default function wrapper(WrappedComponent) {
 		
 		onConnect(socket) {
 			return () => {
-				Logger.debug(`Connected by socket with id=${socket.id}`);
+				Logger.debug(`onConnect: connected by socket with id=${socket.id}`);
 				this.setState({ isConnected: true });
 			};
 		}
 		
 		onDisconnect(socket) {
 			return () => {
-				Logger.debug(`Disconnected from socket with id=${socket.id}`);
+				Logger.debug(`onDisconnect: disconnected from socket with id=${socket.id}`);
 				this.setState({ isConnected: false });
 			};
 		}

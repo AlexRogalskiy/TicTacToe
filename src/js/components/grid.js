@@ -20,12 +20,12 @@ class Grid extends Component {
     }
 	
 	render() {
-		const { cells, player, onSetCell, winningState, ...rest } = this.props;
+		const { cells, player, winCells, onSetCell, ...rest } = this.props;
         return (
 			<div {...rest}>
                 {
                     cells.map((value, cell) => (
-                        <Cell key={cell} state={value} isWinner={winningState && winningState.includes(cell) ? true : false} onPress={(e) => {
+                        <Cell key={cell} state={value} isWinner={winCells && winCells.includes(cell) ? true : false} onPress={(e) => {
                              onSetCell(cell, cells, player)
                         }}/>
                     ))

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import LocalizedStrings from 'react-localization';
 
 import { addMove, resetGame } from '../actions/index';
-import Board from '../components/board';
+import BoardWidget from '../components/widgets/board-widget';
 
 import { isNullOrUndefined } from '../libs/helpers';
 import Locale from '../resources/locale';
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => {
     return {
         player: state['player'],
         cells: state['cells'],
-		winningState: getWinner(state['cells']).winningState,
+		winCells: getWinner(state['cells']).winningState,
         message: getStatusMessage(state['cells'], state['player'])
     };
 };
@@ -106,6 +106,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const TicTacToeBoard = connect(mapStateToProps, mapDispatchToProps)(Board);
+const TicTacToeBoard = connect(mapStateToProps, mapDispatchToProps)(BoardWidget);
 
 export default TicTacToeBoard;

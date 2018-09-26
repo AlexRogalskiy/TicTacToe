@@ -5,8 +5,8 @@
  */
 import React, { Component } from 'react';
 
-import TicTacToeBoard from '../containers/tictactoeboard';
-import WeatherWidget from '../components/weather-widget';
+import TicTacToeBoard from '../containers/tic-tac-toe-board';
+import WeatherWidget from '../components/widgets/weather-widget';
 
 import Header from './partials/header';
 import Footer from './partials/footer';
@@ -29,11 +29,14 @@ class App extends Component {
 	
     render() {
 		const WeatherWidgetWrapper = wrapper(WeatherWidget);
+		const TicTacToeBoardWrapper = wrapper(TicTacToeBoard);
         return (
 			<div {...this.props}>
 				<Header />
-				<TicTacToeBoard player={config.default.player1.marker} />
-				<Footer><WeatherWidgetWrapper /></Footer>
+				<TicTacToeBoardWrapper player={config.default.player1.marker} />
+				<Footer>
+					<WeatherWidgetWrapper />
+				</Footer>
 			</div>
 		)
     }

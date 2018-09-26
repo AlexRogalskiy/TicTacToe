@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import Loader from './loader';
-import { Logger } from '../libs/logger';
+import Loader from '../loader';
+import { Logger } from '../../libs/logger';
 
 class WeatherWidget extends Component {
 	
@@ -57,7 +57,7 @@ class WeatherWidget extends Component {
 	
 	onEvent(socket) {
 		return data => {
-			Logger.debug(`Data ${data} from socket with id=${socket.id}`);
+			Logger.debug(`onEvent: data ${data} from socket with id=${socket.id}`);
 			this.setState({ response: data });
 	    };
 	}
