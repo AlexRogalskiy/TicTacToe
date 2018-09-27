@@ -8,14 +8,16 @@ import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from '../constants/actio
 import config from '../resources/config.json';
 import { guidGenerator, currentDate, currentTime } from '../libs/helpers';
 
-const board = (state = config.default.title, action) => {
+const scheme = config.default.scheme;
+
+const board = (state = config[scheme].title, action) => {
     switch (action.type) {
 		case START:
-			return config.default.title + ' <' + guidGenerator() + '>';
+			return config[scheme].title + ' <' + guidGenerator() + '>';
 		case INITIALIZE:
-			return config.default.title;
+			return config[scheme].title;
         case RESET:
-			return config.default.title + ' <' + guidGenerator() + '> ' + currentDate() + '/' + currentTime();
+			return config[scheme].title + ' <' + guidGenerator() + '> ' + currentDate() + '/' + currentTime();
 		case FINALIZE:
 		case ADD_MOVE:
         default:

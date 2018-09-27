@@ -8,17 +8,19 @@ import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from '../constants/actio
 import config from '../resources/config.json';
 import { randomBinary } from '../libs/helpers';
 
-const player = (state = config.default.player1.marker, action) => {
+const scheme = config.default.scheme;
+
+const player = (state = config[scheme].player1.marker, action) => {
     switch (action.type) {
         case ADD_MOVE:
-            return (state === config.default.player1.marker) ? config.default.player2.marker : config.default.player1.marker;
+            return (state === config[scheme].player1.marker) ? config[scheme].player2.marker : config[scheme].player1.marker;
 		case START:
 		case INITIALIZE:
-			return config.default.player1.marker;
+			return config[scheme].player1.marker;
         case RESET:
-            return config.default['player' + (randomBinary() + 1)].marker;
+            return config[scheme]['player' + (randomBinary() + 1)].marker;
 		case FINALIZE:
-			return config.default.marker;
+			return config[scheme].marker;
         default:
             return state;
     }

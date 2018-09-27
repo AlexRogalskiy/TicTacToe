@@ -1,7 +1,10 @@
 {
 	"default" : {
+		"scheme": "primary"
+	},
+	"standard": {
 		"marker": "▬",
-		"title": "Default",
+		"title": "Standard",
 		"label": "Player",
 		"placeholder": "First Name",
 		"player1" : {

@@ -15,6 +15,8 @@ import wrapper from '../mixins/socket-wrapper';
 
 import config from '../resources/config.json';
 
+const scheme = config.default.scheme;
+
 class App extends Component {
 	
 	get displayName() {
@@ -33,7 +35,7 @@ class App extends Component {
         return (
 			<div {...this.props}>
 				<Header />
-				<TicTacToeBoardWrapper player={config.default.player1.marker} />
+				<TicTacToeBoardWrapper player={config[scheme].player1.marker} />
 				<Footer>
 					<WeatherWidgetWrapper />
 				</Footer>
