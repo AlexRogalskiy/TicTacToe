@@ -1,12 +1,14 @@
 {
 	"en": {
 		"tie": "It is a tie!",
-		"winner": "Player with marker ${0} has won the game!",
-		"player": "Current round: player with marker ${0}"
+		"winner": "Player with marker {0} has won the game!",
+		"player": "Current round: player with marker {0}",
+		"board": "Current board: {0}"
 	},
 	"ru": {
 		"tie": "Боевая ничья!",
 		"winner": "Игрок с фишкой {0} выиграл игру!",
-		"player": "Текущий ход: игрок с фишкой {0}"
+		"player": "Текущий ход: игрок с фишкой {0}",
+		"board": "Текущая игра: {0}"
 	}
 }

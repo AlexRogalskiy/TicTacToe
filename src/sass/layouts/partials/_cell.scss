@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.cell {
+    display: inline-block;
+    float: left;
+    background-color: #ff8600;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 40px;
+    line-height: 100px;
+    cursor: pointer;
+	
+	&.cell-winner {
+		background-color: #ff00ff;
+	}
+	
+	&:nth-child(3n+1) {
+		clear: left;
+	}
+}

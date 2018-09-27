@@ -1,5 +1,7 @@
 {
 	"default" : {
+		"marker": "▬",
+		"title": "Default",
 		"label": "Player",
 		"placeholder": "First Name",
 		"player1" : {
@@ -9,6 +11,34 @@
 		"player2" : {
 			"label" : "Player 2",
 			"marker" : "O"
+		}
+	},
+	"primary" : {
+		"marker": "▬",
+		"title": "Animalia",
+		"label": "Gamer",
+		"placeholder": "Last Name",
+		"player1" : {
+			"label" : "Gamer 1",
+			"marker" : "☺"
+		},
+		"player2" : {
+			"label" : "Gamer 2",
+			"marker" : "☻"
+		}
+	},
+	"secondary" : {
+		"marker": "▬",
+		"title": "Musicalia",
+		"label": "Colleague",
+		"placeholder": "Nick",
+		"player1" : {
+			"label" : "Colleague 1",
+			"marker" : "♪"
+		},
+		"player2" : {
+			"label" : "Colleague 2",
+			"marker" : "♫"
 		}
 	}
 }

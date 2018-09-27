@@ -1,7 +1,6 @@
 * {
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
@@ -9,40 +8,32 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block;
-}
+  display: block; }
 
 html, body {
-  height: 100%;
-}
+  height: 100%; }
 
 a img {
-  border: none;
-}
+  border: none; }
 
 blockquote {
-  quotes: none;
-}
+  quotes: none; }
 
 blockquote:before, blockquote:after {
   content: '';
-  content: none;
-}
+  content: none; }
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
+  border-spacing: 0; }
 
 caption, th, td {
   text-align: left;
   font-weight: normal;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
@@ -55,8 +46,7 @@ html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Sections
    ========================================================================== */
@@ -64,8 +54,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-  margin: 0;
-}
+  margin: 0; }
 
 /**
  * Correct the font size and margin on `h1` elements within `section` and
@@ -73,8 +62,7 @@ body {
  */
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
-}
+  margin: 0.67em 0; }
 
 /* Grouping content
    ========================================================================== */
@@ -88,8 +76,7 @@ hr {
   height: 0;
   /* 1 */
   overflow: visible;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
@@ -99,8 +86,7 @@ pre {
   font-family: monospace, monospace;
   /* 1 */
   font-size: 1em;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Text-level semantics
    ========================================================================== */
@@ -108,8 +94,7 @@ pre {
  * Remove the gray background on active links in IE 10.
  */
 a {
-  background-color: transparent;
-}
+  background-color: transparent; }
 
 /**
  * 1. Remove the bottom border in Chrome 57-
@@ -121,16 +106,14 @@ abbr[title] {
   text-decoration: underline;
   /* 2 */
   text-decoration: underline dotted;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
 b,
 strong {
-  font-weight: bolder;
-}
+  font-weight: bolder; }
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
@@ -142,15 +125,13 @@ samp {
   font-family: monospace, monospace;
   /* 1 */
   font-size: 1em;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Add the correct font size in all browsers.
  */
 small {
-  font-size: 80%;
-}
+  font-size: 80%; }
 
 /**
  * Prevent `sub` and `sup` elements from affecting the line height in
@@ -161,16 +142,13 @@ sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 sub {
-  bottom: -0.25em;
-}
+  bottom: -0.25em; }
 
 sup {
-  top: -0.5em;
-}
+  top: -0.5em; }
 
 /* Embedded content
    ========================================================================== */
@@ -178,8 +156,7 @@ sup {
  * Remove the border on images inside links in IE 10.
  */
 img {
-  border-style: none;
-}
+  border-style: none; }
 
 /* Forms
    ========================================================================== */
@@ -199,8 +176,7 @@ textarea {
   line-height: 1.15;
   /* 1 */
   margin: 0;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Show the overflow in IE.
@@ -209,8 +185,7 @@ textarea {
 button,
 input {
   /* 1 */
-  overflow: visible;
-}
+  overflow: visible; }
 
 /**
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
@@ -219,8 +194,7 @@ input {
 button,
 select {
   /* 1 */
-  text-transform: none;
-}
+  text-transform: none; }
 
 /**
  * Correct the inability to style clickable types in iOS and Safari.
@@ -229,8 +203,7 @@ button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button;
-}
+  -webkit-appearance: button; }
 
 /**
  * Remove the inner border and padding in Firefox.
@@ -240,8 +213,7 @@ button::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   border-style: none;
-  padding: 0;
-}
+  padding: 0; }
 
 /**
  * Restore the focus styles unset by the previous rule.
@@ -250,15 +222,13 @@ button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
+  outline: 1px dotted ButtonText; }
 
 /**
  * Correct the padding in Firefox.
  */
 fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
+  padding: 0.35em 0.75em 0.625em; }
 
 /**
  * 1. Correct the text wrapping in Edge and IE.
@@ -278,22 +248,19 @@ legend {
   padding: 0;
   /* 3 */
   white-space: normal;
-  /* 1 */
-}
+  /* 1 */ }
 
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
 progress {
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 /**
  * Remove the default vertical scrollbar in IE 10+.
  */
 textarea {
-  overflow: auto;
-}
+  overflow: auto; }
 
 /**
  * 1. Add the correct box sizing in IE 10.
@@ -304,16 +271,14 @@ textarea {
   box-sizing: border-box;
   /* 1 */
   padding: 0;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
+  height: auto; }
 
 /**
  * 1. Correct the odd appearance in Chrome and Safari.
@@ -323,15 +288,13 @@ textarea {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
 [type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
+  -webkit-appearance: none; }
 
 /**
  * 1. Correct the inability to style clickable types in iOS and Safari.
@@ -341,8 +304,7 @@ textarea {
   -webkit-appearance: button;
   /* 1 */
   font: inherit;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Interactive
    ========================================================================== */
@@ -350,15 +312,13 @@ textarea {
  * Add the correct display in Edge, IE 10+, and Firefox.
  */
 details {
-  display: block;
-}
+  display: block; }
 
 /*
  * Add the correct display in all browsers.
  */
 summary {
-  display: list-item;
-}
+  display: list-item; }
 
 /* Misc
    ========================================================================== */
@@ -366,15 +326,13 @@ summary {
  * Add the correct display in IE 10+.
  */
 template {
-  display: none;
-}
+  display: none; }
 
 /**
  * Add the correct display in IE 10.
  */
 [hidden] {
-  display: none;
-}
+  display: none; }
 
 /**
  * Geometria Light
@@ -383,8 +341,8 @@ template {
   font-family: 'GeometriaLight';
   src: url("../fonts/geometria/geometria-light.woff2") format("woff2"), url("../fonts/geometria/geometria-light.woff") format("woff"), url("../fonts/geometria/geometria-light.otf") format("opentype");
   font-weight: normal;
-  font-style: normal;
-}
+  font-style: normal; }
+
 /**
  * MuseoSans500
  */
@@ -392,8 +350,8 @@ template {
   font-family: 'MuseoSans500';
   src: url("../fonts/museosans/MuseoSans_500.woff2") format("woff2"), url("../fonts/museosans/MuseoSans_500.woff") format("woff"), url("../fonts/museosans/MuseoSans_500.otf") format("opentype");
   font-weight: normal;
-  font-style: normal;
-}
+  font-style: normal; }
+
 /**
  * RobotoRegular
  */
@@ -402,82 +360,70 @@ template {
   src: url("../fonts/roboto/Roboto-Regular.eot");
   src: url("../fonts/roboto/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Regular.woff") format("woff"), url("../fonts/roboto/Roboto-Regular.ttf") format("truetype");
   font-weight: normal;
-  font-style: normal;
-}
+  font-style: normal; }
+
 .basic-input {
   display: inline-block;
   position: relative;
-  margin: 0 0 10px 0;
-}
-.basic-input input[type=text], .basic-input input[type=email], .basic-input input[type=password], .basic-input input[type=url] {
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  background-color: transparent;
-  width: 100%;
-  border-style: dotted;
-  border-width: 0 0 1px 0;
-  border-color: #888;
-  line-height: 40px;
-  font-size: 14px;
-  letter-spacing: 2px;
-}
-.basic-input input[type=text]:before, .basic-input input[type=email]:before, .basic-input input[type=password]:before, .basic-input input[type=url]:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: #000;
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.15s ease-in-out 0s;
-}
-.basic-input input[type=text]:hover:before, .basic-input input[type=text]:focus:before, .basic-input input[type=email]:hover:before, .basic-input input[type=email]:focus:before, .basic-input input[type=password]:hover:before, .basic-input input[type=password]:focus:before, .basic-input input[type=url]:hover:before, .basic-input input[type=url]:focus:before {
-  visibility: visible;
-  transform: scaleX(1);
-}
-.basic-input input[type=text]::placeholder, .basic-input input[type=email]::placeholder, .basic-input input[type=password]::placeholder, .basic-input input[type=url]::placeholder {
-  text-transform: uppercase;
-  font-size: 12px;
-  color: gray;
-}
-.basic-input input[type=text]:focus, .basic-input input[type=email]:focus, .basic-input input[type=password]:focus, .basic-input input[type=url]:focus {
-  border-style: solid;
-  outline: none;
-  border-color: #0000aa;
-  border-color: #666;
-}
-.basic-input.error input {
-  border-color: #aa0000;
-}
-.basic-input.error input:focus {
-  border-color: #aa0000;
-}
-.basic-input.error aside {
-  color: #aa0000;
-  font-weight: 600;
-}
-.basic-input aside {
-  position: absolute;
-  right: 0;
-  font-size: 11px;
-  float: right;
-  line-height: 16px;
-  color: #666;
-}
+  margin: 0 0 10px 0; }
+  .basic-input input[type=text], .basic-input input[type=email], .basic-input input[type=password], .basic-input input[type=url] {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    width: 100%;
+    border-style: dotted;
+    border-width: 0 0 1px 0;
+    border-color: #888;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 2px; }
+    .basic-input input[type=text]:before, .basic-input input[type=email]:before, .basic-input input[type=password]:before, .basic-input input[type=url]:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      background-color: #000;
+      visibility: hidden;
+      transform: scaleX(0);
+      transition: all 0.15s ease-in-out 0s; }
+    .basic-input input[type=text]:hover:before, .basic-input input[type=text]:focus:before, .basic-input input[type=email]:hover:before, .basic-input input[type=email]:focus:before, .basic-input input[type=password]:hover:before, .basic-input input[type=password]:focus:before, .basic-input input[type=url]:hover:before, .basic-input input[type=url]:focus:before {
+      visibility: visible;
+      transform: scaleX(1); }
+    .basic-input input[type=text]::placeholder, .basic-input input[type=email]::placeholder, .basic-input input[type=password]::placeholder, .basic-input input[type=url]::placeholder {
+      text-transform: uppercase;
+      font-size: 12px;
+      color: gray; }
+    .basic-input input[type=text]:focus, .basic-input input[type=email]:focus, .basic-input input[type=password]:focus, .basic-input input[type=url]:focus {
+      border-style: solid;
+      outline: none;
+      border-color: #0000aa;
+      border-color: #666; }
+  .basic-input.error input {
+    border-color: #aa0000; }
+    .basic-input.error input:focus {
+      border-color: #aa0000; }
+  .basic-input.error aside {
+    color: #aa0000;
+    font-weight: 600; }
+  .basic-input aside {
+    position: absolute;
+    right: 0;
+    font-size: 11px;
+    float: right;
+    line-height: 16px;
+    color: #666; }
 
 .button {
   display: inline-block;
   padding: 20px 40px;
   background-color: #555555;
   color: #ffffff;
-  cursor: pointer;
-}
-.button.button-reset {
-  background-color: #444444;
-}
+  cursor: pointer; }
+  .button.button-reset {
+    background-color: #444444; }
 
 button {
   background-color: #bbb;
@@ -490,12 +436,10 @@ button {
   border: none;
   outline: none;
   box-shadow: 1px 3px 2px 0px #666;
-  transition: transform 100ms ease, box-shadow 100ms ease;
-}
-button:active {
-  transform: translateY(2px);
-  box-shadow: 1px 1px 2px 0px #666;
-}
+  transition: transform 100ms ease, box-shadow 100ms ease; }
+  button:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 2px 0px #666; }
 
 .loader .loader-container {
   perspective: 1000px;
@@ -505,87 +449,84 @@ button:active {
   margin-left: -55px;
   margin-top: -10px;
   width: 120px;
-  white-space: nowrap;
-}
-.loader .loader-container.inline {
-  display: block;
-  position: initial;
-  margin: 0 auto;
-  min-height: 80px;
-}
-.loader .loader-container.inline aside {
-  margin-top: 30px;
-}
-.loader .loader-container aside {
-  display: inline-block;
-  margin: 0 2px;
-  width: 20px;
-  height: 20px;
-  float: left;
-  background-color: #000;
-  transform-origin: 0 0;
-  animation-name: flippy;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  transform: rotateX(-90deg);
-  opacity: 0.1;
-}
-.loader .loader-container aside:nth-child(0) {
-  animation-delay: 0s;
-}
-.loader .loader-container aside:nth-child(1) {
-  animation-delay: 0.2s;
-}
-.loader .loader-container aside:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.loader .loader-container aside:nth-child(3) {
-  animation-delay: 0.6s;
-}
-.loader .loader-container aside:nth-child(4) {
-  animation-delay: 0.8s;
-}
-.loader .loader-container aside:nth-child(5) {
-  animation-delay: 1s;
-}
+  white-space: nowrap; }
+  .loader .loader-container.inline {
+    display: block;
+    position: initial;
+    margin: 0 auto;
+    min-height: 80px; }
+    .loader .loader-container.inline aside {
+      margin-top: 30px; }
+  .loader .loader-container aside {
+    display: inline-block;
+    margin: 0 2px;
+    width: 20px;
+    height: 20px;
+    float: left;
+    background-color: #000;
+    transform-origin: 0 0;
+    animation-name: flippy;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transform: rotateX(-90deg);
+    opacity: 0.1; }
+    .loader .loader-container aside:nth-child(0) {
+      animation-delay: 0s; }
+    .loader .loader-container aside:nth-child(1) {
+      animation-delay: 0.2s; }
+    .loader .loader-container aside:nth-child(2) {
+      animation-delay: 0.4s; }
+    .loader .loader-container aside:nth-child(3) {
+      animation-delay: 0.6s; }
+    .loader .loader-container aside:nth-child(4) {
+      animation-delay: 0.8s; }
+    .loader .loader-container aside:nth-child(5) {
+      animation-delay: 1s; }
+
 @keyframes flippy {
   0% {
     transform: rotateX(-90deg);
-    opacity: 0.1;
-  }
+    opacity: 0.1; }
   25% {
     transform-origin: 15px 15px;
     transform-origin: 20px 20px;
     opacity: 1;
     transform: rotateX(0deg);
-    background-color: #bb2233;
-  }
+    background-color: #bb2233; }
   75% {
     transform-origin: 15px 15px;
     transform-origin: 20px 20px;
-    transform: rotateX(0deg);
-  }
+    transform: rotateX(0deg); }
   100% {
     transform-origin: 15px 15px;
     transform-origin: 20px 20px;
-    transform: rotateX(90deg);
-  }
-}
+    transform: rotateX(90deg); } }
+
 .weather-widget {
-  display: inline-block;
+  display: block;
   margin: 0;
-  text-align: center;
-}
-.weather-widget.weather-widget-info {
-  font-size: 16px;
-  text-transform: uppercase;
-  font-weight: 200;
-  letter-spacing: 2px;
-  color: black;
-}
-.weather-widget:focus {
-  outline: none;
-}
+  text-align: center; }
+  .weather-widget .weather-widget-info {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 200;
+    letter-spacing: 2px;
+    color: black; }
+  .weather-widget:focus {
+    outline: none; }
+
+.board-widget {
+  display: block;
+  margin: 0;
+  text-align: center; }
+  .board-widget .board-widget-info {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 200;
+    letter-spacing: 2px;
+    color: black; }
+  .board-widget:focus {
+    outline: none; }
 
 .footer {
   position: fixed;
@@ -594,8 +535,7 @@ button:active {
   width: 100%;
   color: white;
   text-align: center;
-  background-color: #ff8600;
-}
+  background-color: #ff8600; }
 
 .statusbar {
   display: block;
@@ -603,35 +543,7 @@ button:active {
   font-size: 30px;
   line-height: 60px;
   text-align: center;
-  background-color: #ff8600;
-}
-
-h1 {
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-  background-color: teal;
-  color: white;
-  text-align: center;
-}
-
-body, html {
-  margin: 0;
-}
-
-body {
-  font-family: Verdana, serif;
-  background-color: #eeeeee;
-  font-size: 20px;
-}
-
-.grid, .panel {
-  padding-top: 20px;
-  width: 360px;
-  text-align: center;
-  margin: auto;
-  clear: both;
-}
+  background-color: #ff8600; }
 
 .cell {
   display: inline-block;
@@ -644,13 +556,31 @@ body {
   text-align: center;
   font-size: 40px;
   line-height: 100px;
-  cursor: pointer;
-}
+  cursor: pointer; }
+  .cell.cell-winner {
+    background-color: #ff00ff; }
+  .cell:nth-child(3n+1) {
+    clear: left; }
 
-.cell-winner {
-  background-color: #ff00ff;
-}
+h1 {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: teal;
+  color: white;
+  text-align: center; }
 
-.cell:nth-child(3n+1) {
-  clear: left;
-}
+body, html {
+  margin: 0; }
+
+body {
+  font-family: Verdana, serif;
+  background-color: #eeeeee;
+  font-size: 20px; }
+
+.grid, .panel {
+  padding-top: 20px;
+  width: 360px;
+  text-align: center;
+  margin: auto;
+  clear: both; }

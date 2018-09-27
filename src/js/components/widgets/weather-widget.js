@@ -18,18 +18,14 @@ class WeatherWidget extends Component {
 	
 	static get propTypes() {
 		return {
-			dataClass: PropTypes.object,
-			onConnect: PropTypes.func,
-			onDisconnect: PropTypes.func
+			dataClass: PropTypes.object
 		};
 	}
 	
 	static get defaultProps() {
 		return {
         	className: 'weather-widget',
-			dataClass: { weatherWidgetInfo: 'weather-widget-info' },
-			onConnect: this.onConnect,
-			onDisconnect: this.onDisconnect
+			dataClass: { weatherWidgetInfo: 'weather-widget-info' }
         };
     }
 	

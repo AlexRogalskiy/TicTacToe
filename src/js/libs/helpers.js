@@ -1,10 +1,10 @@
 "use strict";
 
-var DEFAULT_COLORS_PRESET = [
-    '#e21400', '#91580f', '#f8a700', '#f78b00',
-    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-];
+/**
+ * @private
+ */
+const invLog2 = 1/Math.log(2);
+const defaultProtocolsExcept = [ '127.0.0.1', '0.0.0.0', 'localhost', '::1' ];
 
 /**
  * returns native string representation of object
@@ -174,17 +174,115 @@ function normalizePort(val) {
 	return false;
 };
 
+function randomBinary() {
+	return Math.round(Math.random());
+};
+
+function guidGenerator() {
+    const S4 = () => {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+	return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4());
+};
+
+function revisedRandId() {
+	return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+};
+
 /**
- * returns the color of a username
+ * 	returns element from array by rebased index
  */
-function getUsernameColor(username, colors) {
-	colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
-    var hash = 7;
-    for (var i = 0; i < username.length; i++) {
-		hash = username.charCodeAt(i) + (hash << 5) - hash;
+function wrapIndex(index, array) {
+	return array[(array.length + Math.round(index)) % array.length];
+};
+
+/**
+ * 	returns next power of two
+ */
+function nextPow2(x) {
+	return Math.pow(2, Math.ceil(Math.log(x)*invLog2));
+};
+
+/**
+ * 	changes type of protocol of the current url
+ */
+function redirect(protocol = 'https', except = defaultProtocolsExcept) {
+    const proto = protocol + ':';
+    if(document.location.protocol !== proto && except.indexOf(document.location.hostname) < 0) {
+        document.location.protocol = proto;
     }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
+};
+
+/**
+ *  returns merged object
+ */
+function mergeRecursive(obj1, obj2) {
+	if (obj1 && isNullOrUndefined(obj2)) {
+		return obj1;
+	}
+	const mergedValue = {};
+	forEach(obj1, (key, value) => {
+		if (isMap(value)) {
+			mergedValue[key] = mergeRecursive(value, obj2[key]);
+		} else {
+			mergedValue[key] = !isNullOrUndefined(obj2[key]) ? obj2[key] : value;
+		}
+	});
+	return mergedValue;
+};
+
+/**
+ * 	executes callback for eack key - >value pair
+ */
+function forEach(obj, callback) {
+	if (obj) {
+		for (const key in obj) {
+			if ({}.hasOwnProperty.call(obj, key)) {
+				callback(key, obj[key]);
+			}
+		}
+	}
+};
+
+/**
+ * 	returns true - if object contains property, false - otherwise
+ */
+function hasProperty(obj, property) {
+	let result = false;
+	if (obj) {
+		for (const key in obj) {
+			if ({}.hasOwnProperty.call(obj, key) && property === key) {
+				result = true;
+				break;
+			}
+		}
+	}
+	return result;
+};
+
+/**
+ * 	returns next element from array
+ */
+function stepArray(array) {
+    const next = Array.prototype.pop.call(array);
+    Array.prototype.unshift.call(array, next);
+    return next;
+};
+
+/**
+ * 	returns current date
+ */
+function currentDate() {
+	const now = new Date();
+	return ((now.getDate() < 10) ? '0' : '') + now.getDate() + '/' + (((now.getMonth()+1) < 10) ? '0' : '') + (now.getMonth() + 1) + '/' + now.getFullYear();
+};
+
+/**
+ * 	returns current time
+ */
+function currentTime() {
+	const now = new Date();
+    return ((now.getHours() < 10) ? '0' : '') + now.getHours() + ':' + ((now.getMinutes() < 10) ? '0' : '') + now.getMinutes() + ':' + ((now.getSeconds() < 10) ? '0' : '') + now.getSeconds();
 };
 
 module.exports = {
@@ -208,5 +306,16 @@ module.exports = {
 	wrapWords,
 	wrapLines,
 	normalizePort,
-	getUsernameColor
+	randomBinary,
+	guidGenerator,
+	revisedRandId,
+	wrapIndex,
+	nextPow2,
+	redirect,
+	mergeRecursive,
+	forEach,
+	hasProperty,
+	stepArray,
+	currentDate,
+	currentTime
 };

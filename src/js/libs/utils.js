@@ -9,8 +9,11 @@ import { Logger } from './logger';
 /**
  * @private
  */
-const invLog2 = 1/Math.log(2);
-const defaultExcept = [ '127.0.0.1', '0.0.0.0', 'localhost', '::1' ];
+const DEFAULT_COLORS_PRESET = [
+    '#e21400', '#91580f', '#f8a700', '#f78b00',
+    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+];
 
 /**
  *  returns the failed constraints { errors: [] } or true if valid
@@ -106,6 +109,37 @@ export function filter(obj: Object, predicate: Function) {
 };
 
 /**
+ * 	returns the color by username
+ */
+export function getColorByUsername(username, colors) {
+	colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
+    var hash = 7;
+    for (var i = 0; i < username.length; i++) {
+		hash = username.charCodeAt(i) + (hash << 5) - hash;
+    }
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+};
+
+/**
+ * 	returns lexical description of date/time
+ */
+export function toLexicalDate(date: Date) {
+	date = isNullOrUndefined(date) ? Date.now() : date;
+	var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+	var day_diff = Math.floor(diff / 86400);
+	return 	day_diff == 0 &&
+			diff < 60 && 'just now' ||
+			diff < 120 && '1 minute ago' ||
+			diff < 3600 && Math.floor(diff / 60) + ' minutes ago' ||
+			diff < 7200 && '1 hour ago' ||
+			diff < 86400 && Math.floor(diff / 3600) + " hours ago" ||
+			day_diff == 1 && 'Yesterday' ||
+			day_diff < 7 && day_diff + ' days ago' ||
+			Math.ceil(day_diff / 7) + ' weeks ago';
+};
+
+/**
  * 	returns lexical representation of memory volume
  */
 export function lexicalSize(size: Number) {
@@ -168,80 +202,4 @@ export async function executeAsync(fn1: Function, fn2: Function, fn3: Function) 
 	} catch (err) {
 		Logger.error(err);
 	}
-};
-
-/**
- *  returns merged object
- */
-export const mergeRecursive = (obj1: Object, obj2: Object) => {
-	if (obj1 && isNullOrUndefined(obj2)) {
-		return obj1;
-	}
-	const mergedValue = {};
-	forEach(obj1, (key, value) => {
-		if (isMap(value)) {
-			mergedValue[key] = mergeRecursive(value, obj2[key]);
-		} else {
-			mergedValue[key] = !isNullOrUndefined(obj2[key]) ? obj2[key] : value;
-		}
-	});
-	return mergedValue;
-};
-
-/**
- * 	executes callback for eack key - >value pair
- */
-export function forEach(obj: Object, callback: Function) {
-	if (obj) {
-		for (const key in obj) {
-			if ({}.hasOwnProperty.call(obj, key)) {
-				callback(key, obj[key]);
-			}
-		}
-	}
-};
-
-/**
- * 	returns true - if object contains property, false - otherwise
- */
-export function hasProperty(obj: Object, property: string) {
-	let result = false;
-	if (obj) {
-		for (const key in obj) {
-			if ({}.hasOwnProperty.call(obj, key) && property === key) {
-				result = true;
-				break;
-			}
-		}
-	}
-	return result;
-};
-
-/**
- * 	returns next element from array
- */
-export function step(array: Array) {
-    const next = Array.prototype.pop.call(array);
-    Array.prototype.unshift.call(array, next);
-    return next;
-}
-
-/**
- * 	returns element from array by rebased index
- */
-export const wrapIndex = (index: Number, array: Array) => array[(array.length + Math.round(index)) % array.length];
-
-/**
- * 	returns next power of two
- */
-export const nextPow2 = (x: Number) => Math.pow(2, Math.ceil(Math.log(x)*invLog2));
-
-/**
- * 	changes type of protocol of the current url
- */
-export const redirect = (protocol = 'https', except = defaultExcept) => {
-    const proto = protocol + ':';
-    if(document.location.protocol !== proto && except.indexOf(document.location.hostname) < 0) {
-        document.location.protocol = proto;
-    }
 };

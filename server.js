@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const errorhandler = require('errorhandler')
 const express = require('express');
 
-// http / web-sockets
+// http / error/ socket
 const axios = require('axios');
 const http = require('http');
 const createError = require('http-errors');
@@ -19,7 +19,7 @@ const socketIo = require('socket.io');
 const strategy = require('react-validatorjs-strategy');
 
 // helpers
-const { Logger } = require('./src/js/libs/logger');
+const { Logger, tag } = require('./src/js/libs/logger');
 const { normalizePort, isString } = require('./src/js/libs/helpers');
 
 // routes
@@ -30,7 +30,7 @@ const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
 const PUBLIC_PORT = 8080;
 const PUBLIC_HOST = 'localhost';
 
-const REMOTE_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
+const REMOTE_API_URL = '';//'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
 const REMOTE_API_FETCH_DELAY = 10000;
 
 const app = express();
@@ -71,24 +71,56 @@ const io = socketIo(server, {}); //{ parser: jsonParser }
 io.on('connection', (socket) => {
 	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 	
-	let start = 0;
-	socket.on('start', () => {
-		if (start == 1) {
-			socket.emit("handshake", p2);
-			start++;
-			//board = new game.Board(p1, p2);
-			socket.emit("go", { "plays": board.getPlays(), "err": "" });
-		} else if (start == 0) {
-			socket.emit("handshake", p1);
-			socket.emit("status", "Waiting for the second player...");
-			start++;
+	let rooms = 0;
+	socket.on('initialize', (data) => {
+		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
+		socket.join('room-' + ++rooms);
+		socket.emit('start', { name: data.name, room: 'room-' + rooms });
+		//if (start == 1) {
+		//	socket.emit("handshake", p2);
+		//	start++;
+		//	//board = new game.Board(p1, p2);
+		//	socket.emit("go", { "plays": board.getPlays(), "err": "" });
+		//} else if (start == 0) {
+		//	socket.emit("handshake", p1);
+		//	socket.emit("status", "Waiting for the second player...");
+		//	start++;
+		//}
+	});
+	
+	socket.on('start', (data) => {
+		Logger.debug(tag`SERVER: start with data=${data} from socket with id=${socket.id}`);
+		var room = io.nsps['/'].adapter.rooms[data.room];
+		if(room && room.length == 1){
+			socket.join(data.room);
+			socket.broadcast.to(data.room).emit('player1', {});
+			socket.emit('player2', {name: data.name, room: data.room })
+		} else {
+			socket.emit('err', {message: 'Sorry, The room is full!'});
 		}
 	});
 	
 	socket.on('disconnect', () => {
-		Logger.debug(`SERVER: disconnected client with id=${socket.id}`);
-		start = 0;
-		socket.emit("win", "The other player left the game...");
+		Logger.debug(`SERVER: disconnect client from socket with id=${socket.id}`);
+		//start = 0;
+		//socket.emit("win", "The other player left the game...");
+	});
+	
+	socket.on('setcell', (data) => {
+		Logger.debug(tag`SERVER: setcell with data=${data} from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('turnPlayed', {
+			tile: data.tile,
+			room: data.room
+		});
+	});
+	
+	socket.on('reset', () => {
+		Logger.debug(`SERVER: reset from socket with id=${socket.id}`);
+	});
+	
+	socket.on('finalize', (data) => {
+		Logger.debug(`SERVER: finalize from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('gameEnd', data);
 	});
 	
 		/*var addedUser = false;

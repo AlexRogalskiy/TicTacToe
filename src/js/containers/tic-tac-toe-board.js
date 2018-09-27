@@ -6,7 +6,7 @@
 import { connect } from 'react-redux';
 import LocalizedStrings from 'react-localization';
 
-import { addMove, resetGame } from '../actions/index';
+import { addMove, resetGame, startGame, initializeGame, finalizeGame } from '../actions/index';
 import BoardWidget from '../components/widgets/board-widget';
 
 import { isNullOrUndefined } from '../libs/helpers';
@@ -61,16 +61,21 @@ const isTie = (cells) => {
     return isTie;
 };
 
+const isFinished = (cells) => {
+	return !isNullOrUndefined(getWinner(cells).winner) || isTie(cells);
+};
+
 const isValidMove = (cells, cell) => {
     // cannot put marker if the cell is not free
     if (!isNullOrUndefined(cells[cell])) {
 		return false;
 	}
     // cannot make a move if the game is over
-    if (!isNullOrUndefined(getWinner(cells).winner) || isTie(cells)) {
-		return false;
-	}
-    return true;
+	return !isFinished(cells);
+};
+
+const getBoard = (board) => {
+	return localStrings.formatString(localStrings.board, board);
 };
 
 const getStatusMessage = (cells, player) => {
@@ -88,7 +93,9 @@ const mapStateToProps = (state) => {
     return {
         player: state['player'],
         cells: state['cells'],
+		board: getBoard(state['board']),
 		winCells: getWinner(state['cells']).winningState,
+		roundFinished: isFinished(state['cells']),
         message: getStatusMessage(state['cells'], state['player'])
     };
 };
@@ -102,7 +109,16 @@ const mapDispatchToProps = (dispatch) => {
         },
         onReset: () => {
             dispatch(resetGame());
-        }
+        },
+		onStart: (board, player) => {
+			dispatch(startGame(board, player));
+		},
+		onInitialize: (board, cells, player) => {
+			dispatch(initializeGame(board, cells, player));
+		},
+		onFinalize: (board, cells, player) => {
+			dispatch(finalizeGame(board, cells, player));
+		}
     }
 };
 

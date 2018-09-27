@@ -24,8 +24,6 @@ class BoardWidget extends Component {
 	static get propTypes() {
 		return {
 			dataClass: PropTypes.object
-			//onConnect: PropTypes.func,
-			//onDisconnect: PropTypes.func
 		};
 	}
 
@@ -33,13 +31,12 @@ class BoardWidget extends Component {
 		return {
         	className: 'board-widget',
 			dataClass: { boardWidgetInfo: 'board-widget-info' }
-			//onConnect: this.onConnect,
-			//onDisconnect: this.onDisconnect
         };
     }
 	
 	constructor(props) {
 		super(props);
+		this.onConnect = this.onConnect.bind(this);
 		this.state = { isStart: false, isEnded: false, isReset: false, isSetCell: false, response: null };
 	}
 	
@@ -48,17 +45,6 @@ class BoardWidget extends Component {
 			if(this.props.onConnect) {
 				this.props.onConnect(socket).call(this);
 			}
-			socket.on('start', this.onStart(socket));
-			socket.on('setcell', this.onSetCell(socket));
-			socket.on('reset', this.onReset(socket));
-			socket.on('initialize', this.onInitialize(socket));
-			socket.on('finalize', this.onFinalize(socket));
-			
-			this.onEmitConnect = this.onEmitConnect(socket);
-			this.onEmitDisconnect = this.onEmitDisconnect(socket);
-			this.onEmitStart = this.onEmitStart(socket);
-			this.onEmitSetCell = this.onEmitSetCell(socket);
-			this.onEmitReset = this.onEmitReset(socket);
 			//socket.emit('initialize');
 	    };
 	}
@@ -74,7 +60,7 @@ class BoardWidget extends Component {
 		
 	onStart(socket) {
 		return data => {
-			Logger.debug(tag`onStart: data ${data} from socket with id=${socket.id}`);
+			Logger.debug(tag`onStart: start with data ${data} from socket with id=${socket.id}`);
 			this.setState({ isStart: true, response: data });
 			if(this.props.onStart) {
 				this.props.onStart(socket).call(this, data);
@@ -84,10 +70,10 @@ class BoardWidget extends Component {
 	
 	onSetCell(socket) {
 		return data => {
-			Logger.debug(tag`onSetCell: data ${data} from socket with id=${socket.id}`);
-			this.setState({ isSetCell: true, response: data });
+			Logger.debug(tag`onSetCell: set cell with data ${data} from socket with id=${socket.id}`);
+			this.setState({ isSetCell: true, isEnded: this.props.roundFinished, response: data });
 			if(this.props.onSetCell) {
-				this.props.onSetCell(socket).call(this, data);
+				this.props.onSetCell(socket).call(this, data.cell, data.cells, data.player);
 			}
 	    };
 	}
@@ -103,21 +89,21 @@ class BoardWidget extends Component {
 	}
 	
 	onInitialize(socket) {
-		return () => {
-			Logger.debug(`onInitialize: reset from socket with id=${socket.id}`);
+		return (data) => {
+			Logger.debug(`onInitialize: initialize with data=${data} from socket with id=${socket.id}`);
 			this.setState({ isStart: false, isEnded: false, isReset: false, isSetCell: false, response: null });
 			if(this.props.onInitialize) {
-				this.props.onInitialize(socket).call(this);
+				this.props.onInitialize(socket).call(this, data.board, data.cells, data.player);
 			}
 	    };
 	}
 	
 	onFinalize(socket) {
-		return () => {
-			Logger.debug(`onFinalize: reset from socket with id=${socket.id}`);
+		return (data) => {
+			Logger.debug(`onFinalize: finalize with data=${data} from socket with id=${socket.id}`);
 			this.setState({ isStart: false, isEnded: true, isReset: false, isSetCell: false, response: null });
 			if(this.props.onFinalize) {
-				this.props.onFinalize(socket).call(this);
+				this.props.onFinalize(socket).call(this, data.board, data.cells, data.player);
 			}
 	    };
 	}
@@ -144,7 +130,7 @@ class BoardWidget extends Component {
 	
 	onEmitStart(socket) {
 		return data => {
-			Logger.debug(tag`onEmitStart: data ${data} to socket with id=${socket.id}`);
+			Logger.debug(tag`onEmitStart: start with data ${data} to socket with id=${socket.id}`);
 			socket.emit('start', data);
 			if(this.props.onStart) {
 				this.props.onStart.call(this, data);
@@ -154,8 +140,8 @@ class BoardWidget extends Component {
 	
 	onEmitSetCell(socket) {
 		return (cell, cells, player) => {
-			if(!this.state.isEnded) {
-				Logger.debug(tag`onEmitSetCell: data ${{cell, cells, player}} to socket with id=${socket.id}`);
+			if(!this.props.roundFinished) {
+				Logger.debug(tag`onEmitSetCell: setcell with data ${{cell, cells, player}} to socket with id=${socket.id}`);
 				socket.emit('setcell', { cell, cells, player });
 				if(this.props.onSetCell) {
 					this.props.onSetCell.call(this, cell, cells, player);
@@ -174,24 +160,66 @@ class BoardWidget extends Component {
 		};
 	}
 	
+	onEmitInitialize(socket) {
+		return (board, cells, player) => {
+			Logger.debug(tag`onEmitInitialize: initialize with data ${{board, cells, player}} to socket with id=${socket.id}`);
+			socket.emit('initialize');
+			if(this.props.onInitialize) {
+				this.props.onInitialize.call(this, board, cells, player);
+			}
+		};
+	}
+	
+	onEmitFinalize(socket) {
+		return (board, cells, player) => {
+			Logger.debug(tag`onEmitFinalize: finalize with data ${{board, cells, player}} to socket with id=${socket.id}`);
+			socket.emit('finalize');
+			if(this.props.onFinalize) {
+				this.props.onFinalize.call(this, board, cells, player);
+			}
+		};
+	}
+	
 	componentDidMount() {
 		const socket = socketIOClient(this.props.endpoint);
 		socket.on('connect', this.onConnect(socket));
 		socket.on('disconnect', this.onDisconnect(socket));
+		
+		socket.on('start', this.onStart(socket));
+		socket.on('setcell', this.onSetCell(socket));
+		socket.on('reset', this.onReset(socket));
+		socket.on('initialize', this.onInitialize(socket));
+		socket.on('finalize', this.onFinalize(socket));
+		
+		this.onEmitConnect = this.onEmitConnect(socket);
+		this.onEmitDisconnect = this.onEmitDisconnect(socket);
+		this.onEmitStart = this.onEmitStart(socket);
+		this.onEmitSetCell = this.onEmitSetCell(socket);
+		this.onEmitReset = this.onEmitReset(socket);
+		
+		this.onEmitInitialize = this.onEmitInitialize(socket);
+		this.onEmitFinalize = this.onEmitFinalize(socket);
 	}
 	
     render() {
-		const { className, dataClass, message, isConnected, onConnect, onDisconnect, onStart, onSetCell, onReset, onInitialize, onFinalize, ...rest} = this.props;
+		const { className, dataClass, roundFinished, board, message, isConnected, onConnect, onDisconnect, onStart, onSetCell, onReset, onInitialize, onFinalize, ...rest } = this.props;
 		//const response = this.state.response ? <div {...rest}>{this.state.response}</div> : <Loader />;
 		//const elements = isConnected ? <div className={className}>{response}</div> : null;
         return (
-            <div className={className}>
-				<StatusBar message={message} />
-				<Grid onSetCell={this.onEmitSetCell} {...rest} />
-				<div className="panel">
-					<Button label="Reset" className="button button-reset" onPress={(e) => this.onEmitReset()} />
-				</div>
-            </div>
+            <>
+				{
+					isConnected
+						?	<div className={className}>
+								<div className={dataClass.boardWidgetInfo}>{board}</div>
+								<StatusBar message={message} />
+								<Grid onSetCell={this.onEmitSetCell} {...rest} />
+								<div className="panel">
+									<Button label="Reset" className="button button-reset" onPress={(e) => this.onEmitReset()} />
+								</div>
+							</div>
+						: null
+				}
+            </>
         )
     }
 }
