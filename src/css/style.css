@@ -520,7 +520,10 @@ button {
   margin: 0;
   text-align: center; }
   .board-widget .board-widget-info {
+    height: auto;
+    min-height: 60px;
     font-size: 16px;
+    padding-top: 15px;
     text-transform: uppercase;
     font-weight: 200;
     letter-spacing: 2px;
@@ -528,12 +531,18 @@ button {
   .board-widget .board-widget-status {
     display: block; }
   .board-widget .board-widget-message {
+    height: auto;
+    min-height: 60px;
     display: block;
     padding-top: 20px;
     font-size: 12px;
     font-weight: 200;
     letter-spacing: 2px;
     color: black; }
+  .board-widget .board-widget-layout {
+    background: sandybrown; }
+  .board-widget .board-widget-playground {
+    background: chocolate; }
   .board-widget:focus {
     outline: none; }
 

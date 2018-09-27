@@ -81,12 +81,13 @@ io.on('connection', (socket) => {
 	socket.on('start', (data) => {
 		Logger.debug(tag`SERVER: start with data=${data} from socket with id=${socket.id}`);
 		const room = io.nsps['/'].adapter.rooms[data.room];
-		if(room && room.length == 1) {
+		if(room && room.length <= 2) {
 			socket.join(data.room);
-			socket.broadcast.to(data.room).emit('player first', {});
-			socket.emit('player second', { name: data.player, room: data.room })
+			//let [firstPlayer, secondPlayer] = (room.length == 1) ? ['player first', 'player second'] : ['player second', 'player first'];
+			socket.broadcast.to(data.room).emit('player first', { name: data.player, room: data.room, message: 'Connected ...' });
+			socket.emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
 		} else {
-			socket.emit('reject', { message: 'Rejected, current room is full!' });
+			socket.emit('reject', { name: data.player, room: data.room, message: 'Request rejected => current room is full!' });
 		}
 	});
 	
@@ -115,6 +116,16 @@ io.on('connection', (socket) => {
 		Logger.debug(tag`SERVER: finalize with data=${data} from socket with id=${socket.id}`);
 		socket.broadcast.to(data.room).emit('finalize', data);
 		socket.leave(data.room);
+	});
+	
+	socket.on('player first', (data) => {
+		Logger.debug(tag`SERVER: player first with data=${data} from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('player first', { name: data.player, room: data.room, message: 'Connected ...' });
+	});
+	
+	socket.on('player second', (data) => {
+		Logger.debug(tag`SERVER: player second with data=${data} from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
 	});
 	
 		/*var addedUser = false;
