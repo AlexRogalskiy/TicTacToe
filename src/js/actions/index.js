@@ -27,20 +27,20 @@ export const startGame = (board, player) => {
     };
 };
 
-export const initializeGame = (board, cells, player) => {
+export const initializeGame = (data) => {
     return {
         type: INITIALIZE,
-		board,
-		cells,
-		player
+		board: data.board,
+		cells: data.cells,
+		player: data.player
     };
 };
 
-export const finalizeGame = (board, cells, player) => {
+export const finalizeGame = (data) => {
     return {
         type: FINALIZE,
-		board,
-		cells,
-		player
+		board: data.board,
+		cells: data.cells,
+		player: data.player
     };
 };

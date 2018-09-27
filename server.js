@@ -71,11 +71,10 @@ const io = socketIo(server, {}); //{ parser: jsonParser }
 io.on('connection', (socket) => {
 	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 	
-	let rooms = 0;
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
-		socket.join('room-' + ++rooms);
-		socket.emit('start', { name: data.name, room: 'room-' + rooms });
+		socket.join(`Room-${data.board.id}`);
+		socket.emit('start', { name: data.player, room: `Room-${data.board.id}` });
 		//if (start == 1) {
 		//	socket.emit("handshake", p2);
 		//	start++;
@@ -94,9 +93,9 @@ io.on('connection', (socket) => {
 		if(room && room.length == 1){
 			socket.join(data.room);
 			socket.broadcast.to(data.room).emit('player1', {});
-			socket.emit('player2', {name: data.name, room: data.room })
+			socket.emit('player2', { name: data.player, room: data.room })
 		} else {
-			socket.emit('err', {message: 'Sorry, The room is full!'});
+			socket.emit('error', { message: 'Sorry, The room is full!' });
 		}
 	});
 	

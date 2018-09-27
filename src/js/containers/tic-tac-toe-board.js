@@ -75,7 +75,12 @@ const isValidMove = (cells, cell) => {
 };
 
 const getBoard = (board) => {
-	return localStrings.formatString(localStrings.board, board);
+	return {
+		message: localStrings.formatString(localStrings.board, board),
+		title: board.title,
+		id: board.id,
+		date: board.date
+	};
 };
 
 const getStatusMessage = (cells, player) => {
@@ -113,11 +118,11 @@ const mapDispatchToProps = (dispatch) => {
 		onStart: (board, player) => {
 			dispatch(startGame(board, player));
 		},
-		onInitialize: (board, cells, player) => {
-			dispatch(initializeGame(board, cells, player));
+		onInitialize: (data) => {
+			dispatch(initializeGame(data));
 		},
-		onFinalize: (board, cells, player) => {
-			dispatch(finalizeGame(board, cells, player));
+		onFinalize: (data) => {
+			dispatch(finalizeGame(data));
 		}
     }
 };

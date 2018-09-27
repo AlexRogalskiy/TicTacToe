@@ -10,14 +10,14 @@ import { guidGenerator, currentDate, currentTime } from '../libs/helpers';
 
 const scheme = config.default.scheme;
 
-const board = (state = config[scheme].title, action) => {
+const board = (state = { title: config[scheme].title, id: null, date: null }, action) => {
     switch (action.type) {
 		case START:
-			return config[scheme].title + ' <' + guidGenerator() + '>';
+			return { title: config[scheme].title, id: guidGenerator(), date: null };
 		case INITIALIZE:
-			return config[scheme].title;
+			return { title: config[scheme].title, id: null, date: null };
         case RESET:
-			return config[scheme].title + ' <' + guidGenerator() + '> ' + currentDate() + '/' + currentTime();
+			return { title: config[scheme].title, id: guidGenerator(), date: currentDate() + '/' + currentTime() };
 		case FINALIZE:
 		case ADD_MOVE:
         default:
