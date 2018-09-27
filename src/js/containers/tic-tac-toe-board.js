@@ -76,7 +76,7 @@ const isValidMove = (cells, cell) => {
 
 const getBoard = (board) => {
 	return {
-		message: localStrings.formatString(localStrings.board, board),
+		message: localStrings.formatString(localStrings.board, board.title, board.id, board.date),
 		title: board.title,
 		id: board.id,
 		date: board.date
@@ -107,13 +107,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSetCell: (cell, cells, player) => {
-            if (isValidMove(cells, cell)) {
-				dispatch(addMove(cell, player));
+        onSetCell: (data) => {
+            if (isValidMove(data.cells, data.cell)) {
+				dispatch(addMove(data.cell, data.player));
 			}
         },
-        onReset: () => {
-            dispatch(resetGame());
+        onReset: (data) => {
+            dispatch(resetGame(data));
         },
 		onStart: (board, player) => {
 			dispatch(startGame(board, player));

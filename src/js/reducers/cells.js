@@ -14,9 +14,8 @@ const cells = (state = [undefined, undefined, undefined, undefined, undefined, u
 		case START:
 		case INITIALIZE:
         case RESET:
-            return [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
 		case FINALIZE:
-			return [];
+            return [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
         default:
             return state;
     }

@@ -10,12 +10,12 @@ import { guidGenerator, currentDate, currentTime } from '../libs/helpers';
 
 const scheme = config.default.scheme;
 
-const board = (state = { title: config[scheme].title, id: null, date: null }, action) => {
+const board = (state = { title: config[scheme].title, id: guidGenerator(), date: null }, action) => {
     switch (action.type) {
 		case START:
-			return { title: config[scheme].title, id: guidGenerator(), date: null };
+			return { title: state.title, id: state.id, date: currentDate() + '/' + currentTime() };
 		case INITIALIZE:
-			return { title: config[scheme].title, id: null, date: null };
+			return { title: state.title, id: state.id, date: null };
         case RESET:
 			return { title: config[scheme].title, id: guidGenerator(), date: currentDate() + '/' + currentTime() };
 		case FINALIZE:

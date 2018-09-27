@@ -26,7 +26,7 @@ class Grid extends Component {
                 {
                     cells.map((value, cell) => (
                         <Cell key={cell} state={value} isWinner={winCells && winCells.includes(cell) ? true : false} onPress={(e) => {
-                             onSetCell(cell, cells, player)
+                             onSetCell({ cell, cells, player })
                         }}/>
                     ))
                 }

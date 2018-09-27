@@ -69,10 +69,11 @@ const server = http.createServer(app);
 const io = socketIo(server, {}); //{ parser: jsonParser }
 
 io.on('connection', (socket) => {
-	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
+		fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+		
 		socket.join(`Room-${data.board.id}`);
 		socket.emit('start', { name: data.player, room: `Room-${data.board.id}` });
 		//if (start == 1) {
@@ -89,13 +90,13 @@ io.on('connection', (socket) => {
 	
 	socket.on('start', (data) => {
 		Logger.debug(tag`SERVER: start with data=${data} from socket with id=${socket.id}`);
-		var room = io.nsps['/'].adapter.rooms[data.room];
-		if(room && room.length == 1){
+		const room = io.nsps['/'].adapter.rooms[data.room];
+		if(room && room.length == 1) {
 			socket.join(data.room);
-			socket.broadcast.to(data.room).emit('player1', {});
-			socket.emit('player2', { name: data.player, room: data.room })
+			socket.broadcast.to(data.room).emit('player first', { });
+			socket.emit('player second', { name: data.player, room: data.room })
 		} else {
-			socket.emit('error', { message: 'Sorry, The room is full!' });
+			socket.emit('reject', { message: 'Sorry, The room is full!' });
 		}
 	});
 	
@@ -107,19 +108,23 @@ io.on('connection', (socket) => {
 	
 	socket.on('setcell', (data) => {
 		Logger.debug(tag`SERVER: setcell with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('turnPlayed', {
-			tile: data.tile,
+		socket.broadcast.to(data.room).emit('setcell', {
+			cells: data.cells,
+			cell: data.cell,
+			player: data.player,
 			room: data.room
 		});
 	});
 	
-	socket.on('reset', () => {
-		Logger.debug(`SERVER: reset from socket with id=${socket.id}`);
+	socket.on('reset', (data) => {
+		Logger.debug(tag`SERVER: reset with data=${data} from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('reset', data);
 	});
 	
 	socket.on('finalize', (data) => {
-		Logger.debug(`SERVER: finalize from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('gameEnd', data);
+		Logger.debug(tag`SERVER: finalize with data=${data} from socket with id=${socket.id}`);
+		socket.broadcast.to(data.room).emit('finalize', data);
+		socket.leave(data.room);
 	});
 	
 		/*var addedUser = false;

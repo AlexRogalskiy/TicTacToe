@@ -13,9 +13,10 @@ export const addMove = (cell, player) => {
     };
 };
 
-export const resetGame = () => {
+export const resetGame = (data) => {
     return {
-        type: RESET
+        type: RESET,
+		room: data.room
     };
 };
 
@@ -32,7 +33,8 @@ export const initializeGame = (data) => {
         type: INITIALIZE,
 		board: data.board,
 		cells: data.cells,
-		player: data.player
+		player: data.player,
+		room: data.room
     };
 };
 
@@ -41,6 +43,7 @@ export const finalizeGame = (data) => {
         type: FINALIZE,
 		board: data.board,
 		cells: data.cells,
-		player: data.player
+		player: data.player,
+		room: data.room
     };
 };
