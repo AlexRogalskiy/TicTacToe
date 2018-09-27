@@ -20,7 +20,6 @@ const player = (state = config[scheme].player1.marker, action) => {
         case RESET:
             return config[scheme]['player' + (randomBinary() + 1)].marker;
 		case FINALIZE:
-			return config[scheme].marker;
         default:
             return state;
     }

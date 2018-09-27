@@ -74,18 +74,8 @@ io.on('connection', (socket) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
 		fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 		
-		socket.join(`Room-${data.board.id}`);
-		socket.emit('start', { name: data.player, room: `Room-${data.board.id}` });
-		//if (start == 1) {
-		//	socket.emit("handshake", p2);
-		//	start++;
-		//	//board = new game.Board(p1, p2);
-		//	socket.emit("go", { "plays": board.getPlays(), "err": "" });
-		//} else if (start == 0) {
-		//	socket.emit("handshake", p1);
-		//	socket.emit("status", "Waiting for the second player...");
-		//	start++;
-		//}
+		socket.join(data.board.id);
+		socket.emit('start', { name: data.player, room: data.board.id });
 	});
 	
 	socket.on('start', (data) => {
@@ -93,17 +83,17 @@ io.on('connection', (socket) => {
 		const room = io.nsps['/'].adapter.rooms[data.room];
 		if(room && room.length == 1) {
 			socket.join(data.room);
-			socket.broadcast.to(data.room).emit('player first', { });
+			socket.broadcast.to(data.room).emit('player first', {});
 			socket.emit('player second', { name: data.player, room: data.room })
 		} else {
-			socket.emit('reject', { message: 'Sorry, The room is full!' });
+			socket.emit('reject', { message: 'Rejected, current room is full!' });
 		}
 	});
 	
 	socket.on('disconnect', () => {
 		Logger.debug(`SERVER: disconnect client from socket with id=${socket.id}`);
-		//start = 0;
-		//socket.emit("win", "The other player left the game...");
+		//socket.broadcast.to(data.room).emit('disconnect');
+		socket.emit("finalize", "The other player left the game...");
 	});
 	
 	socket.on('setcell', (data) => {

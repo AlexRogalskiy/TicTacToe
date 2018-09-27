@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 
 import TicTacToeBoard from '../containers/tic-tac-toe-board';
 import WeatherWidget from '../components/widgets/weather-widget';
@@ -31,11 +32,12 @@ class App extends Component {
 	
     render() {
 		const WeatherWidgetWrapper = wrapper(WeatherWidget);
-		const TicTacToeBoardWrapper = wrapper(TicTacToeBoard);
+		const TicTacToeBoardRouterWrapper = wrapper(withRouter(TicTacToeBoard));
+		const { staticContext, ...rest } = this.props;
         return (
-			<div {...this.props}>
+			<div {...rest}>
 				<Header />
-				<TicTacToeBoardWrapper player={config[scheme].player1.marker} />
+				<TicTacToeBoardRouterWrapper player={config[scheme].player1.marker} />
 				<Footer>
 					<WeatherWidgetWrapper />
 				</Footer>

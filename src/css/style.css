@@ -525,6 +525,15 @@ button {
     font-weight: 200;
     letter-spacing: 2px;
     color: black; }
+  .board-widget .board-widget-status {
+    display: block; }
+  .board-widget .board-widget-message {
+    display: block;
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    color: black; }
   .board-widget:focus {
     outline: none; }
 

@@ -13,6 +13,19 @@
 		color: black;
 	}
 	
+	.board-widget-status {
+		display: block;
+	}
+	
+	.board-widget-message {
+		display: block;
+		padding-top: 20px;
+		font-size: 12px;
+		font-weight: 200;
+		letter-spacing: 2px;
+		color: black;
+	}
+	
 	&:focus {
 		outline: none;
 	}

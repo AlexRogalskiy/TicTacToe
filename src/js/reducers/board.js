@@ -17,7 +17,7 @@ const board = (state = { title: config[scheme].title, id: guidGenerator(), date:
 		case INITIALIZE:
 			return { title: state.title, id: state.id, date: null };
         case RESET:
-			return { title: config[scheme].title, id: guidGenerator(), date: currentDate() + '/' + currentTime() };
+			return { title: config[scheme].title, id: state.id, date: currentDate() + '/' + currentTime() };
 		case FINALIZE:
 		case ADD_MOVE:
         default:

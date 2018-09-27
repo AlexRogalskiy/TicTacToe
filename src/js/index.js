@@ -6,20 +6,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import registerServiceWorker from './vendor/service-worker';
+import { Redirect } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import style from "../css/style.css";
 
 import App from './views/app';
 import store from './stores/index';
+import registerServiceWorker from './vendor/service-worker';
+
+const renderRoot = (Component, wrapper) =>
+  	ReactDOM.render(
+		<BrowserRouter>
+			<Provider store={store}>
+				<Switch>
+					<Route exact path='/' component={Component} />
+					<Redirect from='*' to='/' />
+				</Switch>
+			</Provider>
+		</BrowserRouter>,
+		wrapper
+);
 
 const wrapper = document.getElementById("root");
+
 if(wrapper) {
-	ReactDOM.render(
-		<Provider store={store}>
-			<App />
-		</Provider>,
-		wrapper
-	);
+	renderRoot(App, wrapper);
 	registerServiceWorker();	
 }
