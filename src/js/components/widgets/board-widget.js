@@ -4,18 +4,20 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import socketIOClient from 'socket.io-client';
+import PropTypes 			from 'prop-types';
+import socketIOClient 		from 'socket.io-client';
 
-//import Loader from './loader';
-
-import Button from '../button';
-import StatusBar from '../statusbar';
-import Grid from '../grid';
+import Loader from 		'../loader';
+import Button from 		'../button';
+import StatusBar from 	'../statusbar';
+import Grid from 		'../grid';
 
 import { Logger, tag } from '../../libs/logger';
 
 class BoardWidget extends Component {
+	
+	const DEFAULT_SERVER_CONNECTION_PLACEHOLDER = 'Connecting to play server ...';
+	const DEFAULT_BOARD_CONNECTION_PLACEHOLDER = 'Connecting to play ground ...';
 	
 	get displayName() {
 		return 'BoardWidget';
@@ -30,7 +32,15 @@ class BoardWidget extends Component {
 	static get defaultProps() {
 		return {
         	className: 'board-widget',
-			dataClass: { boardWidgetInfo: 'board-widget-info', boardWidgetPlayground: 'board-widget-playground', boardWidgetStatus: 'board-widget-status', boardWidgetMessage: 'board-widget-message', boardWidgetLayout: 'board-widget-layout' }
+			dataClass: {
+				boardWidgetInfo: 		'board-widget-info',
+				boardWidgetPlayground: 	'board-widget-playground',
+				boardWidgetStatus:		'board-widget-status',
+				boardWidgetMessage: 	'board-widget-message',
+				boardWidgetPanel: 		'board-widget-panel',
+				boardWidgetLayout: 		'board-widget-layout',
+				boardWidgetLoader: 		'board-widget-loader'
+			}
         };
     }
 	
@@ -43,7 +53,16 @@ class BoardWidget extends Component {
 		this.onInitialize 	 = this.onInitialize.bind(this);
 		this.onFinalize 	 = this.onFinalize.bind(this);
 		this.onReject	  	 = this.onReject.bind(this);
-		this.state = { isReject: false, isStart: false, isPlayerFirst: false, isPlayerSecond: false, isEnded: false, isReset: false, isSetCell: false, response: null };
+		this.state = {
+			isReject: 		false,
+			isStart: 		false,
+			isPlayerFirst: 	false,
+			isPlayerSecond: false,
+			isEnded: 		false,
+			isReset: 		false,
+			isSetCell: 		false,
+			response: 		null
+		};
 	}
 	
 	onConnect(socket) {
@@ -127,11 +146,13 @@ class BoardWidget extends Component {
 	
 	onPlayerFirst(socket) {
 		return data => {
-			Logger.debug(tag`onPlayerFirst: player first with data=${data} from socket with id=${socket.id}`);
-			this.setState({ isPlayerFirst: true, isSetCell: true, response: data });
-			this.onEmitPlayerFirst(data);
-			if(this.props.onPlayerFirst) {
-				this.props.onPlayerFirst.call(this, data);
+			if(!this.state.isPlayerFirst) {
+				Logger.debug(tag`onPlayerFirst: player first with data=${data} from socket with id=${socket.id}`);
+				this.setState({ isPlayerFirst: true, isSetCell: true, response: data });
+				this.onEmitPlayerFirst(data);
+				if(this.props.onPlayerFirst) {
+					this.props.onPlayerFirst.call(this, data);
+				}
 			}
 	    };
 	}
@@ -202,7 +223,7 @@ class BoardWidget extends Component {
 	
 	onEmitPlayerFirst(socket) {
 		return data => {
-			Logger.debug(tag`onEmitPlayerFirst: finalize with data=${data} to socket with id=${socket.id}`);
+			Logger.debug(tag`onEmitPlayerFirst: player first with data=${data} to socket with id=${socket.id}`);
 			socket.emit('player first', { player: data.player, room: this.state.response.room });//board: data.board, cells: data.cells,
 			if(this.props.onPlayerFirst) {
 				this.props.onPlayerFirst.call(this, { player: data.player, room: this.state.response.room });
@@ -212,7 +233,7 @@ class BoardWidget extends Component {
 	
 	onEmitPlayerSecond(socket) {
 		return data => {
-			Logger.debug(tag`onEmitPlayerSecond: finalize with data=${data} to socket with id=${socket.id}`);
+			Logger.debug(tag`onEmitPlayerSecond: player second with data=${data} to socket with id=${socket.id}`);
 			socket.emit('player second', { player: data.player, room: this.state.response.room });//board: data.board, cells: data.cells,
 			if(this.props.onPlayerSecond) {
 				this.props.onPlayerSecond.call(this, { player: data.player, room: this.state.response.room });
@@ -222,10 +243,10 @@ class BoardWidget extends Component {
 	
 	onEmitInitialize(socket) {
 		return data => {
+			Logger.debug(tag`onEmitInitialize: initialize with data=${data} to socket with id=${socket.id}`);
 			if(this.props.location.hash) {
 				data.board.id = this.props.location.hash.substr(1);
 			}
-			Logger.debug(tag`onEmitInitialize: initialize with data=${data} to socket with id=${socket.id}`);
 			socket.emit('initialize', { board: data.board, cells: data.cells, player: data.player });
 			if(this.props.onInitialize) {
 				this.props.onInitialize.call(this, { board: data.board, cells: data.cells, player: data.player });
@@ -246,28 +267,35 @@ class BoardWidget extends Component {
 	
 	componentDidMount() {
 		const socket = socketIOClient(this.props.endpoint);
-		socket.on('connect', this.onConnect(socket));
-		socket.on('disconnect', this.onDisconnect(socket));
+		socket.on('connect', 		this.onConnect(socket));
+		socket.on('disconnect', 	this.onDisconnect(socket));
 		
-		socket.on('start', this.onStart(socket));
-		socket.on('setcell', this.onSetCell(socket));
-		socket.on('reset', this.onReset(socket));
-		socket.on('initialize', this.onInitialize(socket));
-		socket.on('finalize', this.onFinalize(socket));
-		socket.on('reject', this.onReject(socket));
+		socket.on('start', 			this.onStart(socket));
+		socket.on('setcell',		this.onSetCell(socket));
+		socket.on('reset', 			this.onReset(socket));
+		socket.on('initialize', 	this.onInitialize(socket));
+		socket.on('finalize',		this.onFinalize(socket));
+		socket.on('reject',			this.onReject(socket));
 		
-		socket.on('player first', this.onPlayerFirst(socket));
-		socket.on('player second', this.onPlayerSecond(socket));
+		socket.on('player first', 	this.onPlayerFirst(socket));
+		socket.on('player second', 	this.onPlayerSecond(socket));
 		
-		this.onEmitConnect 			= this.onEmitConnect(socket);
-		this.onEmitDisconnect 		= this.onEmitDisconnect(socket);
-		this.onEmitStart 			= this.onEmitStart(socket);
-		this.onEmitSetCell	   	 	= this.onEmitSetCell(socket);
-		this.onEmitReset	    	= this.onEmitReset(socket);
-		this.onEmitPlayerFirst	    = this.onEmitPlayerFirst(socket);
-		this.onEmitPlayerSecond     = this.onEmitPlayerSecond(socket);
-		this.onEmitInitialize	    = this.onEmitInitialize(socket);
-		this.onEmitFinalize		    = this.onEmitFinalize(socket);
+		this.onEmitConnect 		  = this.onEmitConnect(socket);
+		this.onEmitDisconnect 	  = this.onEmitDisconnect(socket);
+		this.onEmitStart 		  = this.onEmitStart(socket);
+		this.onEmitSetCell	   	  = this.onEmitSetCell(socket);
+		this.onEmitReset	      = this.onEmitReset(socket);
+		this.onEmitPlayerFirst	  = this.onEmitPlayerFirst(socket);
+		this.onEmitPlayerSecond   = this.onEmitPlayerSecond(socket);
+		this.onEmitInitialize	  = this.onEmitInitialize(socket);
+		this.onEmitFinalize		  = this.onEmitFinalize(socket);
+	}
+	
+	renderServiceMessage(message) {
+		<div className={this.props.dataClass.boardWidgetMessage}>
+			{ message }
+			<Loader className={this.props.dataClass.boardWidgetLoader} />
+		</div>
 	}
 	
 	renderPlayGround() {
@@ -295,8 +323,6 @@ class BoardWidget extends Component {
 	
     render() {
 		const { staticContext, className, dataClass, roundFinished, board, message, isConnected, onConnect, onDisconnect, onStart, onSetCell, onReset, onInitialize, onFinalize, ...rest } = this.props;
-		//const response = this.state.response ? <div {...rest}>{this.state.response}</div> : <Loader />;
-		//const elements = isConnected ? <div className={className}>{response}</div> : null;
         return (
             <div className={className}>
 				{
@@ -305,37 +331,46 @@ class BoardWidget extends Component {
 								<div className={dataClass.boardWidgetInfo}>{board.message}</div>
 								{
 									(this.state.isStart)
-										?	<div>
-												{
-													(!this.state.isReject && !this.state.isPlayerSecond)
-														?	<Button label="Join" className="button" onPress={(e) => this.onEmitStart({ player: this.props.player, room: this.state.response.room })} />
-														: 	<div className={dataClass.boardWidgetStatus}>
-															{
-																(this.state.isPlayerFirst && this.state.isPlayerSecond)
-																	? 	<div className={dataClass.boardWidgetLayout}>
-																			<StatusBar message={message} />
-																			<div className={dataClass.boardWidgetMessage}>
-																				Connected ...
-																			</div>
-																			<Grid onSetCell={this.onEmitSetCell} {...rest} />
-																			<div className="panel">
-																				<Button label="Reset" className="button button-reset" onPress={(e) => this.onEmitReset({ room: this.state.response.room })} />
-																			</div>
+										?	<div className={dataClass.boardWidgetLayout}>
+											{
+												(!this.state.isReject && !this.state.isPlayerSecond)
+													?	<Button label="Join" className="button" onPress={(e) => this.onEmitStart({ player: this.props.player, room: this.state.response.room })} />
+													: 	<div className={dataClass.boardWidgetStatus}>
+														{
+															(this.state.isPlayerFirst && this.state.isPlayerSecond)
+																? 	<div className={dataClass.boardWidgetPanel}>
+																		<StatusBar message={message} />
+																		<div className={dataClass.boardWidgetMessage}>
+																			{this.state.response.message}
 																		</div>
-																	:	<div className={dataClass.boardWidgetMessage}>
-																			{ this.state.response.message }
+																		<Grid onSetCell={this.onEmitSetCell} {...rest} />
+																		<div className="panel">
+																			<Button label="Reset" className="button button-reset" onPress={(e) => this.onEmitReset({ room: this.state.response.room })} />
 																		</div>
-															}
-															</div>
-												}
+																	</div>
+																:	<div className={dataClass.boardWidgetMessage}>
+																		{
+																			(this.state.isReject)
+																				? 	<div>{this.state.response.message}</div>
+																				:	<div>
+																						{this.state.response.message}
+																						<Loader className={dataClass.boardWidgetLoader} />
+																					</div>
+																		}
+																	</div>
+														}
+														</div>
+											}
 											</div>
 										: 	<div className={dataClass.boardWidgetMessage}>
-												Connecting to playground
+												{ DEFAULT_BOARD_CONNECTION_PLACEHOLDER }
+												<Loader className={dataClass.boardWidgetLoader} />
 											</div>
 								}
 							</div>
 						: 	<div className={dataClass.boardWidgetMessage}>
-								Connecting to play server
+								{ DEFAULT_SERVER_CONNECTION_PLACEHOLDER }
+								<Loader className={dataClass.boardWidgetLoader} />
 							</div>
 				}
             </div>

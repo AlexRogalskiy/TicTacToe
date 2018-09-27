@@ -5,38 +5,49 @@
 	margin: 0;
 	text-align: center;
 	
-	.board-widget-info {
-		height: auto;
-		min-height: 60px;
-		font-size: 16px;
-		padding-top: 15px;
-		text-transform: uppercase;
-		font-weight: 200;
-		letter-spacing: 2px;
-		color: black;
-	}
-	
-	.board-widget-status {
-		display: block;
-	}
-	
-	.board-widget-message {
-		height: auto;
-		min-height: 60px;
-		display: block;
-		padding-top: 20px;
-		font-size: 12px;
-		font-weight: 200;
-		letter-spacing: 2px;
-		color: black;
-	}
-	
-	.board-widget-layout {
-		background: sandybrown;
-	}
-	
 	.board-widget-playground {
-		background: chocolate;
+		width: auto;
+		
+		.board-widget-info {
+			height: auto;
+			min-height: 60px;
+			font-size: 16px;
+			padding-top: 20px;
+			text-transform: uppercase;
+			font-weight: 200;
+			letter-spacing: 2px;
+			color: black;
+			background: chocolate;
+		}
+		
+		.board-widget-layout {
+			height: auto;
+			padding: 20px;
+		}
+		
+		.board-widget-status {
+			height: auto;
+		}
+		
+		.board-widget-panel {
+			background: sandybrown;
+		}
+		
+		.board-widget-message {
+			height: auto;
+			min-height: 60px;
+			font-size: 12px;
+			padding-top: 20px;
+			font-weight: 200;
+			letter-spacing: 2px;
+			color: black;
+		}
+		
+		.board-widget-loader {
+			aside {
+				border-radius: 10px 10px;
+			}
+		}
 	}
 	
 	&:focus {

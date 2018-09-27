@@ -30,7 +30,7 @@ const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
 const PUBLIC_PORT = 8080;
 const PUBLIC_HOST = 'localhost';
 
-const REMOTE_API_URL = '';//'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
+const REMOTE_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
 const REMOTE_API_FETCH_DELAY = 10000;
 
 const app = express();
@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
-		fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+		//fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 		
 		socket.join(data.board.id);
 		socket.emit('start', { name: data.player, room: data.board.id });
@@ -83,7 +83,6 @@ io.on('connection', (socket) => {
 		const room = io.nsps['/'].adapter.rooms[data.room];
 		if(room && room.length <= 2) {
 			socket.join(data.room);
-			//let [firstPlayer, secondPlayer] = (room.length == 1) ? ['player first', 'player second'] : ['player second', 'player first'];
 			socket.broadcast.to(data.room).emit('player first', { name: data.player, room: data.room, message: 'Connected ...' });
 			socket.emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
 		} else {
