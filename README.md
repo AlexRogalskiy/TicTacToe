@@ -1,6 +1,3 @@
-<style type="text/css">
-    ol { list-style-type: upper-alpha; }
-</style>
 
 # TicTacToe
 The TicTacToe Demo
