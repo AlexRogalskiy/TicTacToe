@@ -53,7 +53,7 @@ class WeatherWidget extends Component {
 	
 	onEvent(socket) {
 		return data => {
-			Logger.debug(tag`onEvent: data ${data} from socket with id=${socket.id}`);
+			Logger.debug(tag`onEvent: <event> data ${data} from socket with id=${socket.id}`);
 			this.setState({ response: data });
 	    };
 	}

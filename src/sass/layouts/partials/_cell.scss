@@ -12,9 +12,10 @@
     font-size: 40px;
     line-height: 100px;
     cursor: pointer;
+	border-radius: 10px;
 	
 	&.cell-winner {
-		background-color: #ff00ff;
+		background-color: crimson;
 	}
 	
 	&:nth-child(3n+1) {

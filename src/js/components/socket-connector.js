@@ -33,7 +33,7 @@ abstract class SocketConnector extends Component {
 	
 	onConnect(socket) {
 		return () => {
-			Logger.debug(`Connected by socket with id=${socket.id}`);
+			Logger.debug(`onConnect: <connect> by socket with id=${socket.id}`);
 			this.setState({ isConnected: true });
 			if(this.props.onConnect) {
 				this.props.onConnect(socket).call(this);
@@ -43,7 +43,7 @@ abstract class SocketConnector extends Component {
 	
 	onDisconnect(socket) {
 		return () => {
-			Logger.debug(`Disconnected from socket with id=${socket.id}`);
+			Logger.debug(`onDisconnect: <disconnect> from socket with id=${socket.id}`);
 			this.setState({ isConnected: false });
 			if(this.props.onDisconnect) {
 				this.props.onDisconnect(socket).call(this);

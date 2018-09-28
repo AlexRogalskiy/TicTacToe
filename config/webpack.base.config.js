@@ -15,7 +15,8 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const paths = {
 	BUILD_DIR: path.resolve(__dirname, '../public/build'),
 	SOURCE_DIR: path.resolve(__dirname, '../src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js')
+	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js'),
+	HTML_SOURCE_DIR: path.resolve(__dirname, '../src', 'views')
 };
 
 const BASE_CONFIG = {
@@ -31,16 +32,9 @@ const BASE_CONFIG = {
     },
     module: {
 		rules: [
-			//{ test: /\.ts$/i, loader: 'ts-loader' },
-			//{test: /\.hbs$/, loader: 'handlebars-loader'},
-			//{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
-			//{ test: /\.txt$/, use: [{ loader: 'raw-loader', options: { name: '[path]/[name].[ext]' }}] },
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
 			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash].[ext]' } }]},
-			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: false } }]}
-			//{ test: /\.css$/i, use: [ 'style-loader', 'css-loader' ] },
-			//{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [ 'style-loader', 'css-loader', 'sass-loader' ]},
-			//{ test: /\.(js|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' }
+			{ test: /\.html$/i, include: paths.HTML_SOURCE_DIR, use: [{ loader: 'html-loader', options: { name: '[path]/[name].[ext]', minimize: false } }]}
 		]
     },
 	plugins: [

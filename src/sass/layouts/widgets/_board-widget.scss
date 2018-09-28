@@ -3,16 +3,18 @@
 .board-widget {
 	display: block;
 	margin: 0;
+	height: 100%;
 	text-align: center;
 	
 	.board-widget-playground {
+		height: 100%;
 		width: auto;
 		
 		.board-widget-info {
 			height: auto;
-			min-height: 60px;
 			font-size: 16px;
 			padding-top: 20px;
+			padding-bottom: 20px;
 			text-transform: uppercase;
 			font-weight: 200;
 			letter-spacing: 2px;
@@ -23,30 +25,36 @@
 		.board-widget-layout {
 			height: auto;
 			padding: 20px;
+			background: palegoldenrod;
 		}
 		
 		.board-widget-status {
 			height: auto;
+			border-radius: 20px 20px 0px 0px;
 		}
 		
 		.board-widget-panel {
+			display: block;
 			background: sandybrown;
+			border-radius: 20px;
 		}
 		
 		.board-widget-message {
+			display: block;
+			position: relative;
 			height: auto;
-			min-height: 60px;
 			font-size: 12px;
 			padding-top: 20px;
+			padding-bottom: 20px;
 			font-weight: 200;
 			letter-spacing: 2px;
 			color: black;
 		}
-		
-		.board-widget-loader {
-			aside {
-				border-radius: 10px 10px;
-			}
+	}
+	
+	.board-widget-loader {
+		aside {
+			border-radius: 10px 10px;
 		}
 	}
 	

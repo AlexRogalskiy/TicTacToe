@@ -421,7 +421,8 @@ template {
   padding: 20px 40px;
   background-color: #555555;
   color: #ffffff;
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 10px; }
   .button.button-reset {
     background-color: #444444; }
 
@@ -434,6 +435,7 @@ button {
   letter-spacing: 1px;
   padding: 0 10px;
   border: none;
+  border-radius: 10px;
   outline: none;
   box-shadow: 1px 3px 2px 0px #666;
   transition: transform 100ms ease, box-shadow 100ms ease; }
@@ -518,14 +520,16 @@ button {
 .board-widget {
   display: block;
   margin: 0;
+  height: 100%;
   text-align: center; }
   .board-widget .board-widget-playground {
+    height: 100%;
     width: auto; }
     .board-widget .board-widget-playground .board-widget-info {
       height: auto;
-      min-height: 60px;
       font-size: 16px;
       padding-top: 20px;
+      padding-bottom: 20px;
       text-transform: uppercase;
       font-weight: 200;
       letter-spacing: 2px;
@@ -533,21 +537,27 @@ button {
       background: chocolate; }
     .board-widget .board-widget-playground .board-widget-layout {
       height: auto;
-      padding: 20px; }
+      padding: 20px;
+      background: palegoldenrod; }
     .board-widget .board-widget-playground .board-widget-status {
-      height: auto; }
-    .board-widget .board-widget-playground .board-widget-panel {
-      background: sandybrown; }
-    .board-widget .board-widget-playground .board-widget-message {
       height: auto;
-      min-height: 60px;
+      border-radius: 20px 20px 0px 0px; }
+    .board-widget .board-widget-playground .board-widget-panel {
+      display: block;
+      background: sandybrown;
+      border-radius: 20px; }
+    .board-widget .board-widget-playground .board-widget-message {
+      display: block;
+      position: relative;
+      height: auto;
       font-size: 12px;
       padding-top: 20px;
+      padding-bottom: 20px;
       font-weight: 200;
       letter-spacing: 2px;
       color: black; }
-    .board-widget .board-widget-playground .board-widget-loader aside {
-      border-radius: 10px 10px; }
+  .board-widget .board-widget-loader aside {
+    border-radius: 10px 10px; }
   .board-widget:focus {
     outline: none; }
 
@@ -566,7 +576,8 @@ button {
   font-size: 30px;
   line-height: 60px;
   text-align: center;
-  background-color: #ff8600; }
+  background-color: #ff8600;
+  border-radius: 20px 20px 0px 0px; }
 
 .cell {
   display: inline-block;
@@ -579,9 +590,10 @@ button {
   text-align: center;
   font-size: 40px;
   line-height: 100px;
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 10px; }
   .cell.cell-winner {
-    background-color: #ff00ff; }
+    background-color: crimson; }
   .cell:nth-child(3n+1) {
     clear: left; }
 
@@ -602,8 +614,17 @@ body {
   font-size: 20px; }
 
 .grid, .panel {
-  padding-top: 20px;
+  padding: 20px 0px 20px 0px;
   width: 360px;
   text-align: center;
   margin: auto;
   clear: both; }
+
+#root {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%; }
+
+.view {
+  height: 100%; }

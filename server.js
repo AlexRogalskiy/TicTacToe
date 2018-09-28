@@ -44,7 +44,6 @@ app.set('/js', path.join(PUBLIC_PATH, 'js'));
 app.set('/css', path.join(PUBLIC_PATH, 'css'));
 app.set('/images', path.join(PUBLIC_PATH, 'images'));
 app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
-//app.set('view cache', false);
 app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 
@@ -72,7 +71,7 @@ io.on('connection', (socket) => {
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
-		//fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+		fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 		
 		socket.join(data.board.id);
 		socket.emit('start', { name: data.player, room: data.board.id });
@@ -92,7 +91,6 @@ io.on('connection', (socket) => {
 	
 	socket.on('disconnect', () => {
 		Logger.debug(`SERVER: disconnect client from socket with id=${socket.id}`);
-		//socket.broadcast.to(data.room).emit('disconnect');
 		socket.emit("finalize", "The other player left the game...");
 	});
 	
@@ -108,12 +106,12 @@ io.on('connection', (socket) => {
 	
 	socket.on('reset', (data) => {
 		Logger.debug(tag`SERVER: reset with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('reset', data);
+		socket.broadcast.to(data.room).emit('reset', { room: data.room, message: 'Current play has been reset' });
 	});
 	
 	socket.on('finalize', (data) => {
 		Logger.debug(tag`SERVER: finalize with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('finalize', data);
+		socket.broadcast.to(data.room).emit('finalize', { board: data.board, cells: data.cells, player: data.player, room: data.room, message: 'Gave Over' });
 		socket.leave(data.room);
 	});
 	
@@ -127,45 +125,45 @@ io.on('connection', (socket) => {
 		socket.broadcast.to(data.room).emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
 	});
 	
-		/*var addedUser = false;
-		socket.on('new message', (data) => {
-			socket.broadcast.emit('new message', {
+	/*var addedUser = false;
+	socket.on('new message', (data) => {
+		socket.broadcast.emit('new message', {
+			username: socket.username,
+			message: data
+		});
+	});
+	socket.on('add user', (username) => {
+		if (addedUser) return;
+		socket.username = username;
+		addedUser = true;
+		socket.emit('login', {
+			numUsers: ++numUsers
+		});
+		socket.broadcast.emit('user joined', {
+			username: socket.username,
+			numUsers: numUsers
+		});
+	});
+	socket.on('typing', () => {
+		socket.broadcast.emit('typing', {
+			username: socket.username
+		});
+	});
+	socket.on('stop typing', () => {
+		socket.broadcast.emit('stop typing', {
+			username: socket.username
+		});
+	});
+	
+	socket.on('disconnect', () => {
+		Logger.debug(`Dicsonnected: client with id=${socket.id}`);
+		if (addedUser) {
+			socket.broadcast.emit('user left', {
 				username: socket.username,
-				message: data
+				numUsers: --numUsers
 			});
-		});
-		socket.on('add user', (username) => {
-			if (addedUser) return;
-			socket.username = username;
-			addedUser = true;
-			socket.emit('login', {
-				numUsers: ++numUsers
-			});
-			socket.broadcast.emit('user joined', {
-				username: socket.username,
-				numUsers: numUsers
-			});
-		});
-		socket.on('typing', () => {
-			socket.broadcast.emit('typing', {
-				username: socket.username
-			});
-		});
-		socket.on('stop typing', () => {
-			socket.broadcast.emit('stop typing', {
-				username: socket.username
-			});
-		});
-		
-		socket.on('disconnect', () => {
-			Logger.debug(`Dicsonnected: client with id=${socket.id}`);
-			if (addedUser) {
-				socket.broadcast.emit('user left', {
-					username: socket.username,
-					numUsers: --numUsers
-				});
-			}
-		});*/
+		}
+	});*/
 });
 
 function fetchRemoteApi(url, socket, delay) {

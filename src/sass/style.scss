@@ -33,9 +33,20 @@ body {
 }
 
 .grid, .panel {
-    padding-top: 20px;
+    padding: 20px 0px 20px 0px;
     width: 360px;
     text-align: center;
     margin: auto;
     clear: both;
+}
+
+#root {
+	display: block;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.view {
+	height: 100%;
 }
