@@ -3,15 +3,16 @@
 /**
  * Module dependencies
  */
-const dateFormat = require('dateformat');
+const dateFormat			 = require('dateformat');
+
 const { isString, isObject } = require('./helpers');
-const Converter = require('./converter');
+const Converter 			 = require('./converter');
+const dateLocale 			 = require('../resources/i18n/datetime/datetime_EN');
 
-const DEFAULT_DATETIME_FORMAT = 'dddd, mmmm dS, yyyy, h:MM:ss TT';
+dateFormat.i18n = dateLocale;
 
-const output = (dateTime, message, ...args) => `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
-
-const COLORS = {
+const DEFAULT_DATETIME_FORMAT = 'dddd, mmmm dS, yyyy, hh:MM:ss TT';
+const DEFAULT_COLORS_PRESET = {
 	white: '#ffffff',
 	pink: '#ff00ff',
 	yellow: '#ffff00',
@@ -21,18 +22,24 @@ const COLORS = {
 	red: '#f00000',
 };
 
-function getOutputStyle(type) {
-	return 'color: ' + (COLORS[type] ? COLORS[type] : COLORS['black']);
-};
+const output = (dateTime, message, ...args) => `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 
-function getTime(format) {
+const getOutputStyle = (type) => 'color: ' + (DEFAULT_COLORS_PRESET[type] ? DEFAULT_COLORS_PRESET[type] : DEFAULT_COLORS_PRESET['black']);
+
+const getTime = (format, utc = false) => {
+	format = isString(format) ? format : DEFAULT_DATETIME_FORMAT;
+	return dateFormat(Date.now(), format, utc);
+}
+
+const getLocalTime = (format, offset = 0, utc = false) => {
 	format = isString(format) ? format : DEFAULT_DATETIME_FORMAT;
 	let currentDate = new Date();
-	let currentTime = new Date(currentDate.getTime() - (currentDate.getTimezoneOffset() * 60000));
-	return require('dateformat')(currentTime, format);
+	let currentTime = currentDate.getTime() + (currentDate.getTimezoneOffset() * 60000);
+	let localCurrentTime = new Date(currentTime + (offset * 3600000));
+	return dateFormat(localCurrentTime, format, utc);
 };
 
-function tag(messages, ...args) {
+const tag = (messages, ...args) => {
 	let result = '';
 	for(let i=0; i<args.length; i++) {
 		result += messages[i];
@@ -42,7 +49,7 @@ function tag(messages, ...args) {
 	return result;
 };
 
-function rawTag(messages, ...args) {
+const rawTag = (messages, ...args) => {
 	let result = '';
 	for(let i=0; i<args.length; i++) {
 		result += messages.raw[i];

@@ -10,7 +10,7 @@ import { addMove, resetGame, startGame, initializeGame, finalizeGame } from '../
 import BoardWidget from '../components/widgets/board-widget';
 
 import { isNullOrUndefined } from '../libs/helpers';
-import Locale from '../resources/locale';
+import Locale from '../resources/i18n/locale';
 
 const localStrings = new LocalizedStrings(Locale);
 

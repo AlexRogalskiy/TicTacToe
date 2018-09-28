@@ -68,10 +68,10 @@ const server = http.createServer(app);
 const io = socketIo(server, {}); //{ parser: jsonParser }
 
 io.on('connection', (socket) => {
+	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
-		fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 		
 		socket.join(data.board.id);
 		socket.emit('start', { name: data.player, room: data.board.id });
@@ -166,12 +166,13 @@ io.on('connection', (socket) => {
 	});*/
 });
 
+let interval;
 function fetchRemoteApi(url, socket, delay) {
-	Logger.debug(`SERVER: connected new client with id=${socket.id}`);
+	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
 	if (interval) {
 		clearInterval(interval);
 	}
-	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
+	interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
 
 function getApiAndEmit(url) {
