@@ -1,17 +1,17 @@
 {
-	"lang": "en-US",
-	"name": "TicTacToe",
-	"short_name": "TicTacToe React App",
-	"icons": [
-		{
-			"src": "/images/icons/favicon.ico",
-			"sizes": "64x64 32x32 24x24 16x16",
-			"type": "image/x-icon"
-		}
-	],
-	"start_url": "index.html",
-	"display": "standalone",
-	"theme_color": "#000000",
-	"background_color": "#ffffff",
-	"description": "A simply TicTacToe React App"
+  "lang": "en-US",
+  "name": "TicTacToe",
+  "short_name": "TicTacToe React App",
+  "icons": [
+    {
+      "src": "/images/icons/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "description": "A simply TicTacToe React App"
 }

@@ -18,7 +18,8 @@
     "build-prod": "set NODE_ENV=production && npm run build-css && npm run build",
     "start": "webpack-dev-server --hot --mode development --config webpack.config.js --progress --colors --watch --inline --open",
     "test": "mocha --ui tdd --reporter spec --watch tests/*.js --compilers js:@babel/register",
-    "publish": "npm publish"
+    "publish": "npm publish",
+    "prettify": "prettier --list-different --write src/js/**/*.{js,json,md}"
   },
   "repository": {
     "type": "git",
@@ -71,6 +72,7 @@
     "mini-css-extract-plugin": "0.4.3",
     "node-sass": "4.9.3",
     "postcss-loader": "3.0.0",
+    "prettier": "1.14.3",
     "prop-types": "15.6.2",
     "raw-loader": "0.5.1",
     "resolve-url-loader": "3.0.0",
