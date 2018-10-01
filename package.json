@@ -18,6 +18,8 @@
     "build-prod": "set NODE_ENV=production && npm run build-css && npm run build",
     "start": "webpack-dev-server --hot --mode development --config webpack.config.js --progress --colors --watch --inline --open",
     "test": "mocha --ui tdd --reporter spec --watch tests/*.js --compilers js:@babel/register",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "publish": "npm publish",
     "prettify": "prettier --list-different --write src/js/**/*.{js,json,md}"
   },
@@ -68,6 +70,7 @@
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "4.3.1",
+    "jest": "23.6.0",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.4.3",
     "node-sass": "4.9.3",
