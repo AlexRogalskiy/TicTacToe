@@ -17,14 +17,14 @@ import registerServiceWorker from './vendor/service-worker';
 
 const renderRoot = (Component, wrapper) =>
   ReactDOM.render(
-    <BrowserRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Component} />
           <Redirect from="*" to="/" />
         </Switch>
-      </Provider>
-    </BrowserRouter>,
+      </BrowserRouter>
+    </Provider>,
     wrapper
   );
 
