@@ -4,9 +4,15 @@
  * Module dependencies
  */
 const path = require('path');
+const express = require('express');
+
+// Middleware
 const cookieParser = require('cookie-parser');
 const errorhandler = require('errorhandler')
-const express = require('express');
+const compression = require('compression');
+const expressSession = require('express-session');
+const csurf = require('csurf');
+const morgan = require('morgan');
 
 // http / error/ socket
 const axios = require('axios');
@@ -47,10 +53,21 @@ app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
 app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 
+app.use(morgan());
 app.use(cookieParser());
+app.use(expressSession());
+app.use(csurf());
 app.use(express.json());
+app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
+
+function shouldCompress(req, res) {
+	if (req.headers['x-no-compression']) {
+		return false;
+	}
+	return compression.filter(req, res);
+}
 
 app.use('/', indexRouter);
 
