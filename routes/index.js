@@ -3,11 +3,9 @@
 /**
  * Module dependencies
  */
-const express = require("express");
-const router = express.Router();
+const handlers = require('../handlers/index.js');
 
-router.get("/", (req, res) => {
-	res.send({ response: "I am alive" }).status(200);
-});
-
-module.exports = router;
+module.exports = (app) => {
+	app.get('/', handlers.home);
+	app.get('/about/', handlers.about);
+};

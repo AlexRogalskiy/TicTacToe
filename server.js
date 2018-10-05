@@ -20,9 +20,6 @@ const createError = require('http-errors');
 const socketIo = require('socket.io');
 //const jsonParser = require('socket.io-json-parser');
 
-// vhosts
-const vhost = require('vhost');
-
 // mongo
 //const mongoose = require('mongoose');
 const MongoSessionStore = require('connect-mongo')(expressSession);
@@ -35,7 +32,8 @@ const { Logger, tag } = require('./src/js/libs/logger');
 const { normalizePort, isString } = require('./src/js/libs/helpers');
 
 // routes
-const indexRouter = require("./routes/index");
+const routes = require('./routes/index');
+const adminRoutes = require('./routes/admin');
 
 // credentials
 const credentials = require('./credentials.js');
@@ -49,27 +47,25 @@ const PUBLIC_HOST = 'localhost';
 const REMOTE_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
 const REMOTE_API_FETCH_DELAY = 10000;
 
-const app = express();
-app.disable('x-powered-by');
-app.engine('html', require('ejs').renderFile);
-//app.enable('trust proxy');
-app.set('view engine', 'html');
-app.set("view options", { layout: false });
-app.set('views', path.join(PUBLIC_PATH, 'views'));
-app.set('/js', path.join(PUBLIC_PATH, 'js'));
-app.set('/css', path.join(PUBLIC_PATH, 'css'));
-app.set('/images', path.join(PUBLIC_PATH, 'images'));
-app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
-app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
-app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
-
+const autoRoutes = () => {
+	const autoViews = {};
+	const fs = require('fs');
+	app.use((req, res, next) => {
+		const path = req.path.toLowerCase();
+		if(autoViews[path]) return res.render(autoViews[path]);
+		if(fs.existsSync(path.resolve(__dirname, 'views', path + '.handlebars'))) {
+			autoViews[path] = path.replace(/^\//, '');
+			return res.render(autoViews[path]);
+		}
+		next();
+	});
+};
 const shouldCompress = (req, res) => {
 	if (req.headers['x-no-compression']) {
 		return false;
 	}
 	return compression.filter(req, res);
-}
-
+};
 const initSession = (uri, interval, opts) => {
 	//const connection = await mongoose.connect(uri, opts});
 	//const connection = mongoose.connect(uri, opts);
@@ -94,24 +90,55 @@ const initSession = (uri, interval, opts) => {
 		store: sessionStore
 	}));
 };
-
-const initVhost = (uri) => {
-	const admin = express.Router();
-	app.use(vhost(uri, admin));
-	admin.get('/', (req, res) => {
-		res.render('admin/home');
+const fetchRemoteApi = (url, socket, delay) => {
+	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
+	if (interval) {
+		clearInterval(interval);
+	}
+	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
+};
+const getApiAndEmit = (url) => {
+	return async socket => {
+		try {
+			const response = await axios.get(url);
+			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
+		} catch (error) {
+			Logger.error(`SERVER: error ${error.code}`);
+		}
+	};
+};
+const startServer = () => {
+	server.listen(app.get('port'), () => {
+		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
 
+const app = express();
+
+routes(app);
+adminRoutes(app);
+autoRoutes();
+
+app.disable('x-powered-by');
+app.engine('html', require('ejs').renderFile);
+//app.enable('trust proxy');
+app.set('view engine', 'html');
+app.set("view options", { layout: false });
+app.set('views', path.join(PUBLIC_PATH, 'views'));
+app.set('/js', path.join(PUBLIC_PATH, 'js'));
+app.set('/css', path.join(PUBLIC_PATH, 'css'));
+app.set('/images', path.join(PUBLIC_PATH, 'images'));
+app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
+app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
+app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 app.use(cookieParser(credentials.cookieSecret));
 //initSession(db.mongo[app.get('env')].connectionString, db.mongo[app.get('env')].interval, db.mongo[app.get('env')].options);
-initVhost('admin.*');
 app.use(csurf());
 app.use(express.json());
 app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 
 switch(app.get('env')) {
 	case 'development':
@@ -231,26 +258,6 @@ io.on('connection', (socket) => {
 	});*/
 });
 
-let interval;
-const fetchRemoteApi = (url, socket, delay) => {
-	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
-	if (interval) {
-		clearInterval(interval);
-	}
-	interval = setInterval(() => getApiAndEmit(url)(socket), delay);
-};
-
-const getApiAndEmit = (url) => {
-	return async socket => {
-		try {
-			const response = await axios.get(url);
-			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
-		} catch (error) {
-			Logger.error(`SERVER: error ${error.code}`);
-		}
-	};
-}
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
@@ -352,12 +359,6 @@ server.on('listening', () => {
 	const bind = isString(addr) ? 'pipe ' + addr : 'port ' + addr.port;
 	Logger.debug(`SERVER: listening on ${bind}`);
 });
-
-const startServer = () => {
-	server.listen(app.get('port'), () => {
-		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
-	});
-};
 
 if(require.main === module) {
 	startServer();
