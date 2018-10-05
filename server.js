@@ -8,11 +8,9 @@ const express = require('express');
 
 // Middleware
 const cookieParser = require('cookie-parser');
-const errorhandler = require('errorhandler')
 const compression = require('compression');
 const expressSession = require('express-session');
 const csurf = require('csurf');
-const morgan = require('morgan');
 
 // http / error/ socket
 const axios = require('axios');
@@ -53,7 +51,13 @@ app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
 app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 
-app.use(morgan());
+const shouldCompress = (req, res) => {
+	if (req.headers['x-no-compression']) {
+		return false;
+	}
+	return compression.filter(req, res);
+}
+
 app.use(cookieParser());
 app.use(expressSession());
 app.use(csurf());
@@ -61,23 +65,21 @@ app.use(express.json());
 app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
-
-function shouldCompress(req, res) {
-	if (req.headers['x-no-compression']) {
-		return false;
-	}
-	return compression.filter(req, res);
-}
-
 app.use('/', indexRouter);
 
-if(process.env.NODE_ENV === 'development') {
-     app.use(errorhandler({ dumpExceptions: true, showStack: true }));
-     app.set('view cache', false);
-}
-if(process.env.NODE_ENV === 'production') {
-    app.use(errorhandler());
-    app.set('view cache', true);
+switch(app.get('env')) {
+	case 'development':
+		app.set('view cache', false);
+		app.use(require('errorhandler')({ dumpExceptions: true, showStack: true }));
+		app.use(require('morgan')('dev'));
+		break;
+	case 'production':
+		app.set('view cache', true);
+		app.use(require('errorhandler')());
+		app.use(require('express-logger')({
+			path: path.resolve(__dirname, 'logs/requests.log')
+		}));
+		break;
 }
 
 // sockets configuration
@@ -184,7 +186,7 @@ io.on('connection', (socket) => {
 });
 
 let interval;
-function fetchRemoteApi(url, socket, delay) {
+const fetchRemoteApi = (url, socket, delay) => {
 	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
 	if (interval) {
 		clearInterval(interval);
@@ -192,7 +194,7 @@ function fetchRemoteApi(url, socket, delay) {
 	interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
 
-function getApiAndEmit(url) {
+const getApiAndEmit = (url) => {
 	return async socket => {
 		try {
 			const response = await axios.get(url);
@@ -242,15 +244,11 @@ app.use((req, res) => {
 	createError(500);
 });
 
-/**
- * Event listener for HTTP server "error" event.
- */
-function onError(error) {
+server.on('error', (error) => {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
-	var bind = isString(port) ? 'Pipe ' + port : 'Port ' + port;
-	// handle specific listen errors with friendly messages
+	const bind = isString(port) ? 'Pipe ' + port : 'Port ' + port;
 	switch (error.code) {
 		case 'EACCES':
 			Logger.error(`SERVER: ${bind} requires elevated privileges`);
@@ -263,20 +261,13 @@ function onError(error) {
 		default:
 		  throw error;
 	}
-};
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-function onListening() {
-	var addr = server.address();
-	var bind = isString(addr) ? 'pipe ' + addr : 'port ' + addr.port;
+});
+server.on('listening', () => {
+	const addr = server.address();
+	const bind = isString(addr) ? 'pipe ' + addr : 'port ' + addr.port;
 	Logger.debug(`SERVER: listening on ${bind}`);
-};
-
-server.on('error', onError);
-server.on('listening', onListening);
+});
 
 server.listen(app.get('port'), () => {
-	Logger.debug(`SERVER: running on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+	Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 });
