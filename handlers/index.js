@@ -12,7 +12,13 @@ const about = (req, res) => {
 	res.render('about', {});
 };
 
+const test = (req, res) => {
+	let params = (Object.keys(req.body).length > 0) ? req.body : req.query;
+	res.send(params);
+};
+
 module.exports = {
 	home,
-	about
+	about,
+	test
 }

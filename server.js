@@ -34,6 +34,7 @@ const { normalizePort, isString } = require('./src/js/libs/helpers');
 // routes
 const routes = require('./routes/index');
 const adminRoutes = require('./routes/admin');
+const apiRoutes = require('./routes/api');
 
 // credentials
 const credentials = require('./credentials.js');
@@ -69,7 +70,6 @@ const shouldCompress = (req, res) => {
 const initSession = (uri, interval, opts) => {
 	//const connection = await mongoose.connect(uri, opts});
 	//const connection = mongoose.connect(uri, opts);
-	
 	const sessionStore = new MongoSessionStore({
 		url: uri,
 		interval: interval
@@ -90,7 +90,7 @@ const initSession = (uri, interval, opts) => {
 		store: sessionStore
 	}));
 };
-const fetchRemoteApi = (url, socket, delay) => {
+const fetchRemoteURL = (url, socket, delay) => {
 	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
 	if (interval) {
 		clearInterval(interval);
@@ -113,10 +113,13 @@ const startServer = () => {
 	});
 };
 
+
+
 const app = express();
 
 routes(app);
 adminRoutes(app);
+apiRoutes(app);
 autoRoutes();
 
 app.disable('x-powered-by');
@@ -138,6 +141,7 @@ app.use(express.json());
 app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_PATH));
+app.use('/', require('cors')());
 //app.use('/', indexRouter);
 
 switch(app.get('env')) {
@@ -160,11 +164,10 @@ const server = http.createServer(app);
 const io = socketIo(server, {}); //{ parser: jsonParser }
 
 io.on('connection', (socket) => {
-	fetchRemoteApi(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+	fetchRemoteURL(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
-		
 		socket.join(data.board.id);
 		socket.emit('start', { name: data.player, room: data.board.id });
 	});
@@ -258,11 +261,11 @@ io.on('connection', (socket) => {
 	});*/
 });
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+/*app.use((req, res, next) => {
+    //res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
 	next();
-});
+});*/
 
 app.use((req, res, next) => {
 	const cluster = require('cluster');
@@ -271,43 +274,6 @@ app.use((req, res, next) => {
 	}
 	next();
 });
-
-app.use((req, res, next) => {
-	const domain = require('domain').create();
-	domain.on('error', err => {
-		Logger.debug(`SERVER: intercepted error ${err.stack}`);
-		try {
-			setTimeout(() => process.exit(1), 5000);
-			const worker = require('cluster').worker;
-			if(worker) {
-				worker.disconnect();
-			}
-			server.close();
-			
-			try {
-				next(err);
-			} catch(err) {
-				Logger.debug(`SERVER: cannot intercept error ${err.stack}`);
-					res.type('text/plain');
-					res.charset = 'utf-8';
-					res.status(500);
-					res.end('Internal Server Error');
-					//createError(500);
-			}
-		} catch(err) {
-			Logger.debug(`SERVER: cannot send error message ${err.stack}`);
-		}
-	});
-	domain.add(req);
-	domain.add(res);
-	domain.run(next);
-});
-
-app.route('/test').all((req, res) => {
-		let params = (Object.keys(req.body).length > 0) ? req.body : req.query;
-		res.send(params);
-	}
-);
 
 // 400
 app.use((err, req, res, next) => {

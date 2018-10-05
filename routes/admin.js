@@ -8,7 +8,7 @@ const express = require('express');
 const vhost = require('vhost');
 //handlers 
 const handlers = require('../handlers/admin.js');
-// admin route
+// admin router
 const admin = express.Router();
 
 const authorize = (req, res, next) => {
@@ -20,5 +20,6 @@ const authorize = (req, res, next) => {
 
 module.exports = (app, uri = 'admin.*') => {
 	app.use(vhost(uri, admin));
+	
 	admin.get('/', authorize, handlers.home);
 };
