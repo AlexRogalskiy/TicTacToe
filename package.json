@@ -72,6 +72,7 @@
     "image-webpack-loader": "4.3.1",
     "jest": "23.6.0",
     "json-loader": "0.5.7",
+    "loadtest": "3.0.4",
     "mini-css-extract-plugin": "0.4.3",
     "node-sass": "4.9.3",
     "postcss-loader": "3.0.0",
@@ -96,6 +97,8 @@
     "axios": "0.18.0",
     "babel-polyfill": "6.26.0",
     "compression": "1.7.3",
+    "connect": "3.6.6",
+    "connect-mongo": "2.0.1",
     "cookie-parser": "1.4.3",
     "csurf": "1.9.0",
     "ejs": "2.6.1",
@@ -105,6 +108,7 @@
     "express-session": "1.15.6",
     "glob-all": "3.1.0",
     "http-errors": "1.7.1",
+    "mongoose": "5.3.1",
     "morgan": "1.9.1",
     "purify-css": "1.2.5",
     "purifycss-webpack": "0.7.0",
@@ -119,9 +123,11 @@
     "react-validatorjs-strategy": "0.2.1",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
+    "session-mongoose": "0.5.2",
     "socket.io": "2.1.1",
     "socket.io-client": "2.1.1",
-    "socket.io-json-parser": "2.1.0"
+    "socket.io-json-parser": "2.1.0",
+    "vhost": "3.0.2"
   },
   "engines": {
     "node": "^6.0.0",

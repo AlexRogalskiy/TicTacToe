@@ -5,6 +5,7 @@
  */
 const path = require('path');
 const express = require('express');
+const connect = require('connect');
 
 // Middleware
 const cookieParser = require('cookie-parser');
@@ -19,6 +20,13 @@ const createError = require('http-errors');
 const socketIo = require('socket.io');
 //const jsonParser = require('socket.io-json-parser');
 
+// vhosts
+const vhost = require('vhost');
+
+// mongo
+//const mongoose = require('mongoose');
+const MongoSessionStore = require('connect-mongo')(expressSession);
+
 // validators
 const strategy = require('react-validatorjs-strategy');
 
@@ -28,6 +36,10 @@ const { normalizePort, isString } = require('./src/js/libs/helpers');
 
 // routes
 const indexRouter = require("./routes/index");
+
+// credentials
+const credentials = require('./credentials.js');
+const db = require('./db.js');
 
 // server configuration
 const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
@@ -39,8 +51,8 @@ const REMOTE_API_FETCH_DELAY = 10000;
 
 const app = express();
 app.disable('x-powered-by');
-
 app.engine('html', require('ejs').renderFile);
+//app.enable('trust proxy');
 app.set('view engine', 'html');
 app.set("view options", { layout: false });
 app.set('views', path.join(PUBLIC_PATH, 'views'));
@@ -58,8 +70,42 @@ const shouldCompress = (req, res) => {
 	return compression.filter(req, res);
 }
 
-app.use(cookieParser());
-app.use(expressSession());
+const initSession = (uri, interval, opts) => {
+	//const connection = await mongoose.connect(uri, opts});
+	//const connection = mongoose.connect(uri, opts);
+	
+	const sessionStore = new MongoSessionStore({
+		url: uri,
+		interval: interval
+	});
+	//const model = sessionStore.model;
+	//model.collection.drop(function (err) { console.log(err); });
+
+	app.use(expressSession({
+		//store: new MongooseStore({
+		//	collection: 'appSessions',
+		//	connection: connection,
+		//	expires: 86400, // 1 day is the default
+		//	name: 'AppSession'
+		resave: false,
+		saveUninitialized: false,
+		secret: credentials.cookieSecret,
+		cookie: { maxAge: credentials.session.maxAge },
+		store: sessionStore
+	}));
+};
+
+const initVhost = (uri) => {
+	const admin = express.Router();
+	app.use(vhost(uri, admin));
+	admin.get('/', (req, res) => {
+		res.render('admin/home');
+	});
+};
+
+app.use(cookieParser(credentials.cookieSecret));
+//initSession(db.mongo[app.get('env')].connectionString, db.mongo[app.get('env')].interval, db.mongo[app.get('env')].options);
+initVhost('admin.*');
 app.use(csurf());
 app.use(express.json());
 app.use(compression({ filter: shouldCompress }));
@@ -208,7 +254,46 @@ const getApiAndEmit = (url) => {
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
-    next();
+	next();
+});
+
+app.use((req, res, next) => {
+	const cluster = require('cluster');
+	if(cluster.isWorker) {
+		Logger.debug(`SERVER: current instance ${cluster.worker.id} is running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+	}
+	next();
+});
+
+app.use((req, res, next) => {
+	const domain = require('domain').create();
+	domain.on('error', err => {
+		Logger.debug(`SERVER: intercepted error ${err.stack}`);
+		try {
+			setTimeout(() => process.exit(1), 5000);
+			const worker = require('cluster').worker;
+			if(worker) {
+				worker.disconnect();
+			}
+			server.close();
+			
+			try {
+				next(err);
+			} catch(err) {
+				Logger.debug(`SERVER: cannot intercept error ${err.stack}`);
+					res.type('text/plain');
+					res.charset = 'utf-8';
+					res.status(500);
+					res.end('Internal Server Error');
+					//createError(500);
+			}
+		} catch(err) {
+			Logger.debug(`SERVER: cannot send error message ${err.stack}`);
+		}
+	});
+	domain.add(req);
+	domain.add(res);
+	domain.run(next);
 });
 
 app.route('/test').all((req, res) => {
@@ -268,6 +353,14 @@ server.on('listening', () => {
 	Logger.debug(`SERVER: listening on ${bind}`);
 });
 
-server.listen(app.get('port'), () => {
-	Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
-});
+const startServer = () => {
+	server.listen(app.get('port'), () => {
+		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+	});
+};
+
+if(require.main === module) {
+	startServer();
+} else {
+	module.exports = startServer;
+}

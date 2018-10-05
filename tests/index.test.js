@@ -3,9 +3,9 @@
 /**
  * Module dependencies
  */
-//var http = require('http');
-var Browser = require('zombie') ;
-var assert = require('chai').assert;
+//const http = require('http');
+const Browser = require('zombie') ;
+const assert = require('chai').assert;
 //import assert from 'assert';
 //import '../lib/index.js';
 
