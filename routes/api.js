@@ -30,6 +30,17 @@ const authorize = (req, res, next) => {
 	handlers.unAuthorized;
 };
 
+const allow = roles => {
+	roles = roles || [];
+	return (req, res, next) => {
+		if(req.user && roles.split('.').indexOf(req.user.role) !== -1) {
+			return next();
+		}
+		res.redirect(303, 'api/unauthorized');
+		//next('route');
+	};
+};
+
 async function service( request, content ){
     console.log( 'Received headers:' + JSON.stringify( request.headers ) )
     console.log( 'Received parameters:' + JSON.stringify( request.parameters ) )

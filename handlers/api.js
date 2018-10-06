@@ -8,7 +8,7 @@ const getAttractions = (req, content, callback) => {
 };
 
 const unAuthorized = (req, content, callback) => {
-	res.render('api/unAuthorized');
+	res.status(403).render('api/unauthorized');
 };
 
 module.exports = {

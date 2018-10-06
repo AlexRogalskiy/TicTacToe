@@ -6,8 +6,9 @@
 const path = require('path');
 const express = require('express');
 const connect = require('connect');
+const fs = require('fs');
 
-// Middleware
+// middleware
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const expressSession = require('express-session');
@@ -16,6 +17,7 @@ const csurf = require('csurf');
 // http / error/ socket
 const axios = require('axios');
 const http = require('http');
+//const https = require('https');
 const createError = require('http-errors');
 const socketIo = require('socket.io');
 //const jsonParser = require('socket.io-json-parser');
@@ -112,8 +114,10 @@ const startServer = () => {
 		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
-
-
+const httpsOptions = {
+	key: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.pem')),
+	cert: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.crt'))
+};
 
 const app = express();
 
@@ -161,6 +165,7 @@ switch(app.get('env')) {
 
 // sockets configuration
 const server = http.createServer(app);
+//const server = https.createServer(httpsOptions, app);
 const io = socketIo(server, {}); //{ parser: jsonParser }
 
 io.on('connection', (socket) => {
@@ -261,11 +266,12 @@ io.on('connection', (socket) => {
 	});*/
 });
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
     //res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
+	res.locals._csrfToken = req.csrfToken();
 	next();
-});*/
+});
 
 app.use((req, res, next) => {
 	const cluster = require('cluster');

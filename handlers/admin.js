@@ -8,7 +8,7 @@ const home = (req, res) => {
 };
 
 const unAuthorized = (req, res) => {
-	res.render('admin/unAuthorized');
+	res.status(403).render('admin/unAuthorized');
 };
 
 module.exports = {
