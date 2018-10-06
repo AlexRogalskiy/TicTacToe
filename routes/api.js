@@ -86,4 +86,5 @@ module.exports = (app, uri = 'api.*') => {
 	//rest.post( [ '/act', '/do' ], asyncFunctionN2 );
 	//rest.post( [ { path: '/shake', version: '>=2.0.0' }, { path: '/twist', version: '>=2.1.1' } ], asyncFunctionN3 );
 	rest.get('/attractions', authorize, handlers.getAttractions);
+	rest.get('/status/:status', authorize, handlers.getStatus);
 };
