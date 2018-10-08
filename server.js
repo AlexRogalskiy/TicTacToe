@@ -54,11 +54,11 @@ const autoRoutes = () => {
 	const autoViews = {};
 	const fs = require('fs');
 	app.use((req, res, next) => {
-		const path = req.path.toLowerCase();
-		if(autoViews[path]) return res.render(autoViews[path]);
-		if(fs.existsSync(path.resolve(__dirname, 'views', path + '.handlebars'))) {
-			autoViews[path] = path.replace(/^\//, '');
-			return res.render(autoViews[path]);
+		const localPath = req.path.toLowerCase();
+		if(autoViews[localPath]) return res.render(autoViews[localPath]);
+		if(fs.existsSync(path.resolve(__dirname, 'views', localPath + '.handlebars'))) {
+			autoViews[localPath] = localPath.replace(/^\//, '');
+			return res.render(autoViews[localPath]);
 		}
 		next();
 	});
@@ -72,10 +72,12 @@ const shouldCompress = (req, res) => {
 const initSession = (uri, interval, opts) => {
 	//const connection = await mongoose.connect(uri, opts});
 	//const connection = mongoose.connect(uri, opts);
-	const sessionStore = new MongoSessionStore({
-		url: uri,
-		interval: interval
-	});
+	
+	//const sessionStore = new MongoSessionStore({
+	//	url: uri,
+	//	interval: interval
+	//});
+	
 	//const model = sessionStore.model;
 	//model.collection.drop(function (err) { console.log(err); });
 
@@ -83,13 +85,12 @@ const initSession = (uri, interval, opts) => {
 		//store: new MongooseStore({
 		//	collection: 'appSessions',
 		//	connection: connection,
-		//	expires: 86400, // 1 day is the default
+		//	expires: 86400,
 		//	name: 'AppSession'
 		resave: false,
 		saveUninitialized: false,
-		secret: credentials.cookieSecret,
-		cookie: { maxAge: credentials.session.maxAge },
-		store: sessionStore
+		//store: sessionStore,
+		cookie: { secret: credentials.cookieSecret, maxAge: credentials.session.maxAge, httpOnly: true, secure: true }
 	}));
 };
 const fetchRemoteURL = (url, socket, delay) => {
@@ -114,16 +115,16 @@ const startServer = () => {
 		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
-const httpsOptions = {
-	key: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.pem')),
-	cert: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.crt'))
-};
+//const httpsOptions = {
+//	key: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.pem')),
+//	cert: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.crt'))
+//};
 
 const app = express();
 
-routes(app);
-adminRoutes(app);
-apiRoutes(app);
+//routes(app);
+//adminRoutes(app);
+//apiRoutes(app);
 autoRoutes();
 
 app.disable('x-powered-by');
@@ -139,8 +140,10 @@ app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
 app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
 app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
 app.use(cookieParser(credentials.cookieSecret));
-//initSession(db.mongo[app.get('env')].connectionString, db.mongo[app.get('env')].interval, db.mongo[app.get('env')].options);
-app.use(csurf());
+
+initSession(db.mongo[app.get('env')].connectionString, db.mongo[app.get('env')].interval, db.mongo[app.get('env')].options);
+
+app.use(csurf({ cookie: true }));
 app.use(express.json());
 app.use(compression({ filter: shouldCompress }));
 app.use(express.urlencoded({ extended: true }));

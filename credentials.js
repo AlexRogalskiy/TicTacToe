@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	cookieSecret: '',
+	cookieSecret: '1',
 	session: {
 		key: 'sess',
 		autoCommit: true,
