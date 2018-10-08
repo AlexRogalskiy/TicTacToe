@@ -17,7 +17,8 @@
         "browser"					: true,
         "node"						: true,
 		"jquery"					: false,
-		"commonjs"					: true
+		"commonjs"					: true,
+		"mocha"						: true
     },
     "globals": {
         "self"						: false,

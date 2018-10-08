@@ -13,7 +13,7 @@ suite('Global stress tests', () => {
 			concurrency: 4,
 			maxRequests: 50
 		};
-		loadtest.loadTest(options, (err, result) {
+		loadtest.loadTest(options, (err, result) => {
 			expect(!err);
 			expect(result.totalTimeSeconds < 1);
 			done();
