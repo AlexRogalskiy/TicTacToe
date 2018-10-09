@@ -32,6 +32,11 @@ const BASE_CONFIG = {
     },
     module: {
 		rules: [
+		    //{ test: /\.ts$/i, loader: 'ts-loader' },
+			//{test: /\.hbs$/, loader: 'handlebars-loader'},
+            //{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
+            //{ test: /\.txt$/, use: [{ loader: 'raw-loader', options: { name: '[path]/[name].[ext]' }}] },
+			//{ test: /\.sol/, loader: 'truffle-solidity' },
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
 			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash].[ext]' } }]},
 			{ test: /\.html$/i, include: paths.HTML_SOURCE_DIR, use: [{ loader: 'html-loader?htmlLoaderConfig', options: { minimize: false, removeComments: false, collapseWhitespace: false, ignoreCustomFragments: [/\{\{.*?}}/], root: paths.HTML_SOURCE_DIR, attrs: ['img:src', 'link:href'] } }]}
@@ -41,10 +46,10 @@ const BASE_CONFIG = {
 		new CopyWebpackPlugin(
 			[
 				//{ from: path.join(paths.SOURCE_DIR, 'fonts'), to: 'fonts', cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'images'), to: 'images', cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'robots.txt'), to: paths.BUILD_DIR, cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'manifest.json'), to: paths.BUILD_DIR, cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'favicon.ico'), to: paths.BUILD_DIR, cache: true }
+				{ from: path.join(paths.SOURCE_DIR, 'images'), 			to: 'images', 		 cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'robots.txt'), 		to: paths.BUILD_DIR, cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'manifest.json'), 	to: paths.BUILD_DIR, cache: true },
+				{ from: path.join(paths.SOURCE_DIR, 'favicon.ico'), 	to: paths.BUILD_DIR, cache: true }
 			],
 			{ ignore: [ '*.js', '*.css', '*.scss', '*.sass' ], copyUnmodified: true, debug: true }
 		),

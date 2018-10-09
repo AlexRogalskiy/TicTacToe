@@ -10,13 +10,13 @@ import reactMixin from 'react-mixin';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import BasicImage from './basic-image';
+import BasicImage from '../elements/basic-image';
 import BasicInput from './basic-input';
 
-import Forms from '../validators/forms';
+import Forms from '../../validators/forms';
 
-import Field from '../mixins/field';
-import LifeCycle from '../mixins/lifecycle';
+import Field from '../../mixins/field';
+import LifeCycle from '../../mixins/lifecycle';
 
 class ProfileControl extends Component {
   get mixins() {

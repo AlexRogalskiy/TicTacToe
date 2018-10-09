@@ -10,12 +10,12 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from '../libs/elements';
-import Forms from '../validators/forms';
+import { MessageList } from '../../libs/elements';
+import Forms from '../../validators/forms';
 
-class BasicInput extends Component {
+class BasicImage extends Component {
   get displayName() {
-    return 'BasicInput';
+    return 'BasicImage';
   }
 
   static get propTypes() {
@@ -28,14 +28,14 @@ class BasicInput extends Component {
 
   static get defaultProps() {
     return {
-      className: 'basic-input input-group',
+      className: 'basic-image input-group',
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
-        inputClass: 'form-control',
+        imageClass: 'form-control',
       },
       dataError: [],
-      validator: 'textInput',
+      validator: 'imageInput',
     };
   }
 
@@ -96,13 +96,13 @@ class BasicInput extends Component {
       dataClass.controlClass,
       errorMessages.length > 0 && dataClass.errorClass
     );
-    rest.className = dataClass.inputClass;
+    rest.className = dataClass.imageClass;
     return (
       <div className={className}>
         <div className={controlClassName}>
-          <input
+          <img
             ref={input => {
-              this.textInput = input;
+              this.imageInput = input;
             }}
             onChange={this.onChange(this.props.name)}
             onBlur={this.onBlur(this.props.name)}
@@ -119,4 +119,4 @@ class BasicInput extends Component {
   }
 }
 
-export default Validation(Strategy)(BasicInput);
+export default Validation(Strategy)(BasicImage);

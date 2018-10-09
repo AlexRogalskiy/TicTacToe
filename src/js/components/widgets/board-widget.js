@@ -7,10 +7,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import Loader from '../loader';
-import Button from '../button';
-import StatusBar from '../statusbar';
-import Grid from '../grid';
+import Button from '../controls/button';
+import Loader from '../elements/loader';
+import StatusBar from '../elements/statusbar';
+import Grid from '../elements/grid';
 
 import { Logger, tag } from '../../libs/logger';
 

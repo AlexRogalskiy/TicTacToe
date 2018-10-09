@@ -4,7 +4,7 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
-import packageJSON from '../../package.json';
+import packageJSON from '../../../package.json';
 
 class PoweredBy extends Component {
 	get displayName() {
