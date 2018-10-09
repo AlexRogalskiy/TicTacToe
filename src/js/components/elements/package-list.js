@@ -6,9 +6,9 @@
 import React, { Component } from 'react';
 import packageJSON from '../../../package.json';
 
-class PoweredBy extends Component {
+class PackageList extends Component {
 	get displayName() {
-		return 'PoweredBy';
+		return 'PackageList';
 	}
 	
 	render() {
@@ -25,4 +25,4 @@ class PoweredBy extends Component {
 	}
 };
 
-export default PoweredBy;
+export default PackageList;
