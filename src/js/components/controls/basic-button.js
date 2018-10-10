@@ -23,7 +23,7 @@ class BasicButton extends Component {
       dataClass: PropTypes.object,
       dataError: PropTypes.array,
 	  isDisabled: PropTypes.bool,
-      validator: PropTypes.string,
+      validator: PropTypes.string
     };
   }
 

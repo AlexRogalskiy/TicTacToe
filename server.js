@@ -89,8 +89,9 @@ const initSession = (uri, interval, opts) => {
 		//	name: 'AppSession'
 		resave: false,
 		saveUninitialized: false,
+		secret: credentials.cookieSecret,
 		//store: sessionStore,
-		cookie: { secret: credentials.cookieSecret, maxAge: credentials.session.maxAge, httpOnly: true, secure: true }
+		cookie: { maxAge: credentials.session.maxAge, httpOnly: true, secure: true }
 	}));
 };
 const fetchRemoteURL = (url, socket, delay) => {

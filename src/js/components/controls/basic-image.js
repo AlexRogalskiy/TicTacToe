@@ -22,7 +22,7 @@ class BasicImage extends Component {
     return {
       dataClass: PropTypes.object,
       dataError: PropTypes.array,
-      validator: PropTypes.string,
+      validator: PropTypes.string
     };
   }
 
