@@ -24,10 +24,6 @@ class Block extends Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { className, content, ...rest } = this.props;
     return (
