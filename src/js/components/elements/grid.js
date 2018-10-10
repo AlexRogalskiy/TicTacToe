@@ -17,7 +17,7 @@ class Grid extends Component {
       className: 'grid',
     };
   }
-
+  
   render() {
     const { cells, player, winCells, onSetCell, ...rest } = this.props;
     return (

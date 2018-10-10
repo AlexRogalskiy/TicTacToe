@@ -10,7 +10,7 @@ import reactMixin from 'react-mixin';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import BasicImage from '../elements/basic-image';
+import BasicImage from './basic-image';
 import BasicInput from './basic-input';
 
 import Forms from '../../validators/forms';

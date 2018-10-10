@@ -13,44 +13,45 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from '../../libs/elements';
 import Forms from '../../validators/forms';
 
-class BasicImage extends Component {
+class BasicButton extends Component {
   get displayName() {
-    return 'BasicImage';
+    return 'BasicButton';
   }
 
   static get propTypes() {
     return {
       dataClass: PropTypes.object,
       dataError: PropTypes.array,
+	  isDisabled: PropTypes.bool,
       validator: PropTypes.string,
     };
   }
 
   static get defaultProps() {
     return {
-      className: 'basic-image input-group',
+      className: 'basic-button button-group',
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
-        imageClass: 'form-control',
+        inputClass: 'form-control',
       },
       dataError: [],
-      validator: 'imageInput',
+	  isDisabled: false,
+	  validator: 'button'
     };
   }
 
   constructor(props) {
     super(props);
-    this.onBlur = this.onBlur.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.validatorTypes = Forms[props.validator] || [];
+    this.onClick = this.onClick.bind(this);
+	this.validatorTypes = Forms[props.validator] || [];
   }
 
   getValidatorData() {
     return this.state;
   }
 
-  onBlur(field) {
+  onClick(field) {
     return event => {
       let state = {};
       state[field] = event.target.src;
@@ -58,29 +59,23 @@ class BasicImage extends Component {
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
       });
-      if (this.props.onBlur) {
-        this.props.onBlur(event);
+      if (this.props.onClick) {
+        this.props.onClick(event);
       }
     };
   }
-
-  onChange(field) {
-    return event => {
-      let state = {};
-      state[field] = event.target.src;
-      Strategy.activateRule(this.validatorTypes, field);
-      this.setState(state, () => {
-        this.props.handleValidation(field)(event);
-      });
-      if (this.props.onChange) {
-        this.props.onChange(event);
-      }
-    };
+  
+  renderMessageText(messages) {
+	  return (
+		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
+	  );
   }
 
   render() {
     const {
       className,
+	  onClick,
+	  isDisabled,
       children,
       dataClass,
       dataError,
@@ -96,27 +91,18 @@ class BasicImage extends Component {
       dataClass.controlClass,
       errorMessages.length > 0 && dataClass.errorClass
     );
-    rest.className = dataClass.imageClass;
+    rest.className = dataClass.inputClass;
     return (
-      <div className={className}>
+	 <div className={className}>
         <div className={controlClassName}>
-          <img
-            ref={input => {
-              this.imageInput = input;
-            }}
-            onChange={this.onChange(this.props.name)}
-            onBlur={this.onBlur(this.props.name)}
-            {...rest}
-          />
-          {children}
-        </div>
-        <MessageList
-          messages={errorMessages}
-          className={dataClass.errorClass}
-        />
+			<button ref={input => {this.buttonInput = input;}} onClick={this.onClick(this.props.name)} disabled={isDisabled} {...rest}>
+				{children}
+			</button>
+		</div>
+		{ this.renderMessageText(errorMessages) }
       </div>
     );
   }
 }
 
-export default Validation(Strategy)(BasicImage);
+export default Validation(Strategy)(BasicButton);

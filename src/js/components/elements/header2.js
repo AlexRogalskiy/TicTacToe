@@ -6,9 +6,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class BasicHeader2 extends Component {
+class Header2 extends Component {
   get displayName() {
-    return 'BasicHeader2';
+    return 'Header2';
   }
   
   static get propTypes() {
@@ -19,8 +19,8 @@ class BasicHeader2 extends Component {
 
   static get defaultProps() {
     return {
-      className: 'basic-header2',
-      message: '',
+      className: 'header2',
+      message: ''
     };
   }
 
@@ -36,4 +36,4 @@ class BasicHeader2 extends Component {
   }
 }
 
-export default BasicHeader2;
+export default Header2;

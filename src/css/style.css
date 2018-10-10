@@ -504,6 +504,33 @@ button {
     transform-origin: 20px 20px;
     transform: rotateX(90deg); } }
 
+.statusbar {
+  display: block;
+  width: 100%;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #ff8600;
+  border-radius: 20px 20px 0px 0px; }
+
+.cell {
+  display: inline-block;
+  float: left;
+  background-color: #ff8600;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 40px;
+  line-height: 100px;
+  cursor: pointer;
+  border-radius: 10px; }
+  .cell.cell-winner {
+    background-color: crimson; }
+  .cell:nth-child(3n+1) {
+    clear: left; }
+
 .weather-widget {
   display: block;
   margin: 0;
@@ -569,33 +596,6 @@ button {
   color: white;
   text-align: center;
   background-color: #ff8600; }
-
-.statusbar {
-  display: block;
-  width: 100%;
-  font-size: 30px;
-  line-height: 60px;
-  text-align: center;
-  background-color: #ff8600;
-  border-radius: 20px 20px 0px 0px; }
-
-.cell {
-  display: inline-block;
-  float: left;
-  background-color: #ff8600;
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-  color: #ffffff;
-  text-align: center;
-  font-size: 40px;
-  line-height: 100px;
-  cursor: pointer;
-  border-radius: 10px; }
-  .cell.cell-winner {
-    background-color: crimson; }
-  .cell:nth-child(3n+1) {
-    clear: left; }
 
 h1 {
   display: flex;
