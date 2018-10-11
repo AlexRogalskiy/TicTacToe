@@ -66,7 +66,7 @@ const DEVELOPMENT_CONFIG = {
 	},
 	devServer: {
 		clientLogLevel: 'warn',
-		filename: path.join('js', 'bundle.js'),
+		filename: path.join('js', '[name].[hash].js'),
 		contentBase: paths.BUILD_DIR,
 		disableHostCheck: true,
 		inline: true,
