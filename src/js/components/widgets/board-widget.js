@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import Button from '../controls/button';
+import ButtonBlock from '../controls/button-block';
 import Loader from '../elements/loader';
 import StatusBar from '../elements/statusbar';
 import Grid from '../elements/grid';
@@ -452,10 +452,10 @@ class BoardWidget extends Component {
             {this.state.isStart ? (
               <div className={dataClass.boardWidgetLayout}>
                 {!this.state.isReject && !this.state.isPlayerSecond ? (
-                  <Button
+                  <ButtonBlock
                     label="Join"
                     className="button"
-                    onPress={e =>
+                    onClick={e =>
                       this.onEmitStart({
                         player: this.props.player,
                         room: this.state.response.room,
@@ -473,10 +473,10 @@ class BoardWidget extends Component {
                         )}
                         <Grid onSetCell={this.onEmitSetCell} {...rest} />
                         <div className="panel">
-                          <Button
+                          <ButtonBlock
                             label="Reset"
                             className="button button-reset"
-                            onPress={e =>
+                            onClick={e =>
                               this.onEmitReset({
                                 room: this.state.response.room,
                               })

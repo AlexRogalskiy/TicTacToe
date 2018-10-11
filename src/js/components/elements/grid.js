@@ -14,8 +14,12 @@ class Grid extends Component {
 
   static get defaultProps() {
     return {
-      className: 'grid',
+      className: 'grid'
     };
+  }
+  
+  isWinnerCell(cell) {
+	  return (this.props.winCells && this.props.winCells.includes(cell) ? true : false);
   }
   
   render() {
@@ -26,10 +30,8 @@ class Grid extends Component {
           <Cell
             key={cell}
             state={value}
-            isWinner={winCells && winCells.includes(cell) ? true : false}
-            onPress={e => {
-              onSetCell({ cell, cells, player });
-            }}
+            isWinner={isWinnerCell(cell)}
+            onPress={e => onSetCell({ cell, cells, player })}
           />
         ))}
       </div>

@@ -5,9 +5,9 @@
  */
 import React, { Component } from 'react';
 
-class Button extends Component {
+class ButtonBlock extends Component {
   get displayName() {
-    return 'Button';
+    return 'ButtonBlock';
   }
 
   static get defaultProps() {
@@ -44,4 +44,4 @@ class Button extends Component {
   }
 }
 
-export default Button;
+export default ButtonBlock;

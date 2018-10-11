@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import TicTacToeBoard from '../containers/tic-tac-toe-board';
+import TicTacToeBoard from '../containers/tictactoe-board';
 import WeatherWidget from '../components/widgets/weather-widget';
 
 import Header from './partials/header';

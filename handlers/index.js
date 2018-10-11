@@ -5,6 +5,7 @@
  */
 const home = (req, res) => {
 	res.render('home');
+	//res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
 	//res.send({ response: "I am alive" }).status(200);
 };
 
@@ -17,8 +18,13 @@ const test = (req, res) => {
 	res.send(params);
 };
 
+const all = (req, res) => {
+	res.render('index');
+};
+
 module.exports = {
 	home,
 	about,
-	test
+	test,
+	all
 }

@@ -27,8 +27,10 @@ const BASE_CONFIG = {
 		path: paths.BUILD_DIR,
         filename: "bundle.js",
 		sourceMapFilename: 'bundle.map',
+		chunkFilename: 'bundle.chunk.js',
 		libraryTarget: 'umd',
-		library: 'bundle'
+		library: 'bundle',
+		pathinfo: true
     },
     module: {
 		rules: [

@@ -15,7 +15,7 @@ class Cell extends Component {
   static get propTypes() {
     return {
       dataClass: PropTypes.object,
-      isWinner: PropTypes.bool,
+      isWinner: PropTypes.bool
     };
   }
 
@@ -23,7 +23,7 @@ class Cell extends Component {
     return {
       className: 'cell',
       dataClass: { winnerClass: 'cell-winner' },
-      isWinner: false,
+      isWinner: false
     };
   }
 
