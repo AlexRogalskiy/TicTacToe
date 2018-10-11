@@ -8,6 +8,6 @@ import { logger } from 'redux-logger';
 
 import TicTacToeFlow from '../reducers/index';
 
-let store = createStore(TicTacToeFlow, applyMiddleware(logger));
+let TicTacToeStore = createStore(TicTacToeFlow, applyMiddleware(logger));
 
-export default store;
+export default TicTacToeStore;

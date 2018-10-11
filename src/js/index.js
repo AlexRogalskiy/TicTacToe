@@ -12,12 +12,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import style from '../css/style.css';
 
 import App from './views/app';
-import store from './stores/index';
+import TicTacToeStore from './stores/tictactoe-store';
 import registerServiceWorker from './vendor/service-worker';
 
 const renderRoot = (Component, wrapper) =>
   ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={TicTacToeStore}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Component} />

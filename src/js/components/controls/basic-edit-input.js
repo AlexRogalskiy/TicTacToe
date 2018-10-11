@@ -69,7 +69,7 @@ class BasicEditInput extends Component {
       //this.setState(state, () => {
       //  this.props.handleValidation(field)(event);
       //});
-	  this.setState({ value: event.target.value });
+	  this.setState({ field: event.target.value });
 	  this.refs[field].onBlur(event);
       if (this.props.onBlur) {
         this.props.onBlur(event);
@@ -85,7 +85,7 @@ class BasicEditInput extends Component {
       //this.setState(state, () => {
       //  this.props.handleValidation(field)(event);
       //});
-	  this.setState({ value: event.target.value });
+	  this.setState({ field: event.target.value });
 	  this.refs[field].onChange(event);
       if (this.props.onChange) {
         this.props.onChange(event);
@@ -112,7 +112,7 @@ class BasicEditInput extends Component {
   	onUpdate(field) {
 		return event => {
 		  let state = { isEditing: false };
-		  state[value] = event.target.value;
+		  state[field] = event.target.value;
 		  Strategy.activateRule(this.validatorTypes, field);
 		  this.setState(state, () => {
 			this.props.handleValidation(field)(event);

@@ -55,7 +55,7 @@ class BasicInput extends Component {
   onBlur(field) {
     return event => {
       let state = {};
-      state[value] = event.target.value;
+      state[field] = event.target.value;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -69,7 +69,7 @@ class BasicInput extends Component {
   onChange(field) {
     return event => {
       let state = {};
-      state[value] = event.target.value;
+      state[field] = event.target.value;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);

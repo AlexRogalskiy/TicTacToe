@@ -149,5 +149,10 @@
   ],
   "workspaces": [
     "src/*"
-  ]
+  ],
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
+  }
 }
