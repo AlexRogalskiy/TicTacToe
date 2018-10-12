@@ -3,11 +3,11 @@
 /**
  * Module dependencies
  */
-const dateFormat = require('dateformat');
+import dateFormat from 'dateformat';
 
-const { isString, isObject } = require('./helpers');
-const Converter = require('./converter');
-const dateLocale = require('../resources/i18n/datetime/datetime_EN');
+import { isString, isObject } from './helpers';
+import Converter from './converter';
+import dateLocale from '../resources/i18n/datetime/datetime_EN';
 
 dateFormat.i18n = dateLocale;
 
@@ -45,7 +45,7 @@ const getLocalTime = (format, offset = 0, utc = false) => {
   return dateFormat(localCurrentTime, format, utc);
 };
 
-const tag = (messages, ...args) => {
+export const tag = (messages, ...args) => {
   let result = '';
   for (let i = 0; i < args.length; i++) {
     result += messages[i];
@@ -55,7 +55,7 @@ const tag = (messages, ...args) => {
   return result;
 };
 
-const rawTag = (messages, ...args) => {
+export const rawTag = (messages, ...args) => {
   let result = '';
   for (let i = 0; i < args.length; i++) {
     result += messages.raw[i];
@@ -65,44 +65,81 @@ const rawTag = (messages, ...args) => {
   return result;
 };
 
-const Logger = {
-  debug: function(message, ...args) {
+export default class Logger {
+  static debug(message, ...args) {
     console.log(
       '%c' + output(getTime(), message, args),
       getOutputStyle('green')
     );
-  },
+  }
 
-  error: function(message, ...args) {
+  static error(message, ...args) {
     console.error(
       '%c' + output(getTime(), message, args),
       getOutputStyle('red')
     );
-  },
+  }
 
-  warn: function(message, ...args) {
+  static warn(message, ...args) {
     console.warn(
       '%c' + output(getTime(), message, args),
       getOutputStyle('blue')
     );
-  },
+  }
 
-  info: function(message, ...args) {
+  static info(message, ...args) {
     console.info(
       '%c' + output(getTime(), message, args),
       getOutputStyle('pink')
     );
-  },
+  }
 
-  group: function(message, ...args) {
+  static group(message, ...args) {
     console.group(output(getTime(), message));
     console.log(args);
     console.groupEnd();
-  },
+  }
 };
 
-module.exports = {
-  tag,
-  rawTag,
-  Logger,
-};
+/*const Logger = (function() {
+	
+	function Logger() {
+		const INSTANCE = Symbol.for('instance');
+		
+		if(Logger[INSTANCE]) {
+			return Logger[INSTANCE];
+		}
+		
+		const debug = (message, ...args) => {
+			console.log('%c' + output(getTime(), message, args), getOutputStyle('green'));
+		};
+		
+		const error = (message, ...args) => {
+			console.error('%c' + output(getTime(), message, args), getOutputStyle('red'));
+		};
+		
+		const warn = (message, ...args) => {
+			console.warn('%c' + output(getTime(), message, args), getOutputStyle('blue'));
+		};
+		
+		const info = (message, ...args) => {
+			console.info('%c' + output(getTime(), message, args), getOutputStyle('pink'));
+		};
+		
+		const group = (message, ...args) => {
+			console.group(output(getTime(), message));
+			console.log(args);
+			console.groupEnd();
+		};
+		
+		return Logger[INSTANCE] = {
+			debug,
+			error,
+			warn,
+			info,
+			group
+		};
+	};
+	
+	return Logger();
+}());*/

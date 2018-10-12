@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import Loader from '../elements/loader';
-import { Logger, tag } from '../../libs/logger';
+import Loader from 'app-root/components/elements/loader';
+import Logger, { tag } from 'app-root/libs/logger';
 
 class WeatherWidget extends Component {
   get displayName() {

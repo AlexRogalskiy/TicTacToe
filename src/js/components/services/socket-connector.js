@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import { Logger } from '../libs/logger';
+import Logger from 'app-root/libs/logger';
 
 class SocketConnector extends Component {
   get displayName() {

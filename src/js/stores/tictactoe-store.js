@@ -6,7 +6,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
 
-import TicTacToeFlow from '../reducers/index';
+import TicTacToeFlow from 'app-root/reducers/index';
 
 let TicTacToeStore = createStore(TicTacToeFlow, applyMiddleware(logger));
 

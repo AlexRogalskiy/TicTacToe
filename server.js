@@ -3,44 +3,45 @@
 /**
  * Module dependencies
  */
-const path = require('path');
-const express = require('express');
-const connect = require('connect');
-const fs = require('fs');
+import path from 'path';
+import express from 'express';
+import connect from 'connect';
+import fs from 'fs';
 
 // middleware
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
-const expressSession = require('express-session');
-const csurf = require('csurf');
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import expressSession from 'express-session';
+import csurf from 'csurf';
 
 // http / error/ socket
-const axios = require('axios');
-const http = require('http');
-//const https = require('https');
-const createError = require('http-errors');
-const socketIo = require('socket.io');
-//const jsonParser = require('socket.io-json-parser');
+import axios from 'axios';
+import http from 'http';
+//import https from 'https';
+import createError from 'http-errors';
+import socketIo from 'socket.io';
+//import jsonParser from 'socket.io-json-parser';
 
 // mongo
 //const mongoose = require('mongoose');
-const MongoSessionStore = require('connect-mongo')(expressSession);
+import connectMongo from 'connect-mongo';
+const MongoSessionStore = connectMongo(expressSession);
 
 // validators
-const strategy = require('react-validatorjs-strategy');
+import strategy from 'react-validatorjs-strategy';
 
 // helpers
-const { Logger, tag } = require('./src/js/libs/logger');
-const { normalizePort, isString } = require('./src/js/libs/helpers');
+import Logger, { tag } from './src/js/libs/logger';
+import { normalizePort, isString } from './src/js/libs/helpers';
 
 // routes
-const routes = require('./routes/index');
-const adminRoutes = require('./routes/admin');
-const apiRoutes = require('./routes/api');
+import routes from './routes/index';
+import adminRoutes from './routes/admin';
+import apiRoutes from './routes/api';
 
 // credentials
-const credentials = require('./credentials.js');
-const db = require('./db.js');
+import credentials from './credentials';
+import db from './db';
 
 // server configuration
 const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
@@ -102,9 +103,9 @@ const fetchRemoteURL = (url, socket, delay) => {
 	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
 const getApiAndEmit = (url) => {
-	return async socket => {
+	return socket => {
 		try {
-			const response = await axios.get(url);
+			const response = axios.get(url);
 			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
 		} catch (error) {
 			Logger.error(`SERVER: error ${error.code}`);
@@ -336,8 +337,4 @@ server.on('listening', () => {
 	Logger.debug(`SERVER: listening on ${bind}`);
 });
 
-if(require.main === module) {
-	startServer();
-} else {
-	module.exports = startServer;
-}
+module.exports = startServer;

@@ -11,7 +11,7 @@ import {
   isDate,
   isNullOrUndefined,
 } from './helpers';
-import { Logger } from './logger';
+import Logger from './logger';
 
 /**
  * @private
@@ -36,7 +36,7 @@ const DEFAULT_COLORS_PRESET = [
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
  */
-export function validate(val: string, constraints: Object) {
+export validate = (val: string, constraints: Object) => {
   var errors = [];
   var validators = {
     minlength: {
@@ -95,12 +95,12 @@ export function validate(val: string, constraints: Object) {
     }
   }
   return errors.length > 0 ? { errors: errors } : true;
-}
+};
 
 /**
  * 	executed autobinding on object properties
  */
-export function autobind(methodNames: Array) {
+export autobind = (methodNames: Array) => {
   methodNames = isArray(methodNames) ? methodNames : [];
   return {
     componentWillMount: function() {
@@ -109,21 +109,21 @@ export function autobind(methodNames: Array) {
       });
     },
   };
-}
+};
 
 /**
  * 	returns new object enriched with mixins
  */
-export function mixin(...mixins: Array) {
+export mixin = (...mixins: Array) => {
   var base = function() {};
   Object.assign(base.prototype, ...mixins);
   return base;
-}
+};
 
 /**
  * 	returns object with properties filtered by predicate
  */
-export function filter(obj: Object, predicate: Function) {
+export filter = (obj: Object, predicate: Function) => {
   var result = {},
     key;
   for (key in obj) {
@@ -132,12 +132,12 @@ export function filter(obj: Object, predicate: Function) {
     }
   }
   return result;
-}
+};
 
 /**
  * 	returns the color by username
  */
-export function getColorByUsername(username, colors) {
+export getColorByUsername = (username, colors) => {
   colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
   var hash = 7;
   for (var i = 0; i < username.length; i++) {
@@ -145,7 +145,7 @@ export function getColorByUsername(username, colors) {
   }
   var index = Math.abs(hash % colors.length);
   return colors[index];
-}
+};
 
 /**
  * 	returns lexical description of date/time
@@ -164,50 +164,50 @@ export function toLexicalDate(date: Date) {
     (day_diff < 7 && day_diff + ' days ago') ||
     Math.ceil(day_diff / 7) + ' weeks ago'
   );
-}
+};
 
 /**
  * 	returns lexical representation of memory volume
  */
-export function lexicalSize(size: Number) {
+export lexicalSize = (size: Number) => {
   if (size < 0) return;
   var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
   var ord = Math.floor(Math.log(size) / Math.log(1024));
   ord = Math.min(Math.max(0, ord), units.length - 1);
   var s = Math.round((size / Math.pow(1024, ord)) * 100) / 100;
   return s + ' ' + units[ord];
-}
+};
 
 /**
  * 	returns color representation in RGB format
  */
-export function colorize(
+export colorize =(
   color: string,
   params: Object = { r: 0.299, g: 0.587, b: 0.114 }
-) {
+) => {
   color = color.startsWith('#') ? color.substring(1) : color;
   let c = parseInt(color, 16);
   let r = (c & 0xff0000) >> 16;
   let g = (c & 0x00ff00) >> 8;
   let b = c & 0x0000ff;
   return params.r * r + params.g * g + params.b * b;
-}
+};
 
 /**
  * 	returns result of promise by timeout
  */
-function wait(timeout: Number) {
+const wait = (timeout: Number) => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve();
     }, timeout);
   });
-}
+};
 
 /**
  *  returns result of request by retries count
  */
-export async function requestWithRetry(url: string, count: Number) {
+export async requestWithRetry = (url: string, count: Number) => {
   const MAX_RETRIES = isPositive(count) ? count : 10;
   for (let i = 0; i <= MAX_RETRIES; i++) {
     try {
@@ -219,16 +219,16 @@ export async function requestWithRetry(url: string, count: Number) {
       Logger.debug(`Retrying with message=$err.message}, count=${i}`);
     }
   }
-}
+};
 
 /**
  *  returns result functions executeed asynchronously
  */
-export async function executeAsync(
+export async executeAsync = (
   fn1: Function,
   fn2: Function,
   fn3: Function
-) {
+) => {
   try {
     const valueA = await fn1();
     const valueB = await fn2(valueA);
@@ -236,4 +236,4 @@ export async function executeAsync(
   } catch (err) {
     Logger.error(err);
   }
-}
+};

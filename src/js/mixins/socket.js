@@ -5,7 +5,7 @@
  */
 import socketIOClient from 'socket.io-client';
 
-import { Logger } from '../libs/logger';
+import { Logger } from 'app-root/libs/logger';
 
 const Socket = {
   socket: socketIOClient(this.props.endpoint),

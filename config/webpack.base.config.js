@@ -76,7 +76,8 @@ const BASE_CONFIG = {
 		],
 		extensions: ['.js', '.json', '.jsx', '.scss', '.sass'],
 		alias: {
-			'appRoot': paths.JS_SOURCE_DIR
+			'app-root': paths.JS_SOURCE_DIR,
+			'vendor': path.join(paths.JS_SOURCE_DIR, 'vendor')
 		}
 	}
 };

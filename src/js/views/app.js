@@ -6,15 +6,15 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import TicTacToeBoard from '../containers/tictactoe-board';
-import WeatherWidget from '../components/widgets/weather-widget';
+import TicTacToeBoard from 'app-root/containers/tictactoe-board';
+import WeatherWidget from 'app-root/components/widgets/weather-widget';
 
-import Header from './partials/header';
-import Footer from './partials/footer';
+import Header from 'app-root/views/partials/header';
+import Footer from 'app-root/views/partials/footer';
 
-import wrapper from '../mixins/socket-wrapper';
+import wrapper from 'app-root/mixins/socket-wrapper';
 
-import config from '../resources/config.json';
+import config from 'app-root/resources/config.json';
 
 const scheme = config.default.scheme;
 

@@ -7,12 +7,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
 
-import ButtonBlock from '../controls/button-block';
-import Loader from '../elements/loader';
-import StatusBar from '../elements/statusbar';
-import Grid from '../elements/grid';
+import ButtonBlock from 'app-root/components/controls/button-block';
+import Loader from 'app-root/components/elements/loader';
+import StatusBar from 'app-root/components/elements/statusbar';
+import Grid from 'app-root/components/elements/grid';
 
-import { Logger, tag } from '../../libs/logger';
+import Logger, { tag } from 'app-root/libs/logger';
 
 class BoardWidget extends Component {
   get displayName() {

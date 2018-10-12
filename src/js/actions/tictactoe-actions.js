@@ -9,7 +9,7 @@ import {
   START,
   INITIALIZE,
   FINALIZE,
-} from '../constants/action-types';
+} from 'app-root/constants/tictactoe-constants';
 
 export const addMove = (cell, player) => {
   return {

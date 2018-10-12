@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-import Cell from './cell';
+import Cell from 'app-root/components/elements/cell';
 
 class Grid extends Component {
   get displayName() {

@@ -12,11 +12,11 @@ import {
   startGame,
   initializeGame,
   finalizeGame,
-} from '../actions/index';
-import BoardWidget from '../components/widgets/board-widget';
+} from 'app-root/actions/tictactoe-actions';
+import BoardWidget from 'app-root/components/widgets/board-widget';
 
-import { isNullOrUndefined } from '../libs/helpers';
-import Locale from '../resources/i18n/locale';
+import { isNullOrUndefined } from 'app-root/libs/helpers';
+import Locale from 'app-root/resources/i18n/locale';
 
 const localStrings = new LocalizedStrings(Locale);
 

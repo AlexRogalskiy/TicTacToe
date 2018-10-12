@@ -4,11 +4,11 @@
  * Module dependencies
  */
 import React, { Component } from 'react';
-import packageJSON from '../../../package.json';
+import packageJSON from 'app-root/../package.json';
 
-class PackageList extends Component {
+class PackageGist extends Component {
 	get displayName() {
-		return 'PackageList';
+		return 'PackageGist';
 	}
 	
 	render() {
@@ -25,4 +25,4 @@ class PackageList extends Component {
 	}
 };
 
-export default PackageList;
+export default PackageGist;

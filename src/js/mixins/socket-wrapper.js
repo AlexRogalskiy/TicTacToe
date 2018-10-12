@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Logger } from '../libs/logger';
+import Logger from 'app-root/libs/logger';
 
 export default function wrapper(WrappedComponent) {
   return class extends Component {

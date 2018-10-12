@@ -3,20 +3,18 @@
 /**
  * Module dependencies
  */
-const { isFunction } = require('./helpers');
+import { isFunction } from './helpers';
 
 const DEFAULT_INDENT_SPACE = 4;
 
-const Converter = {
-  serialize: function(obj, callback) {
+export default class Converter {
+  static serialize(obj, callback) {
     callback = isFunction(callback) ? callback : '';
     return JSON.stringify(obj, callback, DEFAULT_INDENT_SPACE);
-  },
+  }
 
-  unserialize: function(obj, callback) {
+  static unserialize(obj, callback) {
     callback = isFunction(callback) ? callback : '';
     return JSON.parse(obj, callback);
-  },
+  }
 };
-
-module.exports = Converter;

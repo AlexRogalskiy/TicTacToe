@@ -5,8 +5,8 @@
  */
 import React, { Component } from 'react';
 
-import { Logger } from '../libs/logger';
-import { isFunction } from '../libs/helpers';
+import { Logger } from 'app-root/libs/logger';
+import { isFunction } from 'app-root/libs/helpers';
 
 export default function wrapper(WrappedComponent) {
   return class extends Component {

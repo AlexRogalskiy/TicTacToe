@@ -10,8 +10,8 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from '../../libs/elements';
-import Forms from '../../validators/forms';
+import { MessageList } from 'app-root/libs/elements';
+import Forms from 'app-root/validators/forms';
 
 class BasicInput extends Component {
   get displayName() {

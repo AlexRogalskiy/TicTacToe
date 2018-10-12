@@ -3,7 +3,7 @@
 /**
  * returns message block
  */
-export function MessageList(props) {
+export MessageList = (props) => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
@@ -14,12 +14,12 @@ export function MessageList(props) {
     return <ul {...rest}>{elements}</ul>;
   }
   return null;
-}
+};
 
 /**
  * returns single message block
  */
-export function Message(props) {
+export Message = (props) => {
   const { message, ...rest } = props;
   return <div {...rest}>{message}</div>;
-}
+};

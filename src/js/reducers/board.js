@@ -9,10 +9,10 @@ import {
   START,
   INITIALIZE,
   FINALIZE,
-} from '../constants/action-types';
+} from 'app-root/constants/tictactoe-constants';
 
-import config from '../resources/config.json';
-import { guidGenerator, currentDate, currentTime } from '../libs/helpers';
+import config from 'app-root/resources/config.json';
+import { guidGenerator, currentDate, currentTime } from 'app-root/libs/helpers';
 
 const scheme = config.default.scheme;
 

@@ -6,8 +6,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import TableHead from './table-head';
-import TableRow from './table-row';
+import TableHead from 'app-root/components/elements/table-head';
+import TableRow from 'app-root/components/elements/table-row';
 
 class Table extends Component {
   get displayName() {

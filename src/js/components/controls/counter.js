@@ -7,11 +7,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-import { Button } from './button';
-import { Block } from '../elements/block';
-import { Icon } from '../elements/icon';
+import { Button } from 'app-root/components/controls/button';
+import { Block } from 'app-root/components/elements/block';
+import { Icon } from 'app-root/components/elements/icon';
 
-import { Logger } from '../../libs/logger';
+import Logger from 'app-root/libs/logger';
 
 class Counter extends Component {
   get displayName() {

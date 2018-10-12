@@ -11,9 +11,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import style from '../css/style.css';
 
-import App from './views/app';
-import TicTacToeStore from './stores/tictactoe-store';
-import registerServiceWorker from './vendor/service-worker';
+import App from 'app-root/views/app';
+import TicTacToeStore from 'app-root/stores/tictactoe-store';
+import registerServiceWorker from 'app-root/vendor/service-worker';
 
 const renderRoot = (Component, wrapper) =>
   ReactDOM.render(

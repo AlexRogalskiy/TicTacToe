@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import { Logger } from '../libs/logger';
+import { Logger } from 'app-root/libs/logger';
 
 const LifeCycle = {
   componentWillMount: function() {

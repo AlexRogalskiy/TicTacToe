@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-const { isNullOrUndefined, isFunction } = require('./helpers');
+import { isNullOrUndefined, isFunction } from './helpers';
 
 (function UMD(name, context, definition) {
 	if (!isNullOrUndefined(module) && module.exports) {

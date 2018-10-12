@@ -10,11 +10,12 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from '../../libs/elements';
-import Button from './button';
-import Input from './input';
-import Icon from '../elements/icon';
-import Forms from '../../validators/forms';
+import { MessageList } from 'app-root/libs/elements';
+import Forms from 'app-root/validators/forms';
+
+import Button from 'app-root/components/controls/button';
+import Input from 'app-root/components/controls/input';
+import Icon from 'app-root/components/elements/icon';
 
 class BasicEditInput extends Component {
   get displayName() {

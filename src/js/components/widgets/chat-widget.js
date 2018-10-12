@@ -9,9 +9,9 @@ import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 //import $ from 'jquery';
 
-import { isNullOrUndefined } from '../libs/helpers';
-import Loader from './loader';
-import { Logger } from '../libs/logger';
+import { isNullOrUndefined } from 'app-root/libs/helpers';
+import Loader from 'app-root/components/elements/loader';
+import Logger from 'app-root/libs/logger';
 
 class ChatWidget extends Component {
   /*var FADE_TIME = 150; // ms
