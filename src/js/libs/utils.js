@@ -237,3 +237,11 @@ export async executeAsync = (
     Logger.error(err);
   }
 };
+
+/**
+ *  // `function() {}` has prototype, but `() => {}` doesn't
+ *  // `() => {}` via Babel has prototype too.
+ */
+export isComponentStateless = (component) => {
+    return !(component.prototype && component.prototype.render)
+};

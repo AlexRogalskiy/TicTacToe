@@ -23,3 +23,31 @@ export Message = (props) => {
   const { message, ...rest } = props;
   return <div {...rest}>{message}</div>;
 };
+
+/**
+ * returns single input field
+ */
+export Input = (function() {
+	const InputField = ({ label, text, type, id, value, handleChange }) => (
+		<div className="form-group">
+			<label htmlFor={label}>{text}</label>
+			<input
+			  type={type}
+			  className="form-control"
+			  id={id}
+			  value={value}
+			  onChange={handleChange}
+			  required
+			/>
+		</div>
+	);
+	InputField.propTypes = {
+		label: PropTypes.string.isRequired,
+		text: PropTypes.string.isRequired,
+		type: PropTypes.string.isRequired,
+		id: PropTypes.string.isRequired,
+		value: PropTypes.string.isRequired,
+		handleChange: PropTypes.func.isRequired,
+	};
+	return InputField;
+}());

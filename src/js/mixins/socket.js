@@ -5,13 +5,18 @@
  */
 import socketIOClient from 'socket.io-client';
 
-import { Logger } from 'app-root/libs/logger';
+import Logger from 'app-root/libs/logger';
 
-const Socket = {
-  socket: socketIOClient(this.props.endpoint),
-  defaultProps: 'http://localhost:8080/',
+export default class Socket {
+	
+  socket = socketIOClient(this.props.endpoint)
+  defaultProps = 'http://localhost:8080/'
 
-  onConnect: function(socket) {
+  get displayName() {
+    return 'Socket';
+  }
+  
+  onConnect(socket) {
     return () => {
       Logger.debug(`Connected by socket with id=${socket.id}`);
       this.setState({ isConnected: true });
@@ -19,9 +24,9 @@ const Socket = {
         this.props.onConnect(socket);
       }
     };
-  },
+  }
 
-  onDisconnect: function(socket) {
+  onDisconnect(socket) {
     return () => {
       Logger.debug(`Disconnected from socket with id=${socket.id}`);
       this.setState({ isConnected: false });
@@ -29,13 +34,11 @@ const Socket = {
         this.props.onDisconnect(socket);
       }
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));
-  },
+  }
 };
-
-export default Socket;

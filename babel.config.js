@@ -16,6 +16,7 @@ module.exports = function(api) {
 		['@babel/plugin-transform-flow-strip-types'],
 		['@babel/plugin-transform-modules-commonjs'],
 		['@babel/plugin-transform-react-display-name'],
+		['@babel/plugin-transform-react-jsx'],
 		['module-resolver', {
 		  'root': ['./src'],
 		  'alias': {

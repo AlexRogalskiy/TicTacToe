@@ -66,6 +66,10 @@ export const rawTag = (messages, ...args) => {
 };
 
 export default class Logger {
+  get displayName() {
+    return 'Logger';
+  }
+  
   static debug(message, ...args) {
     console.log(
       '%c' + output(getTime(), message, args),
@@ -100,46 +104,3 @@ export default class Logger {
     console.groupEnd();
   }
 };
-
-/*const Logger = (function() {
-	
-	function Logger() {
-		const INSTANCE = Symbol.for('instance');
-		
-		if(Logger[INSTANCE]) {
-			return Logger[INSTANCE];
-		}
-		
-		const debug = (message, ...args) => {
-			console.log('%c' + output(getTime(), message, args), getOutputStyle('green'));
-		};
-		
-		const error = (message, ...args) => {
-			console.error('%c' + output(getTime(), message, args), getOutputStyle('red'));
-		};
-		
-		const warn = (message, ...args) => {
-			console.warn('%c' + output(getTime(), message, args), getOutputStyle('blue'));
-		};
-		
-		const info = (message, ...args) => {
-			console.info('%c' + output(getTime(), message, args), getOutputStyle('pink'));
-		};
-		
-		const group = (message, ...args) => {
-			console.group(output(getTime(), message));
-			console.log(args);
-			console.groupEnd();
-		};
-		
-		return Logger[INSTANCE] = {
-			debug,
-			error,
-			warn,
-			info,
-			group
-		};
-	};
-	
-	return Logger();
-}());*/
