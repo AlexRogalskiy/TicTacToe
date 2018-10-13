@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class BasicFilterInput extends Component {
+export default class BasicFilterInput extends Component {
   get displayName() {
     return 'BasicFilterInput';
   }
@@ -60,6 +60,4 @@ class BasicFilterInput extends Component {
       </BasicInput>
     );
   }
-}
-
-export default BasicFilterInput;
+};

@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class Button extends Component {
+export default class Button extends Component {
   get displayName() {
     return 'Button';
   }
@@ -37,6 +37,4 @@ class Button extends Component {
 		</button>
 	);
   }
-}
-
-export default Button;
+};

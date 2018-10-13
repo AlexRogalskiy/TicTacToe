@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class Input extends Component {
+export default class Input extends Component {
   get displayName() {
     return 'Input';
   }
@@ -51,6 +51,4 @@ class Input extends Component {
       </div>
     );
   }
-}
-
-export default Input;
+};

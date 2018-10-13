@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import packageJSON from 'app-root/../package.json';
 
-class PackageGist extends Component {
+export default class PackageGist extends Component {
 	get displayName() {
 		return 'PackageGist';
 	}
@@ -24,5 +24,3 @@ class PackageGist extends Component {
 		);
 	}
 };
-
-export default PackageGist;

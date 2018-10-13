@@ -21,7 +21,7 @@ const paths = {
 
 const BASE_CONFIG = {
 	mode: 'none',
-    entry: path.resolve(paths.JS_SOURCE_DIR, "index.js"),
+    entry: ['babel-polyfill', path.resolve(paths.JS_SOURCE_DIR, "index.js")],
 	devtool: 'none',
     output: {
 		path: paths.BUILD_DIR,

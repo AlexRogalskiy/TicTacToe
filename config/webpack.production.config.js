@@ -37,7 +37,7 @@ const PRODUCTION_CONFIG = {
 			{ test: /\.css$/i, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: true, url: false, minimize: true, sourceMap: true, importLoaders: 1 }}]},
 			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: true } }]},
 			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: true, url: false, minimize: true, sourceMap: true, importLoaders: 1 }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { modules: true, url: false, importLoaders: 1, minimize: true, sourceMap: true, plugins: [ require('cssnano'), require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [CSS_DIR], outputStyle: 'expanded', sourceMap: true, minimize: true }}] },
-			{ test: /\.(js|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
+			{ test: /\.(js|mjs|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
 		]
     },
 	plugins: [

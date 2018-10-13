@@ -13,19 +13,19 @@ dateFormat.i18n = dateLocale;
 
 const DEFAULT_DATETIME_FORMAT = 'dddd, mmmm dS, yyyy, hh:MM:ss TT';
 const DEFAULT_COLORS_PRESET = {
-  white: '#ffffff',
-  pink: '#ff00ff',
-  yellow: '#ffff00',
-  green: '#00ff00',
-  blue: '#0000ff',
-  black: '#000000',
-  red: '#f00000',
+  white: 	'#ffffff',
+  pink: 	'#ff00ff',
+  yellow: 	'#ffff00',
+  green: 	'#00ff00',
+  blue: 	'#0000ff',
+  black: 	'#000000',
+  red: 		'#f00000'
 };
 
 const output = (dateTime, message, ...args) =>
   `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 
-const getOutputStyle = type =>
+const getOutputStyle = (type) =>
   'color: ' +
   (DEFAULT_COLORS_PRESET[type]
     ? DEFAULT_COLORS_PRESET[type]

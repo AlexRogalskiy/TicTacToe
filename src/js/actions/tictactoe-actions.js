@@ -3,15 +3,9 @@
 /**
  * Module dependencies
  */
-import {
-  ADD_MOVE,
-  RESET,
-  START,
-  INITIALIZE,
-  FINALIZE,
-} from 'app-root/constants/tictactoe-constants';
+import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'app-root/constants/tictactoe-constants';
 
-export const addMove = (cell, player) => {
+const addMove = (cell, player) => {
   return {
     type: ADD_MOVE,
     cell,
@@ -19,14 +13,14 @@ export const addMove = (cell, player) => {
   };
 };
 
-export const resetGame = data => {
+const resetGame = (data) => {
   return {
     type: RESET,
     room: data.room,
   };
 };
 
-export const startGame = (board, player) => {
+const startGame = (board, player) => {
   return {
     type: START,
     board,
@@ -34,7 +28,7 @@ export const startGame = (board, player) => {
   };
 };
 
-export const initializeGame = data => {
+const initializeGame = (data) => {
   return {
     type: INITIALIZE,
     board: data.board,
@@ -44,7 +38,7 @@ export const initializeGame = data => {
   };
 };
 
-export const finalizeGame = data => {
+const finalizeGame = (data) => {
   return {
     type: FINALIZE,
     board: data.board,
@@ -52,4 +46,12 @@ export const finalizeGame = data => {
     player: data.player,
     room: data.room,
   };
+};
+
+export {
+	addMove,
+	resetGame,
+	startGame,
+	initializeGame,
+	finalizeGame
 };

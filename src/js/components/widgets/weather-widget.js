@@ -10,7 +10,7 @@ import socketIOClient from 'socket.io-client';
 import Loader from 'app-root/components/elements/loader';
 import Logger, { tag } from 'app-root/libs/logger';
 
-class WeatherWidget extends Component {
+export default class WeatherWidget extends Component {
   get displayName() {
     return 'WeatherWidget';
   }
@@ -85,6 +85,4 @@ class WeatherWidget extends Component {
     ) : null;
     return <>{elements}</>;
   }
-}
-
-export default WeatherWidget;
+};

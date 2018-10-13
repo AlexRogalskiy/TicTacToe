@@ -3,13 +3,7 @@
 /**
  * Module dependencies
  */
-import {
-  ADD_MOVE,
-  RESET,
-  START,
-  INITIALIZE,
-  FINALIZE,
-} from 'app-root/constants/tictactoe-constants';
+import { ADD_MOVE, START, INITIALIZE, RESET, FINALIZE } from 'app-root/constants/tictactoe-constants';
 
 import config from 'app-root/resources/config.json';
 import { randomBinary } from 'app-root/libs/helpers';

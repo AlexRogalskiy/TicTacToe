@@ -24,7 +24,7 @@ const defaultTransition = (transitionName = 'carousel') => {
  exitDone: 'my-done-exit,
 }}*/
 
-class BlockTransition extends Component {
+export default class BlockTransition extends Component {
   get displayName() {
     return 'BlockTransition';
   }
@@ -53,6 +53,4 @@ class BlockTransition extends Component {
 		</div>
     );
   }
-}
-
-export default BlockTransition;
+};

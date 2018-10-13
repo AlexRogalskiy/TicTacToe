@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 
 import Cell from 'app-root/components/elements/cell';
 
-class Grid extends Component {
+export default class Grid extends Component {
   get displayName() {
     return 'Grid';
   }
@@ -37,6 +37,4 @@ class Grid extends Component {
       </div>
     );
   }
-}
-
-export default Grid;
+};

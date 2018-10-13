@@ -3,16 +3,9 @@
 /**
  * Module dependencies
  */
-import {
-  ADD_MOVE,
-  RESET,
-  START,
-  INITIALIZE,
-  FINALIZE,
-} from 'app-root/constants/tictactoe-constants';
-
-import config from 'app-root/resources/config.json';
+import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'app-root/constants/tictactoe-constants';
 import { guidGenerator, currentDate, currentTime } from 'app-root/libs/helpers';
+import config from 'app-root/resources/config.json';
 
 const scheme = config.default.scheme;
 

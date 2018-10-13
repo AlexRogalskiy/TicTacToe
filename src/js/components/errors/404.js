@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ResourceNotFoundError extends Component {
+export default class ResourceNotFoundError extends Component {
   get displayName() {
     return 'ResourceNotFoundError';
   }
@@ -27,6 +27,4 @@ class ResourceNotFoundError extends Component {
     const { messsage, ...rest } = this.props;
     return <div {...rest}>{message}</div>;
   }
-}
-
-export default ResourceNotFoundError;
+};

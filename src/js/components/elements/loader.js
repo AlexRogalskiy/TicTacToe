@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class Loader extends Component {
+export default class Loader extends Component {
   get displayName() {
     return 'Loader';
   }
@@ -48,6 +48,4 @@ class Loader extends Component {
       </div>
     );
   }
-}
-
-export default Loader;
+};

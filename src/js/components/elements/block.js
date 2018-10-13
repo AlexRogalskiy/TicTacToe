@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Block extends Component {
+export default class Block extends Component {
   get displayName() {
     return 'Block';
   }
@@ -30,6 +30,4 @@ class Block extends Component {
 		<span className={className} {...rest}>{content}</span>
     );
   }
-}
-
-export default Block;
+};

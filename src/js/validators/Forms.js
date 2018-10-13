@@ -9,7 +9,7 @@ function checkValidity(validator) {
   validator.lang = 'en';
 }
 
-const Forms = {
+export default const Forms = {
   profileControl: Strategy.createSchema(
     {
       // author: 'required',
@@ -38,5 +38,3 @@ const Forms = {
   ),
   imageInput: Strategy.createSchema({}, {}, checkValidity),
 };
-
-export default Forms;

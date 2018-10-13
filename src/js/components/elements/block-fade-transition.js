@@ -26,7 +26,7 @@ const defaultTransition = (transitionIn = false) => {
 	}
 };
 
-class BlockFadeTransition extends Component {
+export default class BlockFadeTransition extends Component {
   get displayName() {
     return 'BlockFadeTransition';
   }
@@ -65,6 +65,4 @@ class BlockFadeTransition extends Component {
 		 </Transition>
 	);
   }
-}
-
-export default BlockFadeTransition;
+};

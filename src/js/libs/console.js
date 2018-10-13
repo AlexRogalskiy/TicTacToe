@@ -1,17 +1,29 @@
 'use strict';
- 
-(function(global) {
-  if (!global.console) {
-		global.console = {};
-  }
-  var con = global.console;
-  var prop, method;
-  var dummy = function() {};
-  var properties = ['memory'];
-  var methods = ('assert,clear,count,debug,dir,dirxml,error,exception,group,' +
+
+/**
+ * Module dependencies
+ */
+import { isNullOrUndefined } from './helpers';
+
+const Console = ((globals) => {
+	if (!globals.console) {
+		globals.console = {};
+	}
+	const properties = ['memory'];
+	const methods = ('assert,clear,count,debug,dir,dirxml,error,exception,group,' +
      'groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,' +
      'show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn').split(',');
-  while (prop = properties.pop()) if (!con[prop]) con[prop] = {};
-  while (method = methods.pop()) if (!con[method]) con[method] = dummy;
-  // Using `this` for web workers & supports Browserify / Webpack.
-})(typeof window === 'undefined' ? this : window);
+	
+	while(let prop = properties.pop()) {
+		if (!globals.console[prop]) {
+			globals.console[prop] = {};
+		}
+	}
+	while(let method = methods.pop()) {
+		if (!globals.console[method]) {
+			globals.console[method] = Function.prototype;
+		}
+	}
+}(isNullOrUndefined(window) ? this : window));
+
+export default Console;

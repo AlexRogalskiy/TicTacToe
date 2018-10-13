@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-import { Logger } from 'app-root/libs/logger';
+import Logger from 'app-root/libs/logger';
 
 export default function wrapper(WrappedComponent) {
   return class extends Component {
@@ -64,4 +64,4 @@ export default function wrapper(WrappedComponent) {
       );
     }
   };
-}
+};

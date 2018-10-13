@@ -5,7 +5,7 @@
  */
 import { isNullOrUndefined, isFunction } from './helpers';
 
-(function UMD(name, context, definition) {
+const Normalize = ((name, context, definition) => {
 	if (!isNullOrUndefined(module) && module.exports) {
 		module.exports = definition();
 	} else if (isFunction(define) && define.amd) {
@@ -13,7 +13,7 @@ import { isNullOrUndefined, isFunction } from './helpers';
 	} else {
 		context[name] = definition(name, context);
 	}
-})('normalizeSelector', this, function DEF(name, context) {
+}('normalizeSelector', this, (name, context) => {
 
 	function normalizeSelector(sel) {
 		
@@ -129,4 +129,4 @@ import { isNullOrUndefined, isFunction } from './helpers';
 		return tokens.join('').trim();
 	};
 	return normalizeSelector;
-});
+}));

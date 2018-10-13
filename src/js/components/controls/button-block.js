@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-class ButtonBlock extends Component {
+export default class ButtonBlock extends Component {
   get displayName() {
     return 'ButtonBlock';
   }
@@ -42,6 +42,4 @@ class ButtonBlock extends Component {
       </div>
     );
   }
-}
-
-export default ButtonBlock;
+};

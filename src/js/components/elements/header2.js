@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Header2 extends Component {
+export default class Header2 extends Component {
   get displayName() {
     return 'Header2';
   }
@@ -34,6 +34,4 @@ class Header2 extends Component {
       <h2 className={className} {...rest}>{message}</h2>
     );
   }
-}
-
-export default Header2;
+};

@@ -36,7 +36,7 @@ const DEVELOPMENT_CONFIG = {
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader', options: { mozjpeg: { progressive: true, quality: 70 }, optipng: { enabled: false }, pngquant: { quality: '65-90', speed: 4 }, gifsicle: { interlaced: false }, webp: { quality: 75 }}}]},
 			{ test: /\.css$/i, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: false, url: false, minimize: false, sourceMap: true, importLoaders: 1 }}]},
 			{ test: /\.(sass|scss)$/i, exclude: [/(node_modules|bower_components)/], use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: false, url: false, minimize: false, sourceMap: true, importLoaders: 1 }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { modules: false, url: false, importLoaders: 1, minimize: false, sourceMap: true, plugins: [ require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [paths.SASS_SOURCE_DIR], outputStyle: 'expanded', sourceMap: true, minimize: false }}] },
-			{ test: /\.(js|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
+			{ test: /\.(js|mjs|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
 		]
     },
 	plugins: [

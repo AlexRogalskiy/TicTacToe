@@ -3,14 +3,9 @@
 /**
  * Module dependencies
  */
-import {
-  isString,
-  isPositive,
-  isArray,
-  isObject,
-  isDate,
-  isNullOrUndefined,
-} from './helpers';
+import md5 from 'crypto-js/md5';
+ 
+import { isNullOrUndefined, isString, isArray, isObject, isPositive } from './helpers';
 import Logger from './logger';
 
 /**
@@ -28,7 +23,7 @@ const DEFAULT_COLORS_PRESET = [
   '#3b88eb',
   '#3824aa',
   '#a700ff',
-  '#d300e7',
+  '#d300e7'
 ];
 
 /**
@@ -36,7 +31,7 @@ const DEFAULT_COLORS_PRESET = [
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
  */
-export validate = (val: string, constraints: Object) => {
+const validate = (val: string, constraints: Object) => {
   var errors = [];
   var validators = {
     minlength: {
@@ -100,7 +95,7 @@ export validate = (val: string, constraints: Object) => {
 /**
  * 	executed autobinding on object properties
  */
-export autobind = (methodNames: Array) => {
+const autobind = (methodNames: Array) => {
   methodNames = isArray(methodNames) ? methodNames : [];
   return {
     componentWillMount: function() {
@@ -114,7 +109,7 @@ export autobind = (methodNames: Array) => {
 /**
  * 	returns new object enriched with mixins
  */
-export mixin = (...mixins: Array) => {
+const mixin = (...mixins: Array) => {
   var base = function() {};
   Object.assign(base.prototype, ...mixins);
   return base;
@@ -123,7 +118,7 @@ export mixin = (...mixins: Array) => {
 /**
  * 	returns object with properties filtered by predicate
  */
-export filter = (obj: Object, predicate: Function) => {
+const filter = (obj: Object, predicate: Function) => {
   var result = {},
     key;
   for (key in obj) {
@@ -137,7 +132,7 @@ export filter = (obj: Object, predicate: Function) => {
 /**
  * 	returns the color by username
  */
-export getColorByUsername = (username, colors) => {
+const getColorByUsername = (username, colors) => {
   colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
   var hash = 7;
   for (var i = 0; i < username.length; i++) {
@@ -150,7 +145,7 @@ export getColorByUsername = (username, colors) => {
 /**
  * 	returns lexical description of date/time
  */
-export function toLexicalDate(date: Date) {
+const toLexicalDate = (date: Date) => {
   date = isNullOrUndefined(date) ? Date.now() : date;
   var diff = (new Date().getTime() - date.getTime()) / 1000;
   var day_diff = Math.floor(diff / 86400);
@@ -169,7 +164,7 @@ export function toLexicalDate(date: Date) {
 /**
  * 	returns lexical representation of memory volume
  */
-export lexicalSize = (size: Number) => {
+const lexicalSize = (size: Number) => {
   if (size < 0) return;
   var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
   var ord = Math.floor(Math.log(size) / Math.log(1024));
@@ -181,7 +176,7 @@ export lexicalSize = (size: Number) => {
 /**
  * 	returns color representation in RGB format
  */
-export colorize =(
+const colorize = (
   color: string,
   params: Object = { r: 0.299, g: 0.587, b: 0.114 }
 ) => {
@@ -207,7 +202,7 @@ const wait = (timeout: Number) => {
 /**
  *  returns result of request by retries count
  */
-export async requestWithRetry = (url: string, count: Number) => {
+const async requestWithRetry = (url: string, count: Number) => {
   const MAX_RETRIES = isPositive(count) ? count : 10;
   for (let i = 0; i <= MAX_RETRIES; i++) {
     try {
@@ -224,7 +219,7 @@ export async requestWithRetry = (url: string, count: Number) => {
 /**
  *  returns result functions executeed asynchronously
  */
-export async executeAsync = (
+const async executeAsync = (
   fn1: Function,
   fn2: Function,
   fn3: Function
@@ -239,9 +234,22 @@ export async executeAsync = (
 };
 
 /**
- *  // `function() {}` has prototype, but `() => {}` doesn't
- *  // `() => {}` via Babel has prototype too.
+ *  returns gravatar url
  */
-export isComponentStateless = (component) => {
-    return !(component.prototype && component.prototype.render)
+const getGravatarUrl = (url = 'http://www.gravatar.com/avatar/', name) => {
+	let hash = md5(name);
+	return `${url}${hash.toString()}`;
+};
+
+export {
+	validate,
+	autobind,
+	filter,
+	getColorByUsername,
+	toLexicalDate,
+	lexicalSize,
+	colorize,
+	requestWithRetry,
+	executeAsync,
+	getGravatarUrl
 };

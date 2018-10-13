@@ -7,13 +7,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-import { Button } from 'app-root/components/controls/button';
-import { Block } from 'app-root/components/elements/block';
-import { Icon } from 'app-root/components/elements/icon';
+import Button from 'app-root/components/controls/button';
+import Block from 'app-root/components/elements/block';
+import Icon from 'app-root/components/elements/icon';
 
 import Logger from 'app-root/libs/logger';
 
-class Counter extends Component {
+export default class Counter extends Component {
   get displayName() {
     return 'Counter';
   }
@@ -178,6 +178,4 @@ class Counter extends Component {
 			</div>
 		);
   }
-}
-
-export default Counter;
+};

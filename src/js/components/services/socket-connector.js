@@ -9,7 +9,7 @@ import socketIOClient from 'socket.io-client';
 
 import Logger from 'app-root/libs/logger';
 
-class SocketConnector extends Component {
+export default class SocketConnector extends Component {
   get displayName() {
     return 'SocketConnector';
   }
@@ -58,6 +58,4 @@ class SocketConnector extends Component {
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));
   }
-}
-
-export default SocketConnector;
+};

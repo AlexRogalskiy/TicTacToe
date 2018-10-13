@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-class Footer extends Component {
+export default class Footer extends Component {
   get displayName() {
     return 'Footer';
   }
@@ -20,6 +20,4 @@ class Footer extends Component {
     const { children, ...rest } = this.props;
     return <footer {...rest}>{children}</footer>;
   }
-}
-
-export default Footer;
+};

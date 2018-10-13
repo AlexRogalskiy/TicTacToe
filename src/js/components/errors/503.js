@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class InternalServerError extends Component {
+export default class InternalServerError extends Component {
   get displayName() {
     return 'InternalServerError';
   }
@@ -27,6 +27,4 @@ class InternalServerError extends Component {
     const { messsage, ...rest } = this.props;
     return <div {...rest}>{message}</div>;
   }
-}
-
-export default InternalServerError;
+};

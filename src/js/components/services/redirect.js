@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Redirect extends Component {
+export default class Redirect extends Component {
   get displayName() {
     return 'Redirect';
   }
@@ -26,6 +26,4 @@ class Redirect extends Component {
   render() {
     return <Redirect to={`/${this.props.path}/${this.props.match.params}`} />;
   }
-}
-
-export default Redirect;
+};

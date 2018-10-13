@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-class StatusBar extends Component {
+export default class StatusBar extends Component {
   get displayName() {
     return 'StatusBar';
   }
@@ -27,6 +27,4 @@ class StatusBar extends Component {
       </div>
     );
   }
-}
-
-export default StatusBar;
+};

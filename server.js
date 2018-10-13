@@ -103,9 +103,9 @@ const fetchRemoteURL = (url, socket, delay) => {
 	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
 const getApiAndEmit = (url) => {
-	return socket => {
+	return async socket => {
 		try {
-			const response = axios.get(url);
+			const response = await axios.get(url);
 			socket.emit('event', `Current temperature in timezone ${response.data.timezone} is ${response.data.currently.temperature} F`);
 		} catch (error) {
 			Logger.error(`SERVER: error ${error.code}`);

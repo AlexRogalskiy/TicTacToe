@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-import { Logger } from 'app-root/libs/logger';
+import Logger from 'app-root/libs/logger';
 import { isFunction } from 'app-root/libs/helpers';
 
 export default function wrapper(WrappedComponent) {
@@ -77,4 +77,4 @@ export default function wrapper(WrappedComponent) {
       );
     }
   };
-}
+};

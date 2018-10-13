@@ -18,7 +18,7 @@ import config from 'app-root/resources/config.json';
 
 const scheme = config.default.scheme;
 
-class App extends Component {
+export default class App extends Component {
   get displayName() {
     return 'App';
   }
@@ -43,6 +43,4 @@ class App extends Component {
       </div>
     );
   }
-}
-
-export default App;
+};

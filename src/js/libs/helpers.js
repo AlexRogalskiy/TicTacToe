@@ -254,8 +254,8 @@ const wrapIndex = (index, array) => {
 /**
  * 	returns next power of two
  */
-const nextPow2 = (x) => {
-  return Math.pow(2, Math.ceil(Math.log(x) * invLog2));
+const nextPow2 = (value) => {
+  return Math.pow(2, Math.ceil(Math.log(value) * invLog2));
 };
 
 /**
@@ -287,7 +287,7 @@ function mergeRecursive(obj1, obj2) {
     }
   });
   return mergedValue;
-}
+};
 
 /**
  * 	executes callback for eack key - >value pair
@@ -360,37 +360,46 @@ const currentTime = () => {
   );
 };
 
-module.exports = {
-  isNumber,
-  isIntNumber,
-  isPositive,
-  isAlphaNumeric,
-  isRealNumber,
-  isString,
-  isArray,
-  isJSON,
-  isDate,
-  isObject,
-  isFunction,
-  isBoolean,
-  isNullOrUndefined,
-  isDomElement,
-  isRegExp,
-  isIterable,
-  wrapChars,
-  wrapWords,
-  wrapLines,
-  normalizePort,
-  randomBinary,
-  guidGenerator,
-  revisedRandId,
-  wrapIndex,
-  nextPow2,
-  redirect,
-  mergeRecursive,
-  forEach,
-  hasProperty,
-  stepArray,
-  currentDate,
-  currentTime,
+/**
+ *  // `function() {}` has prototype, but `() => {}` doesn't
+ *  // `() => {}` via Babel has prototype too.
+ */
+const isStateless = (component) => {
+    return !(component.prototype && component.prototype.render);
+};
+
+export {
+	isNumber,
+	isIntNumber,
+	isPositive,
+	isAlphaNumeric,
+	isRealNumber,
+	isString,
+	isArray,
+	isJSON,
+	isDate,
+	isObject,
+	isFunction,
+	isBoolean,
+	isNullOrUndefined,
+	isDomElement,
+	isRegExp,
+	isIterable,
+	wrapChars,
+	wrapWords,
+	wrapLines,
+	normalizePort,
+	randomBinary,
+	guidGenerator,
+	revisedRandId,
+	wrapIndex,
+	nextPow2,
+	redirect,
+	mergeRecursive,
+	forEach,
+	hasProperty,
+	stepArray,
+	currentDate,
+	currentTime,
+	isStateless
 };

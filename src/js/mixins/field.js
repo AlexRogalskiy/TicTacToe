@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Module dependencies
+ */
 import ReactDOM from 'react-dom';
 
 import { validate } from 'app-root/libs/utils';
@@ -7,17 +10,18 @@ import { validate } from 'app-root/libs/utils';
 /**
  * get input elements by reference to basic input / input name attribute
  */
-const Field = {
-  getInputField: function(ref) {
+export default class Field {
+	
+  static getInputField(ref) {
     if (!this.state.isMounted) {
       return;
     }
     return this.refs && this.refs[ref]
       ? ReactDOM.findDOMNode(this.refs[ref]).querySelector('input')
       : ReactDOM.findDOMNode(this).querySelector('[name=' + ref + '] input');
-  },
+  }
 
-  validateField: function(fieldName, constraintOverride) {
+  static validateField(fieldName, constraintOverride) {
     let fieldVal = this.getInputField(fieldName).value;
     if (fieldName in this.constraints) {
       let currentConstraint = constraintOverride || this.constraints[fieldName];
@@ -25,9 +29,9 @@ const Field = {
       return !!errors.errors ? errors.errors : false;
     }
     return true;
-  },
+  }
 
-  validateFields: function(nodes) {
+  static validateFields(nodes) {
     let detail = {},
       validationState = {},
       hasErrors = false;
@@ -44,7 +48,5 @@ const Field = {
       }.bind(this)
     );
     return validationState;
-  },
+  }
 };
-
-export default Field;

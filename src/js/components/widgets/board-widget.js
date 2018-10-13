@@ -14,7 +14,7 @@ import Grid from 'app-root/components/elements/grid';
 
 import Logger, { tag } from 'app-root/libs/logger';
 
-class BoardWidget extends Component {
+export default class BoardWidget extends Component {
   get displayName() {
     return 'BoardWidget';
   }
@@ -521,6 +521,4 @@ class BoardWidget extends Component {
       </div>
     );
   }
-}
-
-export default BoardWidget;
+};

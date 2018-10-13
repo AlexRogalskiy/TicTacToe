@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 
-class Header extends Component {
+export default class Header extends Component {
   get displayName() {
     return 'Header';
   }
@@ -20,6 +20,4 @@ class Header extends Component {
     const { children, ...rest } = this.props;
     return <header {...rest}>{children}</header>;
   }
-}
-
-export default Header;
+};

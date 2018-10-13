@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class TableRow extends Component {
+export default class TableRow extends Component {
   get displayName() {
     return 'TableRow';
   }
@@ -40,6 +40,4 @@ class TableRow extends Component {
 			</tr>
 	);
   }
-}
-
-export default TableRow;
+};

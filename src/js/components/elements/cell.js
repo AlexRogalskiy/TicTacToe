@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-class Cell extends Component {
+export default class Cell extends Component {
   get displayName() {
     return 'Cell';
   }
@@ -47,6 +47,4 @@ class Cell extends Component {
       </div>
     );
   }
-}
-
-export default Cell;
+};

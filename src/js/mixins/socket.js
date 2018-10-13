@@ -8,10 +8,6 @@ import socketIOClient from 'socket.io-client';
 import Logger from 'app-root/libs/logger';
 
 export default class Socket {
-	
-  socket = socketIOClient(this.props.endpoint)
-  defaultProps = 'http://localhost:8080/'
-
   get displayName() {
     return 'Socket';
   }

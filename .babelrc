@@ -8,7 +8,8 @@
 				},
 				"loose": true,
 				"useBuiltIns": "usage",
-				"modules": false
+				"modules": false,
+				"debug": true
 			}
 		],
 		"@babel/preset-react"

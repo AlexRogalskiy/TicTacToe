@@ -179,6 +179,6 @@ class BasicEditInput extends Component {
 		</div>
 	);
   }
-}
+};
 
-export default BasicEditInput;
+export default Validation(Strategy)(BasicEditInput);

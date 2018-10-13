@@ -1,17 +1,15 @@
 'use strict';
 
-const Interval = {
-  componentWillMount: function() {
+export default class Interval {
+  componentWillMount() {
     this.intervals = [];
-  },
+  }
 
-  setInterval: function() {
+  setInterval() {
     this.intervals.push(setInterval.apply(null, arguments));
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     this.intervals.forEach(clearInterval);
-  },
+  }
 };
-
-export default Interval;

@@ -103,6 +103,6 @@ class BasicButton extends Component {
       </div>
     );
   }
-}
+};
 
 export default Validation(Strategy)(BasicButton);

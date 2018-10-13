@@ -150,7 +150,7 @@ class ProfileControl extends Component {
       </div>
     );
   }
-}
+};
 
 reactMixin.onClass(ProfileControl, LifeCycle);
 reactMixin.onClass(ProfileControl, Field);

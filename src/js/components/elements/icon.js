@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Icon extends Component {
+export default class Icon extends Component {
   get displayName() {
     return 'Icon';
   }
@@ -30,6 +30,4 @@ class Icon extends Component {
 		<span className={className} aria-hidden='true'></span>
     );
   }
-}
-
-export default Icon;
+};

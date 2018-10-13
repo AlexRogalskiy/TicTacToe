@@ -3,7 +3,7 @@
 /**
  * returns message block
  */
-export MessageList = (props) => {
+const MessageList = (props) => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
@@ -19,7 +19,7 @@ export MessageList = (props) => {
 /**
  * returns single message block
  */
-export Message = (props) => {
+const Message = (props) => {
   const { message, ...rest } = props;
   return <div {...rest}>{message}</div>;
 };
@@ -27,7 +27,7 @@ export Message = (props) => {
 /**
  * returns single input field
  */
-export Input = (function() {
+const Input = {
 	const InputField = ({ label, text, type, id, value, handleChange }) => (
 		<div className="form-group">
 			<label htmlFor={label}>{text}</label>
@@ -50,4 +50,10 @@ export Input = (function() {
 		handleChange: PropTypes.func.isRequired,
 	};
 	return InputField;
-}());
+};
+
+export {
+	MessageList,
+	Message,
+	Input
+};
