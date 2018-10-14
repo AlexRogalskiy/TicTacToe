@@ -27,10 +27,6 @@ export default class Cell extends Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       className,

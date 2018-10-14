@@ -13,13 +13,13 @@ export default class Redirect extends Component {
 
   static get propTypes() {
     return {
-      path: PropTypes.string,
+      path: PropTypes.string
     };
   }
 
   static get defaultProps() {
     return {
-      path: './',
+      path: './'
     };
   }
 
