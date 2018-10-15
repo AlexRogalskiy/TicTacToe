@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Strategy from 'react-validatorjs-strategy';
@@ -13,21 +13,18 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements';
 import Forms from 'app-root/validators/forms';
 
-class BasicImage extends Component {
-  get displayName() {
-    return 'BasicImage';
-  }
+type Props = {
+	dataClass?: object,
+    dataError?: array,
+    validator?: string
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      dataError: PropTypes.array,
-      validator: PropTypes.string
-    };
-  }
+class BasicImage extends Component<Props> {
+  displayName: string = 'BasicImage';
 
-  static get defaultProps() {
-    return {
+  image: ?HTMLImageElement;
+  
+  static defaultProps: Props = {
       className: 'basic-image input-group',
       dataClass: {
         controlClass: 'row no-gutters',
@@ -35,11 +32,10 @@ class BasicImage extends Component {
         imageClass: 'form-control',
       },
       dataError: [],
-      validator: 'imageInput',
-    };
+      validator: 'imageInput'
   }
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
@@ -47,14 +43,14 @@ class BasicImage extends Component {
     this.validatorTypes = Forms[props.validator] || [];
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  onMouseOver(field) {
-    return event => {
+  onMouseOver(field: string): func {
+    return (event: SyntheticEvent<HTMLElement>) => {
       let state = {};
-      state[field] = event.target.src;
+      state[field] = event.currenTarget.src;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -65,10 +61,10 @@ class BasicImage extends Component {
     };
   }
   
-  onMouseOut(field) {
-    return event => {
+  onMouseOut(field: string): func {
+    return (event: SyntheticEvent<HTMLElement>) => {
       let state = {};
-      state[field] = event.target.src;
+      state[field] = event.currenTarget.src;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -79,10 +75,10 @@ class BasicImage extends Component {
     };
   }
 
-  onChange(field) {
-    return event => {
+  onChange(field: string): func {
+    return (event: SyntheticEvent<HTMLElement>) => {
       let state = {};
-      state[field] = event.target.src;
+      state[field] = event.currenTarget.src;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -93,13 +89,13 @@ class BasicImage extends Component {
     };
   }
 
-  renderMessageText(messages) {
+  renderMessageText(messages: array): Node {
 	  return (
 		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
 	  );
   }
   
-  render() {
+  render(): Node {
     const {
       className,
 	  onChange,
@@ -125,8 +121,8 @@ class BasicImage extends Component {
       <div className={className}>
         <div className={controlClassName}>
           <img
-            ref={input => {
-              this.imageInput = input;
+            ref={image => {
+              this.image = image;
             }}
             onChange={this.onChange(this.props.name)}
             onMouseOver={this.onMouseOver(this.props.name)}

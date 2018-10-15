@@ -3,7 +3,7 @@
 /**
  * returns message block
  */
-const MessageList = (props) => {
+const MessageList = (props: object) => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
@@ -11,7 +11,7 @@ const MessageList = (props) => {
         {item}
       </li>
     ));
-    return <ul {...rest}>{elements}</ul>;
+    return (<ul {...rest}>{elements}</ul>);
   }
   return null;
 };
@@ -19,16 +19,16 @@ const MessageList = (props) => {
 /**
  * returns single message block
  */
-const Message = (props) => {
+const Message = (props: object) => {
   const { message, ...rest } = props;
-  return <div {...rest}>{message}</div>;
+  return (<div {...rest}>{message}</div>);
 };
 
 /**
  * returns single input field
  */
-const Input = {
-	const InputField = ({ label, text, type, id, value, handleChange }) => (
+const Input = () => {
+	let InputField = ({ label, text, type, id, value, handleChange }) => (
 		<div className="form-group">
 			<label htmlFor={label}>{text}</label>
 			<input

@@ -24,7 +24,8 @@
     "test:debug": "mocha debug -R spec --require babel-polyfill ./tests/**/*.js",
     "test:coverage": "jest --coverage",
     "publish": "npm publish",
-    "prettify": "prettier --list-different --write src/js/**/*.{js,json,md}"
+    "prettify": "prettier --list-different --write src/js/**/*.{js,json,md}",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -60,6 +61,7 @@
     "autoprefixer": "9.1.5",
     "babel-loader": "8.0.4",
     "babel-plugin-module-resolver": "3.1.1",
+    "babel-plugin-react-flow-props-to-prop-types": "0.15.0",
     "babel-preset-react-optimize": "1.0.1",
     "chai": "4.1.2",
     "copy-webpack-plugin": "4.5.2",
@@ -75,6 +77,7 @@
     "eslint-plugin-react": "7.11.1",
     "eslint-plugin-standard": "4.0.0",
     "file-loader": "2.0.0",
+    "flow-bin": "0.83.0",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "4.3.1",

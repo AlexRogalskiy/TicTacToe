@@ -1,13 +1,11 @@
 'use strict';
 
 export default class EventEmitter {
-  listeners = []
+  listeners: array = [];
 	  
-  get displayName() {
-    return 'EventEmitter';
-  }
+  displayName: string = 'EventEmitter';
   
-    on(cb) {
+    on(cb: func): void {
         this.listeners.push(cb)
         return () => {
             const index = this.listeners.indexOf(cb);
@@ -17,7 +15,7 @@ export default class EventEmitter {
         }
     }
 
-    emit(data) {
+    emit(data: object): void {
         this.listeners.forEach(fn => fn(data));
     }
 };

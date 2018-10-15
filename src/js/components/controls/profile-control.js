@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 import PropTypes from 'prop-types';
 
 import reactMixin from 'react-mixin';
@@ -13,78 +13,76 @@ import Validation from 'react-validation-mixin';
 import BasicImage from 'app-root/components/controls/basic-image';
 import BasicInput from 'app-root/components/controls/basic-input';
 
+import { isString } from 'app-root/libs/helpers';
+
 import Forms from 'app-root/validators/forms';
 
 import Field from 'app-root/mixins/field';
 import LifeCycle from 'app-root/mixins/lifecycle';
 
-class ProfileControl extends Component {
-  get mixins() {
-    return [LifeCycle, Field];
-  }
+type Props = {
+	dataClass?: object,
+    validator?: string
+};
+type State = {
+	validity: object
+};
 
-  get displayName() {
-    return 'ProfileControl';
-  }
+class ProfileControl extends Component<Props, State> {
+  mixins: Array = [ LifeCycle, Field ];
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      validator: PropTypes.string,
-    };
-  }
+  displayName: String = 'ProfileControl';
+	
+  state: State = {
+	validity: {}
+};
 
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
       className: 'profile-image-container',
       dataClass: { imageClass: 'imageClass', inputClass: 'inputClass' },
-      validator: 'profileControl',
-    };
-  }
+      validator: 'profileControl'
+  };
 
-  get constraints() {
-    return {
+  constraints: object = {
       profileImage: {
-        required: false,
-      },
-    };
-  }
+        required: false
+      }
+  };
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.validatorTypes = Forms[props.validator] || [];
-    this.state = { validity: {} };
+    //this.state = { validity: {} };
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  chooseFile(field) {
-    return event => {
-      this.getInputField('profileInput').click();
+  chooseFile(field: string): func {
+    return (event: SyntheticEvent<HTMLButtonElement>) => {
+      this.getInputField(field).click();
       if (this.props.onClick) {
         this.props.onClick(event);
       }
     };
   }
 
-  setPlaceholderImage(e) {
+  setPlaceholderImage(event: SyntheticEvent<>): func {
     let fileVal = this.getInputField('profileImage');
     fileVal = fileVal ? fileVal.value : '';
 
-    if (!typeof fileVal === 'string' || /^\s*$/.test(fileVal)) {
+    if (!isString(fileVal) || /^\s*$/.test(fileVal)) {
       this.setState({
-        profileImageData:
-          'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogPCEtLSBDcmVhdGVkIHdpdGggTWV0aG9kIERyYXcgLSBodHRwOi8vZ2l0aHViLmNvbS9kdW9waXhlbC9NZXRob2QtRHJhdy8gLS0+CiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0iIzAwZmZmZiIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjgyIiB3aWR0aD0iODIiIHk9Ii0xIiB4PSItMSIvPgogIDxnIGRpc3BsYXk9Im5vbmUiIG92ZXJmbG93PSJ2aXNpYmxlIiB5PSIwIiB4PSIwIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIiBpZD0iY2FudmFzR3JpZCI+CiAgIDxyZWN0IGZpbGw9InVybCgjZ3JpZHBhdHRlcm4pIiBzdHJva2Utd2lkdGg9IjAiIHk9IjAiIHg9IjAiIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiLz4KICA8L2c+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPGVsbGlwc2Ugcnk9IjE1IiByeD0iMTUiIGlkPSJzdmdfMSIgY3k9IjMyLjUiIGN4PSI0MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMwMDAiIGZpbGw9IiNmZmYiLz4KICA8ZWxsaXBzZSBzdHJva2U9IiMwMDAiIHJ5PSI2MS41IiByeD0iMzguNDk5OTk4IiBpZD0ic3ZnXzIiIGN5PSIxMTIiIGN4PSIzOS41IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiNmZmYiLz4KIDwvZz4KPC9zdmc+',
+        profileImageData: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogPCEtLSBDcmVhdGVkIHdpdGggTWV0aG9kIERyYXcgLSBodHRwOi8vZ2l0aHViLmNvbS9kdW9waXhlbC9NZXRob2QtRHJhdy8gLS0+CiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0iIzAwZmZmZiIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjgyIiB3aWR0aD0iODIiIHk9Ii0xIiB4PSItMSIvPgogIDxnIGRpc3BsYXk9Im5vbmUiIG92ZXJmbG93PSJ2aXNpYmxlIiB5PSIwIiB4PSIwIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIiBpZD0iY2FudmFzR3JpZCI+CiAgIDxyZWN0IGZpbGw9InVybCgjZ3JpZHBhdHRlcm4pIiBzdHJva2Utd2lkdGg9IjAiIHk9IjAiIHg9IjAiIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiLz4KICA8L2c+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPGVsbGlwc2Ugcnk9IjE1IiByeD0iMTUiIGlkPSJzdmdfMSIgY3k9IjMyLjUiIGN4PSI0MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMwMDAiIGZpbGw9IiNmZmYiLz4KICA8ZWxsaXBzZSBzdHJva2U9IiMwMDAiIHJ5PSI2MS41IiByeD0iMzguNDk5OTk4IiBpZD0ic3ZnXzIiIGN5PSIxMTIiIGN4PSIzOS41IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiNmZmYiLz4KIDwvZz4KPC9zdmc+',
       });
     }
   }
 
-  imageLoadedHandler(field) {
-    return event => {
+  imageLoadedHandler(field: string): void {
+    return (event: SyntheticEvent<HTMLButtonElement>) => {
       const imageSize = atob(
-        decodeURI(event.target.result).replace(/^.*base64,/, '')
+        decodeURI(event.currentTarget.result).replace(/^.*base64,/, '')
       ).length;
       this.setState({ sizeExceeded: imageSize > 1024 * 1000 });
 
@@ -92,7 +90,7 @@ class ProfileControl extends Component {
       //const validationState = this.validateFields([this.getInputField('profileImage'), this.getInputField('profileInput')]);
       //this.setState(update(this.state, { validity: validationState }));
 
-      this.state[field] = event.target.src;
+      this.state[field] = event.currentTarget.src;
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(() => {
         this.props.handleValidation(field)(event);
@@ -103,14 +101,14 @@ class ProfileControl extends Component {
         this.setPlaceholderImage();
       } else {
         console.log('b');
-        this.setState({ profileImageData: event.target.result });
+        this.setState({ profileImageData: event.currentTarget.result });
       }
     };
   }
 
-  userImageUpload(field) {
+  userImageUpload(field: string): void {
     return event => {
-      const file = event.target.files[0];
+      const file = event.currentTarget.files[0];
       const reader = new FileReader();
       reader.onload = this.imageLoadedHandler(field).bind(this);
       reader.readAsDataURL(file);
@@ -120,11 +118,11 @@ class ProfileControl extends Component {
     };
   }
 
-  componentWillMount() {
+  componentWillMount(): void {
     this.setPlaceholderImage();
   }
 
-  render() {
+  render(): Node {
     const { className, dataClass, ...rest } = this.props;
     return (
       <div className={className}>
@@ -133,7 +131,7 @@ class ProfileControl extends Component {
           ref="profileImage"
           label="Profile Image"
           src={this.state.profileImageData}
-          dataError={this.state.validity.profileImage}
+          dataError={this.state.validity['profileImage']}
           className={dataClass.imageClass}
           {...rest}
         />
@@ -141,11 +139,11 @@ class ProfileControl extends Component {
           name="profileInput"
           ref="profileInput"
           type="file"
-          onChange={this.userImageUpload(this.props.name)}
-          dataError={this.state.validity.profileInput}
+          onChange={this.userImageUpload('profileInput')}
+          dataError={this.state.validity['profileInput']}
           className={dataClass.inputClass}
         >
-          <button onClick={this.chooseFile(this.props)}>Upload</button>
+          <button onClick={this.chooseFile('profileInput')}>Upload</button>
         </BasicInput>
       </div>
     );

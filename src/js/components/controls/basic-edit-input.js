@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Strategy from 'react-validatorjs-strategy';
@@ -17,39 +17,44 @@ import Button from 'app-root/components/controls/button';
 import Input from 'app-root/components/controls/input';
 import Icon from 'app-root/components/elements/icon';
 
-class BasicEditInput extends Component {
-  get displayName() {
-    return 'BasicEditInput';
-  }
+type Props = {
+	dataClass?: object,
+    dataError?: array,
+	isDisabled?: bool,
+    validator?: string
+};
+type State = {
+	isEditing: bool,
+	isDisabled: bool
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      dataError: PropTypes.array,
-	  isEditing: PropTypes.bool,
-      validator: PropTypes.string
-    };
-  }
+class BasicEditInput extends Component<Props, State> {
+  displayName: string = 'BasicEditInput';
 
-  static get defaultProps() {
-    return {
+  input: ?HTMLInputElement;
+  
+  state: State = {
+	  isEditing: false,
+	  isDisabled: true
+  };
+  
+  static defaultProps: Props = {
       className: 'basic-edit-input input-group',
       dataClass: {
-        controlClass: 'row no-gutters',
-        errorClass: 'error',
-        inputClass: 'form-control input',
-		buttonClass: 'form-control button',
-		labelClass: 'form-control label',
-		iconClass: 'glyphicon glyphicon-ok',
-		iconEditClass: 'glyphicon glyphicon-pencil'
+			controlClass: 'row no-gutters',
+			errorClass: 'error',
+			inputClass: 'form-control input',
+			buttonClass: 'form-control button',
+			labelClass: 'form-control label',
+			iconClass: 'glyphicon glyphicon-ok',
+			iconEditClass: 'glyphicon glyphicon-pencil'
       },
       dataError: [],
-	  isEditing: false,
+	  isDisabled: false,
       validator: 'editInput'
-    };
-  }
+  };
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -58,19 +63,19 @@ class BasicEditInput extends Component {
     this.validatorTypes = Forms[props.validator] || [];
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  onBlur(field) {
-    return event => {
+  onBlur(field: string): func {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
       //let state = {};
       //state[field] = event.target.value;
       //Strategy.activateRule(this.validatorTypes, field);
       //this.setState(state, () => {
       //  this.props.handleValidation(field)(event);
       //});
-	  this.setState({ field: event.target.value });
+	  this.setState({ field: event.currentTarget.value });
 	  this.refs[field].onBlur(event);
       if (this.props.onBlur) {
         this.props.onBlur(event);
@@ -78,15 +83,15 @@ class BasicEditInput extends Component {
     };
   }
 
-  onChange(field) {
-    return event => {
+  onChange(field: string): func {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
       //let state = {};
       //state[field] = event.target.value;
       //Strategy.activateRule(this.validatorTypes, field);
       //this.setState(state, () => {
       //  this.props.handleValidation(field)(event);
       //});
-	  this.setState({ field: event.target.value });
+	  this.setState({ field: event.currentTarget.value });
 	  this.refs[field].onChange(event);
       if (this.props.onChange) {
         this.props.onChange(event);
@@ -94,8 +99,8 @@ class BasicEditInput extends Component {
     };
   }
   
-  	onEdit(field) {
-		return event => {
+  	onEdit(field: string): func {
+		return (event: SyntheticEvent<HTMLButtonElement>) => {
 		  //let state = { isEditing: true };
 		  //state[field] = event.target.value;
 		  //Strategy.activateRule(this.validatorTypes, field);
@@ -110,10 +115,10 @@ class BasicEditInput extends Component {
 		};
 	}
   
-  	onUpdate(field) {
-		return event => {
+  	onUpdate(field: string): func {
+		return (event: SyntheticEvent<HTMLButtonElement>) => {
 		  let state = { isEditing: false };
-		  state[field] = event.target.value;
+		  //state[field] = event.currentTarget.value;
 		  Strategy.activateRule(this.validatorTypes, field);
 		  this.setState(state, () => {
 			this.props.handleValidation(field)(event);
@@ -125,7 +130,7 @@ class BasicEditInput extends Component {
 		};
 	}
 	
-	renderButton() {
+	renderButton(): Node {
 		return (
 			this.state.isEditing
 				? 	<Button onClick={this.onUpdate(this.props.name)} className={this.props.dataClass.buttonClass}>
@@ -139,19 +144,20 @@ class BasicEditInput extends Component {
 		);
 	}
 	
-  renderMessageText(messages) {
+  renderMessageText(messages: array): Node {
 	  return (
 		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
 	  );
   }
 
-  render() {
+  render(): Node {
     const {
       className,
 	  onChange,
 	  onBlur,
 	  label,
       children,
+	  isDisabled,
       dataClass,
       dataError,
       isValid,
@@ -171,7 +177,7 @@ class BasicEditInput extends Component {
 		<div className={className}>
 			<label className={dataClass.labelClass} htmlFor={this.props.name}>{label}</label>
 			<div className={controlClassName}>
-				<Input ref={input => {this.textInput = input;}} onChange={this.onChange(this.props.name)} onBlur={this.onBlur(this.props.name)} isDisabled={!this.state.isEditing} {...rest}>
+				<Input ref={input => (this.input = input)} onChange={this.onChange(this.props.name)} onBlur={this.onBlur(this.props.name)} isDisabled={this.state.isDisabled} {...rest}>
 					{ this.renderButton() }
 				</Input>
 			</div>

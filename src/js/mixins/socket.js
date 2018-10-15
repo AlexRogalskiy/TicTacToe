@@ -8,11 +8,10 @@ import socketIOClient from 'socket.io-client';
 import Logger from 'app-root/libs/logger';
 
 export default class Socket {
-  get displayName() {
-    return 'Socket';
-  }
+	
+  displayName(): string = 'Socket';
   
-  onConnect(socket) {
+  onConnect(socket: object): func {
     return () => {
       Logger.debug(`Connected by socket with id=${socket.id}`);
       this.setState({ isConnected: true });
@@ -22,7 +21,7 @@ export default class Socket {
     };
   }
 
-  onDisconnect(socket) {
+  onDisconnect(socket: object): func {
     return () => {
       Logger.debug(`Disconnected from socket with id=${socket.id}`);
       this.setState({ isConnected: false });
@@ -32,7 +31,7 @@ export default class Socket {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));

@@ -3,44 +3,46 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
 import Logger from 'app-root/libs/logger';
 
+type Props = {
+	endpoint: string
+};
+type State = {
+	isConnected: bool
+};
+	
 export default function wrapper(WrappedComponent) {
-  return class extends Component {
-    get displayName() {
-      return 'SocketWrapper';
-    }
+	
+  return class extends Component<Props, State> {
+	state: State = {
+		isConnected: false
+	};
+	
+	static defaultProps: Props = {
+		endpoint: 'http://localhost:8080/'
+	};
+	
+    displayName: string = 'SocketWrapper';
 
-    static get propTypes() {
-      return {
-        endpoint: PropTypes.string.isRequired,
-      };
-    }
-
-    static get defaultProps() {
-      return {
-        endpoint: 'http://localhost:8080/',
-      };
-    }
-
-    constructor(props) {
+    constructor(props: Props): void {
       super(props);
       this.onConnect = this.onConnect.bind(this);
       this.onDisconnect = this.onDisconnect.bind(this);
-      this.state = { isConnected: false };
+      //this.state = { isConnected: false };
     }
 
-    onConnect(socket) {
+    onConnect(socket: object): func {
       return () => {
         Logger.debug(`onConnect: connected by socket with id=${socket.id}`);
         this.setState({ isConnected: true });
       };
     }
 
-    onDisconnect(socket) {
+    onDisconnect(socket: object): func {
       return () => {
         Logger.debug(
           `onDisconnect: disconnected from socket with id=${socket.id}`
@@ -49,7 +51,7 @@ export default function wrapper(WrappedComponent) {
       };
     }
 
-    render() {
+    render(): Node {
       return (
         <WrappedComponent
           isConnected={this.state.isConnected}

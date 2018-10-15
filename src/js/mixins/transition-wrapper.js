@@ -3,23 +3,33 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
 import Logger from 'app-root/libs/logger';
 import { isFunction } from 'app-root/libs/helpers';
 
+type Props = {};
+type State = {
+	isMounted: bool,
+	isActivated: bool
+};
+
 export default function wrapper(WrappedComponent) {
-  return class extends Component {
-    get displayName() {
-      return 'TransitionWrapper';
-    }
+	
+  return class extends Component<Props, State> {
+	state: State = {
+		isMounted: false,
+		isActivated: false
+	};
+	
+    displayName: string = 'TransitionWrapper';
 
-    constructor(props) {
+    constructor(props: Props): void {
       super(props);
-      this.state = { isMounted: false, isActivated: false };
+      //this.state = { isMounted: false, isActivated: false };
     }
 
-    componentWillAppear(callback) {
+    componentWillAppear(callback: func): void {
       Logger.debug('componentWillAppear');
       this.setState({ isMounted: false, isActivated: false });
       if (isFunction(callback)) {
@@ -27,7 +37,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    componentDidAppear(callback) {
+    componentDidAppear(callback: func): void {
       Logger.debug('componentDidAppear');
       this.setState({ isMounted: true, isActivated: false });
       if (isFunction(callback)) {
@@ -35,7 +45,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    componentWillEnter(callback) {
+    componentWillEnter(callback: func): void {
       Logger.debug('componentWillEnter');
       this.setState({ isMounted: true, isActivated: false });
       if (isFunction(callback)) {
@@ -43,7 +53,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    componentDidEnter(callback) {
+    componentDidEnter(callback: func): void {
       Logger.debug('componentDidEnter');
       this.setState({ isMounted: true, isActivated: true });
       if (isFunction(callback)) {
@@ -51,7 +61,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    componentWillLeave(callback) {
+    componentWillLeave(callback: func): void {
       Logger.debug('componentWillLeave');
       this.setState({ isMounted: true, isActivated: false });
       if (isFunction(callback)) {
@@ -59,7 +69,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    componentDidLeave(callback) {
+    componentDidLeave(callback: func): void {
       Logger.debug('componentDidLeave');
       this.setState({ isMounted: true, isActivated: false });
       if (isFunction(callback)) {
@@ -67,7 +77,7 @@ export default function wrapper(WrappedComponent) {
       }
     }
 
-    render() {
+    render(): Node {
       return (
         <WrappedComponent
           isMounted={this.state.isMounted}

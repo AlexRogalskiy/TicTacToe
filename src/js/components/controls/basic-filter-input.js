@@ -3,36 +3,40 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-export default class BasicFilterInput extends Component {
-  get displayName() {
-    return 'BasicFilterInput';
-  }
-  
-  static get propTypes() {
-    return {
-      isDisabled: PropTypes.bool
-    };
-  }
+type Props = {
+	isDisabled?: bool
+};
+type State = {
+	isDisabled: bool
+};
 
-  static get defaultProps() {
-    return {
-      className: 'input-filter',
-	  isDisabled: false
-    };
-  }
+export default class BasicFilterInput extends Component<Props, State> {
+  displayName: string = 'BasicFilterInput';
+
+  input: ?HTMLInputElement;
   
-    constructor(props){
+  	state: State = {
+		isDisabled: false
+	};
+	
+  static defaultProps: Props = {
+	  className: 'input-filter',
+	  isDisabled: false
+  };
+  
+    constructor(props: Props): void {
         super(props);
         this.onChange = this.onChange.bind(this);
+		this.state = { isDisabled: props.isDisabled };
     }
 	
-  onChange(field) {
-    return event => {
-      const value = event.target.value.trim();
+  onChange(field: string): func {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
+      const value = event.currentTarget.value.trim();
       this.setState({ field: value });
 	  this.props.filter(value);
       if (this.props.onChange) {
@@ -41,7 +45,7 @@ export default class BasicFilterInput extends Component {
     };
   }
 
-  render() {
+  render(): Node {
     const {
       className,
 	  isDisabled,
@@ -51,8 +55,9 @@ export default class BasicFilterInput extends Component {
     } = this.props;
     return (
        <BasicInput
+			ref={input => (this.input = input)}
 			onChange={this.onChange(this.props.name)}
-			isDisabled={isDisabled}
+			isDisabled={this.state.isDisabled}
 			validator='input-filter'
             {...rest}
           />

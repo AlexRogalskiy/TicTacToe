@@ -1,15 +1,15 @@
 'use strict';
 
 export default class Interval {
-  componentWillMount() {
+  componentWillMount(): void {
     this.intervals = [];
   }
 
-  setInterval() {
+  setInterval(): void {
     this.intervals.push(setInterval.apply(null, arguments));
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.intervals.forEach(clearInterval);
   }
 };

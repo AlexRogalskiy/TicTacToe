@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Strategy from 'react-validatorjs-strategy';
@@ -13,23 +13,27 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements';
 import Forms from 'app-root/validators/forms';
 
-class BasicInput extends Component {
-  get displayName() {
-    return 'BasicInput';
-  }
+type Props = {
+	dataClass?: object,
+    dataError?: array,
+	isDisabled?: bool,
+    validator?: string
+};
+type State = {
+	isDisabled: bool
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      dataError: PropTypes.array,
-	  isDisabled: PropTypes.bool,
-      validator: PropTypes.string
-    };
-  }
+class BasicInput extends Component<Props, State> {
+  get displayName: string = 'BasicInput';
 
-  static get defaultProps() {
-    return {
-      className: 'basic-input input-group',
+  input: ?HTMLInputElement;
+  
+	state: State = {
+		isDisabled: false
+	};
+	
+  static defaultProps: Props = {
+	  className: 'basic-input input-group',
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
@@ -38,24 +42,23 @@ class BasicInput extends Component {
       dataError: [],
 	  isDisabled: false,
       validator: 'input'
-    };
-  }
+  };
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.validatorTypes = Forms[props.validator] || [];
+	this.state = { isDisabled: props.isDisabled };
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  onBlur(field) {
-    return event => {
-      let state = {};
-      state[field] = event.target.value;
+  onBlur(field: string): func {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
+      let state = { field: event.currentTarget.value };
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -66,10 +69,9 @@ class BasicInput extends Component {
     };
   }
 
-  onChange(field) {
-    return event => {
-      let state = {};
-      state[field] = event.target.value;
+  onChange(field: string): func {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
+      let state = { field: event.currentTarget.value };
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -80,13 +82,13 @@ class BasicInput extends Component {
     };
   }
   
-  renderMessageText(messages) {
+  renderMessageText(messages: array): Node {
 	  return (
 		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
 	  );
   }
 
-  render() {
+  render(): Node {
     const {
       className,
 	  onChange,
@@ -113,11 +115,11 @@ class BasicInput extends Component {
         <div className={controlClassName}>
           <input
             ref={input => {
-              this.textInput = input;
+              this.input = input;
             }}
             onChange={this.onChange(this.props.name)}
             onBlur={this.onBlur(this.props.name)}
-			disabled={isDisabled}
+			disabled={this.state.isDisabled}
             {...rest}
           />
           {children}

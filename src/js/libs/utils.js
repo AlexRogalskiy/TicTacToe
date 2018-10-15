@@ -31,7 +31,7 @@ const DEFAULT_COLORS_PRESET = [
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
  */
-const validate = (val: string, constraints: Object) => {
+const validate = (val: string, constraints: object) => {
   var errors = [];
   var validators = {
     minlength: {
@@ -95,7 +95,7 @@ const validate = (val: string, constraints: Object) => {
 /**
  * 	executed autobinding on object properties
  */
-const autobind = (methodNames: Array) => {
+const autobind = (methodNames: array) => {
   methodNames = isArray(methodNames) ? methodNames : [];
   return {
     componentWillMount: function() {
@@ -109,7 +109,7 @@ const autobind = (methodNames: Array) => {
 /**
  * 	returns new object enriched with mixins
  */
-const mixin = (...mixins: Array) => {
+const mixin = (...mixins: array) => {
   var base = function() {};
   Object.assign(base.prototype, ...mixins);
   return base;
@@ -118,7 +118,7 @@ const mixin = (...mixins: Array) => {
 /**
  * 	returns object with properties filtered by predicate
  */
-const filter = (obj: Object, predicate: Function) => {
+const filter = (obj: object, predicate: func) => {
   var result = {},
     key;
   for (key in obj) {
@@ -132,7 +132,7 @@ const filter = (obj: Object, predicate: Function) => {
 /**
  * 	returns the color by username
  */
-const getColorByUsername = (username, colors) => {
+const getColorByUsername = (username: string, colors: array) => {
   colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
   var hash = 7;
   for (var i = 0; i < username.length; i++) {
@@ -145,7 +145,7 @@ const getColorByUsername = (username, colors) => {
 /**
  * 	returns lexical description of date/time
  */
-const toLexicalDate = (date: Date) => {
+const toLexicalDate = (date: date) => {
   date = isNullOrUndefined(date) ? Date.now() : date;
   var diff = (new Date().getTime() - date.getTime()) / 1000;
   var day_diff = Math.floor(diff / 86400);
@@ -164,7 +164,7 @@ const toLexicalDate = (date: Date) => {
 /**
  * 	returns lexical representation of memory volume
  */
-const lexicalSize = (size: Number) => {
+const lexicalSize = (size: number) => {
   if (size < 0) return;
   var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
   var ord = Math.floor(Math.log(size) / Math.log(1024));
@@ -178,7 +178,7 @@ const lexicalSize = (size: Number) => {
  */
 const colorize = (
   color: string,
-  params: Object = { r: 0.299, g: 0.587, b: 0.114 }
+  params: object = { r: 0.299, g: 0.587, b: 0.114 }
 ) => {
   color = color.startsWith('#') ? color.substring(1) : color;
   let c = parseInt(color, 16);
@@ -191,7 +191,7 @@ const colorize = (
 /**
  * 	returns result of promise by timeout
  */
-const wait = (timeout: Number) => {
+const wait = (timeout: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve();
@@ -202,7 +202,7 @@ const wait = (timeout: Number) => {
 /**
  *  returns result of request by retries count
  */
-const async requestWithRetry = (url: string, count: Number) => {
+const async requestWithRetry = (url: string, count: number) => {
   const MAX_RETRIES = isPositive(count) ? count : 10;
   for (let i = 0; i <= MAX_RETRIES; i++) {
     try {
@@ -220,9 +220,9 @@ const async requestWithRetry = (url: string, count: Number) => {
  *  returns result functions executeed asynchronously
  */
 const async executeAsync = (
-  fn1: Function,
-  fn2: Function,
-  fn3: Function
+  fn1: func,
+  fn2: func,
+  fn3: func
 ) => {
   try {
     const valueA = await fn1();
@@ -236,7 +236,7 @@ const async executeAsync = (
 /**
  *  returns gravatar url
  */
-const getGravatarUrl = (url = 'http://www.gravatar.com/avatar/', name) => {
+const getGravatarUrl = (url: string = 'http://www.gravatar.com/avatar/', name: string) => {
 	let hash = md5(name);
 	return `${url}${hash.toString()}`;
 };

@@ -5,11 +5,11 @@
  */
 import Strategy from 'react-validatorjs-strategy';
 
-function checkValidity(validator) {
+const checkValidity = (validator) => {
   validator.lang = 'en';
 }
 
-export default const Forms = {
+const Forms = {
   profileControl: Strategy.createSchema(
     {
       // author: 'required',
@@ -38,3 +38,5 @@ export default const Forms = {
   ),
   imageInput: Strategy.createSchema({}, {}, checkValidity),
 };
+
+export default Forms;

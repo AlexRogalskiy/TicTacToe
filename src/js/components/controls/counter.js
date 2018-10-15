@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Button from 'app-root/components/controls/button';
@@ -13,28 +13,36 @@ import Icon from 'app-root/components/elements/icon';
 
 import Logger from 'app-root/libs/logger';
 
-export default class Counter extends Component {
-  get displayName() {
-    return 'Counter';
-  }
+type Props = {
+	dataClass?: PropTypes.object,
+	value?: PropTypes.number,
+	min: PropTypes.number,
+	max: PropTypes.number,
+	step: PropTypes.number,
+	upLabel?: PropTypes.string,
+	downLabel?: PropTypes.string,
+	isIncreasing?: PropTypes.bool,
+	isDisabled?: PropTypes.bool,
+	isVisible?: PropTypes.bool
+};
+type State = {
+	isVisible: bool,
+	isIncreasing: bool,
+	value: number
+};
 
-  static get propTypes() {
-    return {
-		dataClass: PropTypes.object,
-		value: PropTypes.number,
-		min: PropTypes.number,
-		max: PropTypes.number,
-		step: PropTypes.number,
-		upLabel: PropTypes.string,
-		downLabel: PropTypes.string,
-		isIncreasing: PropTypes.bool,
-		isDisabled: PropTypes.bool,
-		isVisible: PropTypes.bool
-    };
-  }
+export default class Counter extends Component<Props, State> {
+  displayName: string = 'Counter';
 
-  static get defaultProps() {
-    return {
+  state: State = {
+    isVisible: true,
+	isIncreasing: true,
+	value: 0
+  };
+
+    counter: ?HTMLElement;
+	
+  static defaultProps: Props = {
       className: 'counter input-group',
 	  dataClass: {
 		inputClass: 'input',
@@ -51,23 +59,23 @@ export default class Counter extends Component {
       step: 1,
 	  upLabel: 'Like',
 	  downLabel: 'Unlike',
-      isIncreasing: false,
+      isIncreasing: true,
 	  isDisabled: false,
-	  isVisible: false
-    };
-  }
+	  isVisible: true
+  };
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.onUp = this.onUp.bind(this);
     this.onDown = this.onDown.bind(this);
+	this.state = { isVisible: props.isVisible, isIncreasing: props.isIncreasing, value: props.value };
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
   
-   componentWillReceiveProps(nextProps) {
+   componentWillReceiveProps(nextProps: object): void {
 	 	this._logPropsAndState(`nextProps.value: ${nextProps.value}`);
 	 	this.setState({
 	 		isIncreasing: nextProps.value > this.props.value
@@ -79,17 +87,17 @@ export default class Counter extends Component {
 		return (nextState.value >= this.props.min && nextState.value <= this.props.max);
 	}
 	
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps: object, prevState: object): void {
 		this._logPropsAndState(`prevState.value: ${prevState.value}, prevState.isIncreasing: ${prevState.isIncreasing}`);
 	}
 	
-	_logPropsAndState(data) {
+	_logPropsAndState(data: string): void {
 		Logger.debug(`data => ${data}`);
 		Logger.debug(`value => ${this.props.value}`);
 		Logger.debug(`isIncreasing => ${this.state.isIncreasing}`);
 	}
 	
-	onUp() {
+	onUp(): void {
 		if(this.state.value < this.props.max) {
 		 	this.setState({
 		 		value: this.state.value + this.props.step,
@@ -98,7 +106,7 @@ export default class Counter extends Component {
 		}
 	}
 	
-	onDown() {
+	onDown(): void {
 		if(this.state.value > this.props.min) {
 		 	this.setState({
 		 		value: this.state.value - this.props.step,
@@ -135,7 +143,7 @@ export default class Counter extends Component {
 		};
 	}*/
   
-  render() {
+  render(): Node {
     const {
       className,
 	  isDisabled,
@@ -173,7 +181,7 @@ export default class Counter extends Component {
 					<Icon className={iconDownClassName} />
 						{downLabel}
 				</Button>
-				<Block {...rest}>{this.state.value}</Block>
+				<Block ref={counter => (this.counter = counter)} {...rest}>{this.state.value}</Block>
 				<Icon className={iconStatusClassName} />
 			</div>
 		);

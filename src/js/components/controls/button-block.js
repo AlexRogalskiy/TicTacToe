@@ -3,41 +3,41 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
-export default class ButtonBlock extends Component {
-  get displayName() {
-    return 'ButtonBlock';
-  }
+type Props = {};
 
-  static get defaultProps() {
-    return {
-      className: 'button',
-    };
-  }
+export default class ButtonBlock extends Component<Props> {
+  displayName: string = 'ButtonBlock';
   
-  constructor(props) {
+  element: ?HTMLElement;
+
+  static defaultProps: Props = {
+	className: 'button'
+ };
+  
+  constructor(props: Props): void {
     super(props);
     this.onClick = this.onClick.bind(this);
   }
   
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  onClick(field) {
-    return event => {
-	  this.setState({ event: event.target.src });
+  onClick(field: string): func {
+    return (event: SyntheticEvent<HTMLElement>) => {
+	  this.setState({ field: event.currentTarget.src });
       if (this.props.onClick) {
         this.props.onClick(event);
       }
     };
   }
 
-  render() {
+  render(): Node {
     const { label, onClick, ...rest } = this.props;
     return (
-      <div onClick={this.onClick(this.props.name)} {...rest}>
+      <div ref={element => (this.element = element)} onClick={this.onClick(this.props.name)} {...rest}>
         {label}
       </div>
     );

@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
 import Strategy from 'react-validatorjs-strategy';
@@ -13,23 +13,27 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements';
 import Forms from 'app-root/validators/forms';
 
-class BasicButton extends Component {
-  get displayName() {
-    return 'BasicButton';
-  }
+type Props = {
+	dataClass?: object,
+    dataError?: array,
+	isDisabled?: bool,
+    validator?: string
+};
+type State = {
+	isDisabled: bool
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      dataError: PropTypes.array,
-	  isDisabled: PropTypes.bool,
-      validator: PropTypes.string
-    };
-  }
+class BasicButton extends Component<Props, State> {
+  displayName: string = 'BasicButton';
+  
+state: State = {
+	isDisabled: false
+};
 
-  static get defaultProps() {
-    return {
-      className: 'basic-button button-group',
+  button: ?HTMLButtonElement;
+  
+  static defaultProps: Props = {
+	  className: 'basic-button button-group',
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
@@ -38,23 +42,22 @@ class BasicButton extends Component {
       dataError: [],
 	  isDisabled: false,
 	  validator: 'button'
-    };
-  }
+  };
 
-  constructor(props) {
+  constructor(props: Props): void {
     super(props);
     this.onClick = this.onClick.bind(this);
 	this.validatorTypes = Forms[props.validator] || [];
+	this.state = { isDisabled: props.isDisabled };
   }
 
-  getValidatorData() {
+  getValidatorData(): object {
     return this.state;
   }
 
-  onClick(field) {
-    return event => {
-      let state = {};
-      state[field] = event.target.src;
+  onClick(field: string): func {
+    return (event: SyntheticEvent<HTMLButtonElement>) => {
+      let state = { field: event.currentTarget.src };
       Strategy.activateRule(this.validatorTypes, field);
       this.setState(state, () => {
         this.props.handleValidation(field)(event);
@@ -65,13 +68,13 @@ class BasicButton extends Component {
     };
   }
   
-  renderMessageText(messages) {
+  renderMessageText(messages: array): Node {
 	  return (
 		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
 	  );
   }
 
-  render() {
+  render(): Node {
     const {
       className,
 	  onClick,
@@ -95,7 +98,7 @@ class BasicButton extends Component {
     return (
 	 <div className={className}>
         <div className={controlClassName}>
-			<button ref={input => {this.buttonInput = input;}} onClick={this.onClick(this.props.name)} disabled={isDisabled} {...rest}>
+			<button ref={button => (this.button = button)} onClick={this.onClick(this.props.name)} disabled={this.state.isDisabled} {...rest}>
 				{children}
 			</button>
 		</div>

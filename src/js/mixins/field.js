@@ -3,6 +3,7 @@
 /**
  * Module dependencies
  */
+import { Node } from 'react';
 import ReactDOM from 'react-dom';
 
 import { validate } from 'app-root/libs/utils';
@@ -12,7 +13,7 @@ import { validate } from 'app-root/libs/utils';
  */
 export default class Field {
 	
-  static getInputField(ref) {
+  static getInputField(ref: string): Node {
     if (!this.state.isMounted) {
       return;
     }
@@ -21,7 +22,7 @@ export default class Field {
       : ReactDOM.findDOMNode(this).querySelector('[name=' + ref + '] input');
   }
 
-  static validateField(fieldName, constraintOverride) {
+  static validateField(fieldName: string, constraintOverride: object): bool {
     let fieldVal = this.getInputField(fieldName).value;
     if (fieldName in this.constraints) {
       let currentConstraint = constraintOverride || this.constraints[fieldName];
@@ -31,7 +32,7 @@ export default class Field {
     return true;
   }
 
-  static validateFields(nodes) {
+  static validateFields(nodes: array): object {
     let detail = {},
       validationState = {},
       hasErrors = false;

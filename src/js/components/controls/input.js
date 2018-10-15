@@ -3,33 +3,29 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-export default class Input extends Component {
-  get displayName() {
-    return 'Input';
-  }
-  
-  static get propTypes() {
-    return {
-	  dataClass: PropTypes.object,
-      isDisabled: PropTypes.bool
-    };
-  }
+type Props = {
+	dataClass?: object,
+	isDisabled?: bool
+};
 
-  static get defaultProps() {
-    return {
+export default class Input extends Component<Props> {
+  displayName = 'Input';
+  
+  input: ?HTMLInputElement;
+
+  static defaultProps: Props = {
       className: 'input',
 	  dataClass: {
         inputClass: 'input'
       },
 	  isDisabled: false
-    };
-  }
+  };
 
-  render() {
+  render(): Node {
     const {
       className,
 	  isDisabled,
@@ -42,7 +38,7 @@ export default class Input extends Component {
       <div className={className}>
           <input
             ref={input => {
-              this.textInput = input;
+              this.input = input;
             }} 
 			disabled={isDisabled}
             {...rest}

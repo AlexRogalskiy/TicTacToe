@@ -23,7 +23,8 @@ module.exports = function(api) {
 			'tests': './tests',
 			'routes': './routes'
 		  }
-		}]
+		}],
+		['react-flow-props-to-prop-types']
 	];
 	const comments = false;
 	

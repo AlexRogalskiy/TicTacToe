@@ -3,36 +3,32 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-export default class Button extends Component {
-  get displayName() {
-    return 'Button';
-  }
-  
-  static get propTypes() {
-    return {
-      isDisabled: PropTypes.bool
-    };
-  }
+type Props = {
+	isDisabled: bool
+};
 
-  static get defaultProps() {
-    return {
+export default class Button extends Component<Props> {
+  displayName: string = 'Button';
+
+    button: ?HTMLButtonElement;
+	
+  static defaultProps: Props = {
       className: 'button',
 	  isDisabled: false
-    };
-  }
+  };
 
-  render() {
+  render(): Node {
     const {
 	  isDisabled,
       children,
       ...rest
     } = this.props;
 	return (
-		<button disabled={isDisabled} {...rest}>
+		<button ref={button => (this.button = button)} disabled={isDisabled} {...rest}>
 			{children}
 		</button>
 	);

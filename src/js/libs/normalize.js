@@ -5,7 +5,7 @@
  */
 import { isNullOrUndefined, isFunction } from './helpers';
 
-const Normalize = ((name, context, definition) => {
+const Normalize = ((name: string, context: object, definition: func) => {
 	if (!isNullOrUndefined(module) && module.exports) {
 		module.exports = definition();
 	} else if (isFunction(define) && define.amd) {

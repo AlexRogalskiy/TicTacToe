@@ -9,7 +9,7 @@ const defaultProtocolsExcept = ['127.0.0.1', '0.0.0.0', 'localhost', '::1'];
 /**
  * returns native string representation of object
  */
-const toType = (obj) => {
+const toType = (obj: object) => {
   return {}.toString
     .call(obj)
     .match(/\s([a-z|A-Z]+)/)[1]
@@ -19,7 +19,7 @@ const toType = (obj) => {
 /**
  * returns true if value is number, false - otherwise
  */
-const isNumber = (value) => {
+const isNumber = (value: object) => {
   return (
     value !== null &&
     (typeof value === 'number' || toType(value) === 'number') &&
@@ -30,21 +30,21 @@ const isNumber = (value) => {
 /**
  * returns true if value is integer number, false - otherwise
  */
-const isIntNumber = (value) => {
+const isIntNumber = (value: object) => {
   return isNumber(value) && value % 1 === 0 && Number.isSafeInteger(value);
 };
 
 /**
  * returns true if value is positive integer or decimal, false - otherwise
  */
-const isPositive = (value) => {
+const isPositive = (value: object) => {
   return isNumber(value) && (!/\D/.test(value) || /^\d+\.\d+$/.test(value));
 };
 
 /**
  * returns true if value is alphanumeric ([a-z],[A-Z],[0-9]), false - otherwise
  */
-const isAlphaNumeric = (value) => {
+const isAlphaNumeric = (value: object) => {
   return (
     (isNumber(value) || isString(value)) &&
     (!/^\s*$/.test(value) && !/\W/.test(value))
@@ -54,14 +54,14 @@ const isAlphaNumeric = (value) => {
 /**
  * returns true if value is real number, false - otherwise
  */
-const isRealNumber = (value) => {
+const isRealNumber = (value: object) => {
   return isNumber(value) && value % 1 !== 0;
 };
 
 /**
  * returns true if value is string, false - otherwise
  */
-const isString = (value) => {
+const isString = (value: object) => {
   return (
     value !== null && (typeof value === 'string' || toType(value) === 'string')
   );
@@ -70,7 +70,7 @@ const isString = (value) => {
 /**
  * returns true if value is array, false - otherwise
  */
-const isArray = (value) => {
+const isArray = (value: object) => {
   return (
     value !== null &&
     Object.prototype.toString.apply(value) === '[object Array]'
@@ -80,7 +80,7 @@ const isArray = (value) => {
 /**
  * returns true if value is JSON object, false - otherwise
  */
-const isJSON = (value) => {
+const isJSON = (value: object) => {
   return (
     value !== null && Object.prototype.toString.apply(value) === '[object JSON]'
   );
@@ -89,7 +89,7 @@ const isJSON = (value) => {
 /**
  * returns true if value is date, false - otherwise
  */
-const isDate = (value) => {
+const isDate = (value: object) => {
   return (
     value !== null &&
     Object.prototype.toString.apply(value) === '[object Date]' &&
@@ -100,7 +100,7 @@ const isDate = (value) => {
 /**
  * returns true if value is object, false - otherwise
  */
-const isObject = (value) => {
+const isObject = (value: object) => {
   return (
     value !== null &&
     Object.prototype.toString.apply(value) === '[object Object]'
@@ -110,7 +110,7 @@ const isObject = (value) => {
 /**
  * returns true if value is function, false - otherwise
  */
-const isFunction = (value) => {
+const isFunction = (value: object) => {
   return (
     value !== null &&
     typeof value === 'function' &&
@@ -123,7 +123,7 @@ const isFunction = (value) => {
 /**
  * returns true if value is boolean, false - otherwise
  */
-const isBoolean = (value) => {
+const isBoolean = (value: object) => {
   return (
     value !== null &&
     (typeof value === 'boolean' || toType(value) === 'boolean')
@@ -133,14 +133,14 @@ const isBoolean = (value) => {
 /**
  * returns true if value is null or undefined, false - otherwise
  */
-const isNullOrUndefined = (value) => {
+const isNullOrUndefined = (value: object) => {
   return value === null || typeof value === 'undefined';
 };
 
 /**
  * returns true if value is DOM element, false - otherwise
  */
-const isDomElement = (value) => {
+const isDomElement = (value: object) => {
   return (
     value !== null &&
     (value.nodeName ||
@@ -153,14 +153,14 @@ const isDomElement = (value) => {
 /**
  * returns true if value is RegExp, false - otherwise
  */
-const isRegExp = (value) => {
+const isRegExp = (value: object) => {
   return value !== null && toType(value) === 'regexp';
 };
 
 /**
  * returns true if value is Iterable, false - otherwise
  */
-const isIterable = (value) => {
+const isIterable = (value: object) => {
   return value !== null && typeof value[Symbol.iterator] === 'function';
 };
 
@@ -171,7 +171,7 @@ const isIterable = (value) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input as splitted by chars/letters
  */
-const wrapChars = (str, tmpl) => {
+const wrapChars = (str: string, tmpl: string) => {
   return str.replace(/\w/g, tmpl || '<span>$&</span>');
 };
 
@@ -182,7 +182,7 @@ const wrapChars = (str, tmpl) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input splitted by words
  */
-const wrapWords = (str, tmpl) => {
+const wrapWords = (str: string, tmpl: string) => {
   return str.replace(/\w+/g, tmpl || '<span>$&</span>');
 };
 
@@ -193,14 +193,14 @@ const wrapWords = (str, tmpl) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input splitted by lines
  */
-const wrapLines = (str, tmpl) => {
+const wrapLines = (str: string, tmpl: string) => {
   return str.replace(/.+$/gm, tmpl || '<span>$&</span>');
 };
 
 /**
  * Normalize a port into a number, string, or false.
  */
-const normalizePort = (val) => {
+const normalizePort = (val: string) => {
   let port = parseInt(val, 10);
   if (isNaN(port)) {
     // named pipe
@@ -247,21 +247,21 @@ const revisedRandId = () => {
 /**
  * 	returns element from array by rebased index
  */
-const wrapIndex = (index, array) => {
-  return array[(array.length + Math.round(index)) % array.length];
+const wrapIndex = (index: number, arr: array) => {
+  return arr[(arr.length + Math.round(index)) % arr.length];
 };
 
 /**
  * 	returns next power of two
  */
-const nextPow2 = (value) => {
+const nextPow2 = (value: number) => {
   return Math.pow(2, Math.ceil(Math.log(value) * invLog2));
 };
 
 /**
  * 	changes type of protocol of the current url
  */
-const redirect = (protocol = 'https', except = defaultProtocolsExcept) => {
+const redirect = (protocol: string = 'https', except: array = defaultProtocolsExcept) => {
   const proto = protocol + ':';
   if (
     document.location.protocol !== proto &&
@@ -274,7 +274,7 @@ const redirect = (protocol = 'https', except = defaultProtocolsExcept) => {
 /**
  *  returns merged object
  */
-function mergeRecursive(obj1, obj2) {
+function mergeRecursive(obj1: object, obj2: object) {
   if (obj1 && isNullOrUndefined(obj2)) {
     return obj1;
   }
@@ -292,7 +292,7 @@ function mergeRecursive(obj1, obj2) {
 /**
  * 	executes callback for eack key - >value pair
  */
-const forEach = (obj, callback) => {
+const forEach = (obj: object, callback: func) => {
   if (obj) {
     for (const key in obj) {
       if ({}.hasOwnProperty.call(obj, key)) {
@@ -305,7 +305,7 @@ const forEach = (obj, callback) => {
 /**
  * 	returns true - if object contains property, false - otherwise
  */
-const hasProperty = (obj, property) => {
+const hasProperty = (obj: object, property: string) => {
   let result = false;
   if (obj) {
     for (const key in obj) {
@@ -321,9 +321,9 @@ const hasProperty = (obj, property) => {
 /**
  * 	returns next element from array
  */
-const stepArray = (array) => {
-  const next = Array.prototype.pop.call(array);
-  Array.prototype.unshift.call(array, next);
+const stepArray = (arr: array) => {
+  const next = Array.prototype.pop.call(arr);
+  Array.prototype.unshift.call(arr, next);
   return next;
 };
 
@@ -364,7 +364,7 @@ const currentTime = () => {
  *  // `function() {}` has prototype, but `() => {}` doesn't
  *  // `() => {}` via Babel has prototype too.
  */
-const isStateless = (component) => {
+const isStateless = (component: object) => {
     return !(component.prototype && component.prototype.render);
 };
 

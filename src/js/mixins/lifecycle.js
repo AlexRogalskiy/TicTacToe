@@ -6,41 +6,42 @@
 import Logger from 'app-root/libs/logger';
 
 export default class LifeCycle {
-  componentWillMount() {
+	
+  componentWillMount(): void {
     Logger.debug(`LifeCycle: componentWillMount`);
     this.setState({ isMounted: false });
   }
   
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     Logger.debug(`LifeCycle: componentWillUnmount`);
     this.setState({ isMounted: false });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     Logger.debug(`LifeCycle: componentDidMount`);
     this.setState({ isMounted: true });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: object): void {
     Logger.debug(
       `LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: object, nextState: object): void {
     Logger.debug(
       `LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
     );
     return true;
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps: object, nextState: object): void {
     Logger.debug(
       `LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: object, prevState: object): void {
     Logger.debug(
       `LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`
     );

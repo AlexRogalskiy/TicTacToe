@@ -20,7 +20,7 @@ import Locale from 'app-root/resources/i18n/locale';
 
 const localStrings = new LocalizedStrings(Locale);
 
-const getWinner = cells => {
+const getWinner = (cells: array) => {
   const winningStates = [
     // Horizontal lines
     [0, 1, 2],
@@ -54,7 +54,7 @@ const getWinner = cells => {
   return currentState;
 };
 
-const isTie = cells => {
+const isTie = (cells: array) => {
   if (!isNullOrUndefined(getWinner(cells).winner)) {
     return false;
   }
@@ -67,11 +67,11 @@ const isTie = cells => {
   return isTie;
 };
 
-const isFinished = cells => {
+const isFinished = (cells: array) => {
   return !isNullOrUndefined(getWinner(cells).winner) || isTie(cells);
 };
 
-const isValidMove = (cells, cell) => {
+const isValidMove = (cells: array, cell: number) => {
   // cannot put marker if the cell is not free
   if (!isNullOrUndefined(cells[cell])) {
     return false;
@@ -80,7 +80,7 @@ const isValidMove = (cells, cell) => {
   return !isFinished(cells);
 };
 
-const getBoard = board => {
+const getBoard = (board: object) => {
   return {
     message: localStrings.formatString(
       localStrings.board,
@@ -94,7 +94,7 @@ const getBoard = board => {
   };
 };
 
-const getStatusMessage = (cells, player) => {
+const getStatusMessage = (cells: array, player: string) => {
   if (isTie(cells)) {
     return localStrings.tie;
   }
@@ -105,7 +105,7 @@ const getStatusMessage = (cells, player) => {
   return localStrings.formatString(localStrings.player, player);
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: object) => {
   return {
     player: state['player'],
     cells: state['cells'],
@@ -116,23 +116,23 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: func) => {
   return {
-    onSetCell: data => {
+    onSetCell: (data: object) => {
       if (isValidMove(data.cells, data.cell)) {
         dispatch(addMove(data.cell, data.player));
       }
     },
-    onReset: data => {
+    onReset: (data: object) => {
       dispatch(resetGame(data));
     },
-    onStart: (board, player) => {
+    onStart: (board: object, player: string) => {
       dispatch(startGame(board, player));
     },
-    onInitialize: data => {
+    onInitialize: (data: object) => {
       dispatch(initializeGame(data));
     },
-    onFinalize: data => {
+    onFinalize: (data: object) => {
       dispatch(finalizeGame(data));
     },
   };

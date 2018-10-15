@@ -3,20 +3,20 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
 export default class Footer extends Component {
-  get displayName() {
+  get displayName(): string {
     return 'Footer';
   }
 
-  static get defaultProps() {
+  static get defaultProps(): object {
     return {
       className: 'footer',
     };
   }
 
-  render() {
+  render(): Node {
     const { children, ...rest } = this.props;
     return <footer {...rest}>{children}</footer>;
   }

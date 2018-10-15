@@ -5,7 +5,7 @@
  */
 import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'app-root/constants/tictactoe-constants';
 
-const addMove = (cell, player) => {
+const addMove = (cell: number, player: string) => {
   return {
     type: ADD_MOVE,
     cell,
@@ -13,14 +13,14 @@ const addMove = (cell, player) => {
   };
 };
 
-const resetGame = (data) => {
+const resetGame = (data: object) => {
   return {
     type: RESET,
     room: data.room,
   };
 };
 
-const startGame = (board, player) => {
+const startGame = (board: object, player: string) => {
   return {
     type: START,
     board,
@@ -28,7 +28,7 @@ const startGame = (board, player) => {
   };
 };
 
-const initializeGame = (data) => {
+const initializeGame = (data: object) => {
   return {
     type: INITIALIZE,
     board: data.board,
@@ -38,7 +38,7 @@ const initializeGame = (data) => {
   };
 };
 
-const finalizeGame = (data) => {
+const finalizeGame = (data: object) => {
   return {
     type: FINALIZE,
     board: data.board,

@@ -3,62 +3,70 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
 import Logger from 'app-root/libs/logger';
 
+type Props = {};
+type State = {
+	isMounted: bool
+};
+
 export default function wrapper(WrappedComponent) {
-  return class extends Component {
-    get displayName() {
-      return 'LifeCycleWrapper';
-    }
+	
+  return class extends Component<Props, State> {
+	state: State = {
+		isMounted: false
+	};
+	  
+    displayName: string = 'LifeCycleWrapper';
 
-    constructor(props) {
+    constructor(props: Props): void {
       super(props);
-      this.state = { isMounted: false };
+      //this.state = { isMounted: false };
     }
 
-    componentWillMount() {
+    componentWillMount(): void {
       Logger.debug(`LifeCycle: componentWillMount`);
       this.setState({ isMounted: false });
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
       Logger.debug(`LifeCycle: componentWillUnmount`);
       this.setState({ isMounted: false });
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
       Logger.debug(`LifeCycle: componentDidMount`);
       this.setState({ isMounted: true });
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: object): void {
       Logger.debug(
         `LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`
       );
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps: object, nextState: object): void {
       Logger.debug(
         `LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
       );
       return true;
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate(nextProps: object, nextState: object): void {
       Logger.debug(
         `LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
       );
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: object, prevState: object): void {
       Logger.debug(
         `LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`
       );
     }
 
-    render() {
+    render(): Node {
       return (
         <WrappedComponent isMounted={this.state.isMounted} {...this.props} />
       );
