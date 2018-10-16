@@ -39,6 +39,7 @@ export default class BasicFilterInput extends Component<Props, State> {
       const value = event.currentTarget.value.trim();
       this.setState({ field: value });
 	  this.props.filter(value);
+	  //this.refs[field].onChange(event);
       if (this.props.onChange) {
         this.props.onChange(event);
       }

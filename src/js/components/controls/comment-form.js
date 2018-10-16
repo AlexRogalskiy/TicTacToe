@@ -112,7 +112,7 @@ class CommentForm extends Component<Props, State> {
     );
 
     return (
-      <form ref={form => (this.form = form)} className={className} onSubmit={this.onSubmit}  {...rest}>
+      <form ref={form => (this.form = form)} className={className} onSubmit={() => this.onSubmit(e)}  {...rest}>
           <div className={controlClassName}>
             fields.map((item: object) => {
               return <BasicText item={item} key={item.id} label={item.label} onChange={this.onChange(item.name)} className=classes(fieldClass, item.className) validator={item.validator} dataClass={restClass} />

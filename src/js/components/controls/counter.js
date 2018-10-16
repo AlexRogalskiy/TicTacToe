@@ -97,7 +97,7 @@ export default class Counter extends Component<Props, State> {
 		Logger.debug(`isIncreasing => ${this.state.isIncreasing}`);
 	}
 	
-	onUp(): void {
+	onUp(event: SyntheticEvent<HTMLButtonElement>): void {
 		if(this.state.value < this.props.max) {
 		 	this.setState({
 		 		value: this.state.value + this.props.step,
@@ -106,7 +106,7 @@ export default class Counter extends Component<Props, State> {
 		}
 	}
 	
-	onDown(): void {
+	onDown(event: SyntheticEvent<HTMLButtonElement>): void {
 		if(this.state.value > this.props.min) {
 		 	this.setState({
 		 		value: this.state.value - this.props.step,
@@ -173,11 +173,11 @@ export default class Counter extends Component<Props, State> {
     rest.className = dataClass.inputClass;
 		return (
 			<div className={controlClassName}>
-				<Button onClick={this.onUp} className={dataClass.buttonClass isDisabled={isDisabled}}>
+				<Button onClick={() => this.onUp(e)} className={dataClass.buttonClass isDisabled={isDisabled}}>
 					<Icon className={iconUpClassName} />
 						{upLabel}
 					</Button>
-				<Button onClick={this.inDown} className={dataClass.buttonClass} isDisabled={isDisabled}>
+				<Button onClick={() => this.inDown(e)} className={dataClass.buttonClass} isDisabled={isDisabled}>
 					<Icon className={iconDownClassName} />
 						{downLabel}
 				</Button>

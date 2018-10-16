@@ -63,7 +63,7 @@ export default class BasicForm extends Component<Props, State> {
     const { className, dataClass, fields, onSubmit, buttonSubmitMessage, ...rest } = this.props;
     const { fieldClass, buttonSubmitClass, ...restClass } = dataClass;
     return (
-      <form ref={form => (this.form = form)} className={className} onSubmit={this.onSubmit} {...rest}>
+      <form ref={form => (this.form = form)} className={className} onSubmit={() => this.onSubmit(e)} {...rest}>
           <div>
             fields.map(function(item) {
               return <BasicSubmitButton item={item} key={item.id} label={item.label} onChange={this.onChange(item.name)} className=classes(fieldClass, item.className} dataClass={restClass} />
