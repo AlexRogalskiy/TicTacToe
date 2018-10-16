@@ -3,11 +3,12 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+import { style, classes } from 'typestyle';
+//import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group/CSSTransitionGroup';
 
-const defaultTransition = (transitionName = 'carousel') => {
+const defaultTransition = (transitionName: string = 'carousel') => {
 	transitionName,
 	transitionEnterTimeout: 300,
 	transitionLeaveTimeout: 300
@@ -24,25 +25,19 @@ const defaultTransition = (transitionName = 'carousel') => {
  exitDone: 'my-done-exit,
 }}*/
 
-export default class BlockTransition extends Component {
-  get displayName() {
-    return 'BlockTransition';
-  }
-  
-  static get propTypes() {
-    return {
-      transition: PropTypes.object
-    };
-  }
+type Props = {
+	transition?: object
+};
 
-  static get defaultProps() {
-    return {
+export default class BlockTransition extends Component<Props> {
+  displayName: string = 'BlockTransition';
+
+  static defaultProps: Props = {
       className: 'block-transition',
       transition: {}
-    };
-  }
+  };
 
-  render() {
+  render(): Node {
     const { className, transition, children, ...rest } = this.props;
 	const mergedTransition = { ...defaultTransition(), ...transition };
     return (

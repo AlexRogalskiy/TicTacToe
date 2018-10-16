@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 import {
   Grid,
   Button,
@@ -16,17 +16,23 @@ import { CSSTransition } from 'react-transition-group';
 
 import './input-styles.css';
 
-class SampleInputTransition extends Component {
-  get displayName() {
-    return 'SampleInputTransition';
-  }
+type Props = {};
+type State = {
+	name: string,
+	showValidationMessage: bool,
+	showValidationButton: bool
+};
 
-  constructor(props) {
-	  super(props);
-	  this.state = { name: null, showValidationMessage: false, showValidationButton: false };
-  }
+class SampleInputTransition extends Component<Props, State> {
+  displayName: string = 'SampleInputTransition';
 
-  render() {
+  state: State = {
+	  name: '',
+	  showValidationMessage: false,
+	  showValidationButton: false
+  };
+
+  render(): Node {
     const {
       name,
       showValidationMessage,

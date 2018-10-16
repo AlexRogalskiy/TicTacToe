@@ -3,35 +3,29 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 import { withRouter } from "react-router";
 
-class Link extends Component {
-  get displayName() {
-    return 'Link';
-  }
+type Props = {
+	className?: string,
+	dataClass?: object,
+    router: object,
+    href: string
+};
+
+class Link extends Component<Props> {
+  displayName: string = 'Link';
   
-  static get propTypes() {
-    return {
-	   className: PropTypes.string,
-	   dataClass: PropTypes.object,
-       router: PropTypes.object.isRequired,
-       href: PropTypes.string.isRequired
-    };
-  }
-  
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
 	  className: 'link',
 	  dataClass: { currentLinkClass: 'current-link' },
       router: {},
       href: ''
-    };
-  }
+  };
   
-    render = () => {
+    render(): Node {
         const { children, router, href, className, dataClass, ...rest } = this.props;
         const computedClassName = classes(
 			className,

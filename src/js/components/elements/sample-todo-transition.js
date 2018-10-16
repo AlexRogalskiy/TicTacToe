@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
 import {
   Grid,
@@ -19,23 +19,24 @@ import uuid from 'uuid';
 
 import './todo-styles.css';
 
-class SampleTodoTransition extends Component {	
-  get displayName() {
-    return 'SampleTodoTransition';
-  }
-  
-  constructor(props) {
-	  super(props);
-	  this.state = { items: [
+type Props = {};
+type State = {
+	items: array
+};
+
+class SampleTodoTransition extends Component<Props, State> {	
+  displayName: string = 'SampleTodoTransition';
+
+  state: State = 
+	items: [
 		  { id: uuid(), text: 'Buy eggs' },
 		  { id: uuid(), text: 'Pay bills' },
 		  { id: uuid(), text: 'Invite friends over' },
 		  { id: uuid(), text: 'Fix the TV' },
-		] 
-	  };
-  }
+		]
+  };
 
-  render() {
+  render(): Node {
     const { items } = this.state;
     return (
       <Grid>

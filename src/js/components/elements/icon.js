@@ -3,31 +3,25 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
-export default class Icon extends Component {
-  get displayName() {
-    return 'Icon';
-  }
+type Props = {
+	message?: string
+};
+
+export default class Icon extends Component<Props> {
+  displayName: string = 'Icon';
   
-  static get propTypes() {
-    return {
-      message: PropTypes.string
-    };
-  }
-
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
       className: 'icon',
-      message: '',
-    };
-  }
+      message: ''
+  };
 
-  render() {
+  render(): Node {
     const { className, message, ...rest } = this.props;
     return (
-		<span className={className} aria-hidden='true'></span>
+		<span className={className} aria-hidden='true'>{message}</span>
     );
   }
 };

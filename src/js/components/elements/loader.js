@@ -3,34 +3,28 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-export default class Loader extends Component {
-  get displayName() {
-    return 'Loader';
-  }
+type Props = {
+	dataClass?: object,
+    inline?: bool
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      inline: PropTypes.bool,
-    };
-  }
+export default class Loader extends Component<Props> {
+  displayName: string = 'Loader';
 
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
       className: 'loader',
       dataClass: {
         containerClass: 'loader-container',
         nestedContainerClass: 'inline',
       },
-      inline: false,
-    };
-  }
+      inline: false
+  };
 
-  render() {
+  render(): Node {
     const { className, dataClass, inline, ...rest } = this.props;
     const containerClassName = classes(
       dataClass.containerClass,

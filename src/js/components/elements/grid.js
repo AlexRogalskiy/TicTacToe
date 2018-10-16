@@ -3,26 +3,24 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
 import Cell from 'app-root/components/elements/cell';
 
-export default class Grid extends Component {
-  get displayName() {
-    return 'Grid';
-  }
+type Props = {};
 
-  static get defaultProps() {
-    return {
-      className: 'grid'
-    };
-  }
+export default class Grid extends Component<Props> {
+  displayName: string = 'Grid';
+
+  static defaultProps: Props = {
+	className: 'grid'
+  };
   
-  isWinnerCell(cell) {
+  isWinnerCell(cell: number): bool {
 	  return (this.props.winCells && this.props.winCells.includes(cell) ? true : false);
   }
   
-  render() {
+  render(): Node {
     const { cells, player, winCells, onSetCell, ...rest } = this.props;
     return (
       <div {...rest}>

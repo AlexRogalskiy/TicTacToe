@@ -3,31 +3,25 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
 import TableHead from 'app-root/components/elements/table-head';
 import TableRow from 'app-root/components/elements/table-row';
 
-export default class Table extends Component {
-  get displayName() {
-    return 'Table';
-  }
-  
-  static get propTypes() {
-    return {
-      data: PropTypes.object
-    };
-  }
+type Props = {
+	data: object
+};
 
-  static get defaultProps() {
-    return {
+export default class Table extends Component<Props> {
+  displayName: string = 'Table';
+
+  static defaultProps: Props = {
       className: 'table',
       data: { headers: {}, rows: {}}
-    };
-  }
+  };
 
-  render() {
+  render(): Node {
     const { className, data, ...rest } = this.props;
 	return (
 			<table className={className} {...rest}>

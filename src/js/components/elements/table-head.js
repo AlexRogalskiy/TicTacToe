@@ -3,28 +3,22 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
-export default class TableHead extends Component {
-  get displayName() {
-    return 'TableHead';
-  }
+type Props = {
+	 data: object
+};
+
+export default class TableHead extends Component<Props> {
+  displayName: string = 'TableHead';
   
-  static get propTypes() {
-    return {
-      data: PropTypes.object
-    };
-  }
-
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
       className: 'table-head-row',
       data: {}
-    };
-  }
+  };
   
-  getHeaders(data) {
+  getHeaders(data: object): Node {
 	 return Object.keys(data).map((key, index) => {
 		return (
 			<th key={key} item={data[key]} id={data[key].id} name={data[key].name} ref={data[key].ref} className={data[key].className}>{data[key].content}</th>
@@ -32,7 +26,7 @@ export default class TableHead extends Component {
 	 });
   }
 
-  render() {
+  render(): Node {
     const { className, data, ...rest } = this.props;
 	return (
 		<tr className={className} {...rest}>

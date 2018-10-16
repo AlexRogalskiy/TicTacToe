@@ -3,31 +3,25 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-export default class Cell extends Component {
-  get displayName() {
-    return 'Cell';
-  }
+type Props = {
+	dataClass?: object,
+    isWinner?: bool
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      isWinner: PropTypes.bool
-    };
-  }
+export default class Cell extends Component<Props> {
+  displayName: string = 'Cell';
 
-  static get defaultProps() {
-    return {
+  static defaultProps: Props = {
       className: 'cell',
       dataClass: { winnerClass: 'cell-winner' },
       isWinner: false
-    };
-  }
+  };
 
-  render() {
+  render(): Node {
     const {
       className,
       onPress,

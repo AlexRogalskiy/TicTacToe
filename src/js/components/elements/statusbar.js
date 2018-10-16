@@ -3,25 +3,26 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
 
-export default class StatusBar extends Component {
-  get displayName() {
-    return 'StatusBar';
-  }
+type Props = {
+	message: string
+};
 
-  static get defaultProps() {
-    return {
-      className: 'statusbar',
-    };
-  }
+export default class StatusBar extends Component<Props> {
+  displayName: string = 'StatusBar';
+  
+  static defaultProps: Props = {
+	className: 'statusbar',
+	message: null
+  };
 
-  render() {
-    const { message, children, ...rest } = this.props;
+  render(): Node {
+    const { message, className, children, ...rest } = this.props;
     const messages = message ? <div>{message}</div> : '';
     const childs = children ? <div>{children}</div> : '';
     return (
-      <div {...rest}>
+      <div className={className} {...rest}>
         {messages}
         {childs}
       </div>

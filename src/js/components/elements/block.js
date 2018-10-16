@@ -3,31 +3,22 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
-export default class Block extends Component {
-  get displayName() {
-    return 'Block';
-  }
-  
-  static get propTypes() {
-    return {
-      content: PropTypes.string
-    };
-  }
+type Props = {};
 
-  static get defaultProps() {
-    return {
-      className: 'content',
-      content: ''
-    };
-  }
+export default class Block extends Component<Props> {
+  displayName: string = 'Block';
 
-  render() {
-    const { className, content, ...rest } = this.props;
+  static defaultProps: Props =  {
+      className: 'block'
+  };
+
+  render(): Node {
+    const { className, children, ...rest } = this.props;
     return (
-		<span className={className} {...rest}>{content}</span>
+		<span className={className} {...rest}>{children}</span>
     );
   }
 };

@@ -3,29 +3,37 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { Grid, Button, Well } from 'react-bootstrap';
 import { Transition } from 'react-transition-group';
 
-class SampleBlockTransition extends Component {
-  get displayName() {
-    return 'SampleBlockTransition';
-  }
+type Props = {};
+type State = {
+	show: bool,
+	entered: bool
+};
+
+class SampleBlockTransition extends Component<Props, State> {
+  displayName: string = 'SampleBlockTransition';
+
+  state: State = {
+	show: false,
+	entered: false
+  };
   
-  constructor(props) {
+  constructor(props: Props): void {
 	  super(props);
 	  this.handleToggle = this.handleToggle.bind(this);
-	  this.state = { show: false, entered: false };
   }
 
-  handleToggle(defaultState) {
+  handleToggle(defaultState: object): void {
     this.setState(({ state = defaultState }) => ({
       show: !state.show
     }))
   }
   
-  render() {
+  render(): Node {
     const { show } = this.state;
 	return (
       <Grid style={{ paddingTop: '2rem' }}>

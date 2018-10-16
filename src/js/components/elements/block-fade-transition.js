@@ -3,12 +3,12 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 import { Transition } from 'react-transition-group';
 
-const defaultStyle = (duration = 300) => {
+const defaultStyle = (duration: number = 300) => {
   transition: `opacity ${duration}ms ease-in-out`,
   opacity: 0
 };
@@ -18,7 +18,7 @@ const defaultTransitionStyle = {
   entered:  { opacity: 1 }
 };
 
-const defaultTransition = (transitionIn = false) => {
+const defaultTransition = (transitionIn: bool = false) => {
 	in: transitionIn,
 	timeout: {
 		enter: 300,
@@ -26,29 +26,23 @@ const defaultTransition = (transitionIn = false) => {
 	}
 };
 
-export default class BlockFadeTransition extends Component {
-  get displayName() {
-    return 'BlockFadeTransition';
-  }
-  
-  static get propTypes() {
-    return {
-	  transition: PropTypes.object
-    };
-  }
+type Props = {
+	transition?: object
+};
 
-  static get defaultProps() {
-    return {
+export default class BlockFadeTransition extends Component<Props> {
+  displayName: string = 'BlockFadeTransition';
+
+  static defaultProps: Prosp = {
       className: 'block-fade-transition',
 	  transition: {}
-    };
-  }
+  };
   
 	//addEndListener={(node, done) => {
 	//	node.addEventListener('transitionend', done, false);
 	//}}
 
-  render() {
+  render(): Node {
     const { className, transitionStyle, transition, children, ...rest } = this.props;
 	const mergedTransition = { ...defaultTransition(), ...transition };
 	return (

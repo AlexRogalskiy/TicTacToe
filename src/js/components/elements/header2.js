@@ -3,32 +3,22 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 
-export default class Header2 extends Component {
-  get displayName() {
-    return 'Header2';
-  }
-  
-  static get propTypes() {
-    return {
-      message: PropTypes.string
-    };
-  }
+type Props = {
+	message?: string
+};
 
-  static get defaultProps() {
-    return {
+export default class Header2 extends Component<Props> {
+  displayName: string = 'Header2';
+
+  static defaultProps: Props = {
       className: 'header2',
       message: ''
-    };
-  }
+  };
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+  render(): Node {
     const { className, message, ...rest } = this.props;
     return (
       <h2 className={className} {...rest}>{message}</h2>
