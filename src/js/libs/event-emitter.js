@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module dependencies
+ */
+import Logger from './logger';
+
 export default class EventEmitter {
   listeners: array = [];
 	  

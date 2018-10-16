@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import { isFunction } from './helpers';
+import Logger from './logger';
 
 const DEFAULT_INDENT_SPACE = 4;
 

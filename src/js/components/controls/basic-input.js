@@ -37,6 +37,7 @@ class BasicInput extends Component<Props, State> {
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
+		errorMessageClass: 'help-block',
         inputClass: 'form-control',
       },
       dataError: [],
@@ -82,9 +83,9 @@ class BasicInput extends Component<Props, State> {
     };
   }
   
-  renderMessageText(messages: array): Node {
+  renderMessageText(messages: array, className: string): Node {
 	  return (
-		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
+		<MessageList messages={messages} className={className}/>
 	  );
   }
 
@@ -124,7 +125,7 @@ class BasicInput extends Component<Props, State> {
           />
           {children}
         </div>
-		{ this.renderMessageText(errorMessages) }
+		{ this.renderMessageText(errorMessages, dataClass.errorMessageClass) }
       </div>
     );
   }

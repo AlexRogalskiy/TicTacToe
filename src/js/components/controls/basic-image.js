@@ -29,6 +29,7 @@ class BasicImage extends Component<Props> {
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
+		errorMessageClass: 'help-block',
         imageClass: 'form-control',
       },
       dataError: [],
@@ -89,9 +90,9 @@ class BasicImage extends Component<Props> {
     };
   }
 
-  renderMessageText(messages: array): Node {
+  renderMessageText(messages: array, className: string): Node {
 	  return (
-		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
+		<MessageList messages={messages} className={className}/>
 	  );
   }
   
@@ -131,7 +132,7 @@ class BasicImage extends Component<Props> {
           />
           {children}
         </div>
-        { this.renderMessageText(errorMessages) }
+        { this.renderMessageText(errorMessages, dataClass.errorMessageClass) }
       </div>
     );
   }

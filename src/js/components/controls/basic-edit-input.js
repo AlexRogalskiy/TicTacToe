@@ -43,6 +43,7 @@ class BasicEditInput extends Component<Props, State> {
       dataClass: {
 			controlClass: 'row no-gutters',
 			errorClass: 'error',
+			errorMessageClass: 'help-block',
 			inputClass: 'form-control input',
 			buttonClass: 'form-control button',
 			labelClass: 'form-control label',
@@ -144,9 +145,9 @@ class BasicEditInput extends Component<Props, State> {
 		);
 	}
 	
-  renderMessageText(messages: array): Node {
+  renderMessageText(messages: array, className: string): Node {
 	  return (
-		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
+		<MessageList messages={messages} className={className}/>
 	  );
   }
 
@@ -181,7 +182,7 @@ class BasicEditInput extends Component<Props, State> {
 					{ this.renderButton() }
 				</Input>
 			</div>
-			{ this.renderMessageText(errorMessages) }
+			{ this.renderMessageText(errorMessages, dataClass.errorMessageClass) }
 		</div>
 	);
   }

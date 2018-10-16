@@ -37,6 +37,7 @@ state: State = {
       dataClass: {
         controlClass: 'row no-gutters',
         errorClass: 'error',
+		errorMessageClass: 'help-block',
         inputClass: 'form-control',
       },
       dataError: [],
@@ -68,9 +69,9 @@ state: State = {
     };
   }
   
-  renderMessageText(messages: array): Node {
+  renderMessageText(messages: array, className: string): Node {
 	  return (
-		<MessageList messages={messages} className={this.props.dataClass.errorClass}/>
+		<MessageList messages={messages} className={className}/>
 	  );
   }
 
@@ -92,7 +93,7 @@ state: State = {
     const errorMessages = getValidationMessages(this.props.name) || dataError;
     const controlClassName = classes(
       dataClass.controlClass,
-      errorMessages.length > 0 && dataClass.errorClass
+      dataClass.errorClass && errorMessages.length > 0
     );
     rest.className = dataClass.inputClass;
     return (
@@ -102,7 +103,7 @@ state: State = {
 				{children}
 			</button>
 		</div>
-		{ this.renderMessageText(errorMessages) }
+		{ this.renderMessageText(errorMessages, dataClass.errorMessageClass) }
       </div>
     );
   }
