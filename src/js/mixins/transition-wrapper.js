@@ -14,20 +14,15 @@ type State = {
 	isActivated: bool
 };
 
-export default function wrapper(WrappedComponent) {
+export default function wrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>)Ж React.ComponentType<Props> {
 	
   return class extends Component<Props, State> {
+	displayName: string = 'TransitionWrapper';
+	
 	state: State = {
 		isMounted: false,
 		isActivated: false
 	};
-	
-    displayName: string = 'TransitionWrapper';
-
-    constructor(props: Props): void {
-      super(props);
-      //this.state = { isMounted: false, isActivated: false };
-    }
 
     componentWillAppear(callback: func): void {
       Logger.debug('componentWillAppear');

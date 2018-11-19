@@ -12,19 +12,14 @@ type State = {
 	isMounted: bool
 };
 
-export default function wrapper(WrappedComponent) {
+export default function wrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
 	
   return class extends Component<Props, State> {
+	displayName: string = 'LifeCycleWrapper';
+		
 	state: State = {
 		isMounted: false
 	};
-	  
-    displayName: string = 'LifeCycleWrapper';
-
-    constructor(props: Props): void {
-      super(props);
-      //this.state = { isMounted: false };
-    }
 
     componentWillMount(): void {
       Logger.debug(`LifeCycle: componentWillMount`);
@@ -68,7 +63,10 @@ export default function wrapper(WrappedComponent) {
 
     render(): Node {
       return (
-        <WrappedComponent isMounted={this.state.isMounted} {...this.props} />
+        <WrappedComponent
+			isMounted={this.state.isMounted}
+			{...this.props}
+		/>
       );
     }
   };

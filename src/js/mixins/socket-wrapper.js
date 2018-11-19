@@ -15,9 +15,11 @@ type State = {
 	isConnected: bool
 };
 	
-export default function wrapper(WrappedComponent) {
+export default function wrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
 	
   return class extends Component<Props, State> {
+	displayName: string = 'SocketWrapper';
+	
 	state: State = {
 		isConnected: false
 	};
@@ -25,14 +27,11 @@ export default function wrapper(WrappedComponent) {
 	static defaultProps: Props = {
 		endpoint: 'http://localhost:8080/'
 	};
-	
-    displayName: string = 'SocketWrapper';
 
     constructor(props: Props): void {
       super(props);
       this.onConnect = this.onConnect.bind(this);
       this.onDisconnect = this.onDisconnect.bind(this);
-      //this.state = { isConnected: false };
     }
 
     onConnect(socket: object): func {
@@ -57,6 +56,7 @@ export default function wrapper(WrappedComponent) {
           isConnected={this.state.isConnected}
           onConnect={this.onConnect}
           onDisconnect={this.onDisconnect}
+		  {...this.props}
         />
       );
     }
