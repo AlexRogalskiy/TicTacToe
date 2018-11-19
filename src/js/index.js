@@ -11,8 +11,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import style from '../css/style.css';
 
-import App from 'app-root/views/app';
-import TicTacToeStore from 'app-root/stores/tictactoe-store';
+import AppView from 'app-root/views/app.view';
+import TicTacToeStore from 'app-root/stores/tictactoe.store';
 import registerServiceWorker from 'app-root/vendor/service-worker';
 
 const renderRoot = (Component, wrapper) =>
@@ -31,6 +31,6 @@ const renderRoot = (Component, wrapper) =>
 const wrapper = document.getElementById('root');
 
 if (wrapper) {
-  renderRoot(App, wrapper);
+  renderRoot(AppView, wrapper);
   registerServiceWorker();
 }
