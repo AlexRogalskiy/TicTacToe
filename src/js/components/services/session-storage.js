@@ -1,11 +1,9 @@
 'use strict';
 
 export default class SessionStorage {
-  get displayName() {
-    return 'SessionStorage';
-  }
+  displayName: string = 'SessionStorage';
 
-  constructor() {
+  constructor(props: Props): void {
     super(sessionStorage);
   }
 };

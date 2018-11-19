@@ -3,27 +3,23 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 
-export default class Redirect extends Component {
-  get displayName() {
-    return 'Redirect';
-  }
+type Props = {
+  path: string
+};
 
-  static get propTypes() {
-    return {
-      path: PropTypes.string
-    };
-  }
-
-  static get defaultProps() {
-    return {
+export default class Redirect extends Component<Props> {
+  displayName: string = 'Redirect';
+  
+  static defaultProps: Props = {
       path: './'
-    };
-  }
+  };
 
-  render() {
-    return <Redirect to={`/${this.props.path}/${this.props.match.params}`} />;
+  render(): Node {
+	const { path, ...rest } = this.props;
+    return (<Redirect to={ `/${path}/${this.props.match.params}` } />);
   }
 };

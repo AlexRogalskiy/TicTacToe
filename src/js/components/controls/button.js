@@ -8,7 +8,8 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
 type Props = {
-	isDisabled: bool
+	isDisabled: bool,
+	children?: React.Node
 };
 
 export default class Button extends Component<Props> {

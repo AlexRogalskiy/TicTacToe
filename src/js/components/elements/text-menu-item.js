@@ -18,7 +18,7 @@ export default class TextMenuItem extends Component<Props> {
     static defaultProps: Props = {
 		className: 'text-menu-item',
         dataClass: { iconClass: 'menu-item-icon' },
-        title: ''
+        title: null
     };
 	
     constructor(props: Props): void {

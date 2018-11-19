@@ -1,19 +1,19 @@
 'use strict';
 
 export default class Storage {
-  get displayName() {
-    return 'Storage';
-  }
+  displayName: string = 'Storage';
+  
+  storage: object;
 
-  constructor(storage) {
+  constructor(storage: object): void {
     this.storage = storage;
   }
   
-  get(key) {
+  get(key: object): object {
 	  return this.storage.getItem(key);
   }
   
-  set(key, value) {
+  set(key: object, value: object): void {
 	  this.storage.setItem(key, value);
   }
 };

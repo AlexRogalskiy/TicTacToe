@@ -27,7 +27,8 @@ const defaultTransition = (transitionIn: bool = false) => {
 };
 
 type Props = {
-	transition?: object
+	transition?: object,
+	children?: React.Node
 };
 
 export default class BlockFadeTransition extends Component<Props> {

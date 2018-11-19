@@ -13,7 +13,8 @@ import { style, classes } from 'typestyle';
 //let Styles = ClassNames.bind(BasicCardItemStyle);
 
 type Props = {
-	 dataClass?: object
+	 dataClass?: object,
+	 children?: React.Node
 };
 type State = {
 	flipped: bool
@@ -48,7 +49,7 @@ export default class Card extends Component<Props, State> {
     }
 	
 	render(): Node {
-        const { className, dataClass, onClick, ...rest } = this.props;
+        const { className, dataClass, onClick, children, ...rest } = this.props;
         const elementClassName = classes(
 			className,
 			flipped && this.state.flipped
@@ -56,7 +57,7 @@ export default class Card extends Component<Props, State> {
 		return (
             <div className={elementClassName} onClick={this.onClick} {...rest}>
                 <div className={dataClass.cardFrontClass}>
-                    <div className={dataClass.cardInnerClass}>{rest.children}</div>
+                    <div className={dataClass.cardInnerClass}>{children}</div>
                 </div>
                 <div className={dataClass.cardBackClass}>&nbsp;</div>
             </div>

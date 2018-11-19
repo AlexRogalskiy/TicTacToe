@@ -11,15 +11,26 @@ type Props = {
 	dataClass?: object,
     isWinner?: bool
 };
+type State = {
+	isWinner: bool
+};
 
-export default class Cell extends Component<Props> {
+export default class Cell extends Component<Props, State> {
   displayName: string = 'Cell';
 
+  	state: State = {
+		isWinner: false
+	};
+	
   static defaultProps: Props = {
       className: 'cell',
-      dataClass: { winnerClass: 'cell-winner' },
-      isWinner: false
+      dataClass: { winnerClass: 'cell-winner' }
   };
+  
+  constructor(props: Props): void {
+    super(props);
+	this.state = { isWinner: props.isWinner };
+  }
 
   render(): Node {
     const {
@@ -30,7 +41,7 @@ export default class Cell extends Component<Props> {
       isWinner,
       ...rest
     } = this.props;
-    const cellClassName = classes(className, isWinner && dataClass.winnerClass);
+    const cellClassName = classes(className, this.state.isWinner && dataClass.winnerClass);
     return (
       <div onClick={onPress} className={cellClassName} {...rest}>
         {state}

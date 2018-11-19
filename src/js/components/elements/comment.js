@@ -8,7 +8,8 @@ import { style, classes } from 'typestyle';
 import marked from 'marked';
 
 type Props = {
-	dataClass?: object
+	dataClass?: object,
+	children?: React.Node
 };
 
 export default class Comment extends Component<Props> {
@@ -21,8 +22,9 @@ export default class Comment extends Component<Props> {
 	
     rawMarkup(): object {
         const rawMarkup = marked(this.props.children.toString(), { sanitize: true });
-        return {__html: rawMarkup};
+        return { __html: rawMarkup };
     }
+	
     render(): Node {
     	const { className, dataClass, author, children, ...rest } = this.props;
         return (
@@ -31,7 +33,9 @@ export default class Comment extends Component<Props> {
                     {author}
                 </span>
                 <span dangerouslySetInnerHTML={this.rawMarkup()} />
-                <span className={dataClass.commentTextClass}>{children}</span>
+                <span className={dataClass.commentTextClass}>
+					{children}
+				</span>
             </div>
         );
     }

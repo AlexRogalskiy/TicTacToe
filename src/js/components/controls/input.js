@@ -9,7 +9,8 @@ import { style, classes } from 'typestyle';
 
 type Props = {
 	dataClass?: object,
-	isDisabled?: bool
+	isDisabled?: bool,
+	children?: React.Node
 };
 
 export default class Input extends Component<Props> {

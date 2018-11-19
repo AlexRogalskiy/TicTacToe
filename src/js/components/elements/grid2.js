@@ -17,7 +17,8 @@ import Button from 'material-ui/Button';
 
 type Props = {
 	dataClass?: object,
-    dispatch: func
+    dispatch: func,
+	children?: React.Node
 };
 
 @withStyles(theme => ({
@@ -38,8 +39,7 @@ export default class Grid2 extends Component<Props> {
 
     onClick(pathname: string): func {
 		return () => {
-			const { dispatch } = this.props;
-			dispatch(push(pathname));
+			this.props.dispatch(push(pathname));
 		};
 	}
 

@@ -3,28 +3,24 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 
-export default class ResourceNotFoundError extends Component {
-  get displayName() {
-    return 'ResourceNotFoundError';
-  }
+type Props = {
+	 message?: string
+};
 
-  static get propTypes() {
-    return {
-      message: PropTypes.string,
-    };
-  }
+export default class ResourceNotFoundError extends Component<Props> {
+  displayName: string = 'ResourceNotFoundError';
 
-  static get defaultProps() {
-    return {
-      message: '404 [ Resource not found ]',
-    };
-  }
+  static defaultProps: Props = {
+      className: 'error-not-found',
+	  message: '404 [ Resource not found ]'
+  };
 
-  render() {
+  render(): Node {
     const { messsage, ...rest } = this.props;
-    return <div {...rest}>{message}</div>;
+    return (<div {...rest}>{ message }</div>);
   }
 };

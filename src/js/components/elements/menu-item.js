@@ -8,7 +8,8 @@ import { style, classes } from 'typestyle';
 import { Icon } from 'appRoot/js/components/elements/icon';
 
 type Props = {
-	dataClass?: object
+	dataClass?: object,
+	children?: React.Node
 };
 
 export default class MenuItem extends Component<Props> {

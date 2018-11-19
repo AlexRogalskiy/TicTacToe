@@ -17,7 +17,8 @@ type Props = {
 	dataClass?: object,
     dataError?: array,
 	isDisabled?: bool,
-    validator?: string
+    validator?: string,
+	children?: React.Node
 };
 type State = {
 	isDisabled: bool
@@ -26,9 +27,9 @@ type State = {
 class BasicButton extends Component<Props, State> {
   displayName: string = 'BasicButton';
   
-state: State = {
-	isDisabled: false
-};
+  state: State = {
+	  isDisabled: false
+  };
 
   button: ?HTMLButtonElement;
   

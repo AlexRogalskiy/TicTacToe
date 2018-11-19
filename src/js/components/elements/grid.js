@@ -17,7 +17,7 @@ export default class Grid extends Component<Props> {
   };
   
   isWinnerCell(cell: number): bool {
-	  return (this.props.winCells && this.props.winCells.includes(cell) ? true : false);
+	  return (this.props.winCells && this.props.winCells.includes(cell));
   }
   
   render(): Node {

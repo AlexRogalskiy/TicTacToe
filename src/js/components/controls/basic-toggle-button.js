@@ -53,7 +53,7 @@ export default class BasicToggleButton extends BasicButton {
 		const { className, dataClass, flipped, ...rest } = this.props;
 		const { flippedClass, ...restClass } = dataClass;
 		rest.className = classes(
-			className
+			className,
 	      	// pressed: this.state.isPressed,
 	      	// hover: !this.state.isPressed && this.state.isHovered,
 	      	// disabled: this.state.isDisabled,

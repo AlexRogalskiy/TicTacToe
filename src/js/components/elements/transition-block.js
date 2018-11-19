@@ -46,7 +46,8 @@ const defaultTransitionClass = ({ appear: string 		= 'appear',
 
 type Props = {
 	dataClass?: object,
-	transition?: object
+	transition?: object,
+	children?: React.Node
 };
 
 export default class TransitionBlock extends Component<Props> {

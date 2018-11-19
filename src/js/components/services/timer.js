@@ -3,9 +3,10 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 import Bacon from 'bacon';
-import PropTypes from 'prop-types';
 
 const time = Bacon.fromBinder(observer => {
   const timer = setTimeout(() => {
@@ -16,27 +17,37 @@ const time = Bacon.fromBinder(observer => {
   };
 });
 
-export default class Timer extends Component {
-  get displayName() {
-    return 'Timer';
+type Props = {
+	message?: string
+};
+type State = {
+	time: number
+};
+
+export default class Timer extends Component<Props, State> {
+  displayName: string = 'Timer';
+
+  state: State = {
+	  time: 0
+  };
+  
+  static defaultProps: Props = {
+	  className: 'timer',
+      message: 'Current Time:'
+  };
+  
+  componentDidMount(): void {
+      this._unsubscribe = time.onValue(time => this.setState({ time: time }));
   }
   
-  constructor(props) {
-    super(props);
-    this.state = { time: 0 };
+  componentWillUnmount(): void {
+      this._unsubscribe();
   }
   
-  componentDidMount() {
-    this._unsubscribe = time.onValue(time => this.setState({ time: time }));
-  }
-  
-  componentWillUnmount() {
-    this._unsubscribe();
-  }
-  
-  render() {
-    return (
-      <div>Current Time: {this.state.time}</div>
-    );
+  render(): Node {
+	  const {className, ...rest} = this.props;
+      return (
+          <div className={className} {...rest}>{message} {this.state.time}</div>
+      );
   }
 };

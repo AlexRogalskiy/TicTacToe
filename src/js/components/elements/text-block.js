@@ -15,7 +15,7 @@ export default class TextBlock extends Component<Props> {
 
   static defaultProps: Props =  {
       className: 'text-block',
-      content: ''
+      content: null
   };
 
   render(): Node {

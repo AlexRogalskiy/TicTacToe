@@ -17,10 +17,12 @@ import { BasicListControl } from 'appRoot/js/components/controls/basicListContro
 
 //let Styles = ClassNames.bind(BasicMenuStyle);
 
-const defaultTransition = (transitionName: string = 'popoveranim') => {
+const defaultTransition = (transitionName: string = 'popoveranim',
+						   transitionEnterTimeout: number = 350,
+						   transitionLeaveTimeout: number = 350) => {
 	transitionName,
-	transitionEnterTimeout: 350,
-	transitionLeaveTimeout: 350
+	transitionEnterTimeout,
+	transitionLeaveTimeout
 };
 
 type Props = {

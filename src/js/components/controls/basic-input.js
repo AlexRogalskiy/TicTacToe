@@ -17,7 +17,8 @@ type Props = {
 	dataClass?: object,
     dataError?: array,
 	isDisabled?: bool,
-    validator?: string
+    validator?: string,
+	children?: React.Node
 };
 type State = {
 	isDisabled: bool

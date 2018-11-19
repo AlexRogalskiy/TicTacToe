@@ -3,35 +3,34 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 
 import Logger from 'app-root/libs/logger';
 
-export default class SocketConnector extends Component {
-  get displayName() {
-    return 'SocketConnector';
-  }
+type Props = {
+  endpoint: string,
+  onConnect?: func,
+  onDisconnect?: func
+};
+type State = {
+  isConnected: bool	
+}
 
-  static get propTypes() {
-    return {
-      endpoint: PropTypes.string.isRequired,
-    };
-  }
+export default class SocketConnector extends Component<Props, State> {
+  displayName: string = 'SocketConnector';
 
-  static get defaultProps() {
-    return {
-      endpoint: 'http://localhost:8080/',
-    };
-  }
+  state: State = {
+	  isConnected: false
+  };
+  
+  static defaultProps: Props = {
+      endpoint: 'http://localhost:8080/'
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = { isConnected: false };
-  }
-
-  onConnect(socket) {
+  onConnect(socket: object): func {
     return () => {
       Logger.debug(`onConnect: <connect> by socket with id=${socket.id}`);
       this.setState({ isConnected: true });
@@ -41,7 +40,7 @@ export default class SocketConnector extends Component {
     };
   }
 
-  onDisconnect(socket) {
+  onDisconnect(socket: object): func {
     return () => {
       Logger.debug(
         `onDisconnect: <disconnect> from socket with id=${socket.id}`
@@ -53,7 +52,7 @@ export default class SocketConnector extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));

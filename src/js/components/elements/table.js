@@ -18,7 +18,7 @@ export default class Table extends Component<Props> {
 
   static defaultProps: Props = {
       className: 'table',
-      data: { headers: {}, rows: {}}
+      data: { headers: {}, rows: {} }
   };
 
   render(): Node {

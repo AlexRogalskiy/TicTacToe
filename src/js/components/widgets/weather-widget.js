@@ -3,37 +3,36 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
+import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 
 import Loader from 'app-root/components/elements/loader';
 import Logger, { tag } from 'app-root/libs/logger';
 
-export default class WeatherWidget extends Component {
-  get displayName() {
-    return 'WeatherWidget';
-  }
+type Props = {
+	dataClass?: object,
+	onConnect?: func,
+	onDisconnect?: func
+};
+type State = {
+	response: object
+};
 
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-    };
-  }
+export default class WeatherWidget extends Component<Props, State> {
+  displayName: string = 'WeatherWidget';
 
-  static get defaultProps() {
-    return {
-      className: 'weather-widget',
-      dataClass: { weatherWidgetInfo: 'weather-widget-info' },
-    };
-  }
+  state: State = {
+	  response: null
+  };
+  
+  static defaultProps: Props = {
+	 className: 'weather-widget',
+     dataClass: { weatherWidgetInfo: 'weather-widget-info' }
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = { response: null };
-  }
-
-  onConnect(socket) {
+  onConnect(socket: object): void {
     return () => {
       if (this.props.onConnect) {
         this.props.onConnect(socket).call(this);
@@ -42,7 +41,7 @@ export default class WeatherWidget extends Component {
     };
   }
 
-  onDisconnect(socket) {
+  onDisconnect(socket: object): void {
     return () => {
       if (this.props.onDisconnect) {
         this.props.onDisconnect(socket).call(this);
@@ -50,7 +49,7 @@ export default class WeatherWidget extends Component {
     };
   }
 
-  onEvent(socket) {
+  onEvent(socket: object): void {
     return data => {
       Logger.debug(
         tag`onEvent: <event> data ${data} from socket with id=${socket.id}`
@@ -59,13 +58,13 @@ export default class WeatherWidget extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));
   }
 
-  render() {
+  render(): Node {
     const {
       className,
       dataClass,

@@ -6,7 +6,8 @@
 import React, { Component, Node } from 'react';
 
 type Props = {
-	message: string
+	message: string,
+	children?: React.Node
 };
 
 export default class StatusBar extends Component<Props> {
@@ -19,8 +20,8 @@ export default class StatusBar extends Component<Props> {
 
   render(): Node {
     const { message, className, children, ...rest } = this.props;
-    const messages = message ? <div>{message}</div> : '';
-    const childs = children ? <div>{children}</div> : '';
+    const messages = message ? <div>{ message }</div> : null;
+    const childs = children ? <div>{ children }</div> : null;
     return (
       <div className={className} {...rest}>
         {messages}

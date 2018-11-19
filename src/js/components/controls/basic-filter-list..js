@@ -27,13 +27,13 @@ export default class BasicFilterList extends Component<Props, State> {
     displayName: string = 'BasicFilterList';
 	
 	state: State = {
-		filter: null
+		filter: null,
+		height: 0
 	};
 	
     static defaultProps: Props = {
 		className: 'basic-filter-list',
         dataClass: { inputClass: 'search', listClass: 'list', itemClass: 'list-item' },
-        filter: '',
         items: []
     };
 	
@@ -42,10 +42,11 @@ export default class BasicFilterList extends Component<Props, State> {
             height: ReactDOM.findDOMNode(this).querySelector('li').clientHeight
         });
     }
-
+  
   onChange(field: string): func {
     return (event: SyntheticEvent<HTMLInputElement>) => {
       let state = { filter: event.currentTarget.value }; //ReactDOM.findDOMNode(this.refs.search).value
+	  this.setState(state);
       if (this.props.onChange) {
         this.props.onChange(event);
       }
@@ -53,12 +54,12 @@ export default class BasicFilterList extends Component<Props, State> {
   }
 	
     render(): Node {
-        const { className, dataClass, filter, items, item, ...rest } = this.props;
+        const { className, dataClass, items, item, ...rest } = this.props;
         const { inputClass, listClass, itemClass, ...restClass } = dataClass;
         const elements = items.map((item, idx) => {
             return { title: item.title, data: item.data, key: item.key };
         }).filter(item => {
-            return (filter ? item.title.toLowerCase().indexOf(filter) !== -1 : true);
+            return (this.state.filter ? item.title.toLowerCase().indexOf(this.state.filter) !== -1 : true);
         }.bind(this)).map((item, idx) => {
             return (
                 <li key={item.key} data-item={item.data} className=classes(itemClass, item.className}>{item.title}</li>

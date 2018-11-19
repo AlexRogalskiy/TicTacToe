@@ -6,7 +6,9 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-type Props = {};
+type Props = {
+	children?: React.Node
+};
 
 export default class Block extends Component<Props> {
   displayName: string = 'Block';

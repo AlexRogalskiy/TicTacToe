@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Node } from 'react';
+//import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 //import $ from 'jquery';
@@ -13,7 +13,26 @@ import { isNullOrUndefined } from 'app-root/libs/helpers';
 import Loader from 'app-root/components/elements/loader';
 import Logger from 'app-root/libs/logger';
 
-export default class ChatWidget extends Component {
+type Props = {
+	dataClass?: object,
+    onConnect: func,
+	onDisconnect: func
+};
+type State = {
+	isAuthorized: bool,
+	isTyping: bool,
+	response: object
+};
+
+export default class ChatWidget extends Component<Props, State> {
+	displayName: string = 'ChatWidget';
+	
+	state: State = {
+	  isAuthorized: false,
+	  isTyping: false,
+	  response: null
+	};
+  
   /*var FADE_TIME = 150; // ms
 	var TYPING_TIMER_LENGTH = 400; // ms
 
@@ -32,22 +51,9 @@ export default class ChatWidget extends Component {
 	var typing = false;
 	var lastTypingTime;
 	var $currentInput = $usernameInput.focus();*/
-
-  get displayName() {
-    return 'ChatWidget';
-  }
-
-  static get propTypes() {
-    return {
-      dataClass: PropTypes.object,
-      onConnect: PropTypes.func,
-      onDisconnect: PropTypes.func,
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      className: 'cell',
+	
+  static defaultProps: Props = {
+	  className: 'cell',
       dataClass: {
         chatPageClass: 'chat page',
         chatAreaClass: 'chatArea',
@@ -58,16 +64,14 @@ export default class ChatWidget extends Component {
       },
       onConnect: this.onConnect,
       onDisconnect: this.onDisconnect,
-    };
-  }
-
-  constructor(props) {
+  };
+  
+  constructor(props: Props): void {
     super(props);
-    this.state = { isAuthorized: false, isTyping: false, response: null };
     this.initialize();
   }
 
-  onConnect(socket) {
+  onConnect(socket: object): func {
     return () => {
       if (this.props.onConnect) {
         this.props.onConnect(socket).call(this);
@@ -84,7 +88,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onDisconnect(socket) {
+  onDisconnect(socket: object): func {
     return () => {
       if (this.props.onDisconnect) {
         this.props.onDisconnect(socket).call(this);
@@ -93,7 +97,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onAddUser(socket) {
+  onAddUser(socket: object): func {
     return data => {
       Logger.debug(`Data ${data} from socket with id=${socket.id}`);
       if (username) {
@@ -102,7 +106,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onLogin(socket) {
+  onLogin(socket: object): func {
     return data => {
       Logger.debug(
         `User with data=${
@@ -115,7 +119,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onNewMessage(socket) {
+  onNewMessage(socket: object): func {
     return data => {
       Logger.debug(
         `New message with data=${
@@ -126,7 +130,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onUserJoined(socket) {
+  onUserJoined(socket: object): func {
     return data => {
       Logger.debug(
         `User with name=${
@@ -138,7 +142,7 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onUserLeft(socket) {
+  onUserLeft(socket: object): func {
     return data => {
       Logger.debug(
         `User with name=${
@@ -151,14 +155,14 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onTyping(socket) {
+  onTyping(socket: object): func {
     return data => {
       Logger.debug(`Typing message ${data} to socket with id=${socket.id}`);
       this.addChatTyping(data);
     };
   }
 
-  onStopTyping(socket) {
+  onStopTyping(socket: object): func {
     return data => {
       Logger.debug(
         `Stop typing message ${data} to socket with id=${socket.id}`
@@ -167,27 +171,27 @@ export default class ChatWidget extends Component {
     };
   }
 
-  onReconnect(socket) {
+  onReconnect(socket: object): func {
     return () => {
       Logger.debug(`Reconnected to socket with id=${socket.id}`);
       this.log('you have been reconnected');
     };
   }
 
-  onReconnectError(socket) {
+  onReconnectError(socket: object): func {
     return () => {
       Logger.debug(`Cannot reconnect to socket with id=${socket.id}`);
       this.log('attempt to reconnect has failed');
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));
   }
 
-  addParticipantsMessage(data) {
+  addParticipantsMessage(data: object): void {
     var message = '';
     if (data.numUsers === 1) {
       message += "there's 1 participant";
@@ -198,7 +202,7 @@ export default class ChatWidget extends Component {
   }
 
   // Sets the client's username
-  setUsername() {
+  setUsername(): void {
     username = cleanInput($usernameInput.val().trim());
     if (username) {
       $loginPage.fadeOut();
@@ -210,7 +214,7 @@ export default class ChatWidget extends Component {
   }
 
   // Sends a chat message
-  sendMessage() {
+  sendMessage(): void {
     var message = $inputMessage.val();
     message = cleanInput(message);
     if (message && connected) {
@@ -224,7 +228,7 @@ export default class ChatWidget extends Component {
   }
 
   // Log a message
-  log(message, options) {
+  log(message: string, options: object): void {
     var $el = $('<li>')
       .addClass('log')
       .text(message);
@@ -232,7 +236,7 @@ export default class ChatWidget extends Component {
   }
 
   // Adds the visual chat message to the message list
-  addChatMessage(data, options = {}) {
+  addChatMessage(data: object, options: object = {}): void {
     var $typingMessages = getTypingMessages(data);
     //options = options || {};
     if ($typingMessages.length !== 0) {
@@ -253,21 +257,21 @@ export default class ChatWidget extends Component {
   }
 
   // Adds the visual chat typing message
-  addChatTyping(data) {
+  addChatTyping(data: object): void {
     data.typing = true;
     data.message = 'is typing';
     addChatMessage(data);
   }
 
   // Removes the visual chat typing message
-  removeChatTyping(data) {
+  removeChatTyping(data: object): void {
     getTypingMessages(data).fadeOut(function() {
       $(this).remove();
     });
   }
 
   // Adds a message element to the messages and scrolls to the bottom
-  addMessageElement(el, options = {}) {
+  addMessageElement(el: Node, options: object = {}): void {
     var $el = $(el);
     //if (!options) {
     //	options = {};
@@ -290,14 +294,14 @@ export default class ChatWidget extends Component {
   }
 
   // Prevents input from having injected markup
-  cleanInput(input) {
+  cleanInput(input: string): Node {
     return $('<div/>')
       .text(input)
       .text();
   }
 
   // Updates the typing event
-  updateTyping() {
+  updateTyping(): void {
     if (this.state.isAuthorized) {
       if (!this.state.isTyping) {
         this.setState({ isTyping: true });
@@ -317,13 +321,13 @@ export default class ChatWidget extends Component {
   }
 
   // Gets the 'X is typing' messages of a user
-  getTypingMessages(data) {
+  getTypingMessages(data: object): Node {
     return $('.typing.message').filter(function(i) {
       return $(this).data('username') === data.username;
     });
   }
 
-  initialize() {
+  initialize(): void {
     $window.keydown(function(event) {
       if (!(event.ctrlKey || event.metaKey || event.altKey)) {
         $currentInput.focus();
@@ -352,7 +356,7 @@ export default class ChatWidget extends Component {
     });
   }
 
-  render() {
+  render(): Node {
     const { className, dataClass, ...rest } = this.props;
     //const response = this.state.response ? <div {...rest}>{this.state.response}</div> : <Loader />;
     //const elements = isConnected ? <div className={className}>{response}</div> : null;

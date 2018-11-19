@@ -16,7 +16,8 @@ import Forms from 'app-root/validators/forms';
 type Props = {
 	dataClass?: object,
     dataError?: array,
-    validator?: string
+    validator?: string,
+	children?: React.Node
 };
 
 class BasicImage extends Component<Props> {

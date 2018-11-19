@@ -12,7 +12,8 @@ type Props = {
 	className?: string,
 	dataClass?: object,
     router: object,
-    href: string
+    href: string,
+	children?: React.Node
 };
 
 class Link extends Component<Props> {

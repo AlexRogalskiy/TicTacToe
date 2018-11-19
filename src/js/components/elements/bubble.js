@@ -7,7 +7,9 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-type Props = {};
+type Props = {
+	children?: React.Node
+};
 
 export default class Bubble extends Component<Props> {
 	displayName: string = 'Bubble';
