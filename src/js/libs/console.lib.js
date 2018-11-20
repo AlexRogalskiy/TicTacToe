@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import { isNullOrUndefined } from 'app-root/libs/helpers.lib';
+import { isNullOrUndefined } from './helpers.lib';
 
 const Console = ((globals: object) => {
 	if (!globals.console) {

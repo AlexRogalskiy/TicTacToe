@@ -5,30 +5,47 @@
  */
 import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'app-root/constants/tictactoe.constant';
 
-const addMove = (cell: number, player: string) => {
+// @flow
+type Data = {
+	board?: Board,
+	cell?: Cell,
+	cells?: Cells,
+	player?: Player,
+	room?: string
+};
+type Player = string;
+type Cells = Array<string>;
+type Cell = number;
+type Board = {
+	title: string,
+	id: string,
+	date: string
+};
+
+const addMove = (data: Data) => {
   return {
     type: ADD_MOVE,
-    cell,
-    player,
+    cell: data.cell,
+    player: data.player
   };
 };
 
-const resetGame = (data: object) => {
+const resetGame = (data: Data) => {
   return {
     type: RESET,
     room: data.room,
   };
 };
 
-const startGame = (board: object, player: string) => {
+const startGame = (board: Board, player: Player) => {
   return {
     type: START,
     board,
-    player,
+    player
   };
 };
 
-const initializeGame = (data: object) => {
+const initializeGame = (data: Data) => {
   return {
     type: INITIALIZE,
     board: data.board,
@@ -38,7 +55,7 @@ const initializeGame = (data: object) => {
   };
 };
 
-const finalizeGame = (data: object) => {
+const finalizeGame = (data: Data) => {
   return {
     type: FINALIZE,
     board: data.board,

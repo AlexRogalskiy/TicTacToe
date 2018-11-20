@@ -27,25 +27,33 @@ const defaultTransition = (transitionName: string = 'popoveranim',
 
 type Props = {
 	 dataClass?: object,
-     transition?: object,
-     items: array
+     transition?: object
 };
 type State = {
-	activeMenu: string
+	activeMenu: string,
+	items: Array<{
+		iconClass: string,
+		id: string,
+		data: object,
+		className: string,
+		title: string,
+		transition: object,
+		data: object
+	}>
 };
 
 export default class MenuListElement extends Component<Props, State> {
     displayName: string = 'MenuListElement';
 	
 	state: State = {
-		activeMenu: null
+		activeMenu: null,
+		items: []
 	};
 	
     static defaultProps: Props = {
 		className: 'menu-list'
         dataClass: { itemClass: 'menu-item', itemIconClass: 'menu-item-icon' },
-        transition: {},
-        items: []
+        transition: {}
     };
 	
 	constructor(props: Props): void {
@@ -58,7 +66,7 @@ export default class MenuListElement extends Component<Props, State> {
     }
 	
     render(): Node {
-        const { className, dataClass, transition, items, ...rest } = this.props;
+        const { className, dataClass, transition, ...rest } = this.props;
         const { itemClass, itemIconClass, ...restClass } = dataClass;
         const elements = this.state.items.map(item => {
 			const mergedTransition = { ...defaultTransition(), ...transition };
@@ -66,7 +74,7 @@ export default class MenuListElement extends Component<Props, State> {
 			  itemIconClass,
 			  item.iconClass
 			);
-            elems = {this.state.activeMenu === item.id ? 
+            let elems = {this.state.activeMenu === item.id ? 
                         <BlockElement key={item.id}>
                             {item.data}
                         </BlockElement>

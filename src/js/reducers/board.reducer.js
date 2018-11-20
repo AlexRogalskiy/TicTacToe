@@ -7,11 +7,21 @@ import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'app-root/constants
 import { guidGenerator, currentDate, currentTime } from 'app-root/libs/helpers.lib';
 import config from 'app-root/resources/config.json';
 
+// @flow
+type State = {
+	title: string,
+	id: string,
+	date: string
+};
+type Action = {
+	type: string
+};
+
 const scheme = config.default.scheme;
 
 const BoardReducer = (
-  state = { title: config[scheme].title, id: guidGenerator(), date: null },
-  action
+  state: State = { title: config[scheme].title, id: guidGenerator(), date: null },
+  action: Action
 ) => {
   switch (action.type) {
     case START:
@@ -31,6 +41,7 @@ const BoardReducer = (
     case FINALIZE:
     case ADD_MOVE:
     default:
+	  (action: empty);
       return state;
   }
 };

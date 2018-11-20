@@ -8,23 +8,33 @@ import { style, classes } from 'typestyle';
 import CommentElement from 'app-root/components/elements/comment.element';
 
 type Props = {
-	 dataClass?: object,
-     items: array
+	 dataClass?: object
+};
+type State = {
+     items: Array<{
+		 id: string,
+		 author: string,
+		 className: string,
+		 data: object
+	 }>
 };
 
-export default class CommentListElement extends Component<Props> {
+export default class CommentListElement extends Component<Props, State> {
     displayName: string = 'CommentListElement';
 
+	state: State = {
+		items: []
+	};
+  
     static defaultProps: Props = {
 		className: 'comment-list',
-        dataClass: {},
-        items: []
+        dataClass: {}
     };
 
     render(): Node {
-    	const { className, dataClass, items, ...rest } = this.props;
+    	const { className, dataClass, ...rest } = this.props;
         const { commentClass, ...restClass } = dataClass;
-        const elements = items.map(item => {
+        const elements = this.state.items.map(item => {
             return (
                 <CommentElement item={item} key={item.id} author={item.author} className=classes(commentClass, item.className) dataClass={restClass}>
                     {item.data}
@@ -33,7 +43,7 @@ export default class CommentListElement extends Component<Props> {
         }.bind(this));
         return (
             <div className={className} {...rest}>
-                {elements}
+                { elements }
             </div>
         );
     }

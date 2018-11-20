@@ -5,8 +5,16 @@
  */
 import { ADD_MOVE, START, INITIALIZE, RESET, FINALIZE } from 'app-root/constants/tictactoe.constant';
 
+// @flow
+type State = Array<string>;
+type Action = {
+	type: string,
+	cell?: number,
+	player?: string
+};
+
 const CellsReducer = (
-  state = [
+  state: State = [
     undefined,
     undefined,
     undefined,
@@ -17,7 +25,7 @@ const CellsReducer = (
     undefined,
     undefined,
   ],
-  action
+  action: Action
 ) => {
   switch (action.type) {
     case ADD_MOVE:
@@ -29,17 +37,18 @@ const CellsReducer = (
     case RESET:
     case FINALIZE:
       return [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      ];
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+	  ]
     default:
+	  (action: empty);
       return state;
   }
 };

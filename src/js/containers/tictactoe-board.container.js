@@ -20,7 +20,29 @@ import Locale from 'app-root/resources/i18n/locale';
 
 const localStrings = new LocalizedStrings(Locale);
 
-const getWinner = (cells: array) => {
+// @flow
+type Data = {
+	board?: Board,
+	cell?: Cell,
+	cells?: Cells,
+	player?: Player,
+	room?: string
+};
+type Player = string;
+type Cells = Array<string>;
+type Cell = number;
+type Board = {
+	title: string,
+	id: string,
+	date: string
+};
+type State = {
+	PlayerReducer: Player,
+	CellsReducer: Cells,
+	BoardReducer: Board
+};
+
+const getWinner = (cells: Cells) => {
   const winningStates = [
     // Horizontal lines
     [0, 1, 2],
@@ -54,7 +76,7 @@ const getWinner = (cells: array) => {
   return currentState;
 };
 
-const isTie = (cells: array) => {
+const isTie = (cells: Cells) => {
   if (!isNullOrUndefined(getWinner(cells).winner)) {
     return false;
   }
@@ -67,11 +89,11 @@ const isTie = (cells: array) => {
   return isTie;
 };
 
-const isFinished = (cells: array) => {
+const isFinished = (cells: Cells) => {
   return !isNullOrUndefined(getWinner(cells).winner) || isTie(cells);
 };
 
-const isValidMove = (cells: array, cell: number) => {
+const isValidMove = (cells: Cells, cell: Cell) => {
   // cannot put marker if the cell is not free
   if (!isNullOrUndefined(cells[cell])) {
     return false;
@@ -80,7 +102,7 @@ const isValidMove = (cells: array, cell: number) => {
   return !isFinished(cells);
 };
 
-const getBoard = (board: object) => {
+const getBoard = (board: Board) => {
   return {
     message: localStrings.formatString(
       localStrings.board,
@@ -94,7 +116,7 @@ const getBoard = (board: object) => {
   };
 };
 
-const getStatusMessage = (cells: array, player: string) => {
+const getStatusMessage = (cells: Cells, player: Player) => {
   if (isTie(cells)) {
     return localStrings.tie;
   }
@@ -105,34 +127,34 @@ const getStatusMessage = (cells: array, player: string) => {
   return localStrings.formatString(localStrings.player, player);
 };
 
-const mapStateToProps = (state: object) => {
+const mapStateToProps = (state: State) => {
   return {
-    player: state['player'],
-    cells: state['cells'],
-    board: getBoard(state['board']),
-    winCells: getWinner(state['cells']).winningState,
-    roundFinished: isFinished(state['cells']),
-    message: getStatusMessage(state['cells'], state['player']),
+    player: state.PlayerReducer,
+    cells: state.CellsReducer,
+    board: getBoard(state.BoardReducer),
+    winCells: getWinner(state.CellsReducer).winningState,
+    roundFinished: isFinished(state.CellsReducer),
+    message: getStatusMessage(state.CellsReducer, state.PlayerReducer),
   };
 };
 
 const mapDispatchToProps = (dispatch: func) => {
   return {
-    onSetCell: (data: object) => {
+    onSetCell: (data: Data) => {
       if (isValidMove(data.cells, data.cell)) {
-        dispatch(addMove(data.cell, data.player));
+        dispatch(addMove(data));
       }
     },
-    onReset: (data: object) => {
+    onReset: (data: Data) => {
       dispatch(resetGame(data));
     },
-    onStart: (board: object, player: string) => {
+    onStart: (board: Board, player: Player) => {
       dispatch(startGame(board, player));
     },
-    onInitialize: (data: object) => {
+    onInitialize: (data: Data) => {
       dispatch(initializeGame(data));
     },
-    onFinalize: (data: object) => {
+    onFinalize: (data: Data) => {
       dispatch(finalizeGame(data));
     },
   };

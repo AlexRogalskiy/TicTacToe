@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import { isNullOrUndefined, isFunction } from 'app-root/libs/helpers.lib';
+import { isNullOrUndefined, isFunction } from './helpers.lib';
 
 const Normalize = ((name: string, context: object, definition: func) => {
 	if (!isNullOrUndefined(module) && module.exports) {

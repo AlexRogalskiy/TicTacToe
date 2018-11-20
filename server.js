@@ -31,13 +31,13 @@ const MongoSessionStore = connectMongo(expressSession);
 import strategy from 'react-validatorjs-strategy';
 
 // helpers
-import Logger, { tag } from './src/js/libs/logger';
-import { normalizePort, isString } from './src/js/libs/helpers';
+import Logger, { tag } from './src/js/libs/logger.lib';
+import { normalizePort, isString } from './src/js/libs/helpers.lib';
 
 // routes
-import routes from './routes/index';
-import adminRoutes from './routes/admin';
-import apiRoutes from './routes/api';
+import routes from './routes/index.route';
+import adminRoutes from './routes/admin.route';
+import apiRoutes from './routes/api.route';
 
 // credentials
 import credentials from './credentials';

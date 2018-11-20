@@ -6,7 +6,7 @@
 import { Node } from 'react';
 import ReactDOM from 'react-dom';
 
-import { validate } from 'app-root/libs/utils.lib';
+import { validate } from './utils.lib';
 
 /**
  * get input elements by reference to basic input / input name attribute

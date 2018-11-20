@@ -8,7 +8,7 @@ const express = require('express');
 const cluster = require('cluster');
 
 // helpers
-const { Logger, tag } = require('./src/js/libs/logger');
+const Logger, { tag } = require('./src/js/libs/logger.lib');
 
 const startWorker = () => {
 	const worker = cluster.fork();

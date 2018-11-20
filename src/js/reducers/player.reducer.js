@@ -8,9 +8,15 @@ import { ADD_MOVE, START, INITIALIZE, RESET, FINALIZE } from 'app-root/constants
 import config from 'app-root/resources/config.json';
 import { randomBinary } from 'app-root/libs/helpers.lib';
 
+// @flow
+type State = string;
+type Action = {
+	type: string
+};
+
 const scheme = config.default.scheme;
 
-const PlayerReducer = (state = config[scheme].player1.marker, action) => {
+const PlayerReducer = (state: State = config[scheme].player1.marker, action: Action) => {
   switch (action.type) {
     case ADD_MOVE:
       return state === config[scheme].player1.marker
@@ -23,6 +29,7 @@ const PlayerReducer = (state = config[scheme].player1.marker, action) => {
       return config[scheme]['player' + (randomBinary() + 1)].marker;
     case FINALIZE:
     default:
+	  (action: empty);
       return state;
   }
 };

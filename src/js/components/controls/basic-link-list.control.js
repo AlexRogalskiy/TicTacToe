@@ -13,17 +13,28 @@ import { Link }  from 'react-router-dom';
 
 type Props = {
    dataClass?: object,
-   items?: array,
    onClick?: func
+};
+type State = {
+   items?: Array<{
+	   id: string,
+	   path: string,
+	   name: string,
+	   className: string,
+	   content: object
+   }>
 };
 
 export default class BasicLinkListControl extends Component<Props> {
     displayName: string = 'BasicLinkListControl';
 
+	state: State = {
+		items: []
+	};
+	
     static defaultProps: Props = {
 		className: 'basic-link-list',
         dataClass: { groupClass: 'link-group', itemClass: 'link-item' },
-        items: []
     };
 
 	constructor(props: Props): void {
@@ -42,11 +53,11 @@ export default class BasicLinkListControl extends Component<Props> {
   }
 
     render(): Node {
-        const { className, dataClass, items, onClick, ...rest } = this.props;
+        const { className, dataClass, onClick, ...rest } = this.props;
         return (
             <div className={className} {...rest}>
                 <nav className={dataClass.groupClass} aria-label="breadcrumbs">
-                    items.map((item: object) => {
+                    this.state.items.map((item: object) => {
                         return <Link item={item} key={item.id} to={item.path} onClick={this.onClick(item.name)} className=classes(dataClass.itemClass, item.className)>{item.content}</Link>
                     }.bind(this));
                 </nav>

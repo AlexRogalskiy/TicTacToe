@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-const handlers = require('../handlers/index.js');
+const handlers = require('../handlers/index.handler.js');
 
 module.exports = (app) => {
 	app.get('/', handlers.home);

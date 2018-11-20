@@ -18,35 +18,39 @@ import BasicListControl from 'appRoot/js/components/controls/basic-list.control'
 type Props = {
 	dataClass?: object,
 	isDisabled?: bool,
-	items?: array
+	transition: object
 };
 type State = {
-	items: array
+	items: Array<{
+		name: string,
+		className: string,
+		content: object
+	}>
 };
 
 export default class TodoListControl extends Component<Props, State> {
   displayName: string = 'TodoListControl';
 
-	state: State = {
-		items: []
-	};
+  state: State = {
+	  items: []
+  };
 
   static defaultProps: Props = {
     dataClass: { buttonClass: 'button', listClass: 'list', itemClass: 'list-item' },
+	isDisabled: false,
     transition: {
       component: "span",
       name: "todoGroup",
       enterTimeout: { 500 },
       leaveTimeout: { 300 }
-    },
-    items: []
+    }
   };
 
   constructor(props: Props): void {
     super(props);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.state = { items: props.items };
+    //this.state = { items: props.items };
   }
 
   addItem(): void {
@@ -63,7 +67,7 @@ export default class TodoListControl extends Component<Props, State> {
   }
 
   render(): Node {
-    const { classNamem, dataClass, isDisabled, items, ...rest } = this.props;
+    const { className, dataClass, isDisabled, ...rest } = this.props;
     const { buttonClass, listClass, itemClass, ...restClass } = dataClass;
     const elements = this.state.items.map((item, i) => (
       <div key={item} name={item.name} onClick={() => this.removeItem(i)} className=classes(itemClass, item.className)>

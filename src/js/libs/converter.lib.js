@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import { isFunction } from 'app-root/libs/helpers.lib';
-import Logger from 'app-root/libs/logger.lib';
+import { isFunction } from './helpers.lib';
+import Logger from './logger.lib';
 
 const DEFAULT_INDENT_SPACE = 4;
 

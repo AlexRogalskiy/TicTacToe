@@ -12,8 +12,8 @@ type Props = {
 	children?: React.Node
 };
 
-export default class ButtonControl extends Component<Props> {
-  displayName: string = 'ButtonControl';
+export default class BasicButtonControl extends Component<Props> {
+  displayName: string = 'BasicButtonControl';
 
   button: ?HTMLButtonElement;
 	

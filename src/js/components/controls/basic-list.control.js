@@ -69,7 +69,7 @@ export default class BasicListControl extends Component<Props> {
 		const mergedTransition = { ...defaultTransition({ component: 'ul', name: 'listGroup', appearTimeout: 500 }), ...transition };
         return (
             <CSSTransitionGroup className=classes({ ...defaultTransitionClass(), ...dataClass }) {...mergedTransition}>
-                    {items}
+                    { items }
             </CSSTransitionGroup>
         );
     }

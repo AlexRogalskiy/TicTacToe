@@ -5,8 +5,8 @@
  */
 import md5 from 'crypto-js/md5';
  
-import { isNullOrUndefined, isString, isArray, isObject, isPositive } from 'app-root/libs/helpers.lib';
-import Logger from 'app-root/libs/logger.lib';
+import { isNullOrUndefined, isString, isArray, isObject, isPositive } from './helpers.lib';
+import Logger from './logger.lib';
 
 /**
  * @private

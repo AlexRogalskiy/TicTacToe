@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import Logger from 'app-root/libs/logger.lib';
+import Logger from './logger.lib';
 
 export default class EventEmitter {
   displayName: string = 'EventEmitter';

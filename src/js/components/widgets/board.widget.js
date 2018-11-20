@@ -17,13 +17,22 @@ import Logger, { tag } from 'app-root/libs/logger.lib';
 
 type Props = {
 	dataClass?: object,
+	board?: object,
+	cells?: array,
+	player?: string,
+	roundFinished?: bool,
+	message?: string,
+	
 	onConnect?: func,
 	onDisconnect?: func,
 	onStart?: func,
 	onSetCell?: func,
 	onInitialize?: func,
 	onFinalize?: func,
-	onReject?: func
+	onReject?: func,
+	onReset?: func,
+	onPlayerFirst?: func,
+	onPlayerSecond?: func
 };
 type State = {
 	  isReject: bool,
@@ -60,7 +69,8 @@ export default class BoardWidget extends Component<Props, State> {
         boardWidgetPanel: 'board-widget-panel',
         boardWidgetLayout: 'board-widget-layout',
         boardWidgetLoader: 'loader board-widget-loader',
-      }
+      },
+	  roundFinished: false
   };
 
   constructor(props: Props): void {
@@ -76,6 +86,7 @@ export default class BoardWidget extends Component<Props, State> {
     this.onInitialize = this.onInitialize.bind(this);
     this.onFinalize = this.onFinalize.bind(this);
     this.onReject = this.onReject.bind(this);
+    this.onReset = this.onReset.bind(this);
   }
 
   onConnect(socket: object): func {
@@ -470,7 +481,7 @@ export default class BoardWidget extends Component<Props, State> {
                     onClick={e =>
                       this.onEmitStart({
                         player: this.props.player,
-                        room: this.state.response.room,
+                        room: this.state.response.room
                       })
                     }
                   />
@@ -490,7 +501,7 @@ export default class BoardWidget extends Component<Props, State> {
                             className="button button-reset"
                             onClick={e =>
                               this.onEmitReset({
-                                room: this.state.response.room,
+                                room: this.state.response.room
                               })
                             }
                           />

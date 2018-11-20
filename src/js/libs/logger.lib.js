@@ -5,9 +5,9 @@
  */
 import dateFormat from 'dateformat';
 
-import { isString, isObject } from 'app-root/libs/helpers.lib';
-import Converter from 'app-root/libs/converter.lib';
-import dateLocale from 'app-root/resources/i18n/datetime/datetime_EN';
+import { isString, isObject } from './helpers.lib';
+import Converter from './converter.lib';
+import dateLocale from '../resources/i18n/datetime/datetime_EN';
 
 dateFormat.i18n = dateLocale;
 

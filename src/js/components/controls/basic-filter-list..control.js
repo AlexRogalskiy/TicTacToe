@@ -16,12 +16,17 @@ import BasicListControl from 'app-root/components/controls/basic-list.control';
 
 type Props = {
     dataClass?: object,
-    items: array,
 	onChange?: func
 };
 type State = {
 	filter?: string,
-	height?: number
+	height?: number,
+	items: Array<{
+		title: string,
+		data: object,
+		key: string,
+		className: string
+	}>
 };
 
 export default class BasicFilterListControl extends Component<Props, State> {
@@ -29,13 +34,13 @@ export default class BasicFilterListControl extends Component<Props, State> {
 	
 	state: State = {
 		filter: null,
-		height: 0
+		height: 0,
+		items: []
 	};
 	
     static defaultProps: Props = {
 		className: 'basic-filter-list',
         dataClass: { inputClass: 'search', listClass: 'list', itemClass: 'list-item' },
-        items: []
     };
 	
     componentDidMount(): void {
@@ -55,9 +60,9 @@ export default class BasicFilterListControl extends Component<Props, State> {
   }
 	
     render(): Node {
-        const { className, dataClass, items, ...rest } = this.props;
+        const { className, dataClass, ...rest } = this.props;
         const { inputClass, listClass, itemClass, ...restClass } = dataClass;
-        const elements = items.map((item, idx) => {
+        const elements = this.state.items.map((item, idx) => {
             return { title: item.title, data: item.data, key: item.key };
         }).filter(item => {
             return (this.state.filter ? item.title.toLowerCase().indexOf(this.state.filter) !== -1 : true);

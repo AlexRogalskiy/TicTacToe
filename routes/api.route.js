@@ -9,7 +9,7 @@ const vhost = require('vhost');
 // rest
 const connectRest = require('connect-rest');
 // handlers
-const handlers = require('../handlers/api.js');
+const handlers = require('../handlers/api.handler.js');
 
 // api configs
 const options = {

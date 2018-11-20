@@ -10,23 +10,35 @@ import { style, classes } from 'typestyle';
 import CardElement from 'app-root/components/elements/card.element';
 
 type Props = {
-    dataClass: object,
-    items: array
+    dataClass: object
+};
+type State = {
+    items: Array<{
+		cardFrontClass: string,
+		cardBackClass: string,
+		cardInnerClass: string,
+		id: string,
+		className: string,
+		data: object
+	}>
 };
 
-export default class CardListElement extends Component<Props> {
+export default class CardListElement extends Component<Props, State> {
     displayName: string = 'CardListElement';
 
+	state: State = {
+		items: []
+	};
+	
     static defaultProps: Props = {
 		className: 'card-list',
-        dataClass: {},
-        items: []
+        dataClass: {}
     };
 
 	render(): Node {
-        const { className, dataClass, items, ...rest } = this.props;
+        const { className, dataClass, ...rest } = this.props;
         const { cardClass, cardFrontClass, cardBackClass, cardInnerClass, ...restClass } = dataClass;
-        const elements = items.map(item => {
+        const elements = this.state.items.map(item => {
             restClass.cardFrontClass = classes(cardFrontClass, item.cardFrontClass);
 			restClass.cardBackClass = classes(cardBackClass, item.cardBackClass);
             restClass.cardInnerClass = classes(cardInnerClass, item.cardInnerClass);
@@ -37,7 +49,7 @@ export default class CardListElement extends Component<Props> {
             );
         }.bind(this));
 		return (
-            <div className={className} {...rest}>{elements}</div>
+            <div className={className} {...rest}>{ elements }</div>
         );
 	}
 };

@@ -7,7 +7,7 @@ const express = require('express');
 // vhosts
 const vhost = require('vhost');
 //handlers 
-const handlers = require('../handlers/admin.js');
+const handlers = require('../handlers/admin.handler.js');
 // admin router
 const admin = express.Router();
 
