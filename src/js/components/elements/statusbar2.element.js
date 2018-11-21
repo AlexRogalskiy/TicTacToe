@@ -50,7 +50,7 @@ export default class StatusBar2Element extends Component<Props> {
   }
 };
 
-StatusBar2Element.height = auto;
+StatusBar2Element.height = 'auto';
 const styles = Stylesheets.create({
   statusbar: {
     height: StatusBar2Element.height,

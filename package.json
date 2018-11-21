@@ -113,6 +113,7 @@
     "axios": "0.18.0",
     "babel-polyfill": "6.26.0",
     "baconjs": "2.0.9",
+    "codemirror": "5.42.0",
     "compression": "1.7.3",
     "connect": "3.6.6",
     "connect-mongo": "^2.0.0",
