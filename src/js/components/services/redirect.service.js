@@ -7,6 +7,7 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
   path: string
 };

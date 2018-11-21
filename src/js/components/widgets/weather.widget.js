@@ -11,13 +11,14 @@ import socketIOClient from 'socket.io-client';
 import LoaderElement from 'app-root/components/elements/loader.element';
 import Logger, { tag } from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
-	dataClass?: object,
+	dataClass?: Object<any>,
 	onConnect?: func,
 	onDisconnect?: func
 };
 type State = {
-	response: object
+	response: Object<any>
 };
 
 export default class WeatherWidget extends Component<Props, State> {

@@ -8,10 +8,11 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import { withRouter } from "react-router";
 
+// @flow
 type Props = {
-	dataClass?: object,
-    router: object,
-	children?: React.Node
+	dataClass?: Object<any>,
+    router: Object<any>,
+	children?: Node
 };
 
 class LinkElement extends Component<Props> {

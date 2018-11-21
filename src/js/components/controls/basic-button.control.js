@@ -13,16 +13,17 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements.lib';
 import FormsValidator from 'app-root/validators/forms.validator';
 
+// @flow
 type Props = {
 	dataClass?: object,
     dataError?: array,
 	isDisabled?: boolean,
     validator?: string,
 	onClick?: func,
-	children?: React.Node
+	children?: Node
 };
 type State = {
-	isDisabled: bool
+	isDisabled: boolean
 };
 
 class BasicButtonControl extends Component<Props, State> {

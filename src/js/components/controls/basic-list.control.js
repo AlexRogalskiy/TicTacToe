@@ -49,10 +49,11 @@ const defaultTransitionClass = ({ appear: string 		= 'appear',
 	leaveDone
 };
 
+// @flow
 type Props = {
     dataClass?: object,
-    transition?: object
-	items?: array
+    transition?: object,
+	items?: Array<any>
 };
 
 export default class BasicListControl extends Component<Props> {

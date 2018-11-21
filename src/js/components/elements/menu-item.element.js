@@ -8,9 +8,10 @@ import { style, classes } from 'typestyle';
 
 import IconElement from 'app-root/components/elements/icon.element';
 
+// @flow
 type Props = {
-	dataClass?: object,
-	children?: React.Node
+	dataClass?: Object<any>,
+	children?: Node
 };
 
 export default class MenuItemElement extends Component<Props> {

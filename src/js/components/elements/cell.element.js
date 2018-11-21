@@ -7,12 +7,13 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
-	dataClass?: object,
-    isWinner?: bool
+	dataClass?: Object<any>,
+    isWinner?: boolean
 };
 type State = {
-	isWinner: bool
+	isWinner: boolean
 };
 
 export default class CellElement extends Component<Props, State> {

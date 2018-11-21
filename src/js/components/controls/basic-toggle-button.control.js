@@ -14,12 +14,13 @@ import BasicButtonControl from 'app-root/components/controls/basic-button.contro
 //import BasicToggleButtonStyle from 'appRoot/css/components/controls/basicToggleButtonControl';
 //let Styles = ClassNames.bind(BasicToggleButtonStyle);
 
+// @flow
 type Props = {
 	dataClass?: object,
-	flipped?: bool
+	flipped?: boolean
 };
 type State = {
-	flipped: bool
+	flipped: boolean
 };
 
 export default class BasicToggleButtonControl extends BasicButtonControl {

@@ -17,20 +17,21 @@ import ButtonControl from 'app-root/components/controls/button.control';
 import InputControl from 'app-root/components/controls/input.control';
 import IconElement from 'app-root/components/elements/icon.element';
 
+// @flow
 type Props = {
-	dataClass?: object,
-    dataError?: array,
-	isDisabled?: bool,
+	dataClass?: Object<any>,
+    dataError?: Array<any>,
+	isDisabled?: boolean,
     validator?: string,
 	onBlur?: func,
 	onChange?: func,
 	onEdit?: func,
 	onUpdate?: func,
-	children?: React.Node
+	children?: Node
 };
 type State = {
-	isEditing: bool,
-	isDisabled: bool
+	isEditing: boolean,
+	isDisabled: boolean
 };
 
 class BasicEditInputControl extends Component<Props, State> {

@@ -7,9 +7,10 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
-	isDisabled: bool,
-	children?: React.Node
+	isDisabled: boolean,
+	children?: Node
 };
 
 export default class BasicButtonControl extends Component<Props> {

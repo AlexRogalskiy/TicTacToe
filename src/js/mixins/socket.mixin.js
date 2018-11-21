@@ -7,8 +7,19 @@ import socketIOClient from 'socket.io-client';
 
 import Logger from 'app-root/libs/logger.lib';
 
-export default class SocketMixin {
+// @flow
+type State = {
+	isConnected: boolean,
+	onConnect?: func,
+	onDisconnect?: func
+};
+
+export default class SocketMixin<{}, State> {
   displayName(): string = 'SocketMixin';
+  
+  state: State = {
+	  isConnected: false
+  };
   
   onConnect(socket: object): func {
     return () => {

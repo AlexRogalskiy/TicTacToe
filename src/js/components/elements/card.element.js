@@ -12,12 +12,14 @@ import { style, classes } from 'typestyle';
 
 //let Styles = ClassNames.bind(BasicCardItemStyle);
 
+// @flow
 type Props = {
-	 dataClass?: object,
-	 children?: React.Node
+	 dataClass?: Object<any>,
+	 onClick?: func,
+	 children?: Node
 };
 type State = {
-	flipped: bool
+	flipped: boolean
 };
 
 export default class CardElement extends Component<Props, State> {

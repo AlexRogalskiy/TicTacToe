@@ -18,6 +18,7 @@ import FormsValidator from 'app-root/validators/forms.validator';
 
 import Logger from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
     dataClass?: object,
     validator?: string,

@@ -15,12 +15,13 @@ import GridElement from 'app-root/components/elements/grid.element';
 
 import Logger, { tag } from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
-	dataClass?: object,
+	dataClass?: Object<any>,
 	board?: object,
 	cells?: array,
 	player?: string,
-	roundFinished?: bool,
+	roundFinished?: boolean,
 	message?: string,
 	
 	onConnect?: func,
@@ -35,14 +36,14 @@ type Props = {
 	onPlayerSecond?: func
 };
 type State = {
-	  isReject: bool,
-      isStart: bool,
-      isPlayerFirst: bool,
-      isPlayerSecond: bool,
-      isEnded: bool,
-      isReset: bool,
-      isSetCell: bool,
-      response: object
+	  isReject: boolean,
+      isStart: boolean,
+      isPlayerFirst: boolean,
+      isPlayerSecond: boolean,
+      isEnded: boolean,
+      isReset: boolean,
+      isSetCell: boolean,
+      response: Object<any>
 };
 
 export default class BoardWidget extends Component<Props, State> {

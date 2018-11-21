@@ -13,21 +13,22 @@ import IconElement from 'app-root/components/elements/icon.element';
 
 import Logger from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
-	dataClass?: PropTypes.object,
-	value?: PropTypes.number,
-	min: PropTypes.number,
-	max: PropTypes.number,
-	step: PropTypes.number,
-	upLabel?: PropTypes.string,
-	downLabel?: PropTypes.string,
-	isIncreasing?: PropTypes.bool,
-	isDisabled?: PropTypes.bool,
-	isVisible?: PropTypes.bool
+	dataClass?: object,
+	value?: number,
+	min: number,
+	max: number,
+	step: number,
+	upLabel?: string,
+	downLabel?: string,
+	isIncreasing?: bool,
+	isDisabled?: boolean,
+	isVisible?: boolean
 };
 type State = {
-	isVisible: bool,
-	isIncreasing: bool,
+	isVisible: boolean,
+	isIncreasing: boolean,
 	value: number
 };
 

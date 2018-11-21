@@ -23,9 +23,10 @@ const defaultTransition = (transitionIn: bool = false, timeout: object = { enter
 	timeout: timeout
 };
 
+// @flow
 type Props = {
-	transition?: object,
-	children?: React.Node
+	transition?: Object<any>,
+	children?: Node
 };
 
 export default class BlockFadeTransition extends Component<Props> {

@@ -13,17 +13,18 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements.lib';
 import FormsValidator from 'app-root/validators/forms.validator';
 
+// @flow
 type Props = {
 	dataClass?: object,
     dataError?: array,
-	isDisabled?: bool,
+	isDisabled?: boolean,
     validator?: string,
 	onBlur?: func,
 	onChange?: func,
-	children?: React.Node
+	children?: Node
 };
 type State = {
-	isDisabled: bool
+	isDisabled: boolean
 };
 
 class BasicInputControl extends Component<Props, State> {

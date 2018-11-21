@@ -5,8 +5,17 @@
  */
 import Logger from 'app-root/libs/logger.lib';
 
-export default class LifeCycleMixin {
+// @flow
+type State = {
+	isMounted: boolean
+};
+
+export default class LifeCycleMixin<{}, State> {
   displayName: string = 'LifeCycleMixin';
+  
+  state: State = {
+	  isMounted: false
+  };
   
   componentWillMount(): void {
     Logger.debug(`LifeCycleMixin: componentWillMount`);

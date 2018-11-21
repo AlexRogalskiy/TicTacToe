@@ -14,6 +14,7 @@ import BasicButtonControl from 'app-root/components/controls/basic-button.contro
 //import BasicSubmitButtonStyle from 'appRoot/css/components/controls/basicSubmitButtonControl';
 //let Styles = ClassNames.bind(BasicSubmitButtonStyle);
 
+// @flow
 type Props = {
 	dataClass?: object,
 	message?: string,

@@ -15,9 +15,10 @@ import BasicListControl from 'appRoot/js/components/controls/basic-list.control'
 //import { BasicTodoListStyle } from 'app-root/components/controls/basicTodoListControl';
 //let Styles = ClassNames.bind(BasicTodoListStyle);
 
+// @flow
 type Props = {
 	dataClass?: object,
-	isDisabled?: bool,
+	isDisabled?: boolean,
 	transition: object
 };
 type State = {

@@ -6,8 +6,16 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+// @flow
+type TableRow = {
+	id?: string,
+	name?: sring,
+	ref?: string,
+	className?: string,
+	content?: Object<any>
+};
 type Props = {
-	data: object
+	data: Array<TableRow>
 };
 
 export default class TableRowElement extends Component<Props> {
@@ -15,13 +23,20 @@ export default class TableRowElement extends Component<Props> {
 
   static defaultProps: Props = {
       className: 'table-body-row',
-      data: {}
+      data: []
   };
   
-  getRows(data: object): Node {
-	 return Object.keys(data).map((key, index) => {
+  getRows(data: Array<TableRow> = []): Node {
+	 return data.forEach((value, index) => {
 		return (
-			<td key={key} item={data[key]} id={data[key].id} name={data[key].name} ref={data[key].ref} className={data[key].className}>{data[key].content}</td>
+			<td key={index}
+			    item={value.key} 
+				id=value.id}
+				name=value.name}
+				ref={value.ref}
+				className={value.className}>
+				{value.content}
+			</td>
 		);
 	 });
   }

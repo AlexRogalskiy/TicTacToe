@@ -19,15 +19,19 @@ import uuid from 'uuid';
 
 import './todo-styles.css';
 
-type Props = {};
+// @flow
+type TodoItem = {
+	id: string,
+	text: string
+};
 type State = {
-	items: array
+	items: Array<TodoItem>
 };
 
-export default class TodoTransition extends Component<Props, State> {	
+export default class TodoTransition extends Component<{}, State> {	
   displayName: string = 'TodoTransition';
 
-  state: State = 
+  state: State = {
 	items: [
 		  { id: uuid(), text: 'Buy eggs' },
 		  { id: uuid(), text: 'Pay bills' },

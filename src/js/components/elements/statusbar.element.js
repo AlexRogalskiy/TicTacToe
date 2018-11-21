@@ -5,9 +5,10 @@
  */
 import React, { Component, Node } from 'react';
 
+// @flow
 type Props = {
 	message: string,
-	children?: React.Node
+	children?: Node
 };
 
 export default class StatusBarElement extends Component<Props> {
@@ -24,8 +25,8 @@ export default class StatusBarElement extends Component<Props> {
     const childs = children ? <div>{ children }</div> : null;
     return (
       <div className={className} {...rest}>
-        {messages}
-        {childs}
+        { messages }
+        { childs }
       </div>
     );
   }

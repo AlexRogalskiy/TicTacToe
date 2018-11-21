@@ -6,13 +6,14 @@
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
     message?: string,
-	dataClass?: object,
-    date?: object,
+	dataClass?: Object<any>,
+    date?: Object<date>
 };
 type State = {
-	date: date
+	date: Object<date>
 };
 
 export default class ClockElement extends Component<Props, State> {
@@ -25,7 +26,7 @@ export default class ClockElement extends Component<Props, State> {
   static defaultProps: Props = {
 	className: 'clock',
 	dataClass: { clockMessageClass: 'clock-message', clockDateClass: 'clock-date' },
-    message: ''
+    message: null
   };
   
   constructor(props: Props): void {

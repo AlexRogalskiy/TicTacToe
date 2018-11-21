@@ -6,6 +6,7 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+// @flow
 type Props = {
 	content?: string
 };

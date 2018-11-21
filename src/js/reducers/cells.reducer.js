@@ -30,7 +30,7 @@ const CellsReducer = (
   switch (action.type) {
     case ADD_MOVE:
       return state.map((item, cell) => {
-        return cell === action.cell ? action.player : item;
+        return (cell === action.cell ? action.player : item);
       });
     case START:
     case INITIALIZE:

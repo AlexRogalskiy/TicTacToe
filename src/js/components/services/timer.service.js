@@ -17,6 +17,7 @@ const time = Bacon.fromBinder(observer => {
   };
 });
 
+// @flow
 type Props = {
 	message?: string
 };

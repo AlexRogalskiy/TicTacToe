@@ -58,24 +58,46 @@ const Input = () => {
 /**
  * returns styled component
  */
-//styled('div');
-const Styled = (component: string) => {
-	return React.createClass({
-		displayName: component,
+const Styled = (StyledComponent: string) => {
+	return class extends Component<{style: Object<any>}> {
+		displayName: StyledComponent;
 
+		static defaultProps: Props = {
+			style: {}
+		};
+		
 		render(): Node {
 			const { style, ...rest } = this.props;
+			let styles = {};
 			if (Array.isArray(style)) {
-				style = Object.assign({}, ...style);
+				styles = Object.assign({}, ...style);
 			}
-			return (<component style={polyfill(style)} {...rest} />);
+			return (<StyledComponent style={polyfill(styles)} {...rest} />);
 		}
-	});
+	};
+};
+
+/**
+ * wrapped html elements
+ */
+const View = Styled('div');
+const Text = Styled('span');
+const Image = Styled('img');
+const Stylesheets = { create: (s) => s };
+
+/**
+ * wrapped html elements set
+ */
+const Elements = {
+	View,
+	Text,
+	Image
 };
 
 export {
 	MessageList,
 	Message,
 	Input,
-	Styled
+	Elements,
+	Stylesheets
 };

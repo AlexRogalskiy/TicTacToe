@@ -9,8 +9,9 @@ import { style, classes } from 'typestyle';
 // import ClassNames from 'classnames/bind';
 import CardElement from 'app-root/components/elements/card.element';
 
+// @flow
 type Props = {
-    dataClass: object
+    dataClass?: Object<any>,
 };
 type State = {
     items: Array<{
@@ -19,7 +20,7 @@ type State = {
 		cardInnerClass: string,
 		id: string,
 		className: string,
-		data: object
+		data: Object<any>,
 	}>
 };
 

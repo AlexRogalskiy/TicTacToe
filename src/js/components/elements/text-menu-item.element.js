@@ -7,8 +7,9 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import IconElement from 'app-root/components/elements/icon.element';
 
+// @flow
 type Props = {
-	dataClass?: object,
+	dataClass?: Object<any>,
 	title?: string
 };
 

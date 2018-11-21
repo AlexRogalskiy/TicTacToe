@@ -8,13 +8,13 @@ import React, { Component, Node } from 'react';
 import { Grid, Button, Well } from 'react-bootstrap';
 import { Transition } from 'react-transition-group';
 
-type Props = {};
+// @flow
 type State = {
-	show: bool,
-	entered: bool
+	show: boolean,
+	entered: boolean
 };
 
-export default class Block2Transition extends Component<Props, State> {
+export default class Block2Transition extends Component<{}, State> {
   displayName: string = 'Block2Transition';
 
   state: State = {

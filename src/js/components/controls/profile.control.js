@@ -18,6 +18,7 @@ import { isString } from 'app-root/libs/helpers.lib';
 import FormsValidator from 'app-root/validators/forms.validator';
 import LifeCycleMixin from 'app-root/mixins/lifecycle.mixin';
 
+// @flow
 type Props = {
 	dataClass?: object,
     validator?: string

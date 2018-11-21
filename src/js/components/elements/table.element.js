@@ -9,8 +9,26 @@ import React, { Component, Node } from 'react';
 import TableHeadElement from 'app-root/components/elements/table-head.element';
 import TableRowElement from 'app-root/components/elements/table-row.element';
 
+// @flow
+type TableHeader = {
+	id?: string,
+	name?: string,
+	ref?: string,
+	className?: string,
+	content?: Object<any>
+};
+type TableRow = {
+	id?: string,
+	name?: sring,
+	ref?: string,
+	className?: string,
+	content?: Object<any>
+};
 type Props = {
-	data: object
+	data: Object<{
+		headers: Array<TableHeader>,
+		rows: Array<TableRow>
+	}>
 };
 
 export default class TableElement extends Component<Props> {
@@ -18,7 +36,7 @@ export default class TableElement extends Component<Props> {
 
   static defaultProps: Props = {
       className: 'table',
-      data: { headers: {}, rows: {} }
+      data: { headers: [], rows: [] }
   };
 
   render(): Node {
@@ -26,10 +44,10 @@ export default class TableElement extends Component<Props> {
 	return (
 			<table className={className} {...rest}>
 				<thead>
-					<TableHead data={data.headers} />
+					<TableHeadElement data={data.headers} />
 				</thead>
 				<tbody>
-					<TableRow data={data.rows} />
+					<TableRowElement data={data.rows} />
 				</tbody>
 			</table>
 	);

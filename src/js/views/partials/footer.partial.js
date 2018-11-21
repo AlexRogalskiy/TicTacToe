@@ -5,8 +5,9 @@
  */
 import React, { Component, Node } from 'react';
 
+// @flow
 type Props = {
-	children?: React.Node
+	children?: Node
 };
 
 export default class FooterPartial extends Component<Props> {

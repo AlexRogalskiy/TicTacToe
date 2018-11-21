@@ -11,6 +11,7 @@ import { Link }  from 'react-router-dom';
 // import ClassNames from 'classnames/bind';
 //import Logger from 'appRoot/mixins/logger';
 
+// @flow
 type Props = {
    dataClass?: object,
    onClick?: func

@@ -25,21 +25,22 @@ const defaultTransition = (transitionName: string = 'popoveranim',
 	transitionLeaveTimeout
 };
 
+// @flow
+type MenuItem = {
+	iconClass?: string,
+	id: string,
+	data?: Object<any>,
+	className: string,
+	title: string,
+	transition?: Object<any>
+};
 type Props = {
-	 dataClass?: object,
-     transition?: object
+	 dataClass?: Object<any>,
+     transition?: Object<any>
 };
 type State = {
 	activeMenu: string,
-	items: Array<{
-		iconClass: string,
-		id: string,
-		data: object,
-		className: string,
-		title: string,
-		transition: object,
-		data: object
-	}>
+	items: Array<MenuItem>
 };
 
 export default class MenuListElement extends Component<Props, State> {

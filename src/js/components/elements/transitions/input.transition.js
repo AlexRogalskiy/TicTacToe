@@ -16,14 +16,14 @@ import { CSSTransition } from 'react-transition-group';
 
 import './input-styles.css';
 
-type Props = {};
+// @flow
 type State = {
 	name: string,
-	showValidationMessage: bool,
-	showValidationButton: bool
+	showValidationMessage: boolean,
+	showValidationButton: boolean
 };
 
-export default class InputTransition extends Component<Props, State> {
+export default class InputTransition extends Component<{}, State> {
   displayName: string = 'InputTransition';
 
   state: State = {

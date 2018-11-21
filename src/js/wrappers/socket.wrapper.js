@@ -8,14 +8,15 @@ import React, { Component, Node } from 'react';
 
 import Logger from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
 	endpoint: string
 };
 type State = {
-	isConnected: bool
+	isConnected: boolean
 };
 	
-export default function SocketWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
+export default function SocketWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props, State> {
 	
   return class extends Component<Props, State> {
 	displayName: string = 'SocketWrapper';

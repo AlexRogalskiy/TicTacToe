@@ -10,6 +10,8 @@ import TicTacToeBoardContainer from 'app-root/containers/tictactoe-board.contain
 import WeatherWidget from 'app-root/components/widgets/weather.widget';
 import BasicButton from 'app-root/components/controls/basic-button.control';
 
+import StatusBar2Element from 'app-root/components/elements/statusbar2.element';
+
 import HeaderPartial from 'app-root/views/partials/header.partial';
 import FooterPartial from 'app-root/views/partials/footer.partial';
 
@@ -32,7 +34,9 @@ export default class AppView extends Component<{}> {
     const { staticContext, ...rest } = this.props;
     return (
       <div {...rest}>
-        <HeaderPartial />
+        <HeaderPartial>
+			<StatusBar2Element />
+		</HeaderPartial>
         <TicTacToeBoardRouterWrapper player={config[scheme].player1.marker} />
         <FooterPartial>
           <WeatherWidgetWrapper />

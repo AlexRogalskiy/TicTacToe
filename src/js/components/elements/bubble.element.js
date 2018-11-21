@@ -7,8 +7,9 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
-	children?: React.Node
+	children?: Node
 };
 
 export default class BubbleElement extends Component<Props> {

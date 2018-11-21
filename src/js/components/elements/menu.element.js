@@ -9,12 +9,19 @@ import { style, classes } from 'typestyle';
 import BasicFilterInputControl from 'app-root/components/controls/basic-filter-input.control';
 import TextMenuItemElement from 'app-root/components/elements/text-menu-item.element';
 
+// @flow
+type MenuItem = {
+	iconClass?: string,
+	id: string,
+	title: string,
+	className?: string
+};
 type Props = {
-	dataClass: object,
-    items: array
+	dataClass: Object<any>,
+    items: Array<MenuItem>
 };
 type State = {
-	items: array
+	items: Array<MenuItem>
 };
 
 export default class MenuElement extends Component<Props, State> {
@@ -25,8 +32,7 @@ export default class MenuElement extends Component<Props, State> {
 	};
 	
     static defaultProps: Props = {
-        dataClass: { menuListClass: 'menu-list',  menuItemClass: 'menu-item', menuItemIconClass: 'menu-item-icon' },
-        items: []
+        dataClass: { menuListClass: 'menu-list',  menuItemClass: 'menu-item', menuItemIconClass: 'menu-item-icon' }
     };
 	
     constructor(props: Props): void {

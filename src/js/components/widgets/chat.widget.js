@@ -13,15 +13,16 @@ import { isNullOrUndefined } from 'app-root/libs/helpers.lib';
 import LoaderElement from 'app-root/components/elements/loader.element';
 import Logger from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
-	dataClass?: object,
+	dataClass?: Object<any>,
     onConnect: func,
 	onDisconnect: func
 };
 type State = {
-	isAuthorized: bool,
-	isTyping: bool,
-	response: object
+	isAuthorized: boolean,
+	isTyping: boolean,
+	response: Object<any>
 };
 
 export default class ChatWidget extends Component<Props, State> {
@@ -61,14 +62,14 @@ export default class ChatWidget extends Component<Props, State> {
         chatMessageInputClass: 'inputMessage',
         chatLoginPage: 'login page',
         chatNameInputClass: 'usernameInput',
-      },
-      onConnect: this.onConnect,
-      onDisconnect: this.onDisconnect,
+      }
   };
   
   constructor(props: Props): void {
     super(props);
     this.initialize();
+	this.onConnect = this.onConnect.bind(this);
+	this.onDisconnect = this.onDisconnect.bind(this);
   }
 
   onConnect(socket: object): func {

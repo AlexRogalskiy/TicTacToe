@@ -1,7 +1,16 @@
 'use strict';
 
-export default class IntervalMixin {
+// @flow
+type Props ={
+	intervals: Array<func>
+};
+
+export default class IntervalMixin<Props> {
   displayName: string = 'IntervalMixin';
+
+  state: State = {
+	  intervals: null
+  };
   
   componentWillMount(): void {
     this.intervals = [];

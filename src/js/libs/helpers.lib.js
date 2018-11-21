@@ -396,6 +396,11 @@ const currentTime = () => {
   );
 };
 
+const DateTime = {
+	currentDate,
+	currentTime
+};
+
 /**
  *  // `function() {}` has prototype, but `() => {}` doesn't
  *  // `() => {}` via Babel has prototype too.
@@ -437,7 +442,6 @@ export {
 	forEach,
 	hasProperty,
 	stepArray,
-	currentDate,
-	currentTime,
-	isStateless
+	isStateless,
+	DateTime
 };

@@ -14,6 +14,7 @@ import BasicListControl from 'app-root/components/controls/basic-list.control';
 //import BasicFilterListStyle from 'appRoot/css/components/controls/basicFilterListControl';
 //let Styles = ClassNames.bind(BasicFilterListStyle);
 
+// @flow
 type Props = {
     dataClass?: object,
 	onChange?: func

@@ -7,7 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Redirect } from 'react-router';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createHashHistory';
 
 import style from '../css/style.css';
 
@@ -23,20 +24,21 @@ type Props = {
 };
 
 const renderRoot = (props: Props) =>
-  ReactDOM.render(
+	ReactDOM.render(
     <Provider store={props.store}>
-      <BrowserRouter>
+      <Router history={ createHistory({ queryKey: false }) }>
         <Switch>
           <Route exact path='/' component={props.component} />
+		  <Route path="/:id" component={props.component} />
           <Redirect from='*' to='/' />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>,
     props.wrapper
-  );
+);
 
 const wrapper = document.getElementById('root');
 if (wrapper) {
-  renderRoot({ component: AppView, store: TicTacToeStore, wrapper });
-  registerServiceWorker();
+	renderRoot({ component: AppView, store: TicTacToeStore, wrapper });
+	registerServiceWorker();
 }

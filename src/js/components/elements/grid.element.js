@@ -7,6 +7,7 @@ import React, { Component, Node } from 'react';
 
 import CellElement from 'app-root/components/elements/cell.element';
 
+// @flow
 type Props = {
 	cells: array,
 	player: string,
@@ -19,7 +20,10 @@ export default class GridElement extends Component<Props> {
   displayName: string = 'GridElement';
 
   static defaultProps: Props = {
-	className: 'grid'
+	className: 'grid',
+	cells: [],
+	winCells: [],
+	onSetCell: Function.prototype
   };
   
   constructor(props: Props): void {

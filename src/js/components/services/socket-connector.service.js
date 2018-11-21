@@ -10,14 +10,15 @@ import socketIOClient from 'socket.io-client';
 
 import Logger from 'app-root/libs/logger.lib';
 
+// @flow
 type Props = {
   endpoint: string,
   onConnect?: func,
   onDisconnect?: func
 };
 type State = {
-  isConnected: bool	
-}
+  isConnected: boolean
+};
 
 export default class SocketConnectorService extends Component<Props, State> {
   displayName: string = 'SocketConnectorService';

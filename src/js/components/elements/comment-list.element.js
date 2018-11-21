@@ -7,15 +7,16 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import CommentElement from 'app-root/components/elements/comment.element';
 
+// @flow
 type Props = {
-	 dataClass?: object
+	 dataClass?: Object<any>,
 };
 type State = {
      items: Array<{
 		 id: string,
 		 author: string,
 		 className: string,
-		 data: object
+		 data: Object<any>
 	 }>
 };
 

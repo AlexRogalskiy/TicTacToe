@@ -4,7 +4,7 @@
  * Module dependencies
  */
 import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'app-root/constants/tictactoe.constant';
-import { guidGenerator, currentDate, currentTime } from 'app-root/libs/helpers.lib';
+import { guidGenerator, DateTime } from 'app-root/libs/helpers.lib';
 import config from 'app-root/resources/config.json';
 
 // @flow
@@ -28,7 +28,7 @@ const BoardReducer = (
       return {
         title: state.title,
         id: state.id,
-        date: currentDate() + '/' + currentTime(),
+        date: DateTime.currentDate() + '/' + DateTime.currentTime(),
       };
     case INITIALIZE:
       return { title: state.title, id: state.id, date: null };
@@ -36,7 +36,7 @@ const BoardReducer = (
       return {
         title: state.title,
         id: state.id,
-        date: currentDate() + '/' + currentTime(),
+        date: DateTime.currentDate() + '/' + DateTime.currentTime(),
       };
     case FINALIZE:
     case ADD_MOVE:

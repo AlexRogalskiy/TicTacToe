@@ -5,6 +5,7 @@
  */
 import React, { Component, Node } from 'react';
 
+// @flow
 type Props = {
 	onClick?: func
 };

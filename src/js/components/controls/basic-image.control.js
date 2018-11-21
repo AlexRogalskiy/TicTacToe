@@ -13,6 +13,7 @@ import Validation from 'react-validation-mixin';
 import { MessageList } from 'app-root/libs/elements.lib';
 import FormsValidator from 'app-root/validators/forms.validator';
 
+// @flow
 type Props = {
 	dataClass?: object,
     dataError?: array,
@@ -20,7 +21,7 @@ type Props = {
 	onMouseOver?: func,
 	onMouseOut?: func,
 	onChange?: func,
-	children?: React.Node
+	children?: Node
 };
 
 class BasicImageControl extends Component<Props> {

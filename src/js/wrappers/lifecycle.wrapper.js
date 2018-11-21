@@ -7,14 +7,14 @@ import React, { Component, Node } from 'react';
 
 import Logger from 'app-root/libs/logger.lib';
 
-type Props = {};
+// @flow
 type State = {
-	isMounted: bool
+	isMounted: boolean
 };
 
-export default function LifeCycleWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
+export default function LifeCycleWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<{}, State> {
 	
-  return class extends Component<Props, State> {
+  return class extends Component<{}, State> {
 	displayName: string = 'LifeCycleWrapper';
 		
 	state: State = {

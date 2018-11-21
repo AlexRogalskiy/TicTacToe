@@ -15,10 +15,11 @@ import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 
+// @flow
 type Props = {
-	dataClass?: object,
+	dataClass?: Object<any>,
     dispatch: func,
-	children?: React.Node
+	children?: Node
 };
 
 @withStyles(theme => ({

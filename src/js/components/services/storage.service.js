@@ -1,9 +1,16 @@
 'use strict';
 
-export default class StorageService {
+// @flow
+type Props = {
+	storage: Object<any>
+};
+
+export default class StorageService<Props> {
   displayName: string = 'StorageService';
   
-  storage: object;
+  static defaultProps: Props = {
+      storage: {}
+  };
 
   constructor(storage: object): void {
     this.storage = storage;

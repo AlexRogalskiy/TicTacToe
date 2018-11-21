@@ -44,10 +44,11 @@ const defaultTransitionClass = ({ appear: string 		= 'appear',
 	leaveDone
 };
 
+// @flow
 type Props = {
-	dataClass?: object,
-	transition?: object,
-	children?: React.Node
+	dataClass?: Object<any>,
+	transition?: Object<any>,
+	children?: Node
 };
 
 export default class BlockTransition extends Component<Props> {

@@ -12,6 +12,7 @@ import { style, classes } from 'typestyle';
 import BasicSubmitButtonControl from 'app-root/components/controls/basic-submit-button.control';
 import BasicInputControl from 'app-root/components/controls/basic-input.control';
 
+// @flow
 type Props = {
     dataClass?: object,
     buttonSubmitMessage?: string,

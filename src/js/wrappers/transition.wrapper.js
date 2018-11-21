@@ -8,15 +8,15 @@ import React, { Component, Node } from 'react';
 import Logger from 'app-root/libs/logger.lib';
 import { isFunction } from 'app-root/libs/helpers.lib';
 
-type Props = {};
+// @flow
 type State = {
-	isMounted: bool,
-	isActivated: bool
+	isMounted: boolean,
+	isActivated: boolean
 };
 
 export default function TransitionWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>)Ж React.ComponentType<Props> {
 	
-  return class extends Component<Props, State> {
+  return class extends Component<{}, State> {
 	displayName: string = 'TransitionWrapper';
 	
 	state: State = {

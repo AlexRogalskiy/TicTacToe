@@ -9,13 +9,14 @@ import { style, classes } from 'typestyle';
 
 import BasicInputControl from 'app-root/components/controls/basic-input.control';
 
+// @flow
 type Props = {
-	isDisabled?: bool,
+	isDisabled?: boolean,
 	onChange?: func,
-	children?: React.Node
+	children?: Node
 };
 type State = {
-	isDisabled: bool
+	isDisabled: boolean
 };
 
 export default class BasicFilterInputControl extends Component<Props, State> {

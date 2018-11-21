@@ -7,9 +7,10 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+// @flow
 type Props = {
-	dataClass?: object,
-    inline?: bool
+	dataClass?: Object<any>,
+    inline?: boolean
 };
 
 export default class LoaderElement extends Component<Props> {

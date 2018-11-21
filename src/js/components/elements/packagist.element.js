@@ -4,11 +4,9 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import packageJSON from 'app-root/../package.json';
+import packageJSON from 'app-root/../package.json';s
 
-type Props = {};
-
-export default class PackagistElement extends Component<Props> {
+export default class PackagistElement extends Component<{}> {
 	displayName: string = 'PackagistElement';
  
 	render(): Node {
