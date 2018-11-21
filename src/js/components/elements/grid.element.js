@@ -13,6 +13,7 @@ type Props = {
 	winCells: array,
 	onSetCell: func
 };
+type Cell = number;
 
 export default class GridElement extends Component<Props> {
   displayName: string = 'GridElement';
@@ -21,7 +22,12 @@ export default class GridElement extends Component<Props> {
 	className: 'grid'
   };
   
-  isWinnerCell(cell: number): bool {
+  constructor(props: Props): void {
+    super(props);
+	this.isWinnerCell = this.isWinnerCell.bind(this);
+  }
+  
+  isWinnerCell(cell: Cell): bool {
 	  return (this.props.winCells && this.props.winCells.includes(cell));
   }
   
@@ -33,7 +39,7 @@ export default class GridElement extends Component<Props> {
           <CellElement
             key={cell}
             state={value}
-            isWinner={isWinnerCell(cell)}
+            isWinner={this.isWinnerCell(cell)}
             onPress={e => onSetCell({ cell, cells, player })}
           />
         ))}

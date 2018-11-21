@@ -6,6 +6,14 @@
 const invLog2 = 1 / Math.log(2);
 const defaultProtocolsExcept = ['127.0.0.1', '0.0.0.0', 'localhost', '::1'];
 
+
+/**
+ * returns true if value is null or undefined, false - otherwise
+ */
+const isNullOrUndefined = (value: object) => {
+  return (value === null || typeof value === 'undefined');
+};
+
 /**
  * returns native string representation of object
  */
@@ -21,7 +29,7 @@ const toType = (obj: object) => {
  */
 const isNumber = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     (typeof value === 'number' || toType(value) === 'number') &&
     isFinite(value)
   );
@@ -63,7 +71,7 @@ const isRealNumber = (value: object) => {
  */
 const isString = (value: object) => {
   return (
-    value !== null && (typeof value === 'string' || toType(value) === 'string')
+    !isNullOrUndefined(value) && (typeof value === 'string' || toType(value) === 'string')
   );
 };
 
@@ -72,7 +80,7 @@ const isString = (value: object) => {
  */
 const isArray = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Array]'
   );
 };
@@ -82,7 +90,7 @@ const isArray = (value: object) => {
  */
 const isJSON = (value: object) => {
   return (
-    value !== null && Object.prototype.toString.apply(value) === '[object JSON]'
+    !isNullOrUndefined(value) && Object.prototype.toString.apply(value) === '[object JSON]'
   );
 };
 
@@ -91,7 +99,7 @@ const isJSON = (value: object) => {
  */
 const isDate = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Date]' &&
     isFinite(value)
   );
@@ -102,7 +110,7 @@ const isDate = (value: object) => {
  */
 const isObject = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Object]'
   );
 };
@@ -112,7 +120,7 @@ const isObject = (value: object) => {
  */
 const isFunction = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     typeof value === 'function' &&
     value.constructor &&
     value.cal &&
@@ -125,16 +133,9 @@ const isFunction = (value: object) => {
  */
 const isBoolean = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     (typeof value === 'boolean' || toType(value) === 'boolean')
   );
-};
-
-/**
- * returns true if value is null or undefined, false - otherwise
- */
-const isNullOrUndefined = (value: object) => {
-  return value === null || typeof value === 'undefined';
 };
 
 /**
@@ -142,7 +143,7 @@ const isNullOrUndefined = (value: object) => {
  */
 const isDomElement = (value: object) => {
   return (
-    value !== null &&
+    !isNullOrUndefined(value) &&
     (value.nodeName ||
       value === document.documentElement ||
       value instanceof Element ||
@@ -154,14 +155,53 @@ const isDomElement = (value: object) => {
  * returns true if value is RegExp, false - otherwise
  */
 const isRegExp = (value: object) => {
-  return value !== null && toType(value) === 'regexp';
+  return (!isNullOrUndefined(value) && toType(value) === 'regexp');
 };
 
 /**
  * returns true if value is Iterable, false - otherwise
  */
 const isIterable = (value: object) => {
-  return value !== null && typeof value[Symbol.iterator] === 'function';
+  return (!isNullOrUndefined(value) && isFunction(value[Symbol.iterator]));
+};
+
+/**
+ * returns value1 if not null or undefined, value2 - otherwise
+ */
+const fallback = (value1: object, value2: object) => {
+	if (isNullOrUndefined(value1)) {
+		return value1;
+	}
+	return value2;
+};
+
+const polyfill = (style: object) => {
+	let computed = {};
+	for (var key in style) {
+		var value = style[key];
+		switch (key) {
+			case 'paddingVertical':
+				computed.paddingTop = fallback(style.paddingTop, value);
+				computed.paddingBottom = fallback(style.paddingBottom, value);
+				break;
+			case 'paddingHorizontal':
+				computed.paddingLeft = fallback(style.paddingLeft, value);
+				computed.paddingRight = fallback(style.paddingRight, value);
+				break;
+			case 'marginVertical':
+				computed.marginTop = fallback(style.marginTop, value);
+				computed.marginBottom = fallback(style.marginBottom, value);
+				break;
+			case 'marginHorizontal':
+				computed.marginLeft = fallback(style.marginLeft, value);
+				computed.marginRight = fallback(style.marginRight, value);
+				break;
+			default:
+				computed[key] = value;
+				break;
+		}
+	}
+	return computed;
 };
 
 /**
@@ -293,12 +333,10 @@ function mergeRecursive(obj1: object, obj2: object) {
  * 	executes callback for eack key - >value pair
  */
 const forEach = (obj: object, callback: func) => {
-  if (obj) {
-    for (const key in obj) {
+    for (const key in fallback(obj, {})) {
       if ({}.hasOwnProperty.call(obj, key)) {
         callback(key, obj[key]);
       }
-    }
   }
 };
 
@@ -307,13 +345,11 @@ const forEach = (obj: object, callback: func) => {
  */
 const hasProperty = (obj: object, property: string) => {
   let result = false;
-  if (obj) {
-    for (const key in obj) {
+    for (const key in fallback(obj, {})) {
       if ({}.hasOwnProperty.call(obj, key) && property === key) {
         result = true;
         break;
       }
-    }
   }
   return result;
 };
@@ -385,6 +421,8 @@ export {
 	isDomElement,
 	isRegExp,
 	isIterable,
+	fallback,
+	polyfill,
 	wrapChars,
 	wrapWords,
 	wrapLines,

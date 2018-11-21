@@ -331,13 +331,17 @@ export default class BoardWidget extends Component<Props, State> {
         }`
       );
       socket.emit('player first', {
+		board: data.board,
+		cells: data.cells,
         player: data.player,
-        room: this.state.response.room,
-      }); //board: data.board, cells: data.cells,
+        room: data.room
+      });
       if (this.props.onPlayerFirst) {
         this.props.onPlayerFirst.call(this, {
-          player: data.player,
-          room: this.state.response.room,
+			board: data.board,
+			cells: data.cells,
+			player: data.player,
+			room: data.room
         });
       }
     };
@@ -377,12 +381,14 @@ export default class BoardWidget extends Component<Props, State> {
         board: data.board,
         cells: data.cells,
         player: data.player,
+		room: data.board && data.board.id
       });
       if (this.props.onInitialize) {
         this.props.onInitialize.call(this, {
           board: data.board,
           cells: data.cells,
           player: data.player,
+		  room: data.board && data.board.id
         });
       }
     };
@@ -396,17 +402,11 @@ export default class BoardWidget extends Component<Props, State> {
         }`
       );
       socket.emit('finalize', {
-        board: data.board,
-        cells: data.cells,
-        player: data.player,
-        room: this.state.response.room,
+        room: this.state.response.room
       });
       if (this.props.onFinalize) {
         this.props.onFinalize.call(this, {
-          board: data.board,
-          cells: data.cells,
-          player: data.player,
-          room: this.state.response.room,
+          room: this.state.response.room
         });
       }
     };
@@ -480,6 +480,8 @@ export default class BoardWidget extends Component<Props, State> {
                     className="button"
                     onClick={e =>
                       this.onEmitStart({
+						board: this.props.board,
+						cells: this.props.cells,
                         player: this.props.player,
                         room: this.state.response.room
                       })

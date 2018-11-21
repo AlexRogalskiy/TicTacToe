@@ -19,9 +19,7 @@ import config from 'app-root/resources/config.json';
 
 const scheme = config.default.scheme;
 
-type Props = {};
-
-export default class AppView extends Component<Props> {
+export default class AppView extends Component<{}> {
   displayName: string = 'AppView';
  
   static defaultProps: Props = {

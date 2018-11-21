@@ -148,8 +148,8 @@ const mapDispatchToProps = (dispatch: func) => {
     onReset: (data: Data) => {
       dispatch(resetGame(data));
     },
-    onStart: (board: Board, player: Player) => {
-      dispatch(startGame(board, player));
+    onStart: (data: Data) => {
+      dispatch(startGame(data));
     },
     onInitialize: (data: Data) => {
       dispatch(initializeGame(data));

@@ -1,5 +1,8 @@
 'use strict';
 
+import React, { Component, Node } from 'react';
+import { polyfill } from './helpers.lib';
+
 /**
  * returns message block
  */
@@ -21,7 +24,7 @@ const MessageList = (props: object) => {
  */
 const Message = (props: object) => {
   const { message, ...rest } = props;
-  return (<div {...rest}>{message}</div>);
+  return (<div {...rest}>{ message }</div>);
 };
 
 /**
@@ -52,8 +55,27 @@ const Input = () => {
 	return InputField;
 };
 
+/**
+ * returns styled component
+ */
+//styled('div');
+const Styled = (component: string) => {
+	return React.createClass({
+		displayName: component,
+
+		render(): Node {
+			const { style, ...rest } = this.props;
+			if (Array.isArray(style)) {
+				style = Object.assign({}, ...style);
+			}
+			return (<component style={polyfill(style)} {...rest} />);
+		}
+	});
+};
+
 export {
 	MessageList,
 	Message,
-	Input
+	Input,
+	Styled
 };

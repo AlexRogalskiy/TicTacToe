@@ -15,22 +15,28 @@ import AppView from 'app-root/views/app.view';
 import TicTacToeStore from 'app-root/stores/tictactoe.store';
 import registerServiceWorker from 'app-root/vendor/service-worker';
 
-const renderRoot = (Component, wrapper) =>
+// @flow
+type Props = {
+	component: React.ComponentType<{}>,
+	store: React.ComponentType<{}>,
+	wrapper: HTMLButtonElement
+};
+
+const renderRoot = (props: Props) =>
   ReactDOM.render(
-    <Provider store={TicTacToeStore}>
+    <Provider store={props.store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Component} />
-          <Redirect from="*" to="/" />
+          <Route exact path='/' component={props.component} />
+          <Redirect from='*' to='/' />
         </Switch>
       </BrowserRouter>
     </Provider>,
-    wrapper
+    props.wrapper
   );
 
 const wrapper = document.getElementById('root');
-
 if (wrapper) {
-  renderRoot(AppView, wrapper);
+  renderRoot({ component: AppView, store: TicTacToeStore, wrapper });
   registerServiceWorker();
 }

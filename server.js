@@ -117,13 +117,55 @@ const startServer = () => {
 		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
+const printHelpAndExit = (exitcode) => {
+	Logger.debug([
+		'Usage: ' + __filename + ' [-p] <file-to-watch>',
+		'',
+		'Options:',
+		'  -h, --help    Show this screen',
+		'  -p, --public  Start ngrok proxy to let others connect to this server',
+	].join('\n'));
+	process.exit(exitcode);
+};
+const getFileData = (filename: string) => {
+	return {
+		content: fs.readFileSync(filename, 'utf8'),
+		modifiedAt: fs.statSync(filename).mtime.getTime(),
+	};
+};
+
+/*
+let filename, allowPublicAccess;
+process.argv.slice(2).forEach((arg) => {
+	if (arg == '-h' || arg == '--help') {
+		printHelpAndExit(0);
+	}
+	if (arg == '-p' || arg == '--public') {
+		allowPublicAccess = true;
+	} else {
+		filename = arg;
+	}
+});
+if (!filename) {
+	printHelpAndExit(1);
+}
+if (allowPublicAccess) {
+	const ngrok = require('ngrok');
+	(async function() {
+		const url = await ngrok.connect();
+	})();
+	ngrok.connect({addr: 3030, auth: 'user:pwd', subdomain: 'alex', region: 'eu'}, (err, url) => {
+		Logger.debug('Public URL:', url);
+	});
+}*/
+//let fileData = [ getFileData(filename) ];
+
 //const httpsOptions = {
 //	key: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.pem')),
 //	cert: fs.readFileSync(path.resolve(__dirname, 'ssl/cert.crt'))
 //};
 
 const app = express();
-
 //routes(app);
 //adminRoutes(app);
 //apiRoutes(app);
@@ -175,11 +217,25 @@ const io = socketIo(server, {}); //{ parser: jsonParser }
 
 io.on('connection', (socket) => {
 	fetchRemoteURL(REMOTE_API_URL, socket, REMOTE_API_FETCH_DELAY);
+	/*socket.emit('filedata', fileData);
+	fs.watch(filename, function() {
+		var last = fileData[fileData.length-1];
+		var current = getFileData(filename);
+		if (current.content !== last.content && current.content.length > 0) {
+			socket.emit('filedata_changed', current);
+			fileData.push(current);
+		}
+	});*/
 	
 	socket.on('initialize', (data) => {
 		Logger.debug(tag`SERVER: initialize with data=${data} from socket with id=${socket.id}`);
 		socket.join(data.board.id);
-		socket.emit('start', { name: data.player, room: data.board.id });
+		socket.emit('start', {
+			board: data.board,
+			cells: data.cells,
+			player: data.player,
+			room: data.board.id
+		});
 	});
 	
 	socket.on('start', (data) => {
@@ -187,16 +243,32 @@ io.on('connection', (socket) => {
 		const room = io.nsps['/'].adapter.rooms[data.room];
 		if(room && room.length <= 2) {
 			socket.join(data.room);
-			socket.broadcast.to(data.room).emit('player first', { name: data.player, room: data.room, message: 'Connected ...' });
-			socket.emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
+			socket.broadcast.to(data.room).emit('player first', {
+				board: data.board,
+				cells: data.cells,
+				player: data.player,
+				room: data.room,
+				message: 'Connected ...'
+			});
+			socket.emit('player second', {
+				board: data.board,
+				cells: data.cells,
+				player: data.player,
+				room: data.room,
+				message: 'Waiting for the player ...'
+			});
 		} else {
-			socket.emit('reject', { name: data.player, room: data.room, message: 'Request rejected => current room is full!' });
+			socket.emit('reject', {
+				player: data.player,
+				room: data.room,
+				message: 'Request rejected => current room is full!'
+			});
 		}
 	});
 	
 	socket.on('disconnect', () => {
 		Logger.debug(`SERVER: disconnect client from socket with id=${socket.id}`);
-		socket.emit("finalize", "The other player left the game...");
+		socket.emit("finalize", "The other player has left the game...");
 	});
 	
 	socket.on('setcell', (data) => {
@@ -211,23 +283,41 @@ io.on('connection', (socket) => {
 	
 	socket.on('reset', (data) => {
 		Logger.debug(tag`SERVER: reset with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('reset', { room: data.room, message: 'Current play has been reset' });
+		socket.broadcast.to(data.room).emit('reset', {
+			room: data.room,
+			message: 'Current play has been reset'
+		});
 	});
 	
 	socket.on('finalize', (data) => {
 		Logger.debug(tag`SERVER: finalize with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('finalize', { board: data.board, cells: data.cells, player: data.player, room: data.room, message: 'Gave Over' });
+		socket.broadcast.to(data.room).emit('finalize', {
+			room: data.room,
+			message: 'Gave Over'
+		});
 		socket.leave(data.room);
 	});
 	
 	socket.on('player first', (data) => {
 		Logger.debug(tag`SERVER: player first with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('player first', { name: data.player, room: data.room, message: 'Connected ...' });
+		socket.broadcast.to(data.room).emit('player first', {
+			board: data.board,
+			cells: data.cells,
+			player: data.player,
+			room: data.room,
+			message: 'Connected ...'
+		});
 	});
 	
 	socket.on('player second', (data) => {
 		Logger.debug(tag`SERVER: player second with data=${data} from socket with id=${socket.id}`);
-		socket.broadcast.to(data.room).emit('player second', { name: data.player, room: data.room, message: 'Waiting for the player ...' });
+		socket.broadcast.to(data.room).emit('player second', {
+			board: data.board,
+			cells: data.cells,
+			player: data.player,
+			room: data.room,
+			message: 'Waiting for the player ...'
+		});
 	});
 	
 	/*var addedUser = false;

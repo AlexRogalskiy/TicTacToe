@@ -16,7 +16,7 @@ import FormsValidator from 'app-root/validators/forms.validator';
 type Props = {
 	dataClass?: object,
     dataError?: array,
-	isDisabled?: bool,
+	isDisabled?: boolean,
     validator?: string,
 	onClick?: func,
 	children?: React.Node

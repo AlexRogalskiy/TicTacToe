@@ -23,6 +23,7 @@ type Board = {
 };
 
 const addMove = (data: Data) => {
+  //let response = await fetch(...);
   return {
     type: ADD_MOVE,
     cell: data.cell,
@@ -31,37 +32,40 @@ const addMove = (data: Data) => {
 };
 
 const resetGame = (data: Data) => {
+  //let response = await fetch(...);
   return {
     type: RESET,
-    room: data.room,
+    room: data.room
   };
 };
 
-const startGame = (board: Board, player: Player) => {
+const startGame = (data: Data) => {
+  //let response = await fetch(...);
   return {
     type: START,
-    board,
-    player
+    board: data.board,
+	cells: data.cells,
+    player: data.player,
+	room: data.room
   };
 };
 
 const initializeGame = (data: Data) => {
+  //let response = await fetch(...);
   return {
     type: INITIALIZE,
     board: data.board,
     cells: data.cells,
     player: data.player,
-    room: data.room,
+    room: data.room
   };
 };
 
 const finalizeGame = (data: Data) => {
+  //let response = await fetch(...);
   return {
     type: FINALIZE,
-    board: data.board,
-    cells: data.cells,
-    player: data.player,
-    room: data.room,
+    room: data.room
   };
 };
 

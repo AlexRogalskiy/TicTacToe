@@ -131,6 +131,7 @@
     "marked": "0.5.1",
     "mongoose": "5.3.1",
     "morgan": "1.9.1",
+    "ngrok": "3.1.0",
     "purify-css": "1.2.5",
     "purifycss-webpack": "0.7.0",
     "react": "16.5.2",
