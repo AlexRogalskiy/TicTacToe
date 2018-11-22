@@ -1,5 +1,6 @@
 'use strict';
 
+/* @flow */
 const ADD_MOVE: string 		= 'ADD_MOVE';
 const RESET: string 		= 'RESET';
 const START: string 		= 'START';

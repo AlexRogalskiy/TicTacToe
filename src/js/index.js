@@ -23,7 +23,7 @@ type Props = {
 	wrapper: HTMLButtonElement
 };
 
-const renderRoot = (props: Props) =>
+const render = (props: Props) =>
 	ReactDOM.render(
     <Provider store={props.store}>
       <Router history={ createHistory({ queryKey: false }) }>
@@ -39,6 +39,6 @@ const renderRoot = (props: Props) =>
 
 const wrapper = document.getElementById('root');
 if (wrapper) {
-	renderRoot({ component: AppView, store: TicTacToeStore, wrapper });
+	render({ component: AppView, store: TicTacToeStore, wrapper });
 	registerServiceWorker();
 }

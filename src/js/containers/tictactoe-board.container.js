@@ -41,6 +41,7 @@ type State = {
 	CellsReducer: Cells,
 	BoardReducer: Board
 };
+type Dispatch = (action: Action | Promise<Action>) => Promise;
 
 const getWinner = (cells: Cells) => {
   const winningStates = [
@@ -138,7 +139,7 @@ const mapStateToProps = (state: State) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: func) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onSetCell: (data: Data) => {
       if (isValidMove(data.cells, data.cell)) {

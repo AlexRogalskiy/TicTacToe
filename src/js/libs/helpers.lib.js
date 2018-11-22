@@ -396,17 +396,24 @@ const currentTime = () => {
   );
 };
 
-const DateTime = {
-	currentDate,
-	currentTime
-};
-
 /**
  *  // `function() {}` has prototype, but `() => {}` doesn't
  *  // `() => {}` via Babel has prototype too.
  */
 const isStateless = (component: object) => {
     return !(component.prototype && component.prototype.render);
+};
+
+/**
+ *  return true if touch event enabled, false - otherwise
+ */
+const isTouchDevice = () => {
+	return 'ontouchstart' in window || 'onmsgesturechange' in window;
+};
+
+const DateTime = {
+	currentDate,
+	currentTime
 };
 
 export {
@@ -443,5 +450,6 @@ export {
 	hasProperty,
 	stepArray,
 	isStateless,
+	isTouchDevice,
 	DateTime
 };
