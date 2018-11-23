@@ -5,7 +5,7 @@
  */
 import Logger from 'app-root/libs/logger.lib';
 
-// @flow
+/* @flow */
 type State = {
 	isMounted: boolean
 };

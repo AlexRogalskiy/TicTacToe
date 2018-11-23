@@ -13,7 +13,7 @@ const initialState: MPlayerState = {
 	playing: false
 };
 
-function getNextTrackId(tracks: Dictonary<MTrack, number>, currentTrackId: number): number {
+const getNextTrackId = (tracks: Dictonary<MTrack, number>, currentTrackId: number): number => {
 	const trackIds = Object.keys(tracks);
 	const nextTrackIndex = trackIds.indexOf(currentTrackId) + 1;
 	if (nextTrackIndex >= tracks.length) {
@@ -22,7 +22,7 @@ function getNextTrackId(tracks: Dictonary<MTrack, number>, currentTrackId: numbe
 	return tracksIds[nextTrackIndex];
 };
 
-function getPreviousTrackId(tracks: Dictonary<MTrack, number>, currentTrackId: number): number {
+const getPreviousTrackId = (tracks: Dictonary<MTrack, number>, currentTrackId: number): number => {
 	const trackIds = Object.keys(tracks);
 	const nextTrackIndex = trackIds.indexOf(currentTrackId) - 1;
 	if (nextTrackIndex < 0) {
@@ -31,7 +31,7 @@ function getPreviousTrackId(tracks: Dictonary<MTrack, number>, currentTrackId: n
 	return trackIds[nextTrackIndex];
 };
 
-export default function MPlayerReducer(state: MPlayerState = initialState, action: MPlayerAction = {}): MPlayerState {
+const MPlayerReducer = (state: MPlayerState = initialState, action: MPlayerAction = {}): MPlayerState => {
 	switch (action.type) {
 		case PLAY:
 			return {
@@ -76,3 +76,5 @@ export default function MPlayerReducer(state: MPlayerState = initialState, actio
 			return state;
 	}
 };
+
+export default MPlayerReducer;

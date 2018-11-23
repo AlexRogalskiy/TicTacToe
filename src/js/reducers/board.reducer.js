@@ -4,25 +4,21 @@
  * Module dependencies
  */
 import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'app-root/constants/tictactoe.constant';
+import type { BoardAction, BoardState } from 'app-root/types/tictactoe.type';
+
 import { guidGenerator, DateTime } from 'app-root/libs/helpers.lib';
 import config from 'app-root/resources/config.json';
 
-// @flow
-type State = {
-	title: string,
-	id: string,
-	date: string
+const initialState: BoardState = {
+	title: config[config.default.scheme].title,
+	id: guidGenerator(),
+	date: null
 };
-type Action = {
-	type: string
-};
-
-const scheme = config.default.scheme;
 
 const BoardReducer = (
-  state: State = { title: config[scheme].title, id: guidGenerator(), date: null },
-  action: Action
-) => {
+  state: BoardState = initialState,
+  action: BoardAction
+): BoardState => {
   switch (action.type) {
     case START:
       return {

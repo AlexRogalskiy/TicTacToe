@@ -7,7 +7,7 @@ import socketIOClient from 'socket.io-client';
 
 import Logger from 'app-root/libs/logger.lib';
 
-// @flow
+/* @flow */
 type State = {
 	isConnected: boolean,
 	onConnect?: func,

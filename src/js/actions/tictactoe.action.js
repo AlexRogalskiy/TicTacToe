@@ -4,25 +4,9 @@
  * Module dependencies
  */
 import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'app-root/constants/tictactoe.constant';
+import type { Data, Action } from 'app-root/types/mplayer.type';
 
-// @flow
-type Data = {
-	board?: Board,
-	cell?: Cell,
-	cells?: Cells,
-	player?: Player,
-	room?: string
-};
-type Player = string;
-type Cells = Array<string>;
-type Cell = number;
-type Board = {
-	title: string,
-	id: string,
-	date: string
-};
-
-const addMove = (data: Data) => {
+const addMove = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: ADD_MOVE,
@@ -31,7 +15,7 @@ const addMove = (data: Data) => {
   };
 };
 
-const resetGame = (data: Data) => {
+const resetGame = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: RESET,
@@ -39,7 +23,7 @@ const resetGame = (data: Data) => {
   };
 };
 
-const startGame = (data: Data) => {
+const startGame = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: START,
@@ -50,7 +34,7 @@ const startGame = (data: Data) => {
   };
 };
 
-const initializeGame = (data: Data) => {
+const initializeGame = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: INITIALIZE,
@@ -61,7 +45,7 @@ const initializeGame = (data: Data) => {
   };
 };
 
-const finalizeGame = (data: Data) => {
+const finalizeGame = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: FINALIZE,

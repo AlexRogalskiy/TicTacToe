@@ -4,17 +4,10 @@
  * Module dependencies
  */
 import { ADD_MOVE, START, INITIALIZE, RESET, FINALIZE } from 'app-root/constants/tictactoe.constant';
-
-// @flow
-type State = Array<string>;
-type Action = {
-	type: string,
-	cell?: number,
-	player?: string
-};
+import type { CellsAction, CellsState } from 'app-root/types/tictactoe.type';
 
 const CellsReducer = (
-  state: State = [
+  state: CellsState = [
     undefined,
     undefined,
     undefined,
@@ -25,8 +18,8 @@ const CellsReducer = (
     undefined,
     undefined,
   ],
-  action: Action
-) => {
+  action: CellsAction
+): CellsState => {
   switch (action.type) {
     case ADD_MOVE:
       return state.map((item, cell) => {

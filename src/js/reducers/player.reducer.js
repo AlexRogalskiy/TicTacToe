@@ -4,19 +4,15 @@
  * Module dependencies
  */
 import { ADD_MOVE, START, INITIALIZE, RESET, FINALIZE } from 'app-root/constants/tictactoe.constant';
+import type { PlayerAction, PlayerState } from 'app-root/types/tictactoe.type';
 
 import config from 'app-root/resources/config.json';
 import { randomBinary } from 'app-root/libs/helpers.lib';
 
-// @flow
-type State = string;
-type Action = {
-	type: string
-};
-
 const scheme = config.default.scheme;
+const initialState: PlayerState = config[scheme].player1.marker;
 
-const PlayerReducer = (state: State = config[scheme].player1.marker, action: Action) => {
+const PlayerReducer = (state: PlayerState = initialState, action: PlayerAction): PlayerState => {
   switch (action.type) {
     case ADD_MOVE:
       return state === config[scheme].player1.marker

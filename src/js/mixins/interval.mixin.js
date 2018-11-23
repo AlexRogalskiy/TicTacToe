@@ -1,6 +1,6 @@
 'use strict';
 
-// @flow
+/* @flow */
 type Props ={
 	intervals: Array<func>
 };

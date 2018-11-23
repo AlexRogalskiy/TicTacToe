@@ -6,46 +6,56 @@
 import { PLAY, PAUSE, STOP, BACKWARD, FORWARD, UPDATE_TIME, SELECT_TRACK } from 'app-root/constants/mplayer.constant';
 import type { MTrack, MPlayerAction } from 'app-root/types/mplayer.type';
 
-export function play() : MPlayerAction {
+const play = (): MPlayerAction => {
 	return {
 		type: PLAY
 	};
 };
 
-export function pause(): MPlayerAction {
+const pause = (): MPlayerAction => {
 	return {
 		type: PAUSE
 	};
 };
 
-export function stop(): MPlayerAction {
+const stop = (): MPlayerAction => {
 	return {
 		type: STOP
 	};
 };
 
-export function backward(): MPlayerAction {
+const backward = (): MPlayerAction => {
 	return {
 		type: BACKWARD
 	};
 };
 
-export function forward(): MPlayerAction {
+const forward = (): MPlayerAction => {
 	return {
 		type: FORWARD
 	};
 };
 
-export function updateTime(currentTime: number): MPlayerAction {
+const updateTime = (currentTime: number): MPlayerAction => {
 	return {
 		type: UPDATE_TIME,
 		currentTime
 	};
 };
 
-export function selectTrack(track: MTrack): MPlayerAction {
+const selectTrack = (track: MTrack): MPlayerAction => {
 	return {
 		type: SELECT_TRACK,
 		track
 	};
+};
+
+export {
+	play,
+	pause,
+	stop,
+	backward,
+	forward,
+	updateTime,
+	selectTrack
 };
