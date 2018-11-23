@@ -1,16 +1,8 @@
 'use strict';
 
 /* @flow */
-const ADD_MOVE: string 		= 'ADD_MOVE';
-const RESET: string 		= 'RESET';
-const START: string 		= 'START';
-const INITIALIZE: string 	= 'INITIALIZE';
-const FINALIZE: string 		= 'FINALIZE';
-
-export {
-	ADD_MOVE,
-	RESET,
-	START,
-	INITIALIZE,
-	FINALIZE
-};
+export const ADD_MOVE: string 		= 'ADD_MOVE';
+export const RESET: string 			= 'RESET';
+export const START: string 			= 'START';
+export const INITIALIZE: string 	= 'INITIALIZE';
+export const FINALIZE: string 		= 'FINALIZE';
