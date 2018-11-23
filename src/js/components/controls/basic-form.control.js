@@ -14,13 +14,13 @@ import BasicInputControl from 'app-root/components/controls/basic-input.control'
 
 // @flow
 type Props = {
-    dataClass?: object,
-    buttonSubmitMessage?: string,
-    fields: object,
-	onSubmit?: func
+    dataClass?: object;
+    buttonSubmitMessage?: string;
+    fields: object;
+	onSubmit?: func;
 };
 type State = {
-	fields: object
+	fields: object;
 };
 
 export default class BasicFormControl extends Component<Props, State> {

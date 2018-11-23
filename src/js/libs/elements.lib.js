@@ -6,7 +6,7 @@ import { polyfill } from './helpers.lib';
 /**
  * returns message block
  */
-const MessageList = (props: object) => {
+const MessageList = (props: object): Node => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
@@ -14,7 +14,7 @@ const MessageList = (props: object) => {
         {item}
       </li>
     ));
-    return (<ul {...rest}>{elements}</ul>);
+    return (<ul {...rest}>{ elements }</ul>);
   }
   return null;
 };
@@ -22,7 +22,7 @@ const MessageList = (props: object) => {
 /**
  * returns single message block
  */
-const Message = (props: object) => {
+const Message = (props: object): Node => {
   const { message, ...rest } = props;
   return (<div {...rest}>{ message }</div>);
 };
@@ -30,8 +30,8 @@ const Message = (props: object) => {
 /**
  * returns single input field
  */
-const Input = () => {
-	let InputField = ({ label, text, type, id, value, handleChange }) => (
+const Input = (): func => {
+	let InputField = ({ label, text, type, id, value, handleChange }): Node => (
 		<div className="form-group">
 			<label htmlFor={label}>{text}</label>
 			<input
@@ -58,7 +58,7 @@ const Input = () => {
 /**
  * returns styled component
  */
-const Styled = (StyledComponent: string) => {
+const Styled = (StyledComponent: string): Node => {
 	return class extends Component<{style: Object<any>}> {
 		displayName: StyledComponent;
 
@@ -80,18 +80,44 @@ const Styled = (StyledComponent: string) => {
 /**
  * wrapped html elements
  */
-const View = Styled('div');
-const Text = Styled('span');
-const Image = Styled('img');
-const Stylesheets = { create: (s) => s };
+const Elements = {
+	View: Styled('div'),
+	Text: Styled('span'),
+	Paragraph: Styled('p'),
+	
+	Head_1: Styled('h1'),
+	Head_2: Styled('h2'),
+	Head_3: Styled('h3'),
+	Head_4: Styled('h4'),
+	Head_5: Styled('h5'),
+	Head_6: Styled('h6'),
+	
+	Canvas: Styled('canvas'),
+	
+	Form: Styled('form'),
+	Button: Styled('button'),
+	Selector: Styled('select'),
+	Control: Styled('input'),
+	ProgressBar: Styled('progress'),
+	Counter: Styled('meter'),
+	MultiLine: Styled('textarea'),
+	
+	Image: Styled('img'),
+	
+	Label: Styled('label'),
+	Table: Styled('table'),
+	Section: Styled('section'),
+	Article: Styled('article'),
+	Aside: Styled('aside'),
+	Header: Styled('header'),
+	Footer: Styled('footer')
+};
 
 /**
- * wrapped html elements set
+ * wrapped stylesheets elements
  */
-const Elements = {
-	View,
-	Text,
-	Image
+const Stylesheets = {
+	create: (s: Object<any>): Object<any> => s
 };
 
 export {

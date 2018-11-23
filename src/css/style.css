@@ -443,10 +443,52 @@ button {
     transform: translateY(2px);
     box-shadow: 1px 1px 2px 0px #666; }
 
+.App {
+  text-align: center; }
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px; }
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white; }
+
+.App-title {
+  font-size: 1.5em; }
+
+.App-intro {
+  font-size: large; }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+.list {
+  padding: 10px;
+  height: calc(100vh - 210px); }
+
+.row {
+  border-bottom: 1px solid #ebeced;
+  text-align: left;
+  margin: 5px 0;
+  display: flex;
+  align-items: center; }
+
+.image {
+  margin-right: 10px; }
+
+.content {
+  padding: 10px; }
+
 .loader .loader-container {
   perspective: 1000px;
   position: absolute;
-  top: 50%;
+  top: 80%;
   left: 50%;
   margin-left: -55px;
   margin-top: -10px;
@@ -587,6 +629,15 @@ button {
     border-radius: 10px 10px; }
   .board-widget:focus {
     outline: none; }
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  background-color: #ff8600; }
 
 .footer {
   position: fixed;

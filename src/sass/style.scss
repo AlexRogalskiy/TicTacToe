@@ -4,11 +4,11 @@
 @import "vendor/reset/reset";
 @import "vendor/normalize/normalize";
 
-// Imports [fonts]
-@import "modules/fonts/font";
+// Imports [modules]
+@import "modules/fonts/fonts";
 
-// Imports [variables]
-@import "settings/variables";
+// Imports [settings]
+@import "settings/settings";
 
 // Imports [layouts]
 @import "layouts/layouts";

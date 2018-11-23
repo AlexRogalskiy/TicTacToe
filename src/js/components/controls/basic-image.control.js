@@ -15,13 +15,13 @@ import FormsValidator from 'app-root/validators/forms.validator';
 
 // @flow
 type Props = {
-	dataClass?: object,
-    dataError?: array,
-    validator?: string,
-	onMouseOver?: func,
-	onMouseOut?: func,
-	onChange?: func,
-	children?: Node
+	dataClass?: object;
+    dataError?: array;
+    validator?: string;
+	onMouseOver?: func;
+	onMouseOut?: func;
+	onChange?: func;
+	children?: Node;
 };
 
 class BasicImageControl extends Component<Props> {

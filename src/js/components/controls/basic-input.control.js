@@ -15,16 +15,16 @@ import FormsValidator from 'app-root/validators/forms.validator';
 
 // @flow
 type Props = {
-	dataClass?: object,
-    dataError?: array,
-	isDisabled?: boolean,
-    validator?: string,
-	onBlur?: func,
-	onChange?: func,
-	children?: Node
+	dataClass?: Object<any>;
+    dataError?: Array<string>;
+	isDisabled?: boolean;
+    validator?: string;
+	onBlur?: func;
+	onChange?: func;
+	children?: Node;
 };
 type State = {
-	isDisabled: boolean
+	isDisabled: boolean;
 };
 
 class BasicInputControl extends Component<Props, State> {
@@ -45,7 +45,6 @@ class BasicInputControl extends Component<Props, State> {
         inputClass: 'form-control',
       },
       dataError: [],
-	  isDisabled: false,
       validator: 'input'
   };
 

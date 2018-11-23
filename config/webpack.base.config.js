@@ -12,19 +12,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 
-const paths = {
-	BUILD_DIR: path.resolve(__dirname, '../public/build'),
-	SOURCE_DIR: path.resolve(__dirname, '../src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js'),
-	HTML_SOURCE_DIR: path.resolve(__dirname, '../src', 'views')
+const DEFAULT_ROOT_DIR = '..';
+const DEFAULT_PATHS = {
+	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public/build'),
+	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
+	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
+	HTML_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'views')
 };
 
 const BASE_CONFIG = {
 	mode: 'none',
-    entry: ['babel-polyfill', path.resolve(paths.JS_SOURCE_DIR, "index.js")],
+    entry: ['babel-polyfill', path.resolve(DEFAULT_PATHS.JS_SOURCE_DIR, 'index.js')],
 	devtool: 'none',
     output: {
-		path: paths.BUILD_DIR,
+		path: DEFAULT_PATHS.BUILD_DIR,
         filename: "bundle.js",
 		sourceMapFilename: 'bundle.map',
 		chunkFilename: 'bundle.chunk.js',
@@ -42,30 +43,30 @@ const BASE_CONFIG = {
 			//{test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 4 version!less-loader'},
 			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
 			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash].[ext]' } }]},
-			{ test: /\.html$/i, include: paths.HTML_SOURCE_DIR, use: [{ loader: 'html-loader?htmlLoaderConfig', options: { minimize: false, removeComments: false, collapseWhitespace: false, ignoreCustomFragments: [/\{\{.*?}}/], root: paths.HTML_SOURCE_DIR, attrs: ['img:src', 'link:href'] } }]}
+			{ test: /\.html$/i, include: DEFAULT_PATHS.HTML_SOURCE_DIR, use: [{ loader: 'html-loader?htmlLoaderConfig', options: { minimize: false, removeComments: false, collapseWhitespace: false, ignoreCustomFragments: [/\{\{.*?}}/], root: DEFAULT_PATHS.HTML_SOURCE_DIR, attrs: ['img:src', 'link:href'] } }]}
 		]
     },
 	plugins: [
 		new CopyWebpackPlugin(
 			[
-				//{ from: path.join(paths.SOURCE_DIR, 'fonts'), to: 'fonts', cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'images'), 			to: 'images', 		 cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'robots.txt'), 		to: paths.BUILD_DIR, cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'manifest.json'), 	to: paths.BUILD_DIR, cache: true },
-				{ from: path.join(paths.SOURCE_DIR, 'favicon.ico'), 	to: paths.BUILD_DIR, cache: true }
+				//{ from: path.join(DEFAULT_PATHS.SOURCE_DIR, 'fonts'), to: path.join(DEFAULT_PATHS.BUILD_DIR, 'fonts'), cache: true },
+				{ from: path.join(DEFAULT_PATHS.SOURCE_DIR, 'images'), 			to: path.join(DEFAULT_PATHS.BUILD_DIR, 'images'), 		 cache: true },
+				{ from: path.join(DEFAULT_PATHS.SOURCE_DIR, 'robots.txt'), 		to: DEFAULT_PATHS.BUILD_DIR, cache: true },
+				{ from: path.join(DEFAULT_PATHS.SOURCE_DIR, 'manifest.json'), 	to: DEFAULT_PATHS.BUILD_DIR, cache: true },
+				{ from: path.join(DEFAULT_PATHS.SOURCE_DIR, 'favicon.ico'), 	to: DEFAULT_PATHS.BUILD_DIR, cache: true }
 			],
 			{ ignore: [ '*.js', '*.css', '*.scss', '*.sass' ], copyUnmodified: true, debug: true }
 		),
 		 new HtmlWebpackPlugin({
-			template: path.join(paths.SOURCE_DIR, 'index.html'),
+			template: path.join(DEFAULT_PATHS.SOURCE_DIR, 'index.html'),
 			filename: 'index.html',
 			inject: 'body'
 		}),
 		/*new PurifyCSSPlugin({
 			minimize: true,
-			paths: glob.sync([
-				paths.JS_SOURCE_DIR,
-				path.join(paths.SOURCE_DIR, '*.html')
+			DEFAULT_PATHS: glob.sync([
+				DEFAULT_PATHS.JS_SOURCE_DIR,
+				path.join(DEFAULT_PATHS.SOURCE_DIR, '*.html')
 			])
 		})*/
 	],
@@ -76,8 +77,11 @@ const BASE_CONFIG = {
 		],
 		extensions: ['.js', '.json', '.jsx', '.scss', '.sass'],
 		alias: {
-			'app-root': paths.JS_SOURCE_DIR,
-			'vendor': path.join(paths.JS_SOURCE_DIR, 'vendor')
+			'app-root': DEFAULT_PATHS.JS_SOURCE_DIR,
+			'vendor': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'vendor'),
+			'libs': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'libs'),
+			'views': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'views'),
+			'components': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'components')
 		}
 	}
 };

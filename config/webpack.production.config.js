@@ -12,19 +12,20 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 //const BundleBuddyWebpackPlugin = require("bundle-buddy-webpack-plugin");
 
-const paths = {
-	BUILD_DIR: path.resolve(__dirname, '../public/build'),
-	SOURCE_DIR: path.resolve(__dirname, '../src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, '../src', 'js'),
-	SASS_SOURCE_DIR: path.resolve(__dirname, '../src', 'sass')
+const DEFAULT_ROOT_DIR = '..';
+const DEFAULT_PATHS = {
+	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public/build'),
+	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
+	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
+	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')
 };
 
 const PRODUCTION_CONFIG = {
 	mode: 'production',
-    entry: path.resolve(paths.JS_SOURCE_DIR, "index.js"),
+    entry: path.resolve(DEFAULT_PATHS.JS_SOURCE_DIR, 'index.js'),
 	cache: true,
     output: {
-		path: paths.BUILD_DIR,
+		path: DEFAULT_PATHS.BUILD_DIR,
 		filename: path.join('js', '[name].min.js'),
 		sourceMapFilename: path.join('js', '[name].map'),
 		libraryTarget: 'umd',
@@ -37,7 +38,7 @@ const PRODUCTION_CONFIG = {
 			{ test: /\.css$/i, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: true, url: false, minimize: true, sourceMap: true, importLoaders: 1 }}]},
 			{ test: /\.html$/i, use: [{ loader: 'html-loader', options: { minimize: true } }]},
 			{ test: /\.(sass|scss)$/i, exclude: /(node_modules|bower_components)/, use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader', options: { modules: true, url: false, minimize: true, sourceMap: true, importLoaders: 1 }}, { loader: 'resolve-url-loader' }, { loader: 'postcss-loader', options: { modules: true, url: false, importLoaders: 1, minimize: true, sourceMap: true, plugins: [ require('cssnano'), require('autoprefixer')({ browsers: ['last 4 versions', 'Firefox ESR', 'not ie < 9'] }) ]}}, { loader: 'sass-loader', options: { includePaths: [CSS_DIR], outputStyle: 'expanded', sourceMap: true, minimize: true }}] },
-			{ test: /\.(js|mjs|jsx|es6)$/i, include: paths.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
+			{ test: /\.(js|mjs|jsx|es6)$/i, include: DEFAULT_PATHS.JS_SOURCE_DIR, exclude: [/(node_modules|bower_components)/], loader: 'babel-loader' }
 		]
     },
 	plugins: [
@@ -47,7 +48,7 @@ const PRODUCTION_CONFIG = {
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.DefinePlugin({
 	      	"process.env": {
-	        	NODE_ENV: JSON.stringify("production")
+	        	NODE_ENV: JSON.stringify('production')
 	      	}
 	    }),
 		new MiniCssExtractPlugin({

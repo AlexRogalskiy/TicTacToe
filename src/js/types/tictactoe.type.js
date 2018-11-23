@@ -22,22 +22,22 @@ export type Board = {
 };
 
 export type BoardState = {
-	title: string,
-	id: string,
-	date: string
+	title: string;
+	id: string;
+	date: string;
 };
 export type BoardAction = {
-	type: string
+	type: string;
 };
 
 export type CellsState = Array<string>;
 export type CellsAction = {
-	type: string,
-	cell?: number,
-	player?: string
+	type: string;
+	cell?: number;
+	player?: string;
 };
 
 export type PlayerState = string;
 export type PlayerAction = {
-	type: string
+	type: string;
 };

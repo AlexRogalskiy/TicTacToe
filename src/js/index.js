@@ -20,7 +20,7 @@ import registerServiceWorker from 'app-root/vendor/service/service-worker';
 type Props = {
 	component: React.ComponentType<{}>,
 	store: React.ComponentType<{}>,
-	wrapper: HTMLButtonElement
+	wrapper: HTMLElement
 };
 
 const render = (props: Props) =>

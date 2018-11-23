@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 
 import TicTacToeBoardContainer from 'app-root/containers/tictactoe-board.container';
 import WeatherWidget from 'app-root/components/widgets/weather.widget';
-import BasicButton from 'app-root/components/controls/basic-button.control';
+//import DynamicRowListControl from 'app-root/components/controls/dynamic-row-list.control';
 
 import StatusBar2Element from 'app-root/components/elements/statusbar2.element';
 

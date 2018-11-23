@@ -1,17 +1,19 @@
 @charset "UTF-8";
 
 // Imports [controls]
-@import "controls/basic-input";
-@import "controls/basic-button";
+@import "controls/basic-input.control";
+@import "controls/basic-button.control";
+@import "controls/dynamic-row-list.control";
 
 // Imports [elements]
-@import "elements/loader";
-@import "elements/status-bar";
-@import "elements/cell";
+@import "elements/loader.element";
+@import "elements/status-bar.element";
+@import "elements/cell.element";
 
 // Imports [widgets]
-@import "widgets/weather-widget";
-@import "widgets/board-widget";
+@import "widgets/weather.widget";
+@import "widgets/board.widget";
 
 // Imports [partials]
-@import "partials/footer";
+@import "partials/header.partial";
+@import "partials/footer.partial";
