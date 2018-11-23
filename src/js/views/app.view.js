@@ -27,6 +27,16 @@ export default class AppView extends Component<{}> {
   static defaultProps: Props = {
 	  className: 'view'
   };
+  
+  /*shouldComponentUpdate(nextProps: Object<any>, nextState: Object<any>): boolean {
+		if (this.props.color !== nextProps.color) {
+			return true;
+		}
+		if (this.state.count !== nextState.count) {
+			return true;
+		}
+		return false;
+	}*/
 
   render(): Node {
     const WeatherWidgetWrapper = SocketWrapper(WeatherWidget);

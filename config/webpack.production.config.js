@@ -7,9 +7,21 @@ const path = require('path');
 const webpack = require('webpack');
 const { Config } = require('webpack-config');
 
+//npm install @gfx/zopfli --save-dev
+//const zopfli = require('@gfx/zopfli');
+    /*new CompressionPlugin({
+      compressionOptions: {
+         numiterations: 15
+      },
+      algorithm(input, compressionOptions, callback) {
+        return zopfli.gzip(input, compressionOptions, callback);
+      }
+    })*/
+	
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 //const BundleBuddyWebpackPlugin = require("bundle-buddy-webpack-plugin");
 
 const DEFAULT_ROOT_DIR = '..';
@@ -55,6 +67,18 @@ const PRODUCTION_CONFIG = {
             filename: path.join('css', '[name].css'),
             chunkFilename: path.join('css', '[id].chunk.css'),
         }),
+		new CompressionPlugin({
+			cache: true,
+			threshold: 8192,
+			minRatio: 0.8,
+			deleteOriginalAssets: false,
+			algorithm: 'gzip',
+			filename: '[path].gz[query]',
+			test: /\.js(\?.*)?$/i,
+			include: /\/includes/,
+			exclude: /\/excludes/,
+			compressionOptions: { level: 1 }
+		})
 		/*new webpack.optimize.UglifyJsPlugin({
 			minimize: true,
 			mangle: true,
