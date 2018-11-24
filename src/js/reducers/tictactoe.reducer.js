@@ -5,10 +5,10 @@
  */
 import { combineReducers } from 'redux';
 
-import CellsReducer from 'app-root/reducers/cells.reducer';
-import PlayerReducer from 'app-root/reducers/player.reducer';
-import BoardReducer from 'app-root/reducers/board.reducer';
+import { CellsReducer as cells } from 'reducers/cells.reducer';
+import { PlayerReducer as player } from 'reducers/player.reducer';
+import { BoardReducer as board } from 'reducers/board.reducer';
 
-const TicTacToeReducer = combineReducers({ CellsReducer, PlayerReducer, BoardReducer });
+const TicTacToeReducer = combineReducers({ cells, player, board });
 
 export default TicTacToeReducer;

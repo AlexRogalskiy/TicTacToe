@@ -6,17 +6,17 @@
 import React, { Component, Node } from 'react';
 import CodeMirror from 'codemirror';
 
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
-import { isString } from 'app-root/libs/helpers.lib';
-import DocumentBoxElement from 'app-root/components/elements/document-box.element';
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import { isString } from 'libs/helpers.lib';
+import DocumentBoxElement from 'components/elements/document-box.element';
 
-// @flow
+/* @flow */
 type Props = {
-	initialCode?: string,
-	children?: Node
+	initialCode?: string;
+	children?: Node;
 };
 type State = {
-	keyword?: string
+	keyword?: string;
 };
 
 export default class EditorElement extends Component<Props, State> {

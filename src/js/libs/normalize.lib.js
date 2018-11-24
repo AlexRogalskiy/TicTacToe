@@ -5,7 +5,7 @@
  */
 import { isNullOrUndefined, isFunction } from './helpers.lib';
 
-const Normalize = ((name: string, context: object, definition: func) => {
+const Normalize = ((name: string, context: Object<any>, definition: func) => {
 	if (!isNullOrUndefined(module) && module.exports) {
 		module.exports = definition();
 	} else if (isFunction(define) && define.amd) {
@@ -13,9 +13,9 @@ const Normalize = ((name: string, context: object, definition: func) => {
 	} else {
 		context[name] = definition(name, context);
 	}
-}('normalizeSelector', this, (name, context) => {
+}('normalizeSelector', this, (name, context): func => {
 
-	function normalizeSelector(sel) {
+	function normalizeSelector(sel: string): string {
 		
 		// save unmatched text, if any
 		function saveUnmatched() {

@@ -5,19 +5,20 @@
  */
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
-import CommentElement from 'app-root/components/elements/comment.element';
+import CommentElement from 'components/elements/comment.element';
 
-// @flow
+/* @flow */
+type ListItem = {
+	id: string;
+	author: string;
+	className: string;
+	data: Object<any>;
+};
 type Props = {
-	 dataClass?: Object<any>,
+	 dataClass?: Object<any>;
 };
 type State = {
-     items: Array<{
-		 id: string,
-		 author: string,
-		 className: string,
-		 data: Object<any>
-	 }>
+     items: Array<ListItem>;
 };
 
 export default class CommentListElement extends Component<Props, State> {

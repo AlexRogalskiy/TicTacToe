@@ -7,29 +7,29 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-import ButtonControl from 'app-root/components/controls/button.control';
-import BlockElement from 'app-root/components/elements/block.element';
-import IconElement from 'app-root/components/elements/icon.element';
+import ButtonControl from 'components/controls/button.control';
+import BlockElement from 'components/elements/block.element';
+import IconElement from 'components/elements/icon.element';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: object,
-	value?: number,
-	min: number,
-	max: number,
-	step: number,
-	upLabel?: string,
-	downLabel?: string,
-	isIncreasing?: bool,
-	isDisabled?: boolean,
-	isVisible?: boolean
+	dataClass?: Object<any>;
+	value?: number;
+	min: number;
+	max: number;
+	step: number;
+	upLabel?: string;
+	downLabel?: string;
+	isIncreasing?: boolean;
+	isDisabled?: boolean;
+	isVisible?: boolean;
 };
 type State = {
-	isVisible: boolean,
-	isIncreasing: boolean,
-	value: number
+	isVisible: boolean;
+	isIncreasing: boolean;
+	value: number;
 };
 
 export default class CounterControl extends Component<Props, State> {
@@ -41,7 +41,7 @@ export default class CounterControl extends Component<Props, State> {
 	value: 0
   };
 
-    counter: ?HTMLElement;
+  counter: ?HTMLElement;
 	
   static defaultProps: Props = {
       className: 'counter input-group',
@@ -72,7 +72,7 @@ export default class CounterControl extends Component<Props, State> {
 	this.state = { isVisible: props.isVisible, isIncreasing: props.isIncreasing, value: props.value };
   }
 
-  getValidatorData(): object {
+  getValidatorData(): State {
     return this.state;
   }
   

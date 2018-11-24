@@ -4,15 +4,15 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
+import { Elements, Stylesheets } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	message?: string,
-	children?: Node
+	message?: string;
+	children?: Node;
 };
 type State = {
-	message?: string
+	message?: string;
 };
 
 export default class TextLabelElement extends Component<Props, State> {

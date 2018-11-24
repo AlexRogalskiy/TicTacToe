@@ -84,6 +84,9 @@ const Elements = {
 	View: Styled('div'),
 	Text: Styled('span'),
 	Paragraph: Styled('p'),
+	List: Styled('ul'),
+	OrderedList: Styled('ol'),
+	ListItem: Styled('li'),
 	
 	Head_1: Styled('h1'),
 	Head_2: Styled('h2'),
@@ -103,6 +106,7 @@ const Elements = {
 	MultiLine: Styled('textarea'),
 	
 	Image: Styled('img'),
+	Line: Styled('hr'),
 	
 	Label: Styled('label'),
 	Table: Styled('table'),

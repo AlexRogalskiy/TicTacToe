@@ -8,47 +8,55 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 
-import ButtonBlockControl from 'app-root/components/controls/button-block.control';
-import LoaderElement from 'app-root/components/elements/loader.element';
-import StatusBarElement from 'app-root/components/elements/statusbar.element';
-import GridElement from 'app-root/components/elements/grid.element';
+import ButtonBlockControl from 'components/controls/button-block.control';
+import LoaderElement from 'components/elements/loader.element';
+import StatusBarElement from 'components/elements/statusbar.element';
+import GridElement from 'components/elements/grid.element';
 
-import Logger, { tag } from 'app-root/libs/logger.lib';
+import type { Board, Player, Cells } from 'types/tictactoe.type';
 
-// @flow
+import { Elements } from 'libs/elements.lib';
+import Logger, { tag } from 'libs/logger.lib';
+
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-	board?: object,
-	cells?: array,
-	player?: string,
-	roundFinished?: boolean,
-	message?: string,
+	dataClass?: Object<any>;
+	board?: Board;
+	cells?: Cells;
+	player?: Player;
+	roundFinished?: boolean;
+	message?: string;
 	
-	onConnect?: func,
-	onDisconnect?: func,
-	onStart?: func,
-	onSetCell?: func,
-	onInitialize?: func,
-	onFinalize?: func,
-	onReject?: func,
-	onReset?: func,
-	onPlayerFirst?: func,
-	onPlayerSecond?: func
+	onConnect?: func;
+	onDisconnect?: func;
+	onStart?: func;
+	onSetCell?: func;
+	onInitialize?: func;
+	onFinalize?: func;
+	onReject?: func;
+	onReset?: func;
+	onPlayerFirst?: func;
+	onPlayerSecond?: func;
 };
 type State = {
-	  isReject: boolean,
-      isStart: boolean,
-      isPlayerFirst: boolean,
-      isPlayerSecond: boolean,
-      isEnded: boolean,
-      isReset: boolean,
-      isSetCell: boolean,
-      response: Object<any>
+	  isReject: boolean;
+      isStart: boolean;
+      isPlayerFirst: boolean;
+      isPlayerSecond: boolean;
+      isEnded: boolean;
+      isReset: boolean;
+      isSetCell: boolean;
+      response: Object<any>;
 };
 
 export default class BoardWidget extends Component<Props, State> {
   displayName: string = 'BoardWidget';
 
+  DEFAULT_MESSAGES: Object<any> = {
+     SERVER_CONNECTION_PLACEHOLDER: 'Connecting to play server ...',
+     BOARD_CONNECTION_PLACEHOLDER: 'Connecting to play ground ...',
+  };
+   
   state: State = {
 	  isReject: false,
       isStart: false,
@@ -76,10 +84,6 @@ export default class BoardWidget extends Component<Props, State> {
 
   constructor(props: Props): void {
     super(props);
-    this.DEFAULT_SETTINGS = {
-      SERVER_CONNECTION_PLACEHOLDER: 'Connecting to play server ...',
-      BOARD_CONNECTION_PLACEHOLDER: 'Connecting to play ground ...',
-    };
     this.onConnect = this.onConnect.bind(this);
     this.onDisconnect = this.onDisconnect.bind(this);
     this.onStart = this.onStart.bind(this);
@@ -90,7 +94,7 @@ export default class BoardWidget extends Component<Props, State> {
     this.onReset = this.onReset.bind(this);
   }
 
-  onConnect(socket: object): func {
+  onConnect(socket: Object<any>): func {
     return () => {
       if (this.props.onConnect) {
         this.props.onConnect(socket).call(this);
@@ -103,7 +107,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onDisconnect(socket: object): func {
+  onDisconnect(socket: Object<any>): func {
     return () => {
       if (this.props.onDisconnect) {
         this.props.onDisconnect(socket).call(this);
@@ -111,7 +115,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onStart(socket: object): func {
+  onStart(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onStart: <start> with data ${data} from socket with id=${socket.id}`
@@ -123,7 +127,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onSetCell(socket: object): func {
+  onSetCell(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onSetCell: <setcell> with data=${data} from socket with id=${
@@ -137,7 +141,7 @@ export default class BoardWidget extends Component<Props, State> {
       });
       if (this.props.onSetCell) {
         this.props.onSetCell.call(this, {
-          cell: data.cell,
+          position: data.position,
           cells: data.cells,
           player: data.player,
           room: data.room,
@@ -146,7 +150,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onReset(socket: object): func {
+  onReset(socket: Object<any>): func {
     return data => {
       if (!this.state.isReset) {
         Logger.debug(
@@ -163,7 +167,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onInitialize(socket: object): func {
+  onInitialize(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onInitialize: <initialize> with data=${data} from socket with id=${
@@ -184,7 +188,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onFinalize(socket: object): func {
+  onFinalize(socket: Object<any>): func {
     return data => {
       if (!this.state.isEnded) {
         Logger.debug(
@@ -208,7 +212,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onReject(socket: object): func {
+  onReject(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onReject: <reject> with data=${data} from socket with id=${
@@ -222,7 +226,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onPlayerFirst(socket: object): func {
+  onPlayerFirst(socket: Object<any>): func {
     return data => {
       if (!this.state.isPlayerFirst) {
         Logger.debug(
@@ -239,7 +243,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onPlayerSecond(socket: object): func {
+  onPlayerSecond(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onPlayerSecond: <player second> with data=${data} from socket with id=${
@@ -253,14 +257,14 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitConnect(socket: object): func {
+  onEmitConnect(socket: Object<any>): func {
     return () => {
       Logger.debug(`onEmitConnect: <connect> to socket with id=${socket.id}`);
       socket.emit('initialize');
     };
   }
 
-  onEmitDisconnect(socket: object): func {
+  onEmitDisconnect(socket: Object<any>): func {
     return () => {
       Logger.debug(
         `onEmitDisconnect: <disconnect> from socket with id=${socket.id}`
@@ -269,7 +273,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitStart(socket: object): func {
+  onEmitStart(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitStart: <start> with data ${data} to socket with id=${
@@ -283,7 +287,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitSetCell(socket: object): func {
+  onEmitSetCell(socket: Object<any>): func {
     return data => {
       if (!this.props.roundFinished && this.state.isSetCell) {
         Logger.debug(
@@ -292,7 +296,7 @@ export default class BoardWidget extends Component<Props, State> {
           }`
         );
         socket.emit('setcell', {
-          cell: data.cell,
+          position: data.position,
           cells: data.cells,
           player: data.player,
           room: this.state.response.room,
@@ -300,7 +304,7 @@ export default class BoardWidget extends Component<Props, State> {
         this.setState({ isSetCell: false });
         if (this.props.onSetCell) {
           this.props.onSetCell.call(this, {
-            cell: data.cell,
+            position: data.position,
             cells: data.cells,
             player: data.player,
             room: this.state.response.room,
@@ -310,7 +314,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitReset(socket: object): func {
+  onEmitReset(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitReset: <reset> with data=${data} from socket with id=${
@@ -324,7 +328,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitPlayerFirst(socket: object): func {
+  onEmitPlayerFirst(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitPlayerFirst: <player first> with data=${data} to socket with id=${
@@ -348,7 +352,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitPlayerSecond(socket: object): func {
+  onEmitPlayerSecond(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitPlayerSecond: <player second> with data=${data} to socket with id=${
@@ -368,7 +372,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitInitialize(socket: object): func {
+  onEmitInitialize(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitInitialize: <initialize> with data=${data} to socket with id=${
@@ -395,7 +399,7 @@ export default class BoardWidget extends Component<Props, State> {
     };
   }
 
-  onEmitFinalize(socket: object): func {
+  onEmitFinalize(socket: Object<any>): func {
     return data => {
       Logger.debug(
         tag`onEmitFinalize: <finalize> with data=${data} to socket with id=${
@@ -469,12 +473,12 @@ export default class BoardWidget extends Component<Props, State> {
       ...rest
     } = this.props;
     return (
-      <div className={className}>
+      <Elements.View className={className}>
         {isConnected ? (
-          <div className={dataClass.boardWidgetPlayground}>
-            <div className={dataClass.boardWidgetInfo}>{board.message}</div>
+          <Elements.View className={dataClass.boardWidgetPlayground}>
+            <Elements.View className={dataClass.boardWidgetInfo}>{board.message}</Elements.View>
             {this.state.isStart ? (
-              <div className={dataClass.boardWidgetLayout}>
+              <Elements.View className={dataClass.boardWidgetLayout}>
                 {!this.state.isReject && !this.state.isPlayerSecond ? (
                   <ButtonBlockControl
                     label="Join"
@@ -489,16 +493,16 @@ export default class BoardWidget extends Component<Props, State> {
                     }
                   />
                 ) : (
-                  <div className={dataClass.boardWidgetStatus}>
+                  <Elements.View className={dataClass.boardWidgetStatus}>
                     {this.state.isPlayerFirst && this.state.isPlayerSecond ? (
-                      <div className={dataClass.boardWidgetPanel}>
+                      <Elements.View className={dataClass.boardWidgetPanel}>
                         <StatusBarElement message={message} />
                         {this.renderServiceMessage(
                           this.state.response.message,
                           false
                         )}
                         <GridElement onSetCell={this.onEmitSetCell} {...rest} />
-                        <div className="panel">
+                        <Elements.View className="panel">
                           <ButtonBlockControl
                             label="Reset"
                             className="button button-reset"
@@ -508,10 +512,10 @@ export default class BoardWidget extends Component<Props, State> {
                               })
                             }
                           />
-                        </div>
-                      </div>
+                        </Elements.View>
+                      </Elements.View>
                     ) : (
-                      <div className={dataClass.boardWidgetPanel}>
+                      <Elements.View className={dataClass.boardWidgetPanel}>
                         {this.state.isReject
                           ? this.renderServiceMessage(
                               this.state.response.message,
@@ -521,30 +525,30 @@ export default class BoardWidget extends Component<Props, State> {
                               this.state.response.message,
                               !this.state.isEnded
                             )}
-                      </div>
+                      </Elements.View>
                     )}
-                  </div>
+                  </Elements.View>
                 )}
-              </div>
+              </Elements.View>
             ) : (
-              <div className={dataClass.boardWidgetLayout}>
+              <Elements.View className={dataClass.boardWidgetLayout}>
                 {this.state.isEnded || this.state.isReset
                   ? this.renderServiceMessage(
                       this.state.response.message,
                       false
                     )
                   : this.renderServiceMessage(
-                      this.DEFAULT_SETTINGS.BOARD_CONNECTION_PLACEHOLDER
+                      this.DEFAULT_MESSAGES.BOARD_CONNECTION_PLACEHOLDER
                     )}
-              </div>
+              </Elements.View>
             )}
-          </div>
+          </Elements.View>
         ) : (
           this.renderServiceMessage(
-            this.DEFAULT_SETTINGS.SERVER_CONNECTION_PLACEHOLDER
+            this.DEFAULT_MESSAGES.SERVER_CONNECTION_PLACEHOLDER
           )
         )}
-      </div>
+      </Elements.View>
     );
   }
 };

@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
 /* @flow */
 type State = {
@@ -32,26 +32,26 @@ export default class LifeCycleMixin<{}, State> {
     this.setState({ isMounted: true });
   }
 
-  componentWillReceiveProps(nextProps: object): void {
+  componentWillReceiveProps(nextProps: Object<any>): void {
     Logger.debug(
       `LifeCycleMixin: componentWillReceiveProps => nextProps = ${nextProps}`
     );
   }
 
-  shouldComponentUpdate(nextProps: object, nextState: object): void {
+  shouldComponentUpdate(nextProps: Object<any>, nextState: Object<any>): void {
     Logger.debug(
       `LifeCycleMixin: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
     );
     return true;
   }
 
-  componentWillUpdate(nextProps: object, nextState: object): void {
+  componentWillUpdate(nextProps: Object<any>, nextState: Object<any>): void {
     Logger.debug(
       `LifeCycleMixin: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
     );
   }
 
-  componentDidUpdate(prevProps: object, prevState: object): void {
+  componentDidUpdate(prevProps: Object<any>, prevState: Object<any>): void {
     Logger.debug(
       `LifeCycleMixin: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`
     );

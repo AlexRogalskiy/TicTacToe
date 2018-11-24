@@ -3,22 +3,21 @@
 /**
  * Module dependencies
  */
-import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'app-root/constants/tictactoe.constant';
-import type { BoardAction, BoardState } from 'app-root/types/tictactoe.type';
+import { START, INITIALIZE, RESET, FINALIZE, ADD_MOVE } from 'constants/tictactoe.constant';
+import type { BoardAction, Board } from 'types/tictactoe.type';
+import { guidGenerator, DateTime } from 'libs/helpers.lib';
+import config from 'resources/config.json';
 
-import { guidGenerator, DateTime } from 'app-root/libs/helpers.lib';
-import config from 'app-root/resources/config.json';
-
-const initialState: BoardState = {
+const initialState: Board = {
 	title: config[config.default.scheme].title,
 	id: guidGenerator(),
 	date: null
 };
 
 const BoardReducer = (
-  state: BoardState = initialState,
-  action: BoardAction
-): BoardState => {
+  state: Board = initialState,
+  action: BoardAction = {}
+): Board => {
   switch (action.type) {
     case START:
       return {

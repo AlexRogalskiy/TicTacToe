@@ -6,22 +6,22 @@
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
-import BasicFilterInputControl from 'app-root/components/controls/basic-filter-input.control';
-import TextMenuItemElement from 'app-root/components/elements/text-menu-item.element';
+import BasicFilterInputControl from 'components/controls/basic-filter-input.control';
+import TextMenuItemElement from 'components/elements/text-menu-item.element';
 
-// @flow
+/* @flow */
 type MenuItem = {
-	iconClass?: string,
-	id: string,
-	title: string,
-	className?: string
+	iconClass?: string;
+	id: string;
+	title: string;
+	className?: string;
 };
 type Props = {
-	dataClass: Object<any>,
-    items: Array<MenuItem>
+	dataClass: Object<any>;
+    items: Array<MenuItem>;
 };
 type State = {
-	items: Array<MenuItem>
+	items: Array<MenuItem>;
 };
 
 export default class MenuElement extends Component<Props, State> {
@@ -42,7 +42,7 @@ export default class MenuElement extends Component<Props, State> {
     }
 	
     filter(text: string): void {
-        let filteredList = this.props.items.filter(item => {
+        let filteredList = this.state.items.filter(item => {
             return item.title.toLowerCase().search(text.toLowerCase()) !== -1;
         }); 
         this.setState({ items: filteredList });

@@ -8,7 +8,7 @@ import React, { Component, Node } from 'react';
 
 // @flow
 type Props = {
-	message?: string
+	message?: string;
 };
 
 export default class IconElement extends Component<Props> {

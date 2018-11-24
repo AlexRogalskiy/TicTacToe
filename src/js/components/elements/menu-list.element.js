@@ -9,11 +9,11 @@ import { style, classes } from 'typestyle';
 import { CSSTransitionGroup } from 'react-transition-group/CSSTransitionGroup';
 // import update     from 'react-addons-update';
 //import { ClassNames } from 'classnames/bind';
-// import Logger from 'app-root/mixins/logger';
-import BlockElement from 'app-root/components/elements/block.element';
-import MenuItemElement from 'app-root/components/elements/menu-item.element';
-import BasicListControl from 'app-root/components/controls/basic-list.control';
-//import { BasicMenuStyle } from 'app-root/css/components/elements/basicMenu';
+// import Logger from 'mixins/logger';
+import BlockElement from 'components/elements/block.element';
+import MenuItemElement from 'components/elements/menu-item.element';
+import BasicListControl from 'components/controls/basic-list.control';
+//import { BasicMenuStyle } from 'css/components/elements/basicMenu';
 
 //let Styles = ClassNames.bind(BasicMenuStyle);
 
@@ -25,22 +25,22 @@ const defaultTransition = (transitionName: string = 'popoveranim',
 	transitionLeaveTimeout
 };
 
-// @flow
+/* @flow */
 type MenuItem = {
-	iconClass?: string,
-	id: string,
-	data?: Object<any>,
-	className: string,
-	title: string,
-	transition?: Object<any>
+	iconClass?: string;
+	id: string;
+	data?: Object<any>;
+	className: string;
+	title: string;
+	transition?: Object<any>;
 };
 type Props = {
-	 dataClass?: Object<any>,
-     transition?: Object<any>
+	 dataClass?: Object<any>;
+     transition?: Object<any>;
 };
 type State = {
-	activeMenu: string,
-	items: Array<MenuItem>
+	activeMenu: string;
+	items: Array<MenuItem>;
 };
 
 export default class MenuListElement extends Component<Props, State> {

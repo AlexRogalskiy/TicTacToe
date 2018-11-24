@@ -9,7 +9,7 @@ import { style, classes } from 'typestyle';
 import loremIpsum from 'lorem-ipsum';
 import { List } from 'react-virtualized';
 
-import { Elements } from 'app-root/libs/elements.lib';
+import { Elements } from 'libs/elements.lib';
 
 /* @flow */
 type Props = {

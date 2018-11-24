@@ -10,21 +10,21 @@ import reactMixin from 'react-mixin';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import BasicImageControl from 'app-root/components/controls/basic-image.control';
-import BasicInputControl from 'app-root/components/controls/basic-input.control';
+import BasicImageControl from 'components/controls/basic-image.control';
+import BasicInputControl from 'components/controls/basic-input.control';
 
-import { isString } from 'app-root/libs/helpers.lib';
+import { isString } from 'libs/helpers.lib';
 
-import FormsValidator from 'app-root/validators/forms.validator';
-import LifeCycleMixin from 'app-root/mixins/lifecycle.mixin';
+import FormsValidator from 'validators/forms.validator';
+import LifeCycleMixin from 'mixins/lifecycle.mixin';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: object,
-    validator?: string
+	dataClass?: Object<any>;
+    validator?: string;
 };
 type State = {
-	validity: object
+	validity: Object<any>;
 };
 
 class ProfileControl extends Component<Props, State> {

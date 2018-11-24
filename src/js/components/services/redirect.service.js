@@ -7,9 +7,9 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-// @flow
+/* @flow */
 type Props = {
-  path: string
+  path: string;
 };
 
 export default class RedirectService extends Component<Props> {

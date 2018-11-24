@@ -6,9 +6,9 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-// @flow
+/* @flow */
 type Props = {
-	children?: Node
+	children?: Node;
 };
 
 export default class BlockElement extends Component<Props> {

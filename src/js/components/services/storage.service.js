@@ -1,8 +1,8 @@
 'use strict';
 
-// @flow
+/* @flow */
 type Props = {
-	storage: Object<any>
+	storage: Object<any>;
 };
 
 export default class StorageService<Props> {

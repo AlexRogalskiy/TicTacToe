@@ -5,9 +5,10 @@
  */
 import React, { Component, Node } from 'react';
 
-// @flow
+/* @flow */
 type Props = {
-	onClick?: func
+	onClick?: func;
+	children?: Node;
 };
 
 export default class ButtonBlockControl extends Component<Props> {

@@ -10,7 +10,7 @@ const { Provider } = require('react-redux');
 const Browser = require('zombie') ;
 const assert = require('chai').assert;
 
-//const AppView = require('../src/js/views/app');
+//const AppView = require('../src/js/views/app.view');
 
 suite('Global crosspage tests', () => {
 	var browser;
@@ -52,7 +52,7 @@ suite('Global crosspage tests', () => {
 		assert(document.title && document.title.match(/\S/) && document.title.toUpperCase() !== 'TODO');
 	});
 	
-	test('view renders without crashing', () => {
+	test('view renders without crashing', (done) => {
 		const div = document.createElement('div');
 		//ReactDOM.render(<AppView />, div);
 		ReactDOM.unmountComponentAtNode(div);

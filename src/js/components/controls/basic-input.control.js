@@ -10,10 +10,10 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from 'app-root/libs/elements.lib';
-import FormsValidator from 'app-root/validators/forms.validator';
+import { MessageList } from 'libs/elements.lib';
+import FormsValidator from 'validators/forms.validator';
 
-// @flow
+/* @flow */
 type Props = {
 	dataClass?: Object<any>;
     dataError?: Array<string>;
@@ -56,7 +56,7 @@ class BasicInputControl extends Component<Props, State> {
 	this.state = { isDisabled: props.isDisabled };
   }
 
-  getValidatorData(): object {
+  getValidatorData(): State {
     return this.state;
   }
 

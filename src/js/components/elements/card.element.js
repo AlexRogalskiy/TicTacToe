@@ -8,18 +8,18 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 // import update     from 'react-addons-update';
 //import ClassNames from 'classnames/bind';
-//import BasicCardItemStyle from 'app-root/css/components/elements/basicCardItem';
+//import BasicCardItemStyle from 'css/components/elements/basicCardItem';
 
 //let Styles = ClassNames.bind(BasicCardItemStyle);
 
-// @flow
+/* @flow */
 type Props = {
-	 dataClass?: Object<any>,
-	 onClick?: func,
-	 children?: Node
+	 dataClass?: Object<any>;
+	 onClick?: func;
+	 children?: Node;
 };
 type State = {
-	flipped: boolean
+	flipped: boolean;
 };
 
 export default class CardElement extends Component<Props, State> {
@@ -39,10 +39,10 @@ export default class CardElement extends Component<Props, State> {
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(e: SyntheticEvent<HTMLElement>): void {
+    onClick(event: SyntheticEvent<HTMLElement>): void {
         this.flip();
         if(this.props.onClick) {
-            this.props.onClick(e);
+            this.props.onClick(event);
         }
     }
 	

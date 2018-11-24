@@ -9,8 +9,8 @@ import { style, classes } from 'typestyle';
 import { CSSTransitionGroup } from 'react-transition-group/CSSTransitionGroup';
 // import update     from 'react-addons-update';
 //import { ClassNames } from 'classnames/bind';
-// import Logger from 'appRoot/mixins/logger';
-// import { BasicListStyle } from 'appRoot/css/components/controls/basicListControl';
+// import Logger from 'mixins/logger';
+// import { BasicListStyle } from 'css/components/controls/basicListControl';
 // let Styles = ClassNames.bind(BasicListStyle);
 
 const defaultTransition = ({ component: string 				 = '',
@@ -49,11 +49,11 @@ const defaultTransitionClass = ({ appear: string 		= 'appear',
 	leaveDone
 };
 
-// @flow
+/* @flow */
 type Props = {
-    dataClass?: object,
-    transition?: object,
-	items?: Array<any>
+    dataClass?: Object<any>;
+    transition?: Object<any>;
+	items?: Array<any>;
 };
 
 export default class BasicListControl extends Component<Props> {

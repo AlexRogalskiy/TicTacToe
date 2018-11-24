@@ -7,9 +7,10 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-// @flow
+/* @flow */
 type Props = {
-	children?: Node
+	inline?: boolean;
+	children?: Node;
 };
 
 export default class BubbleElement extends Component<Props> {
@@ -19,7 +20,7 @@ export default class BubbleElement extends Component<Props> {
 		className: 'bubble',
 		inline: true
     };
-	
+  
 	render(): Node {
 		const { className, children, ...rest } = this.props;
 		return (

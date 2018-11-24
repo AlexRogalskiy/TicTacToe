@@ -5,11 +5,11 @@
  */
 import React, { Component, Node } from 'react';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type State = {
-	isMounted: boolean
+	isMounted: boolean;
 };
 
 export default function LifeCycleWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<{}, State> {
@@ -36,26 +36,26 @@ export default function LifeCycleWrapper<Props: {}>(WrappedComponent: React.Comp
       this.setState({ isMounted: true });
     }
 
-    componentWillReceiveProps(nextProps: object): void {
+    componentWillReceiveProps(nextProps: Object<any>): void {
       Logger.debug(
         `LifeCycle: componentWillReceiveProps => nextProps = ${nextProps}`
       );
     }
 
-    shouldComponentUpdate(nextProps: object, nextState: object): void {
+    shouldComponentUpdate(nextProps: Object<any>, nextState: Object<any>): void {
       Logger.debug(
         `LifeCycle: shouldComponentUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
       );
       return true;
     }
 
-    componentWillUpdate(nextProps: object, nextState: object): void {
+    componentWillUpdate(nextProps: Object<any>, nextState: Object<any>): void {
       Logger.debug(
         `LifeCycle: componentWillUpdate => nextProps = ${nextProps}, nextState = ${nextState}`
       );
     }
 
-    componentDidUpdate(prevProps: object, prevState: object): void {
+    componentDidUpdate(prevProps: Object<any>, prevState: Object<any>): void {
       Logger.debug(
         `LifeCycle: componentDidUpdate => prevProps = ${prevProps}, prevState = ${prevState}`
       );

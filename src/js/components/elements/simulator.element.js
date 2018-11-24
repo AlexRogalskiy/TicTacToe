@@ -4,14 +4,14 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
-import StatusBar2Element from 'app-root/components/elements/statusbar2.element';
-import HostElement from 'app-root/components/elements/host.element';
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import StatusBar2Element from 'components/elements/statusbar2.element';
+import HostElement from 'components/elements/host.element';
 
-// @flow
+/* @flow */
 type Props = {
-	code?: string,
-	children?: Node
+	code?: string;
+	children?: Node;
 };
 
 export default class SimulatorElement extends Component<Props> {

@@ -4,13 +4,13 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
-import { DateTime } from 'app-root/libs/helpers.lib';
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import { DateTime } from 'libs/helpers.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	interval: func,
-	children?: Node
+	interval: func;
+	children?: Node;
 };
 
 const DEFAULT_UPDATE_INTERVAL = 1000;

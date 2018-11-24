@@ -5,22 +5,24 @@
  */
 import React, { Component, Node } from 'react';
 
-import CellElement from 'app-root/components/elements/cell.element';
+import CellElement from 'components/elements/cell.element';
+import type { Player, Cells, Position } from 'types/tictactoe.type';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	cells: array,
-	player: string,
-	winCells: array,
-	onSetCell: func
+	player: Player;
+	cells: Cells;
+	winCells: Cells;
+	onSetCell: func;
 };
-type Cell = number;
 
 export default class GridElement extends Component<Props> {
   displayName: string = 'GridElement';
-
+  
   static defaultProps: Props = {
 	className: 'grid',
+	player: '',
 	cells: [],
 	winCells: [],
 	onSetCell: Function.prototype
@@ -28,26 +30,26 @@ export default class GridElement extends Component<Props> {
   
   constructor(props: Props): void {
     super(props);
-	this.isWinnerCell = this.isWinnerCell.bind(this);
+	this.isWinner = this.isWinner.bind(this);
   }
   
-  isWinnerCell(cell: Cell): bool {
-	  return (this.props.winCells && this.props.winCells.includes(cell));
+  isWinner(position: Position): boolean {
+	  return (this.props.winCells && this.props.winCells.includes(position));
   }
   
   render(): Node {
     const { cells, player, winCells, onSetCell, ...rest } = this.props;
     return (
-      <div {...rest}>
-        {cells.map((value, cell) => (
+      <Elements.View {...rest}>
+        {cells.map((cell, position) => (
           <CellElement
-            key={cell}
-            state={value}
-            isWinner={this.isWinnerCell(cell)}
-            onPress={e => onSetCell({ cell, cells, player })}
+            key={position}
+            value={cell}
+            isWinner={this.isWinner(position)}
+            onPress={onSetCell({ position, cells, player })}
           />
         ))}
-      </div>
+      </Elements.View>
     );
   }
 };

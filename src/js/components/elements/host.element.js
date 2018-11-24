@@ -4,17 +4,17 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
+import { Elements, Stylesheets } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	style?: Object<any>,
-	code?: string,
-	children?: Node
+	style?: Object<any>;
+	code?: string;
+	children?: Node;
 };
 type State = {
-	html?: string,
-	error?: string
+	html?: string;
+	error?: string;
 };
 
 export default class HostElement extends Component<Props, State> {

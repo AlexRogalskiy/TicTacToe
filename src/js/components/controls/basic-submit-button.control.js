@@ -9,26 +9,34 @@ import { style, classes } from 'typestyle';
 // import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 //import ClassNames from 'classnames/bind';
-//import Logger     from 'appRoot/js/mixins/logger';
-import BasicButtonControl from 'app-root/components/controls/basic-button.control';
-//import BasicSubmitButtonStyle from 'appRoot/css/components/controls/basicSubmitButtonControl';
+//import Logger     from 'js/mixins/logger';
+import BasicButtonControl from 'components/controls/basic-button.control';
+//import BasicSubmitButtonStyle from 'css/components/controls/basicSubmitButtonControl';
 //let Styles = ClassNames.bind(BasicSubmitButtonStyle);
 
-// @flow
+/* @flow */
+type Store = {
+	messageInProgress?: string;
+	submissionInProgress?: boolean;
+	error?: boolean;
+	disabled?: boolean;
+	onSubmit?: func;
+};
 type Props = {
-	dataClass?: object,
-	message?: string,
-	progressMessage?: string
+	dataClass?: Object<any>;
+	message?: string;
+	progressMessage?: string;
 };
 type State = {
-	store: object
+	store: Object<Store>;
 };
 
 export default class BasicSubmitButtonControl extends BasicButtonControl {
 	displayName: string = 'BasicSubmitButtonControl';
 
 	state: State = {
-		store {
+		store: {
+			messageInProgress: null,
 			submissionInProgress: false,
 			error: false,
 			disabled: false
@@ -45,11 +53,12 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 
 	constructor(props: Props): void {
         super(props);
+		this.onSubmit = this.onSubmit.bind(this);
         this.state = { messageInProgress: props.messageInProgress };
     }
 
-	onSubmit(event: SyntheticEvent<HTMLButtonElement>) {
-		super.onSubmit(event);
+	onSubmit(event: SyntheticEvent<HTMLButtonElement>): func {
+		return super.onClick(event);
 	}
 
 	render(): Node {

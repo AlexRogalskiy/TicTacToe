@@ -5,13 +5,13 @@
  */
 import React, { Component, Node } from 'react';
 
-import Logger from 'app-root/libs/logger.lib';
-import { isFunction } from 'app-root/libs/helpers.lib';
+import Logger from 'libs/logger.lib';
+import { isFunction } from 'libs/helpers.lib';
 
-// @flow
+/* @flow */
 type State = {
-	isMounted: boolean,
-	isActivated: boolean
+	isMounted: boolean;
+	isActivated: boolean;
 };
 
 export default function TransitionWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>)Ж React.ComponentType<Props> {

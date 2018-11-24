@@ -78,10 +78,21 @@ const BASE_CONFIG = {
 		extensions: ['.js', '.json', '.jsx', '.scss', '.sass'],
 		alias: {
 			'app-root': DEFAULT_PATHS.JS_SOURCE_DIR,
-			'vendor': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'vendor'),
+			'actions': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'actions'),
+			'components': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'components'),
+			'constants': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'constants'),
+			'containers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'containers'),
 			'libs': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'libs'),
+			'mixins': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'mixins'),
+			'reducers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'reducers'),
+			'resources': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'resources'),
+			'schemas': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'schemas'),
+			'stores': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'stores'),
+			'types': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'types'),
+			'validators': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'validators'),	
+			'vendor': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'vendor'),
 			'views': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'views'),
-			'components': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'components')
+			'wrappers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'wrappers')
 		}
 	}
 };

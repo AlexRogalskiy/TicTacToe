@@ -21,7 +21,7 @@ export default class SocketMixin<{}, State> {
 	  isConnected: false
   };
   
-  onConnect(socket: object): func {
+  onConnect(socket: Object<any>): func {
     return () => {
       Logger.debug(`Connected by socket with id=${socket.id}`);
       this.setState({ isConnected: true });
@@ -31,7 +31,7 @@ export default class SocketMixin<{}, State> {
     };
   }
 
-  onDisconnect(socket: object): func {
+  onDisconnect(socket: Object<any>): func {
     return () => {
       Logger.debug(`Disconnected from socket with id=${socket.id}`);
       this.setState({ isConnected: false });

@@ -4,19 +4,20 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
-import StatusBar2Element from 'app-root/components/elements/statusbar2.element';
-import HostElement from 'app-root/components/elements/host.element';
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import StatusBar2Element from 'components/elements/statusbar2.element';
+import HostElement from 'components/elements/host.element';
 
-// @flow
+/* @flow */
+type DataItem = {
+	description: string;
+	values: Array<string>;
+};
 type Props = {
-	keyword?: string,
-	data?: Object<{
-		description: string,
-		values: Array<string>
-	}>,
-	onChangeValue?: func,
-	children?: Node
+	keyword?: string;
+	data?: Object<DataItem>;
+	onChangeValue?: func;
+	children?: Node;
 };
 
 export default class DocumentBoxElement extends Component<Props> {

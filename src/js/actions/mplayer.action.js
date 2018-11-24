@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import { PLAY, PAUSE, STOP, BACKWARD, FORWARD, UPDATE_TIME, SELECT_TRACK } from 'app-root/constants/mplayer.constant';
-import type { MTrack, MPlayerAction } from 'app-root/types/mplayer.type';
+import { PLAY, PAUSE, STOP, BACKWARD, FORWARD, UPDATE_TIME, SELECT_TRACK } from 'constants/mplayer.constant';
+import type { MTrack, MPlayerAction } from 'types/mplayer.type';
 
 const play = (): MPlayerAction => {
 	return {

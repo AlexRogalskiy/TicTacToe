@@ -4,17 +4,17 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
+import { Elements, Stylesheets } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	title?: string,
-	message?: string,
-	children?: Node
+	title?: string;
+	message?: string;
+	children?: Node;
 };
 type State = {
-	title?: string,
-	message?: string
+	title?: string;
+	message?: string;
 };
 
 export default class ListItemElement extends Component<Props, State> {

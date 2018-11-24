@@ -12,38 +12,43 @@ import {
   startGame,
   initializeGame,
   finalizeGame,
-} from 'app-root/actions/tictactoe.action';
-import BoardWidget from 'app-root/components/widgets/board.widget';
+} from 'actions/tictactoe.action';
+import BoardWidget from 'components/widgets/board.widget';
 
-import { isNullOrUndefined } from 'app-root/libs/helpers.lib';
-import Locale from 'app-root/resources/i18n/locale';
+import type { Data, State, Dispatch, Board, Player, Cells, Cell, Position } from 'types/tictactoe.type';
+import { isNullOrUndefined } from 'libs/helpers.lib';
+import Locale from 'resources/i18n/locale';
 
 const localStrings = new LocalizedStrings(Locale);
 
-// @flow
-type Data = {
-	board?: Board,
-	cell?: Cell,
-	cells?: Cells,
-	player?: Player,
-	room?: string
+/* @flow */
+type GameState = {
+	winner?: string;
+	winningState?: Cells;
 };
-type Player = string;
-type Cells = Array<string>;
-type Cell = number;
-type Board = {
-	title: string,
-	id: string,
-	date: string
+type BoardInfo = {
+    id: string;
+	message?: string;
+    title?: string;
+    date?: string;
 };
-type State = {
-	PlayerReducer: Player,
-	CellsReducer: Cells,
-	BoardReducer: Board
+type StateInfo = {
+    player: Player;
+    cells: Cells;
+    board: BoardInfo;
+    winCells: Cells;
+    roundFinished: boolean;
+    message: string;
 };
-type Dispatch = (action: Action | Promise<Action>) => Promise;
+type DispatchInfo = {
+	onSetCell: func;
+	onReset: func;
+	onStart: func;
+	onInitialize: func;
+	onFinalize: func;
+};
 
-const getWinner = (cells: Cells) => {
+const getWinner = (cells: Cells): GameState => {
   const winningStates = [
     // Horizontal lines
     [0, 1, 2],
@@ -58,7 +63,7 @@ const getWinner = (cells: Cells) => {
     [2, 5, 8],
   ];
 
-  let currentState = { winner: null, winningState: null };
+  let currentState = new GameState();
   winningStates.forEach(winningState => {
     const potentialWinner = cells[winningState[0]];
     if (!isNullOrUndefined(potentialWinner)) {
@@ -77,7 +82,7 @@ const getWinner = (cells: Cells) => {
   return currentState;
 };
 
-const isTie = (cells: Cells) => {
+const isTie = (cells: Cells): boolean => {
   if (!isNullOrUndefined(getWinner(cells).winner)) {
     return false;
   }
@@ -90,20 +95,20 @@ const isTie = (cells: Cells) => {
   return isTie;
 };
 
-const isFinished = (cells: Cells) => {
+const isFinished = (cells: Cells): boolean => {
   return !isNullOrUndefined(getWinner(cells).winner) || isTie(cells);
 };
 
-const isValidMove = (cells: Cells, cell: Cell) => {
+const isValidMove = (cells: Cells, position: Position): boolean => {
   // cannot put marker if the cell is not free
-  if (!isNullOrUndefined(cells[cell])) {
+  if (!isNullOrUndefined(cells[position])) {
     return false;
   }
   // cannot make a move if the game is over
   return !isFinished(cells);
 };
 
-const getBoard = (board: Board) => {
+const getBoard = (board: Board): BoardInfo => {
   return {
     message: localStrings.formatString(
       localStrings.board,
@@ -117,7 +122,7 @@ const getBoard = (board: Board) => {
   };
 };
 
-const getStatusMessage = (cells: Cells, player: Player) => {
+const getStatusMessage = (cells: Cells, player: Player): string => {
   if (isTie(cells)) {
     return localStrings.tie;
   }
@@ -128,21 +133,21 @@ const getStatusMessage = (cells: Cells, player: Player) => {
   return localStrings.formatString(localStrings.player, player);
 };
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: State): StateInfo => {
   return {
-    player: state.PlayerReducer,
-    cells: state.CellsReducer,
-    board: getBoard(state.BoardReducer),
-    winCells: getWinner(state.CellsReducer).winningState,
-    roundFinished: isFinished(state.CellsReducer),
-    message: getStatusMessage(state.CellsReducer, state.PlayerReducer),
+    player: state.player,
+    cells: state.cells,
+    board: getBoard(state.board),
+    winCells: getWinner(state.cells).winningState,
+    roundFinished: isFinished(state.cells),
+    message: getStatusMessage(state.cells, state.player),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => {
   return {
     onSetCell: (data: Data) => {
-      if (isValidMove(data.cells, data.cell)) {
+      if (isValidMove(data.cells, data.position)) {
         dispatch(addMove(data));
       }
     },

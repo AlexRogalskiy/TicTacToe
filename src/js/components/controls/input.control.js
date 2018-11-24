@@ -7,18 +7,25 @@ import React, { Component, Node } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: object,
-	isDisabled?: boolean,
-	children?: Node
+	dataClass?: Object<any>;
+	isDisabled?: boolean;
+	children?: Node;
+};
+type State = {
+	isDisabled?: boolean;
 };
 
-export default class InputControl extends Component<Props> {
+export default class InputControl extends Component<Props, State> {
   displayName = 'InputControl';
   
   input: ?HTMLInputElement;
 
+  state: State = {
+	  isDisabled: false
+  };
+  
   static defaultProps: Props = {
       className: 'input',
 	  dataClass: {
@@ -27,6 +34,11 @@ export default class InputControl extends Component<Props> {
 	  isDisabled: false
   };
 
+  constructor(props: Props): void {
+    super(props);
+    this.state = { isDisabled: props.isDisabled };
+  }
+  
   render(): Node {
     const {
       className,
@@ -42,7 +54,7 @@ export default class InputControl extends Component<Props> {
             ref={input => {
               this.input = input;
             }} 
-			disabled={isDisabled}
+			disabled={this.state.isDisabled}
             {...rest}
           />
           {children}

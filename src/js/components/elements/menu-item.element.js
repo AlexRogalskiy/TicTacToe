@@ -6,12 +6,12 @@
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
-import IconElement from 'app-root/components/elements/icon.element';
+import IconElement from 'components/elements/icon.element';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-	children?: Node
+	dataClass?: Object<any>;
+	children?: Node;
 };
 
 export default class MenuItemElement extends Component<Props> {

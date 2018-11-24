@@ -6,16 +6,16 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-// @flow
+/* @flow */
 type TableHeader = {
-	id?: string,
-	name?: string,
-	ref?: string,
-	className?: string,
-	content?: Object<any>
+	id?: string;
+	name?: string;
+	ref?: string;
+	className?: string;
+	content?: Object<any>;
 };
 type Props = {
-	 data: Array<TableHeader>
+	 data: Array<TableHeader>;
 };
 
 export default class TableHeadElement extends Component<Props> {

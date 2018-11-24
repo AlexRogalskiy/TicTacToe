@@ -8,25 +8,26 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 // import update     from 'react-addons-update';
 //import { ClassNames } from 'classnames/bind';
-// import Logger from 'appRoot/js/mixins/logger';
+// import Logger from 'mixins/logger';
 
-import BasicButtonControl from 'appRoot/components/controls/basic-button.control';
-import BasicListControl from 'appRoot/js/components/controls/basic-list.control';
-//import { BasicTodoListStyle } from 'app-root/components/controls/basicTodoListControl';
+import BasicButtonControl from 'components/controls/basic-button.control';
+import BasicListControl from 'components/controls/basic-list.control';
+//import { BasicTodoListStyle } from 'components/controls/basicTodoListControl';
 //let Styles = ClassNames.bind(BasicTodoListStyle);
 
-// @flow
+/* @flow */
+type TodoItem = {
+	name: string;
+	className: string;
+	content: Object<any>;
+};
 type Props = {
-	dataClass?: object,
-	isDisabled?: boolean,
-	transition: object
+	dataClass?: Object<any>;
+	isDisabled?: boolean;
+	transition: Object<any>;
 };
 type State = {
-	items: Array<{
-		name: string,
-		className: string,
-		content: object
-	}>
+	items: Array<TodoItem>;
 };
 
 export default class TodoListControl extends Component<Props, State> {
@@ -51,7 +52,7 @@ export default class TodoListControl extends Component<Props, State> {
     super(props);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    //this.state = { items: props.items };
+    this.state = { items: props.items };
   }
 
   addItem(): void {

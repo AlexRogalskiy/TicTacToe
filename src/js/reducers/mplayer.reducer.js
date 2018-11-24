@@ -3,8 +3,8 @@
 /**
  * Module dependencies
  */
-import { PLAY, PAUSE, STOP, BACKWARD, FORWARD, UPDATE_TIME, SELECT_TRACK } from 'app-root/constants/mplayer.constant';
-import type { MTrack, MPlayerAction, MPlayerState } from 'app-root/types/mplayer.type';
+import { PLAY, PAUSE, STOP, BACKWARD, FORWARD, UPDATE_TIME, SELECT_TRACK } from 'constants/mplayer.constant';
+import type { MTrack, MPlayerAction, MPlayerState } from 'types/mplayer.type';
 
 const initialState: MPlayerState = {
 	tracks: {},
@@ -75,6 +75,6 @@ const MPlayerReducer = (state: MPlayerState = initialState, action: MPlayerActio
 		default:
 			return state;
 	}
-};
+};s
 
 export default MPlayerReducer;

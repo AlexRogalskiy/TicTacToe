@@ -6,16 +6,16 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-// @flow
+/* @flow */
 type TableRow = {
-	id?: string,
-	name?: sring,
-	ref?: string,
-	className?: string,
-	content?: Object<any>
+	id?: string;
+	name?: string;
+	ref?: string;
+	className?: string;
+	content?: Object<any>;
 };
 type Props = {
-	data: Array<TableRow>
+	data: Array<TableRow>;
 };
 
 export default class TableRowElement extends Component<Props> {

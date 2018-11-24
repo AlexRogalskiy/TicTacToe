@@ -7,16 +7,16 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-import BasicInputControl from 'app-root/components/controls/basic-input.control';
+import BasicInputControl from 'components/controls/basic-input.control';
 
-// @flow
+/* @flow */
 type Props = {
-	isDisabled?: boolean,
-	onChange?: func,
-	children?: Node
+	isDisabled?: boolean;
+	onChange?: func;
+	children?: Node;
 };
 type State = {
-	isDisabled: boolean
+	isDisabled: boolean;
 };
 
 export default class BasicFilterInputControl extends Component<Props, State> {

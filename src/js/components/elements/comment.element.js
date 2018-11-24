@@ -7,10 +7,10 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import marked from 'marked';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-	children?: Node
+	dataClass?: Object<any>;
+	children?: Node;
 };
 
 export default class CommentElement extends Component<Props> {

@@ -6,28 +6,28 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-import TableHeadElement from 'app-root/components/elements/table-head.element';
-import TableRowElement from 'app-root/components/elements/table-row.element';
+import TableHeadElement from 'components/elements/table-head.element';
+import TableRowElement from 'components/elements/table-row.element';
 
-// @flow
+/* @flow */
 type TableHeader = {
-	id?: string,
-	name?: string,
-	ref?: string,
-	className?: string,
-	content?: Object<any>
+	id?: string;
+	name?: string;
+	ref?: string;
+	className?: string;
+	content?: Object<any>;
 };
 type TableRow = {
-	id?: string,
-	name?: sring,
-	ref?: string,
-	className?: string,
-	content?: Object<any>
+	id?: string;
+	name?: sring;
+	ref?: string;
+	className?: string;
+	content?: Object<any>;
 };
 type Props = {
 	data: Object<{
-		headers: Array<TableHeader>,
-		rows: Array<TableRow>
+		headers: Array<TableHeader>;
+		rows: Array<TableRow>;
 	}>
 };
 

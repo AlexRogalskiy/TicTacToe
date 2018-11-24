@@ -6,14 +6,14 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	endpoint: string
+	endpoint: string;
 };
 type State = {
-	isConnected: boolean
+	isConnected: boolean;
 };
 	
 export default function SocketWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props, State> {
@@ -35,14 +35,14 @@ export default function SocketWrapper<Props: {}>(WrappedComponent: React.Compone
       this.onDisconnect = this.onDisconnect.bind(this);
     }
 
-    onConnect(socket: object): func {
+    onConnect(socket: Object<any>): func {
       return () => {
         Logger.debug(`onConnect: connected by socket with id=${socket.id}`);
         this.setState({ isConnected: true });
       };
     }
 
-    onDisconnect(socket: object): func {
+    onDisconnect(socket: Object<any>): func {
       return () => {
         Logger.debug(
           `onDisconnect: disconnected from socket with id=${socket.id}`

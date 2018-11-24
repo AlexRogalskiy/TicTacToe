@@ -9,18 +9,19 @@ import { style, classes } from 'typestyle';
 //import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 //import ClassNames from 'classnames/bind';
-//import Logger     from 'appRoot/mixins/logger';
-import BasicButtonControl from 'app-root/components/controls/basic-button.control';
-//import BasicToggleButtonStyle from 'appRoot/css/components/controls/basicToggleButtonControl';
+//import Logger     from 'mixins/logger';
+import BasicButtonControl from 'components/controls/basic-button.control';
+//import BasicToggleButtonStyle from 'css/components/controls/basicToggleButtonControl';
 //let Styles = ClassNames.bind(BasicToggleButtonStyle);
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: object,
-	flipped?: boolean
+	dataClass?: Object<any>;
+	flipped?: boolean;
+	onClick?: func;
 };
 type State = {
-	flipped: boolean
+	flipped: boolean;
 };
 
 export default class BasicToggleButtonControl extends BasicButtonControl {
@@ -42,12 +43,12 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
         this.state = { flipped: props.flipped };
     }
 
-	onClick(event: SyntheticEvent<HTMLButtonElement>) {
+	onClick(event: SyntheticEvent<HTMLButtonElement>): func {
 		this.flip();
-		super.onClick(event);
+		return super.onClick(event);
 	}
 
-	flip() {
+	flip(): void {
     	this.setState({ flipped: !this.state.flipped });
   	}
 	render() {

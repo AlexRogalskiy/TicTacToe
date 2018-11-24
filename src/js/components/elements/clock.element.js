@@ -6,14 +6,14 @@
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
-// @flow
+/* @flow */
 type Props = {
-    message?: string,
-	dataClass?: Object<any>,
-    date?: Object<date>
+    message?: string;
+	dataClass?: Object<any>;
+    date?: Object<date>;
 };
 type State = {
-	date: Object<date>
+	date: Object<date>;
 };
 
 export default class ClockElement extends Component<Props, State> {

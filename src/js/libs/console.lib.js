@@ -5,7 +5,7 @@
  */
 import { isNullOrUndefined } from './helpers.lib';
 
-const Console = ((globals: object) => {
+const Console = ((globals: Object<any>) => {
 	if (!globals.console) {
 		globals.console = {};
 	}

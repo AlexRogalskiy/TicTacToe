@@ -23,7 +23,7 @@ export default class Fields {
       : ReactDOM.findDOMNode(this).querySelector('[name=' + ref + '] input');
   }
 
-  static validateField(fieldName: string, constraintOverride: object): bool {
+  static validateField(fieldName: string, constraintOverride: Object<any>): boolean {
     let fieldVal = this.getInputField(fieldName).value;
     if (fieldName in this.constraints) {
       let currentConstraint = constraintOverride || this.constraints[fieldName];
@@ -33,7 +33,7 @@ export default class Fields {
     return true;
   }
 
-  static validateFields(nodes: array): object {
+  static validateFields(nodes: Array<any>): Object<any> {
     let detail = {},
       validationState = {},
       hasErrors = false;

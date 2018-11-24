@@ -4,10 +4,11 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	children?: Node
+	children?: Node;
 };
 
 export default class FooterPartial extends Component<Props> {
@@ -19,6 +20,6 @@ export default class FooterPartial extends Component<Props> {
 
   render(): Node {
     const { children, ...rest } = this.props;
-    return <footer {...rest}>{ children }</footer>;
+    return <Elements.Footer {...rest}>{ children }</Elements.Footer>;
   }
 };

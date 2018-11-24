@@ -3,14 +3,14 @@
 /**
  * Module dependencies
  */
-import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'app-root/constants/tictactoe.constant';
-import type { Data, Action } from 'app-root/types/mplayer.type';
+import { ADD_MOVE, RESET, START, INITIALIZE, FINALIZE } from 'constants/tictactoe.constant';
+import type { Data, Action } from 'types/tictactoe.type';
 
 const addMove = (data: Data): Action => {
   //let response = await fetch(...);
   return {
     type: ADD_MOVE,
-    cell: data.cell,
+    position: data.position,
     player: data.player
   };
 };

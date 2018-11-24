@@ -8,26 +8,27 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 //import ClassNames from 'classnames/bind';
 
-import BasicInputControl from 'app-root/components/controls/basic-input.control';
-import BasicListControl from 'app-root/components/controls/basic-list.control';
+import BasicInputControl from 'components/controls/basic-input.control';
+import BasicListControl from 'components/controls/basic-list.control';
 
-//import BasicFilterListStyle from 'appRoot/css/components/controls/basicFilterListControl';
+//import BasicFilterListStyle from 'css/components/controls/basicFilterListControl';
 //let Styles = ClassNames.bind(BasicFilterListStyle);
 
-// @flow
+/* @flow */
+type ListItem = {
+	title: string;
+	data: Object<any>;
+	key: string;
+	className: string;
+};
 type Props = {
-    dataClass?: object,
-	onChange?: func
+    dataClass?: Object<any>;
+	onChange?: func;
 };
 type State = {
-	filter?: string,
-	height?: number,
-	items: Array<{
-		title: string,
-		data: object,
-		key: string,
-		className: string
-	}>
+	filter?: string;
+	height?: number;
+	items: Array<ListItem>;
 };
 
 export default class BasicFilterListControl extends Component<Props, State> {
@@ -50,15 +51,15 @@ export default class BasicFilterListControl extends Component<Props, State> {
         });
     }
   
-  onChange(field: string): func {
-    return (event: SyntheticEvent<HTMLInputElement>) => {
-      let state = { filter: event.currentTarget.value }; //ReactDOM.findDOMNode(this.refs.search).value
-	  this.setState(state);
-      if (this.props.onChange) {
-        this.props.onChange(event);
-      }
-    };
-  }
+	onChange(field: string): func {
+		return (event: SyntheticEvent<HTMLInputElement>) => {
+		  let state = { filter: event.currentTarget.value }; //ReactDOM.findDOMNode(this.refs.search).value
+		  this.setState(state);
+		  if (this.props.onChange) {
+			this.props.onChange(event);
+		  }
+		};
+	}
 	
     render(): Node {
         const { className, dataClass, ...rest } = this.props;

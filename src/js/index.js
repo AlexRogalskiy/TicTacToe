@@ -12,18 +12,18 @@ import createHistory from 'history/createHashHistory';
 
 import style from '../css/style.css';
 
-import AppView from 'app-root/views/app.view';
-import TicTacToeStore from 'app-root/stores/tictactoe.store';
-import registerServiceWorker from 'app-root/vendor/service/service-worker';
+import AppView from 'views/app.view';
+import TicTacToeStore from 'stores/tictactoe.store';
+import registerServiceWorker from 'vendor/service/service-worker';
 
-// @flow
+/* @flow */
 type Props = {
 	component: React.ComponentType<{}>,
 	store: React.ComponentType<{}>,
 	wrapper: HTMLElement
 };
 
-const render = (props: Props) =>
+const render = (props: Props): void =>
 	ReactDOM.render(
     <Provider store={props.store}>
       <Router history={ createHistory({ queryKey: false }) }>

@@ -8,11 +8,11 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import { withRouter } from "react-router";
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-    router: Object<any>,
-	children?: Node
+	dataClass?: Object<any>;
+    router: Object<any>;
+	children?: Node;
 };
 
 class LinkElement extends Component<Props> {

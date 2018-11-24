@@ -8,16 +8,16 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type Props = {
-  endpoint: string,
-  onConnect?: func,
-  onDisconnect?: func
+  endpoint: string;
+  onConnect?: func;
+  onDisconnect?: func;
 };
 type State = {
-  isConnected: boolean
+  isConnected: boolean;
 };
 
 export default class SocketConnectorService extends Component<Props, State> {

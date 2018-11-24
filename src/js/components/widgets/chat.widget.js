@@ -9,20 +9,21 @@ import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 //import $ from 'jquery';
 
-import { isNullOrUndefined } from 'app-root/libs/helpers.lib';
-import LoaderElement from 'app-root/components/elements/loader.element';
-import Logger from 'app-root/libs/logger.lib';
+import LoaderElement from 'components/elements/loader.element';
 
-// @flow
+import { isNullOrUndefined } from 'libs/helpers.lib';
+import Logger from 'libs/logger.lib';
+
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-    onConnect: func,
-	onDisconnect: func
+	dataClass?: Object<any>;
+    onConnect: func;
+	onDisconnect: func;
 };
 type State = {
-	isAuthorized: boolean,
-	isTyping: boolean,
-	response: Object<any>
+	isAuthorized: boolean;
+	isTyping: boolean;
+	response: Object<any>;
 };
 
 export default class ChatWidget extends Component<Props, State> {

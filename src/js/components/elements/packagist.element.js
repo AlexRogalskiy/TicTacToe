@@ -4,7 +4,8 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import packageJSON from 'app-root/../package.json';s
+import packageJSON from 'app-root/../package.json';
+import { Elements } from 'libs/elements.lib';
 
 export default class PackagistElement extends Component<{}> {
 	displayName: string = 'PackagistElement';
@@ -13,12 +14,12 @@ export default class PackagistElement extends Component<{}> {
 		let deps = Object.keys(packageJSON.dependencies).map((dep, i) => <li key={i}>{dep}</li>);
 		let devDeps = Object.keys(packageJSON.devDependencies).map((dep, i) => <li key={i + 10}>{dep}</li>);
 		return (
-			<div>
-				<h2>Powered by</h2>
-				<ul>
+			<Elements.View>
+				<Elements.Head_2>Powered by</Elements.Head_2>
+				<Elements.List>
 					{[...deps, ...devDeps]}
-				</ul>
-			</div>
+				</Elements.List>
+			</Elements.View>
 		);
 	}
 };

@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module dependencies
+ */
+import Logger from 'libs/logger.lib';
+
 /* @flow */
 type Props ={
 	intervals: Array<func>

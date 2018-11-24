@@ -5,12 +5,13 @@
  */
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
-import IconElement from 'app-root/components/elements/icon.element';
+import IconElement from 'components/elements/icon.element';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-	title?: string
+	dataClass?: Object<any>;
+	title?: string;
 };
 
 export default class TextMenuItemElement extends Component<Props> {
@@ -40,10 +41,10 @@ export default class TextMenuItemElement extends Component<Props> {
     	const { className, dataClass, title, onClick, ...rest } = this.props;
         const { iconClass, ...restClass } = dataClass;
         return (
-            <li key={key} className={className} onClick={this.onClick(this.props.name)} {...rest}>
+            <Elements.ListItem key={key} className={className} onClick={this.onClick(this.props.name)} {...rest}>
 				<IconElement className={iconClass} />
 				{title}
-			</li>
+			</Elements.ListItem>
         );
     }
 };

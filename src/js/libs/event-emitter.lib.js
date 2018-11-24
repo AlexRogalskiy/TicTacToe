@@ -20,7 +20,7 @@ export default class EventEmitter {
         }
     }
 
-    emit(data: object): void {
+    emit(data: Object<any>): void {
         this.listeners.forEach(fn => fn(data));
     }
 };

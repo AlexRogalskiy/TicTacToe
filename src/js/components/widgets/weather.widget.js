@@ -8,17 +8,18 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import socketIOClient from 'socket.io-client';
 
-import LoaderElement from 'app-root/components/elements/loader.element';
-import Logger, { tag } from 'app-root/libs/logger.lib';
+import LoaderElement from 'components/elements/loader.element';
+import { Elements } from 'libs/elements.lib';
+import Logger, { tag } from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-	onConnect?: func,
-	onDisconnect?: func
+	dataClass?: Object<any>;
+	onConnect?: func;
+	onDisconnect?: func;
 };
 type State = {
-	response: Object<any>
+	response: Object<any>;
 };
 
 export default class WeatherWidget extends Component<Props, State> {
@@ -33,7 +34,7 @@ export default class WeatherWidget extends Component<Props, State> {
      dataClass: { weatherWidgetInfo: 'weather-widget-info' }
   };
 
-  onConnect(socket: object): void {
+  onConnect(socket: object): func {
     return () => {
       if (this.props.onConnect) {
         this.props.onConnect(socket).call(this);
@@ -42,7 +43,7 @@ export default class WeatherWidget extends Component<Props, State> {
     };
   }
 
-  onDisconnect(socket: object): void {
+  onDisconnect(socket: object): func {
     return () => {
       if (this.props.onDisconnect) {
         this.props.onDisconnect(socket).call(this);
@@ -50,7 +51,7 @@ export default class WeatherWidget extends Component<Props, State> {
     };
   }
 
-  onEvent(socket: object): void {
+  onEvent(socket: object): func {
     return data => {
       Logger.debug(
         tag`onEvent: <event> data ${data} from socket with id=${socket.id}`
@@ -76,12 +77,12 @@ export default class WeatherWidget extends Component<Props, State> {
     } = this.props;
     rest.className = dataClass.weatherWidgetInfo;
     const response = this.state.response ? (
-      <div {...rest}>{this.state.response}</div>
+      <Elements.View {...rest}>{ this.state.response }</Elements.View>
     ) : (
       <LoaderElement />
     );
     const elements = isConnected ? (
-      <div className={className}>{response}</div>
+      <Elements.View className={className}>{ response }</Elements.View>
     ) : null;
     return <>{elements}</>;
   }

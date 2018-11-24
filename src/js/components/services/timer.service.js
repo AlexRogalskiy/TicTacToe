@@ -7,6 +7,7 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 import Bacon from 'bacon';
+import { Elements } from 'libs/elements.lib';
 
 const time = Bacon.fromBinder(observer => {
   const timer = setTimeout(() => {
@@ -17,12 +18,12 @@ const time = Bacon.fromBinder(observer => {
   };
 });
 
-// @flow
+/* @flow */
 type Props = {
-	message?: string
+	message?: string;
 };
 type State = {
-	time: number
+	time: number;
 };
 
 export default class TimerService extends Component<Props, State> {
@@ -48,7 +49,7 @@ export default class TimerService extends Component<Props, State> {
   render(): Node {
 	  const {className, ...rest} = this.props;
       return (
-          <div className={className} {...rest}>{message} {this.state.time}</div>
+          <Elements.View className={className} {...rest}>{ message } { this.state.time }</Elements.View>
       );
   }
 };

@@ -4,11 +4,12 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	message: string,
-	children?: Node
+	message: string;
+	children?: Node;
 };
 
 export default class StatusBarElement extends Component<Props> {
@@ -24,10 +25,10 @@ export default class StatusBarElement extends Component<Props> {
     const messages = message ? <div>{ message }</div> : null;
     const childs = children ? <div>{ children }</div> : null;
     return (
-      <div className={className} {...rest}>
+      <Elements.View className={className} {...rest}>
         { messages }
         { childs }
-      </div>
+      </Elements.View>
     );
   }
 };

@@ -6,23 +6,23 @@
 import React, { Component, Node } from 'react';
 import { Link } from 'react-router';
 
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import SimulatorElement from 'components/elements/simulator.element';
+import EditorElement from 'components/elements/editor.element';
 
-import SimulatorElement from 'app-root/components/elements/simulator.element';
-import EditorElement from 'app-root/components/elements/editor.element';
-
-// @flow
+/* @flow */
+type ListItem = {
+	id: string;
+	data: Object<any>;
+};
 type Props = {
-	data?: Object<{
-		id: string,
-		data: Object<any>
-	}>,
-	title?: string,
-	params?: Object<any>,
-	children?: Node
+	data?: Object<ListItem>;
+	title?: string;
+	params?: Object<any>;
+	children?: Node;
 };
 type State = {
-	code?: string
+	code?: string;
 };
 
 export default class EditPageElement extends Component<Props, State> {
@@ -42,8 +42,7 @@ export default class EditPageElement extends Component<Props, State> {
   };
 
   componentDidMount(): void {
-    const code = this.props.data[this.props.params.id];
-    this.setState({ code });
+    this.setState({ this.props.data[this.props.params.id] });
   }
   
   render(): Node {

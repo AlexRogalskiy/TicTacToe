@@ -6,7 +6,7 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
 export default function EnricherWrapper<Props: {}>(Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { name: string | void }>> {
 	return function wrapper(props: Props) {

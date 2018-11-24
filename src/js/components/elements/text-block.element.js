@@ -5,10 +5,11 @@
  */
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	content?: string
+	content?: string;
 };
 
 export default class TextBlockElement extends Component<Props> {
@@ -22,7 +23,7 @@ export default class TextBlockElement extends Component<Props> {
   render(): Node {
     const { className, content, ...rest } = this.props;
     return (
-		<span className={className} {...rest}>{ content }</span>
+		<Elements.Text className={className} {...rest}>{ content }</Elements.Text>
     );
   }
 };

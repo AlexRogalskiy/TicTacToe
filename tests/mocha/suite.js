@@ -5,8 +5,8 @@
  */
 const assert = require('chai').assert;
 
-const { isFunction } = require('../../src/js/libs/helpers');
-const normalizeSelector = require('../../src/js/libs/normalize');
+const { isFunction } = require('../../src/js/libs/helpers.lib');
+const normalizeSelector = require('../../src/js/libs/normalize.lib');
 
 suite('normalize');
 

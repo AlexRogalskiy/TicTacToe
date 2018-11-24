@@ -10,28 +10,28 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from 'app-root/libs/elements.lib';
-import FormsValidator from 'app-root/validators/forms.validator';
+import { MessageList } from 'libs/elements.lib';
+import FormsValidator from 'validators/forms.validator';
 
-import ButtonControl from 'app-root/components/controls/button.control';
-import InputControl from 'app-root/components/controls/input.control';
-import IconElement from 'app-root/components/elements/icon.element';
+import ButtonControl from 'components/controls/button.control';
+import InputControl from 'components/controls/input.control';
+import IconElement from 'components/elements/icon.element';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-    dataError?: Array<any>,
-	isDisabled?: boolean,
-    validator?: string,
-	onBlur?: func,
-	onChange?: func,
-	onEdit?: func,
-	onUpdate?: func,
-	children?: Node
+	dataClass?: Object<any>;
+    dataError?: Array<any>;
+	isDisabled?: boolean;
+    validator?: string;
+	onBlur?: func;
+	onChange?: func;
+	onEdit?: func;
+	onUpdate?: func;
+	children?: Node;
 };
 type State = {
-	isEditing: boolean,
-	isDisabled: boolean
+	isEditing: boolean;
+	isDisabled: boolean;
 };
 
 class BasicEditInputControl extends Component<Props, State> {
@@ -70,7 +70,7 @@ class BasicEditInputControl extends Component<Props, State> {
     this.validatorTypes = FormsValidator[props.validator] || [];
   }
 
-  getValidatorData(): object {
+  getValidatorData(): State {
     return this.state;
   }
 

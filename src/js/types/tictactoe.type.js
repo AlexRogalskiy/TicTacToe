@@ -2,42 +2,50 @@
 
 /* @flow */
 export type Player = string;
-export type Cells = Array<string>;
-export type Cell = number;
+export type Position = number;
+export type Cell = string;
+export type Cells = Array<Cell>;
 
 export type Data = {
 	board?: Board;
-	cell?: Cell;
+	position?: Position;
 	cells?: Cells;
 	player?: Player;
 	room?: string;
 };
 
+export type State = {
+	board: Board;
+	cells: Cells;
+	player: Player;
+};
+
 export type Action = BoardAction | CellsAction | PlayerAction;
 
+export type Dispatch = (action: Action | Promise<Action>) => Promise;
+
 export type Board = {
-	title: string;
 	id: string;
-	date: string;
+	title?: string;
+	date?: string;
 };
 
-export type BoardState = {
-	title: string;
-	id: string;
-	date: string;
-};
+export type BoardState = Board;
+
 export type BoardAction = {
 	type: string;
 };
 
-export type CellsState = Array<string>;
+export type CellsState = Cells;
+
 export type CellsAction = {
 	type: string;
-	cell?: number;
-	player?: string;
+	position?: Position;
+	player?: Player;
 };
 
-export type PlayerState = string;
+export type PlayerState = Player;
+
 export type PlayerAction = {
 	type: string;
 };

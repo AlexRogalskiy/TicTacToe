@@ -22,21 +22,21 @@ const DEFAULT_COLORS_PRESET = {
   red: 		'#f00000'
 };
 
-const output = (dateTime, message, ...args) =>
+const output = (dateTime: string, message: string, ...args: Array<any>): string =>
   `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 
-const getOutputStyle = (type: string) =>
+const getOutputStyle = (type: string): string =>
   'color: ' +
   (DEFAULT_COLORS_PRESET[type]
     ? DEFAULT_COLORS_PRESET[type]
     : DEFAULT_COLORS_PRESET['black']);
 
-const getTime = (format: string, utc: bool = false) => {
+const getTime = (format: string, utc: boolean = false): string => {
   format = isString(format) ? format : DEFAULT_DATETIME_FORMAT;
   return dateFormat(Date.now(), format, utc);
 };
 
-const getLocalTime = (format: string, offset: number = 0, utc: bool = false) => {
+const getLocalTime = (format: string, offset: number = 0, utc: boolean = false): string => {
   format = isString(format) ? format : DEFAULT_DATETIME_FORMAT;
   let currentDate = new Date();
   let currentTime =
@@ -45,7 +45,7 @@ const getLocalTime = (format: string, offset: number = 0, utc: bool = false) => 
   return dateFormat(localCurrentTime, format, utc);
 };
 
-export const tag = (messages: array, ...args: array) => {
+export const tag = (messages: Array<any>, ...args: Array<any>): string => {
   let result = '';
   for (let i = 0; i < args.length; i++) {
     result += messages[i];
@@ -55,7 +55,7 @@ export const tag = (messages: array, ...args: array) => {
   return result;
 };
 
-export const rawTag = (messages: array, ...args: array) => {
+export const rawTag = (messages: Array<any>, ...args: Array<any>): string => {
   let result = '';
   for (let i = 0; i < args.length; i++) {
     result += messages.raw[i];
@@ -68,37 +68,43 @@ export const rawTag = (messages: array, ...args: array) => {
 export default class Logger {
   displayName: string = 'Logger';
   
-  static debug(message: string, ...args: array) {
+  static debug(message: string, ...args: Array<any>): void {
     console.log(
       '%c' + output(getTime(), message, args),
       getOutputStyle('green')
     );
   }
 
-  static error(message: string, ...args: array) {
+  static error(message: string, ...args: Array<any>): void {
     console.error(
       '%c' + output(getTime(), message, args),
       getOutputStyle('red')
     );
   }
 
-  static warn(message: string, ...args: array) {
+  static warn(message: string, ...args: Array<any>): void {
     console.warn(
       '%c' + output(getTime(), message, args),
       getOutputStyle('blue')
     );
   }
 
-  static info(message: string, ...args: array) {
+  static info(message: string, ...args: Array<any>): void {
     console.info(
       '%c' + output(getTime(), message, args),
       getOutputStyle('pink')
     );
   }
 
-  static group(message: string, ...args: array) {
+  static group(message: string, ...args: Array<any>): void {
     console.group(output(getTime(), message));
     console.log(args);
+    console.groupEnd();
+  }
+  
+  static dir(message: string, ...args: Array<any>): void {
+    console.group(output(getTime(), message));
+    console.dir(args);
     console.groupEnd();
   }
 };

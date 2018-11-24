@@ -9,18 +9,18 @@ import { style, classes } from 'typestyle';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames';
 
-import BasicSubmitButtonControl from 'app-root/components/controls/basic-submit-button.control';
-import BasicInputControl from 'app-root/components/controls/basic-input.control';
+import BasicSubmitButtonControl from 'components/controls/basic-submit-button.control';
+import BasicInputControl from 'components/controls/basic-input.control';
 
-// @flow
+/* @flow */
 type Props = {
-    dataClass?: object;
+    dataClass?: Object<any>;
     buttonSubmitMessage?: string;
-    fields: object;
+    fields: Object<any>;
 	onSubmit?: func;
 };
 type State = {
-	fields: object;
+	fields: Object<any>;
 };
 
 export default class BasicFormControl extends Component<Props, State> {

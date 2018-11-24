@@ -11,23 +11,23 @@ import { style, classes } from 'typestyle';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import BasicInputControl from 'app-root/controls/basic-input.control';
-import BasicButtonControl from 'app-root/controls/basic-button.control';
+import BasicInputControl from 'controls/basic-input.control';
+import BasicButtonControl from 'controls/basic-button.control';
 
-import FormsValidator from 'app-root/validators/forms.validator';
+import FormsValidator from 'validators/forms.validator';
 
-import Logger from 'app-root/libs/logger.lib';
+import Logger from 'libs/logger.lib';
 
-// @flow
+/* @flow */
 type Props = {
-    dataClass?: object,
-    validator?: string,
-	buttonSubmitMessage?: string,
-	onSubmit?: func,
-    fields: object
+    dataClass?: Object<any>;
+    validator?: string;
+	buttonSubmitMessage?: string
+	onSubmit?: func;
+    fields: Object<any>;
 };
 type State = {
-	fields: object
+	fields: Object<any>;
 };
 
 class CommentFormControl extends Component<Props, State> {
@@ -47,7 +47,7 @@ class CommentFormControl extends Component<Props, State> {
 	fields: {}
   };
   
-  getValidatorData(): object {
+  getValidatorData(): State {
     return this.state;
   }
   

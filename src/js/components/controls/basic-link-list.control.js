@@ -9,21 +9,22 @@ import { style, classes } from 'typestyle';
 import { Link }  from 'react-router-dom';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames/bind';
-//import Logger from 'appRoot/mixins/logger';
+//import Logger from 'mixins/logger';
 
-// @flow
+/* @flow */
+type LinkItem = {
+	id: string;
+	path: string;
+	name: string;
+	className: string;
+	content: Object<any>;
+};
 type Props = {
-   dataClass?: object,
-   onClick?: func
+   dataClass?: Object<any>;
+   onClick?: func;
 };
 type State = {
-   items?: Array<{
-	   id: string,
-	   path: string,
-	   name: string,
-	   className: string,
-	   content: object
-   }>
+   items?: Array<LinkItem>;
 };
 
 export default class BasicLinkListControl extends Component<Props> {
@@ -43,15 +44,15 @@ export default class BasicLinkListControl extends Component<Props> {
         this.onClick = this.onClick.bind(this);
     }
 
-  onClick(field: string): func {
-    return (event: SyntheticEvent<HTMLLinkElement>) => {
-		//Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
-      this.setState(( field: event.currentTarget.src ));
-      if (this.props.onClick) {
-        this.props.onClick(event);
-      }
-    };
-  }
+	onClick(field: string): func {
+		return (event: SyntheticEvent<HTMLLinkElement>) => {
+			//Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
+		  this.setState(( field: event.currentTarget.src ));
+		  if (this.props.onClick) {
+			this.props.onClick(event);
+		  }
+		};
+	}
 
     render(): Node {
         const { className, dataClass, onClick, ...rest } = this.props;

@@ -4,11 +4,11 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
-import { polyfill } from 'app-root/libs/helpers.lib';
+import { polyfill } from 'libs/helpers.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	style: object
+	style: Object<any>;
 };
 
 export default function StylerWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {

@@ -7,13 +7,13 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: Object<any>,
-    isWinner?: boolean
+	dataClass?: Object<any>;
+    isWinner?: boolean;
 };
 type State = {
-	isWinner: boolean
+	isWinner: boolean;
 };
 
 export default class CellElement extends Component<Props, State> {
@@ -38,14 +38,14 @@ export default class CellElement extends Component<Props, State> {
       className,
       onPress,
       dataClass,
-      state,
+      value,
       isWinner,
       ...rest
     } = this.props;
     const cellClassName = classes(className, this.state.isWinner && dataClass.winnerClass);
     return (
       <div onClick={onPress} className={cellClassName} {...rest}>
-        {state}
+        { value }
       </div>
     );
   }

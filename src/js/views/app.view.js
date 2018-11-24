@@ -6,28 +6,34 @@
 import React, { Component, Node } from 'react';
 import { withRouter } from 'react-router';
 
-import TicTacToeBoardContainer from 'app-root/containers/tictactoe-board.container';
-import WeatherWidget from 'app-root/components/widgets/weather.widget';
-//import DynamicRowListControl from 'app-root/components/controls/dynamic-row-list.control';
+import TicTacToeBoardContainer from 'containers/tictactoe-board.container';
+import WeatherWidget from 'components/widgets/weather.widget';
+//import DynamicRowListControl from 'components/controls/dynamic-row-list.control';
+import StatusBar2Element from 'components/elements/statusbar2.element';
 
-import StatusBar2Element from 'app-root/components/elements/statusbar2.element';
+import HeaderPartial from 'views/partials/header.partial';
+import FooterPartial from 'views/partials/footer.partial';
 
-import HeaderPartial from 'app-root/views/partials/header.partial';
-import FooterPartial from 'app-root/views/partials/footer.partial';
-
-import SocketWrapper from 'app-root/wrappers/socket.wrapper';
-
-import config from 'app-root/resources/config.json';
+import { Elements } from 'libs/elements.lib';
+import SocketWrapper from 'wrappers/socket.wrapper';
+import config from 'resources/config.json';
 
 const scheme = config.default.scheme;
 
-export default class AppView extends Component<{}> {
+/* @flow */
+type Props = {
+	children?: Node;
+};
+
+export default class AppView extends Component<Props> {
   displayName: string = 'AppView';
- 
+
+  view: ?HTMLElement;
+  
   static defaultProps: Props = {
 	  className: 'view'
   };
-  
+
   /*shouldComponentUpdate(nextProps: Object<any>, nextState: Object<any>): boolean {
 		if (this.props.color !== nextProps.color) {
 			return true;
@@ -43,7 +49,7 @@ export default class AppView extends Component<{}> {
     const TicTacToeBoardRouterWrapper = SocketWrapper(withRouter(TicTacToeBoardContainer));
     const { staticContext, ...rest } = this.props;
     return (
-      <div {...rest}>
+      <Elements.View ref={view => (this.view = view)} {...rest}>
         <HeaderPartial>
 			<StatusBar2Element />
 		</HeaderPartial>
@@ -51,7 +57,7 @@ export default class AppView extends Component<{}> {
         <FooterPartial>
           <WeatherWidgetWrapper />
         </FooterPartial>
-      </div>
+      </Elements.View>
     );
   }
 };

@@ -5,15 +5,16 @@
  */
 import React, { Component, Node } from 'react';
 import { Router, Route, Link } from 'react-router'
-import { Elements, Stylesheets } from 'app-root/libs/elements.lib';
-import HostElement from 'app-root/components/elements/host.element';
-;
 
-// @flow
+import { Elements, Stylesheets } from 'libs/elements.lib';
+import HostElement from 'components/elements/host.element';
+
+
+/* @flow */
 type CardProps = {
-	id: number,
-	code?: string,
-	children?: Node
+	id: number;
+	code?: string;
+	children?: Node;
 };
 
 class CardElement extends Component<CardProps> {
@@ -37,10 +38,9 @@ class CardElement extends Component<CardProps> {
   }
 }
 
-// @flow
 type PageProps = {
-	data: Object<string>,
-	children?: Node
+	data: Object<string>;
+	children?: Node;
 };
 
 export default class CardPageElement extends Component<PageProps> {

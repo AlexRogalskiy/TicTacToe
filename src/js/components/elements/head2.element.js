@@ -5,14 +5,15 @@
  */
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
+import { Elements } from 'libs/elements.lib';
 
-// @flow
+/* @flow */
 type Props = {
-	message?: string
+	message?: string;
 };
 
-export default class Header2Element extends Component<Props> {
-  displayName: string = 'Header2Element';
+export default class Head2Element extends Component<Props> {
+  displayName: string = 'Head2Element';
 
   static defaultProps: Props = {
       className: 'header2',
@@ -22,7 +23,7 @@ export default class Header2Element extends Component<Props> {
   render(): Node {
     const { className, message, ...rest } = this.props;
     return (
-      <h2 className={className} {...rest}>{ message }</h2>
+      <Elements.Head_2 className={className} {...rest}>{ message }</Elements.Head_2>
     );
   }
 };

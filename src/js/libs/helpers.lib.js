@@ -4,22 +4,22 @@
  * @private
  */
 const invLog2 = 1 / Math.log(2);
-const defaultProtocolsExcept = ['127.0.0.1', '0.0.0.0', 'localhost', '::1'];
+const DEFAULT_PROTOCOL_EXCEPTION_LIST = ['127.0.0.1', '0.0.0.0', 'localhost', '::1'];
 
 
 /**
  * returns true if value is null or undefined, false - otherwise
  */
-const isNullOrUndefined = (value: object) => {
+const isNullOrUndefined = (value: Object<any>): boolean => {
   return (value === null || typeof value === 'undefined');
 };
 
 /**
  * returns native string representation of object
  */
-const toType = (obj: object) => {
+const toType = (value: Object<any>): boolean => {
   return {}.toString
-    .call(obj)
+    .call(value)
     .match(/\s([a-z|A-Z]+)/)[1]
     .toLowerCase();
 };
@@ -27,7 +27,7 @@ const toType = (obj: object) => {
 /**
  * returns true if value is number, false - otherwise
  */
-const isNumber = (value: object) => {
+const isNumber = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     (typeof value === 'number' || toType(value) === 'number') &&
@@ -38,21 +38,21 @@ const isNumber = (value: object) => {
 /**
  * returns true if value is integer number, false - otherwise
  */
-const isIntNumber = (value: object) => {
+const isIntNumber = (value: Object<any>): boolean => {
   return isNumber(value) && value % 1 === 0 && Number.isSafeInteger(value);
 };
 
 /**
  * returns true if value is positive integer or decimal, false - otherwise
  */
-const isPositive = (value: object) => {
+const isPositive = (value: Object<any>): boolean => {
   return isNumber(value) && (!/\D/.test(value) || /^\d+\.\d+$/.test(value));
 };
 
 /**
  * returns true if value is alphanumeric ([a-z],[A-Z],[0-9]), false - otherwise
  */
-const isAlphaNumeric = (value: object) => {
+const isAlphaNumeric = (value: Object<any>): boolean => {
   return (
     (isNumber(value) || isString(value)) &&
     (!/^\s*$/.test(value) && !/\W/.test(value))
@@ -62,14 +62,14 @@ const isAlphaNumeric = (value: object) => {
 /**
  * returns true if value is real number, false - otherwise
  */
-const isRealNumber = (value: object) => {
+const isRealNumber = (value: Object<any>): boolean => {
   return isNumber(value) && value % 1 !== 0;
 };
 
 /**
  * returns true if value is string, false - otherwise
  */
-const isString = (value: object) => {
+const isString = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) && (typeof value === 'string' || toType(value) === 'string')
   );
@@ -78,7 +78,7 @@ const isString = (value: object) => {
 /**
  * returns true if value is array, false - otherwise
  */
-const isArray = (value: object) => {
+const isArray = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Array]'
@@ -88,7 +88,7 @@ const isArray = (value: object) => {
 /**
  * returns true if value is JSON object, false - otherwise
  */
-const isJSON = (value: object) => {
+const isJSON = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) && Object.prototype.toString.apply(value) === '[object JSON]'
   );
@@ -97,7 +97,7 @@ const isJSON = (value: object) => {
 /**
  * returns true if value is date, false - otherwise
  */
-const isDate = (value: object) => {
+const isDate = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Date]' &&
@@ -108,7 +108,7 @@ const isDate = (value: object) => {
 /**
  * returns true if value is object, false - otherwise
  */
-const isObject = (value: object) => {
+const isObject = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     Object.prototype.toString.apply(value) === '[object Object]'
@@ -118,7 +118,7 @@ const isObject = (value: object) => {
 /**
  * returns true if value is function, false - otherwise
  */
-const isFunction = (value: object) => {
+const isFunction = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     typeof value === 'function' &&
@@ -131,7 +131,7 @@ const isFunction = (value: object) => {
 /**
  * returns true if value is boolean, false - otherwise
  */
-const isBoolean = (value: object) => {
+const isBoolean = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     (typeof value === 'boolean' || toType(value) === 'boolean')
@@ -141,7 +141,7 @@ const isBoolean = (value: object) => {
 /**
  * returns true if value is DOM element, false - otherwise
  */
-const isDomElement = (value: object) => {
+const isDomElement = (value: Object<any>): boolean => {
   return (
     !isNullOrUndefined(value) &&
     (value.nodeName ||
@@ -154,28 +154,28 @@ const isDomElement = (value: object) => {
 /**
  * returns true if value is RegExp, false - otherwise
  */
-const isRegExp = (value: object) => {
+const isRegExp = (value: Object<any>): boolean => {
   return (!isNullOrUndefined(value) && toType(value) === 'regexp');
 };
 
 /**
  * returns true if value is Iterable, false - otherwise
  */
-const isIterable = (value: object) => {
+const isIterable = (value: Object<any>): boolean => {
   return (!isNullOrUndefined(value) && isFunction(value[Symbol.iterator]));
 };
 
 /**
  * returns value1 if not null or undefined, value2 - otherwise
  */
-const fallback = (value1: object, value2: object) => {
+const fallback = (value1: Object<any>, value2: Object<any>): Object<any> => {
 	if (isNullOrUndefined(value1)) {
 		return value1;
 	}
 	return value2;
 };
 
-const polyfill = (style: object) => {
+const polyfill = (style: Object<any>): Object<any> => {
 	let computed = {};
 	for (var key in style) {
 		var value = style[key];
@@ -211,7 +211,7 @@ const polyfill = (style: object) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input as splitted by chars/letters
  */
-const wrapChars = (str: string, tmpl: string) => {
+const wrapChars = (str: string, tmpl: string): string => {
   return str.replace(/\w/g, tmpl || '<span>$&</span>');
 };
 
@@ -222,7 +222,7 @@ const wrapChars = (str: string, tmpl: string) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input splitted by words
  */
-const wrapWords = (str: string, tmpl: string) => {
+const wrapWords = (str: string, tmpl: string): string => {
   return str.replace(/\w+/g, tmpl || '<span>$&</span>');
 };
 
@@ -233,31 +233,29 @@ const wrapWords = (str: string, tmpl: string) => {
  * @param {string} tmpl Template that gets interpolated
  * @returns {string} The given input splitted by lines
  */
-const wrapLines = (str: string, tmpl: string) => {
+const wrapLines = (str: string, tmpl: string): string => {
   return str.replace(/.+$/gm, tmpl || '<span>$&</span>');
 };
 
 /**
  * Normalize a port into a number, string, or false.
  */
-const normalizePort = (val: string) => {
-  let port = parseInt(val, 10);
+const normalizePort = (value: string): any => {
+  let port = parseInt(value, 10);
   if (isNaN(port)) {
-    // named pipe
-    return val;
+    return value;
   }
   if (port >= 0) {
-    // port number
     return port;
   }
   return false;
 };
 
-const randomBinary = () => {
+const randomBinary = (): number => {
   return Math.round(Math.random());
 };
 
-const guidGenerator = () => {
+const guidGenerator = (): string => {
   const S4 = () => {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
@@ -277,7 +275,7 @@ const guidGenerator = () => {
   );
 };
 
-const revisedRandId = () => {
+const revisedRandId = (): string => {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, '')
@@ -287,21 +285,21 @@ const revisedRandId = () => {
 /**
  * 	returns element from array by rebased index
  */
-const wrapIndex = (index: number, arr: array) => {
+const wrapIndex = (index: number, arr: Array<any>): any => {
   return arr[(arr.length + Math.round(index)) % arr.length];
 };
 
 /**
  * 	returns next power of two
  */
-const nextPow2 = (value: number) => {
+const nextPow2 = (value: number): number => {
   return Math.pow(2, Math.ceil(Math.log(value) * invLog2));
 };
 
 /**
  * 	changes type of protocol of the current url
  */
-const redirect = (protocol: string = 'https', except: array = defaultProtocolsExcept) => {
+const redirect = (protocol: string = 'https', except: Array<string> = DEFAULT_PROTOCOL_EXCEPTION_LIST) => {
   const proto = protocol + ':';
   if (
     document.location.protocol !== proto &&
@@ -314,7 +312,7 @@ const redirect = (protocol: string = 'https', except: array = defaultProtocolsEx
 /**
  *  returns merged object
  */
-function mergeRecursive(obj1: object, obj2: object) {
+function mergeRecursive(obj1: Object<any>, obj2: Object<any>): Object<any> {
   if (obj1 && isNullOrUndefined(obj2)) {
     return obj1;
   }
@@ -332,7 +330,7 @@ function mergeRecursive(obj1: object, obj2: object) {
 /**
  * 	executes callback for eack key - >value pair
  */
-const forEach = (obj: object, callback: func) => {
+const forEach = (obj: Object<any>, callback: func): void => {
     for (const key in fallback(obj, {})) {
       if ({}.hasOwnProperty.call(obj, key)) {
         callback(key, obj[key]);
@@ -343,7 +341,7 @@ const forEach = (obj: object, callback: func) => {
 /**
  * 	returns true - if object contains property, false - otherwise
  */
-const hasProperty = (obj: object, property: string) => {
+const hasProperty = (obj: Object<any>, property: string): boolean => {
   let result = false;
     for (const key in fallback(obj, {})) {
       if ({}.hasOwnProperty.call(obj, key) && property === key) {
@@ -357,7 +355,7 @@ const hasProperty = (obj: object, property: string) => {
 /**
  * 	returns next element from array
  */
-const stepArray = (arr: array) => {
+const stepArray = (arr: Array<any>): any => {
   const next = Array.prototype.pop.call(arr);
   Array.prototype.unshift.call(arr, next);
   return next;
@@ -366,7 +364,7 @@ const stepArray = (arr: array) => {
 /**
  * 	returns current date
  */
-const currentDate = () => {
+const currentDate = (): string => {
   const now = new Date();
   return (
     (now.getDate() < 10 ? '0' : '') +
@@ -382,7 +380,7 @@ const currentDate = () => {
 /**
  * 	returns current time
  */
-const currentTime = () => {
+const currentTime = (): string => {
   const now = new Date();
   return (
     (now.getHours() < 10 ? '0' : '') +
@@ -400,14 +398,14 @@ const currentTime = () => {
  *  // `function() {}` has prototype, but `() => {}` doesn't
  *  // `() => {}` via Babel has prototype too.
  */
-const isStateless = (component: object) => {
+const isStateless = (component: Object<any>): boolean => {
     return !(component.prototype && component.prototype.render);
 };
 
 /**
  *  return true if touch event enabled, false - otherwise
  */
-const isTouchDevice = () => {
+const isTouchDevice = (): boolean => {
 	return 'ontouchstart' in window || 'onmsgesturechange' in window;
 };
 

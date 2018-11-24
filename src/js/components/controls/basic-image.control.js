@@ -10,12 +10,12 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from 'app-root/libs/elements.lib';
-import FormsValidator from 'app-root/validators/forms.validator';
+import { MessageList } from 'libs/elements.lib';
+import FormsValidator from 'validators/forms.validator';
 
-// @flow
+/* @flow */
 type Props = {
-	dataClass?: object;
+	dataClass?: Object<any>;
     dataError?: array;
     validator?: string;
 	onMouseOver?: func;
@@ -49,7 +49,7 @@ class BasicImageControl extends Component<Props> {
     this.validatorTypes = FormsValidator[props.validator] || [];
   }
 
-  getValidatorData(): object {
+  getValidatorData(): State {
     return this.state;
   }
 

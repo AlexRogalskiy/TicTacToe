@@ -31,7 +31,7 @@ const DEFAULT_COLORS_PRESET = [
  *  constraints are a map of supported constraint names and values
  *  validators return true if valid, false otherwise
  */
-const validate = (val: string, constraints: object) => {
+const validate = (val: string, constraints: Object<any>): string => {
   var errors = [];
   var validators = {
     minlength: {
@@ -95,10 +95,10 @@ const validate = (val: string, constraints: object) => {
 /**
  * 	executed autobinding on object properties
  */
-const autobind = (methodNames: array) => {
+const autobind = (methodNames: Array<any>): Object<any> => {
   methodNames = isArray(methodNames) ? methodNames : [];
   return {
-    componentWillMount: function() {
+    componentWillMount: () => {
       methodNames.forEach(name => {
         this[name] = this[name].bind(this);
       });
@@ -109,7 +109,7 @@ const autobind = (methodNames: array) => {
 /**
  * 	returns new object enriched with mixins
  */
-const mixin = (...mixins: array) => {
+const mixin = (...mixins: Array<any>): Object<any> => {
   var base = function() {};
   Object.assign(base.prototype, ...mixins);
   return base;
@@ -118,7 +118,7 @@ const mixin = (...mixins: array) => {
 /**
  * 	returns object with properties filtered by predicate
  */
-const filter = (obj: object, predicate: func) => {
+const filter = (obj: Object<any>, predicate: func): Object<any> => {
   var result = {},
     key;
   for (key in obj) {
@@ -132,7 +132,7 @@ const filter = (obj: object, predicate: func) => {
 /**
  * 	returns the color by username
  */
-const getColorByUsername = (username: string, colors: array) => {
+const getColorByUsername = (username: string, colors: Array<any>): any => {
   colors = isArray(colors) ? colors : DEFAULT_COLORS_PRESET;
   var hash = 7;
   for (var i = 0; i < username.length; i++) {
@@ -145,7 +145,7 @@ const getColorByUsername = (username: string, colors: array) => {
 /**
  * 	returns lexical description of date/time
  */
-const toLexicalDate = (date: date) => {
+const toLexicalDate = (date: date): string => {
   date = isNullOrUndefined(date) ? Date.now() : date;
   var diff = (new Date().getTime() - date.getTime()) / 1000;
   var day_diff = Math.floor(diff / 86400);
@@ -164,7 +164,7 @@ const toLexicalDate = (date: date) => {
 /**
  * 	returns lexical representation of memory volume
  */
-const lexicalSize = (size: number) => {
+const lexicalSize = (size: number): string => {
   if (size < 0) return;
   var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
   var ord = Math.floor(Math.log(size) / Math.log(1024));
@@ -178,8 +178,8 @@ const lexicalSize = (size: number) => {
  */
 const colorize = (
   color: string,
-  params: object = { r: 0.299, g: 0.587, b: 0.114 }
-) => {
+  params: Object<any> = { r: 0.299, g: 0.587, b: 0.114 }
+): number => {
   color = color.startsWith('#') ? color.substring(1) : color;
   let c = parseInt(color, 16);
   let r = (c & 0xff0000) >> 16;
@@ -191,7 +191,7 @@ const colorize = (
 /**
  * 	returns result of promise by timeout
  */
-const wait = (timeout: number) => {
+const wait = (timeout: number): Promise => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve();
@@ -202,7 +202,7 @@ const wait = (timeout: number) => {
 /**
  *  returns result of request by retries count
  */
-const async requestWithRetry = (url: string, count: number) => {
+const async requestWithRetry = (url: string, count: number, request: func = Function.prototype): any => {
   const MAX_RETRIES = isPositive(count) ? count : 10;
   for (let i = 0; i <= MAX_RETRIES; i++) {
     try {
@@ -223,7 +223,7 @@ const async executeAsync = (
   fn1: func,
   fn2: func,
   fn3: func
-) => {
+): any => {
   try {
     const valueA = await fn1();
     const valueB = await fn2(valueA);
@@ -236,7 +236,7 @@ const async executeAsync = (
 /**
  *  returns gravatar url
  */
-const getGravatarUrl = (url: string = 'http://www.gravatar.com/avatar/', name: string) => {
+const getGravatarUrl = (url: string = 'http://www.gravatar.com/avatar/', name: string): string => {
 	let hash = md5(name);
 	return `${url}${hash.toString()}`;
 };
