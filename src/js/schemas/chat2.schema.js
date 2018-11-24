@@ -1,6 +1,6 @@
 'use strict';
 
-export const MPlayerSchema = {
+export const Chat2Schema = {
   title: 'Anonymous chat schema',
   description: 'Database schema for an anonymous chat',
   version: 0,
@@ -15,4 +15,4 @@ export const MPlayerSchema = {
     }
   },
   required: ['message']
-}
+};

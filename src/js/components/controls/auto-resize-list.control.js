@@ -54,7 +54,7 @@ export default class AutoResizeListControl extends Component<Props, State> {
 		super(props);
 		//this.view = React.createRef();
 		this.renderRow = this.renderRow.bind(this);
-		this.state = { isDisabled: props.isDisabled };
+		//this.state = { isDisabled: props.isDisabled };
 		this.list = Array(props.rowCount).fill().map((val, idx) => {
 			return {
 				id: idx, 

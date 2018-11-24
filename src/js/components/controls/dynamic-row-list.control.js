@@ -51,7 +51,7 @@ export default class DynamicRowListControl extends Component<Props, State> {
 	constructor(props: Props): void {
 		super(props);
 		this.renderRow = this.renderRow.bind(this);
-		this.state = { isDisabled: props.isDisabled };
+		//this.state = { isDisabled: props.isDisabled };
 		this.list = Array(props.rowCount).fill().map((val, idx) => {
 			return {
 				id: idx, 

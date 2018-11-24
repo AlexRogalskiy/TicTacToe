@@ -8,62 +8,80 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
 import * as RxDB from 'rxdb';
-import * as moment from 'moment';
-import { QueryChangeDetector } from 'rxdb';
+import moment from 'moment';
+
 import { ToastContainer, toast } from 'react-toastify';
 // The following line is not needed for react-toastify v3, only for v2.2.1
 //import 'react-toastify/dist/ReactToastify.min.css';
 
-import Chat2Schema from 'schemas/chat2.schema';
+import { Chat2Schema } from 'schemas/chat2.schema';
 import { Elements } from 'libs/elements.lib';
 import { isNullOrUndefined } from 'libs/helpers.lib';
 import Logger from 'libs/logger.lib';
 
-QueryChangeDetector.enable();
-QueryChangeDetector.enableDebugging();
+//RxDB.QueryChangeDetector.enable();
+RxDB.QueryChangeDetector.enableDebugging();
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
+//enable syncing over http
 RxDB.plugin(require('pouchdb-adapter-http'));
 
-const syncURL = 'http://localhost:5984/';
+const syncURL = 'http://localhost:5984/';//5984
 const dbName = 'chat2db';
+
+const collections = [
+    {
+        name: 'heroes',
+        schema: require('schemas/chat2.schema.js').default,
+        methods: {
+            hpPercent() {
+                return this.hp / this.maxHP * 100;
+            }
+        },
+        sync: true
+    }
+];
 
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
-    onConnect: func;
-	onDisconnect: func;
+	isDisabled?: boolean;
+	logo?: string;
+	children?: Node;
 };
 type Message = string;
 type State = {
 	isAuthorized?: boolean;
 	isTyping?: boolean;
 	newMessage: Message;
+	isDisabled: boolean;
 	messages: Array<Message>;
 };
 
 export default class Chat2Widget extends Component<Props, State> {
 	displayName: string = 'Chat2Widget';
 	
+	view: ?HTMLElement;
+
 	state: State = {
 	  isAuthorized: false,
 	  isTyping: false,
 	  newMessage: '',
+	  isDisabled: false,
 	  messages: []
 	};
 	
 	subs: Array<any> = [];
 	
 	static defaultProps: Props = {
-		  className: 'cell',
+		  className: 'App',
 		  dataClass: {
-			chatPageClass: 'chat page',
-			chatAreaClass: 'chatArea',
-			chatMessagesClass: 'messages',
-			chatMessageInputClass: 'inputMessage',
-			chatLoginPage: 'login page',
-			chatNameInputClass: 'usernameInput',
-		  }
+			headerClass: 'App-header',
+			imageClass: 'App-logo',
+			titleClass: 'App-title'
+		  },
+		  logo: '../images/logo.jpg',
+		  isDisabled: false
 	};
   
 	constructor(props: Props): void {
@@ -75,19 +93,40 @@ export default class Chat2Widget extends Component<Props, State> {
 	async createDatabase(): void {
 		// password must have at least 8 characters
 		const db = await RxDB.create(
-		  {name: dbName, adapter: 'idb', password: '12345678'}
+			{name: dbName, adapter: 'idb', password: '12345678'}
 		);
-		  Logger.dir(db);
+		Logger.dir("Database schema", db);
 
 		// show who's the leader in page's title
 		db.waitForLeadership().then(() => {
-		  document.title = '♛ ' + document.title;
+			document.title = '♛ ' + document.title;
 		});
+		
+		//await Promise.all(collections.map(colData => db.collection(colData)));
+
+		/*// hooks
+		console.log('DatabaseService: add hooks');
+		db.collections.heroes.preInsert(docObj => {
+			const { color } = docObj;
+			return db.collections.heroes.findOne({color}).exec().then(has => {
+				if (has != null) {
+					alert('another hero already has the color ' + color);
+					throw new Error('color already there');
+				}
+				return db;
+			});
+		});
+		// sync
+		console.log('DatabaseService: sync');
+		collections.filter(col => col.sync).map(col => col.name).map(colName => db[colName].sync({
+			remote: syncURL + colName + '/'
+		}));*/
 
 		// create collection
 		const messagesCollection = await db.collection({
 		  name: 'messages',
-		  schema: schema
+		  schema: Chat2Schema,
+		  sync: true
 		});
 
 		// set up replication
@@ -96,22 +135,22 @@ export default class Chat2Widget extends Component<Props, State> {
 		this.subs.push(
 		  replicationState.change$.subscribe(change => {
 			toast('Replication change');
-			Logger.dir(change)
+			Logger.dir("Subscribe change", change)
 		  })
 		);
 		this.subs.push(
-		replicationState.docs$.subscribe(docData => Logger.dir(docData))
+			replicationState.docs$.subscribe(docData => Logger.dir("Subscribe data", docData))
 		);
 		this.subs.push(
-		  replicationState.active$.subscribe(active => toast(`Replication active: ${active}`))
+			replicationState.active$.subscribe(active => toast(`Replication active: ${active}`))
 		);
 		this.subs.push(
-		  replicationState.complete$.subscribe(completed => toast(`Replication completed: ${completed}`))
+			replicationState.complete$.subscribe(completed => toast(`Replication completed: ${completed}`))
 		);
 		this.subs.push(
 		  replicationState.error$.subscribe(error => {
 			toast('Replication Error');
-			Logger.dir(error)
+			Logger.dir("Subscribe error", error)
 		  })
 		);
 		return db;
@@ -160,14 +199,15 @@ export default class Chat2Widget extends Component<Props, State> {
 	}
 
 	render(): Node {
-		const { className, dataClass, ...rest } = this.props;
+		const { className, dataClass, isDisabled, logo, children, ...rest } = this.props;
+		const { headerClass, imageClass, titleClass, ...restClass } = dataClass;
 		//const response = this.state.response ? <Elements.View {...rest}>{this.state.response}</Elements.View> : <LoaderElement />;
-		//const elements = isConnected ? <Elements.View className={className}>{response}</Elements.View> : null;
+		//const elements = isConnected ? <Elements.View className={titleClass}>{response}</Elements.View> : null;
 		return (
-		  <Elements.View className="App">
+		  <Elements.View className={className} ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}>
 			<ToastContainer autoClose={3000} />
-			<Elements.View className="App-header">
-			  <Elements.Image src={logo} className="App-logo" alt="logo" />
+			<Elements.View className={headerClass}>
+			  <Elements.Image src={logo} className={imageClass} alt="logo" />
 			  <Elements.Head_2>Welcome to React</Elements.Head_2>
 			</Elements.View>
 

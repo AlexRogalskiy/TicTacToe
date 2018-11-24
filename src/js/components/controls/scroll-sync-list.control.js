@@ -14,7 +14,7 @@ import { Elements } from 'libs/elements.lib';
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
-	isDisabled: boolean;
+	isDisabled?: boolean;
 	logo?: string;
 	rowCount?: number;
 	rowHeight?: number;
@@ -57,7 +57,7 @@ export default class ScrollSyncListControl extends Component<Props, State> {
 		super(props);
 		this.renderRow = this.renderRow.bind(this);
 		this.renderColumn = this.renderColumn.bind(this);
-		this.state = { isDisabled: props.isDisabled };
+		//this.state = { isDisabled: props.isDisabled };
 		this.list = Array(props.rowCount).fill().map((val, idx) => {
 			return {
 				id: idx, 

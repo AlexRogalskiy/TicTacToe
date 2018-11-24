@@ -63,7 +63,7 @@ const getWinner = (cells: Cells): GameState => {
     [2, 5, 8],
   ];
 
-  let currentState = new GameState();
+  let currentState = {};
   winningStates.forEach(winningState => {
     const potentialWinner = cells[winningState[0]];
     if (!isNullOrUndefined(potentialWinner)) {

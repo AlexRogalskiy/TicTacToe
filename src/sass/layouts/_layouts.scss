@@ -3,7 +3,9 @@
 // Imports [controls]
 @import "controls/basic-input.control";
 @import "controls/basic-button.control";
-@import "controls/dynamic-row-list.control";
+
+// Imports [widgets]
+@import "widgets/chat2.widget";
 
 // Imports [elements]
 @import "elements/loader.element";
