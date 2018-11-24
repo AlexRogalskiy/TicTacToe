@@ -10,7 +10,7 @@ import TicTacToeBoardContainer from 'containers/tictactoe-board.container';
 import WeatherWidget from 'components/widgets/weather.widget';
 //import DynamicRowListControl from 'components/controls/dynamic-row-list.control';
 import StatusBar2Element from 'components/elements/statusbar2.element';
-import Chat2Widget from 'components/widgets/chat2.widget';
+//import Chat2Widget from 'components/widgets/chat2.widget';
 
 import HeaderPartial from 'views/partials/header.partial';
 import FooterPartial from 'views/partials/footer.partial';
@@ -54,7 +54,6 @@ export default class AppView extends Component<Props> {
         <HeaderPartial>
 			<StatusBar2Element />
 		</HeaderPartial>
-		<Chat2Widget />
         <TicTacToeBoardRouterWrapper player={config[scheme].player1.marker} />
         <FooterPartial>
           <WeatherWidgetWrapper />

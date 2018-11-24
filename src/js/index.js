@@ -13,7 +13,9 @@ import createHistory from 'history/createHashHistory';
 import style from '../css/style.css';
 
 import AppView from 'views/app.view';
+import ImageContainer from 'containers/image.container';
 import TicTacToeStore from 'stores/tictactoe.store';
+import ImageStore from 'stores/image.store';
 import registerServiceWorker from 'vendor/service/service-worker';
 
 /* @flow */
@@ -39,6 +41,7 @@ const render = (props: Props): void =>
 
 const wrapper = document.getElementById('root');
 if (wrapper) {
-	render({ component: AppView, store: TicTacToeStore, wrapper });
+	//render({ component: AppView, store: TicTacToeStore, wrapper });
+	render({ component: ImageContainer, store: ImageStore, wrapper });
 	registerServiceWorker();
 }

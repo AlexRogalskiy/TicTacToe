@@ -92,7 +92,7 @@ export default class VirtualizedListControl extends Component<Props, State> {
 		const { className, dataClass, isDisabled, logo, rowCount, rowHeight, children, ...rest } = this.props;
 		const { headerClass, imageClass, titleClass, listViewClass, ...restClass } = dataClass;
 		return (
-		  <Elements.View className={className ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}}>
+		  <Elements.View className={className} ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}>
 			<Elements.Header className={headerClass}>
 			  <Elements.Image src={logo} className={imageClass} alt="logo" />
 			  <Elements.Head_1 className={titleClass}>Welcome to React</Elements.Head_1>
