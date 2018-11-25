@@ -26,8 +26,13 @@ RxDB.plugin(require('pouchdb-adapter-idb'));
 //enable syncing over http
 RxDB.plugin(require('pouchdb-adapter-http'));
 
-const syncURL = 'http://localhost:5984/';//5984
-const dbName = 'chat2db';
+const DEFAULT_DB_NAME = process.env.DB_NAME || 'chat2db';
+const DEFAULT_DB_HOST = process.env.DB_HOST || localhost;
+const DEFAULT_DB_PORT = process.env.DB_PORT || 5984;
+const DEFAULT_DB_ADAPTER = process.env.DB_ADAPTER || 'idb';
+const DEFAULT_DB_USER = process.env.DB_USER;
+const DEFAULT_DB_PASS = process.env.DB_PASS || '12345678';
+const DEFAULT_SYNC_URL = 'http://' + DEFAULT_DB_HOST + ':' + DEFAULT_DB_PORT + '/' || 'http://localhost:5984/';
 
 const collections = [
     {
@@ -93,7 +98,7 @@ export default class Chat2Widget extends Component<Props, State> {
 	async createDatabase(): void {
 		// password must have at least 8 characters
 		const db = await RxDB.create(
-			{name: dbName, adapter: 'idb', password: '12345678'}
+			{ name: DEFAULT_DB_NAME, adapter: DEFAULT_DB_ADAPTER, password: DEFAULT_DB_PASS }
 		);
 		Logger.dir("Database schema", db);
 
@@ -119,7 +124,7 @@ export default class Chat2Widget extends Component<Props, State> {
 		// sync
 		console.log('DatabaseService: sync');
 		collections.filter(col => col.sync).map(col => col.name).map(colName => db[colName].sync({
-			remote: syncURL + colName + '/'
+			remote: DEFAULT_SYNC_URL + colName + '/'
 		}));*/
 
 		// create collection
@@ -131,7 +136,7 @@ export default class Chat2Widget extends Component<Props, State> {
 
 		// set up replication
 		const replicationState = 
-		  messagesCollection.sync({ remote: syncURL + dbName + '/' });
+		  messagesCollection.sync({ remote: DEFAULT_SYNC_URL + DEFAULT_DB_NAME + '/' });
 		this.subs.push(
 		  replicationState.change$.subscribe(change => {
 			toast('Replication change');

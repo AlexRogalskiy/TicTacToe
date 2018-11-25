@@ -14,7 +14,7 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 
 const DEFAULT_ROOT_DIR = '..';
 const DEFAULT_PATHS = {
-	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public/build'),
+	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public', 'build'),
 	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
 	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
 	HTML_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'views')

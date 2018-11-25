@@ -3,7 +3,7 @@
 module.exports = {
 	mongo: {
 		development: {
-			connectionString: 'mongodb://localhost/development',
+			connectionString: process.env.MONGODB_CONNECTION_STR,
 			interval: 120000,
 			options: {
 				server: {
@@ -15,7 +15,7 @@ module.exports = {
 			}
 		},
 		production: {
-			connectionString: 'mongodb://localhost/production',
+			connectionString: process.env.MONGODB_CONNECTION_STR,
 			interval: 120000,
 			options: {
 				server: {

@@ -12,7 +12,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const DEFAULT_ROOT_DIR = '..';
 const DEFAULT_PATHS = {
-	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public/build'),
+	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public', 'build'),
 	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
 	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
 	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')

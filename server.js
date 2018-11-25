@@ -8,6 +8,15 @@ import express from 'express';
 import connect from 'connect';
 import fs from 'fs';
 
+//import dotenv from 'dotenv';
+//require('dotenv').config({ path: '/full/custom/path/to/your/env/vars', encoding: 'base64', silent: true, debug: process.env.DEBUG })
+/*const db = require('db')
+db.connect({
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS
+});*/
+
 // middleware
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
@@ -30,6 +39,9 @@ const MongoSessionStore = connectMongo(expressSession);
 // validators
 import strategy from 'react-validatorjs-strategy';
 
+// environments
+import _ from './env';
+
 // helpers
 import Logger, { tag } from './src/js/libs/logger.lib';
 import { normalizePort, isString } from './src/js/libs/helpers.lib';
@@ -44,14 +56,14 @@ import credentials from './credentials';
 import db from './db';
 
 // server configuration
-const PUBLIC_PATH = path.resolve(__dirname, 'public', 'build');
-const PUBLIC_PORT = 8080;
-const PUBLIC_HOST = 'localhost';
+const PUBLIC_PATH = process.env.PUBLIC_PATH || path.resolve(__dirname, 'public', 'build');
+const PUBLIC_PORT = process.env.PUBLIC_PORT || 8080;
+const PUBLIC_HOST = process.env.PUBLIC_HOST || 'localhost';
 
-const REMOTE_API_URL = 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
-const REMOTE_API_FETCH_DELAY = 10000;
+const REMOTE_API_URL = process.env.REMOTE_API_URL || 'https://api.darksky.net/forecast/b5074d1869d29cb7c1904d86d67b0a21/59.5339,30.1551';
+const REMOTE_API_FETCH_DELAY = process.env.REMOTE_API_FETCH_DELAY || 10000;
 
-const autoRoutes = () => {
+const autoRoutes = (): Object<any> => {
 	const autoViews = {};
 	const fs = require('fs');
 	app.use((req, res, next) => {
@@ -64,18 +76,18 @@ const autoRoutes = () => {
 		next();
 	});
 };
-const shouldCompress = (req, res) => {
+const shouldCompress = (req: Object<any>, res: Object<any>): boolean => {
 	if (req.headers['x-no-compression']) {
 		return false;
 	}
 	return compression.filter(req, res);
 };
-const initSession = (uri, interval, opts) => {
-	//const connection = await mongoose.connect(uri, opts});
-	//const connection = mongoose.connect(uri, opts);
+const initSession = (url: string, interval: number, opts: Object<any>): void => {
+	//const connection = await mongoose.connect(url, opts});
+	//const connection = mongoose.connect(url, opts);
 	
 	//const sessionStore = new MongoSessionStore({
-	//	url: uri,
+	//	url: url,
 	//	interval: interval
 	//});
 	
@@ -95,14 +107,14 @@ const initSession = (uri, interval, opts) => {
 		cookie: { maxAge: credentials.session.maxAge, httpOnly: true, secure: true }
 	}));
 };
-const fetchRemoteURL = (url, socket, delay) => {
+const fetchRemoteURL = (url: string, socket: Object<any>, delay: number): void => {
 	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
 	if (interval) {
 		clearInterval(interval);
 	}
 	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
-const getApiAndEmit = (url) => {
+const getApiAndEmit = (url: string): void => {
 	return async socket => {
 		try {
 			const response = await axios.get(url);
@@ -112,12 +124,12 @@ const getApiAndEmit = (url) => {
 		}
 	};
 };
-const startServer = () => {
+const startServer = (): void => {
 	server.listen(app.get('port'), () => {
-		Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+        Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
-const printHelpAndExit = (exitcode) => {
+const printHelpAndExit = (exitcode: number): void => {
 	Logger.debug([
 		'Usage: ' + __filename + ' [-p] <file-to-watch>',
 		'',
@@ -127,7 +139,7 @@ const printHelpAndExit = (exitcode) => {
 	].join('\n'));
 	process.exit(exitcode);
 };
-const getFileData = (filename: string) => {
+const getFileData = (filename: string): Object<any> => {
 	return {
 		content: fs.readFileSync(filename, 'utf8'),
 		modifiedAt: fs.statSync(filename).mtime.getTime(),
@@ -181,8 +193,8 @@ app.set('/js', path.join(PUBLIC_PATH, 'js'));
 app.set('/css', path.join(PUBLIC_PATH, 'css'));
 app.set('/images', path.join(PUBLIC_PATH, 'images'));
 app.set('/fonts', path.join(PUBLIC_PATH, 'fonts'));
-app.set('port', normalizePort(process.env.PORT || PUBLIC_PORT));
-app.set('hostname', (process.env.HOSTNAME || PUBLIC_HOST));
+app.set('port', normalizePort(PUBLIC_PORT));
+app.set('hostname', PUBLIC_HOST);
 app.use(cookieParser(credentials.cookieSecret));
 
 initSession(db.mongo[app.get('env')].connectionString, db.mongo[app.get('env')].interval, db.mongo[app.get('env')].options);
@@ -371,7 +383,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
 	const cluster = require('cluster');
 	if(cluster.isWorker) {
-		Logger.debug(`SERVER: current instance ${cluster.worker.id} is running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
+		 Logger.debug(`SERVER: current instance ${cluster.worker.id} is running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	}
 	next();
 });
