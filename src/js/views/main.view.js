@@ -26,8 +26,8 @@ type Props = {
 	children?: Node;
 };
 
-export default class AppView extends Component<Props> {
-  displayName: string = 'AppView';
+export default class MainView extends Component<Props> {
+  displayName: string = 'MainView';
 
   view: ?HTMLElement;
   
