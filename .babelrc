@@ -30,7 +30,12 @@
 		["@babel/plugin-transform-modules-commonjs"],
 		["@babel/plugin-transform-react-display-name"],
 		["@babel/plugin-transform-react-jsx"],
-		["react-flow-props-to-prop-types"]
+		["react-flow-props-to-prop-types"],
+		["import-inspector", {
+				"serverSideRequirePath": true,
+				"webpackRequireWeakId": true
+			}
+		]
     ],
 	"comments": false
 }

@@ -18,13 +18,20 @@ module.exports = function(api) {
 		['@babel/plugin-transform-react-display-name'],
 		['@babel/plugin-transform-react-jsx'],
 		['module-resolver', {
-		  'root': ['./src'],
-		  'alias': {
-			'tests': './tests',
-			'routes': './routes'
-		  }
-		}],
-		['react-flow-props-to-prop-types']
+			'root': ['./src'],
+				'alias': {
+					'tests': './tests',
+					'routes': './routes'
+				}
+			}
+		],
+		['react-flow-props-to-prop-types'],
+		['import-inspector',
+			{
+				'serverSideRequirePath': true,
+				'webpackRequireWeakId': true,
+			}
+		]
 	];
 	const comments = false;
 	
