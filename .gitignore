@@ -58,6 +58,7 @@ public/build/
 *.tgz
 
 ## Environment variable files
+ssl/
 .DS_Store
 .env
 .env.local

@@ -7,6 +7,7 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+import TextControl from 'components/controls/text.control';
 import { Elements } from 'libs/elements.lib';
 
 /* @flow */
@@ -56,6 +57,7 @@ export default class ImageWidget extends Component<Props, State> {
 		const { className, dataClass, url, loading, error, message, children, staticContext, onFetchImage,  ... rest } = this.props;
 		return (
 		  <Elements.View className={className} ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}>
+			<TextControl />
 			<Elements.Button onClick={() => onFetchImage({ url: DEFAULT_FETCH_URL })}>Show Image</Elements.Button>
 			  {loading 
 				? <Elements.Paragraph>Loading...</Elements.Paragraph>
