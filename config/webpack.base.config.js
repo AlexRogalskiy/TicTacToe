@@ -86,6 +86,7 @@ const BASE_CONFIG = {
 			'mixins': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'mixins'),
 			'reducers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'reducers'),
 			'resources': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'resources'),
+			'sagas': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'sagas'),
 			'schemas': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'schemas'),
 			'stores': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'stores'),
 			'types': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'types'),

@@ -146,21 +146,21 @@ const mapStateToProps = (state: State): StateInfo => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => {
   return {
-    onSetCell: (data: Data) => {
+    onSetCell: (data: Data): void => {
       if (isValidMove(data.cells, data.position)) {
         dispatch(addMove(data));
       }
     },
-    onReset: (data: Data) => {
+    onReset: (data: Data): void => {
       dispatch(resetGame(data));
     },
-    onStart: (data: Data) => {
+    onStart: (data: Data): void => {
       dispatch(startGame(data));
     },
-    onInitialize: (data: Data) => {
+    onInitialize: (data: Data): void => {
       dispatch(initializeGame(data));
     },
-    onFinalize: (data: Data) => {
+    onFinalize: (data: Data): void => {
       dispatch(finalizeGame(data));
     },
   };

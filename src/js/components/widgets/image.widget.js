@@ -15,6 +15,7 @@ type Props = {
 	url?: string;
 	loading?: boolean;
 	error?: boolean;
+	message?: string;
 	children?: Node;
 };
 type State = {
@@ -39,15 +40,27 @@ export default class ImageWidget extends Component<Props, State> {
 		isDisabled: false
 	};
 	
+	componentDidMount(): void {
+		//this.props.dispatch(makeASandwichWithSecretSauce(this.props.forPerson));
+		this.props.onFetchImage({ url: DEFAULT_FETCH_URL });
+	}
+
+	componentDidUpdate(prevProps: Object<any>): void {
+		if (prevProps.forPerson !== this.props.forPerson) {
+			//this.props.dispatch(makeASandwichWithSecretSauce(this.props.forPerson));
+			this.props.onFetchImage({ url: DEFAULT_FETCH_URL });
+		}
+	}
+  
 	render(): Node {
-		const { className, dataClass, loading, url, error, children, staticContext, onFetchImage,  ... rest } = this.props;
+		const { className, dataClass, url, loading, error, message, children, staticContext, onFetchImage,  ... rest } = this.props;
 		return (
 		  <Elements.View className={className} ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}>
 			<Elements.Button onClick={() => onFetchImage({ url: DEFAULT_FETCH_URL })}>Show Image</Elements.Button>
 			  {loading 
 				? <Elements.Paragraph>Loading...</Elements.Paragraph>
 				: error
-					? <Elements.Paragraph>Error, try again</Elements.Paragraph>
+					? <Elements.Paragraph>Error {message}, try again</Elements.Paragraph>
 					: <Elements.Paragraph><Elements.Image src={url}/></Elements.Paragraph>}
 		  </Elements.View>
 		)

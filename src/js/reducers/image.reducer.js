@@ -9,7 +9,7 @@ import type { ImageState, ImageAction } from 'types/image.type';
 const initialState: ImageState = {
 	url: '',
 	loading: false,
-	error: false,
+	error: false
 };
 
 const ImageReducer = (state: ImageState = initialState, action: ImageAction = {}): ImageState => {
@@ -31,6 +31,7 @@ const ImageReducer = (state: ImageState = initialState, action: ImageAction = {}
 			url: '',
 			loading: false,
 			error: true,
+			message: action.message
 		  };
 		default:
 		  return state;
