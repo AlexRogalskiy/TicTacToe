@@ -20,7 +20,7 @@ const ItemsView = ({ match }): Node => (
       </li>
     </ul>
 
-    <Route path={`${match.path}/:id`} component={ItemView} />
+    <Route path={`${match.path}/:id(\\d+)`} component={ItemView} />
     <Route path={match.path} render={() => <h3>Please select an item.</h3>} exact />
   </div>
 );

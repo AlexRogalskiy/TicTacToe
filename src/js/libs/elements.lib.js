@@ -5,6 +5,7 @@ import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import { Link, NavLink } from "react-router-dom";
 
 import { polyfill } from './helpers.lib';
+import type { RouteItem, LinkItem, NavLinkItem } from 'types/common.type';
 
 /**
  * returns message block
@@ -61,7 +62,7 @@ const Input = (): func => {
 /**
  * returns list of routes within switch block
  */
-const renderRoutes = (routes: Object<any>): Node => (
+const renderRoutes = (routes: Array<RouteItem> = []): Node => (
   <Switch>
     {
 		routes
@@ -75,11 +76,12 @@ const renderRoutes = (routes: Object<any>): Node => (
 /**
  * returns list of links within block
  */
-const renderLinks = (routes: Object<any>): Node => {
+const renderLinks = (routes: Array<LinkItem> = []): Node => {
+  let currentPath = null;
   return <Elements.List>
     {
       routes
-        .map(({ path }, i) =>
+        .map(({ path, title }, i) =>
           <Elements.ListItem key={i}>
             <Link
               to={`/${path}`}
@@ -95,11 +97,12 @@ const renderLinks = (routes: Object<any>): Node => {
 /**
  * returns list of navlinks within block
  */
-const renderNavLinks = (routes: Object<any>): Node => {
+const renderNavLinks = (routes: Array<NavLinkItem> = []): Node => {
+  let currentPath = null;
   return <Elements.List>
     {
       routes
-        .map(({ path, className }, i) =>
+        .map(({ path, title, className }, i) =>
           <Elements.ListItem key={i}>
             <NavLink
               to={`/${path}`}
@@ -195,5 +198,9 @@ export {
 	Message,
 	Input,
 	Elements,
-	Stylesheets
+	Stylesheets,
+	
+	renderRoutes,
+	renderLinks,
+	renderNavLinks
 };

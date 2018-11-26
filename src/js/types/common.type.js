@@ -10,8 +10,19 @@ export type Dictionary<K,T> = {
 	[key: K]: T
 };
 
-export type Routes = {
+export type RouteItem = {
 	path: string;
 	component?: React.ComponentType<Props>;
 	loadData?: func;
+};
+
+export type LinkItem = {
+	path: string;
+	title?: string;
+};
+
+export type NavLinkItem = {
+	path: string;
+	title?: string;
+	className?: string;
 };
