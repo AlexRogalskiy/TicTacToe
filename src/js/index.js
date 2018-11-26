@@ -18,7 +18,7 @@ import registerServiceWorker from 'vendor/service/service-worker';
 /* @flow */
 type Props = {
 	store: React.ComponentType<{}>;
-	wrapper: HTMLElement;
+	wrapper: Object<HTMLElement>;
 };
 
 const render = (MainComponent: React.ComponentType<{}>, props: Props = {}): void =>

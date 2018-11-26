@@ -14,7 +14,7 @@ type State = {
 	isActivated: boolean;
 };
 
-export default function TransitionWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>)Ж React.ComponentType<Props> {
+export default function TransitionWrapper<Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
 	
   return class extends Component<{}, State> {
 	displayName: string = 'TransitionWrapper';

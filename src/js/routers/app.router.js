@@ -21,6 +21,8 @@ import { routes } from 'app-root/routes';
 import RedirectStatusRoute from 'app-root/routes/redirect-status.route';
 import ScrollTopRoute from 'app-root/routes/scroll-top.route';
 
+//<BrowserRouter></BrowserRouter>
+//<HashRouter></HashRouter>
 const AppRouter = (queryHistory: Object<any> = { queryKey: false }): Node => (
 	<Router history={ createHistory(queryHistory) }>
 		<ScrollTopRoute>

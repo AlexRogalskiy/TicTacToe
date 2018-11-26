@@ -155,6 +155,7 @@
     "purify-css": "1.2.5",
     "purifycss-webpack": "0.7.0",
     "react": "16.5.2",
+    "react-addons-test-utils": "15.6.2",
     "react-addons-update": "15.6.2",
     "react-bootstrap": "0.32.4",
     "react-dom": "16.5.2",
