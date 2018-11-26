@@ -5,6 +5,8 @@
  */
 import React, { Component, Node } from 'react';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	onClick?: func;
@@ -37,9 +39,9 @@ export default class ButtonBlockControl extends Component<Props> {
   render(): Node {
     const { label, onClick, ...rest } = this.props;
     return (
-      <div ref={element => (this.element = element)} onClick={this.onClick(this.props.name)} {...rest}>
+      <Elements.View ref={element => (this.element = element)} onClick={this.onClick(this.props.name)} {...rest}>
         {label}
-      </div>
+      </Elements.View>
     );
   }
 };

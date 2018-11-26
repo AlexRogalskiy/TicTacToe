@@ -9,7 +9,7 @@ import { style, classes } from 'typestyle';
 // import update     from 'react-addons-update';
 //import ClassNames from 'classnames/bind';
 //import BasicCardItemStyle from 'css/components/elements/basicCardItem';
-
+import { Elements } from 'libs/elements.lib';
 //let Styles = ClassNames.bind(BasicCardItemStyle);
 
 /* @flow */
@@ -57,12 +57,12 @@ export default class CardElement extends Component<Props, State> {
 			flipped && this.state.flipped
 		);
 		return (
-            <div className={elementClassName} onClick={this.onClick} {...rest}>
-                <div className={dataClass.cardFrontClass}>
-                    <div className={dataClass.cardInnerClass}>{children}</div>
-                </div>
-                <div className={dataClass.cardBackClass}>&nbsp;</div>
-            </div>
+            <Elements.View className={elementClassName} onClick={this.onClick} {...rest}>
+                <Elements.View className={dataClass.cardFrontClass}>
+                    <Elements.View className={dataClass.cardInnerClass}>{children}</Elements.View>
+                </Elements.View>
+                <Elements.View className={dataClass.cardBackClass}>&nbsp;</Elements.View>
+            </Elements.View>
         );
 	}
 };

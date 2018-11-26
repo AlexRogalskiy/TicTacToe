@@ -9,6 +9,8 @@ import { style, classes } from 'typestyle';
 // import ClassNames from 'classnames/bind';
 import CardElement from 'components/elements/card.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type ListItem = {
 	id: string;
@@ -51,7 +53,7 @@ export default class CardListElement extends Component<Props, State> {
             );
         }.bind(this));
 		return (
-            <div className={className} {...rest}>{ elements }</div>
+            <Elements.View className={className} {...rest}>{ elements }</Elements.View>
         );
 	}
 };

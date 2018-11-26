@@ -11,6 +11,7 @@ import ButtonControl from 'components/controls/button.control';
 import BlockElement from 'components/elements/block.element';
 import IconElement from 'components/elements/icon.element';
 
+import { Elements } from 'libs/elements.lib';
 import Logger from 'libs/logger.lib';
 
 /* @flow */
@@ -36,9 +37,9 @@ export default class CounterControl extends Component<Props, State> {
   displayName: string = 'CounterControl';
 
   state: State = {
-    isVisible: true,
-	isIncreasing: true,
-	value: 0
+    isVisible: this.props.isVisible,
+	isIncreasing: this.props.isIncreasing,
+	value: this.props.value
   };
 
   counter: ?HTMLElement;
@@ -69,7 +70,7 @@ export default class CounterControl extends Component<Props, State> {
     super(props);
     this.onUp = this.onUp.bind(this);
     this.onDown = this.onDown.bind(this);
-	this.state = { isVisible: props.isVisible, isIncreasing: props.isIncreasing, value: props.value };
+	//this.state = { isVisible: props.isVisible, isIncreasing: props.isIncreasing, value: props.value };
   }
 
   getValidatorData(): State {
@@ -173,7 +174,7 @@ export default class CounterControl extends Component<Props, State> {
     );
     rest.className = dataClass.inputClass;
 		return (
-			<div className={controlClassName}>
+			<Elements.View className={controlClassName}>
 				<ButtonControl onClick={() => this.onUp(e)} className={dataClass.buttonClass isDisabled={isDisabled}}>
 					<Icon className={iconUpClassName} />
 						{upLabel}
@@ -184,7 +185,7 @@ export default class CounterControl extends Component<Props, State> {
 				</ButtonControl>
 				<BlockElement ref={counter => (this.counter = counter)} {...rest}>{this.state.value}</BlockElement>
 				<IconElement className={iconStatusClassName} />
-			</div>
+			</Elements.View>
 		);
   }
 };

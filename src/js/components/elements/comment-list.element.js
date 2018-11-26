@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import CommentElement from 'components/elements/comment.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type ListItem = {
 	id: string;
@@ -36,7 +38,7 @@ export default class CommentListElement extends Component<Props, State> {
     render(): Node {
     	const { className, dataClass, ...rest } = this.props;
         const { commentClass, ...restClass } = dataClass;
-        const elements = this.state.items.map(item => {
+        const elems = this.state.items.map(item => {
             return (
                 <CommentElement item={item} key={item.id} author={item.author} className=classes(commentClass, item.className) dataClass={restClass}>
                     {item.data}
@@ -44,9 +46,9 @@ export default class CommentListElement extends Component<Props, State> {
             );
         }.bind(this));
         return (
-            <div className={className} {...rest}>
-                { elements }
-            </div>
+            <Elements.View className={className} {...rest}>
+                { elems }
+            </Elements.View>
         );
     }
 }

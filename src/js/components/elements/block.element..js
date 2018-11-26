@@ -6,6 +6,8 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	children?: Node;
@@ -21,7 +23,7 @@ export default class BlockElement extends Component<Props> {
   render(): Node {
     const { className, children, ...rest } = this.props;
     return (
-		<span className={className} {...rest}>{children}</span>
+		<Elements.Test className={className} {...rest}>{children}</Elements.Test>
     );
   }
 };

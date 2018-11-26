@@ -8,6 +8,8 @@ import { style, classes } from 'typestyle';
 //import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group/CSSTransitionGroup';
 
+import { Elements } from 'libs/elements.lib';
+
 const defaultTransition = ({ component: string = '',
 							 transitionName: string = 'carousel',
 							 transitionAppear: bool = true,
@@ -64,11 +66,11 @@ export default class BlockTransition extends Component<Props> {
     const { className, dataClass, transition, children, ...rest } = this.props;
 	const mergedTransition = { ...defaultTransition(), ...transition };
     return (
-		<div className={className} {...rest}>
+		<Elements.View className={className} {...rest}>
 			<CSSTransitionGroup className=classes({ ...defaultTransitionClass(), ...dataClass }) {...mergedTransition}>
 				{ children }
 			</CSSTransitionGroup>
-		</div>
+		</Elements.View>
     );
   }
 };

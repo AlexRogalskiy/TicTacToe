@@ -9,6 +9,8 @@ import React, { Component, Node } from 'react';
 import TableHeadElement from 'components/elements/table-head.element';
 import TableRowElement from 'components/elements/table-row.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type TableHeader = {
 	id?: string;
@@ -42,14 +44,14 @@ export default class TableElement extends Component<Props> {
   render(): Node {
     const { className, data, ...rest } = this.props;
 	return (
-			<table className={className} {...rest}>
-				<thead>
+			<Elements.Table className={className} {...rest}>
+				<Elements.THead>
 					<TableHeadElement data={data.headers} />
-				</thead>
-				<tbody>
+				</Elements.THead>
+				<Elements.TBody>
 					<TableRowElement data={data.rows} />
-				</tbody>
-			</table>
+				</Elements.TBody>
+			</Elements.Table>
 	);
   }
 };

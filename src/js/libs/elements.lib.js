@@ -1,6 +1,9 @@
 'use strict';
 
 import React, { Component, Node } from 'react';
+import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
+
 import { polyfill } from './helpers.lib';
 
 /**
@@ -10,11 +13,11 @@ const MessageList = (props: object): Node => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
-      <li key={index} className={messageClass}>
+      <Elements.ListItem key={index} className={messageClass}>
         {item}
-      </li>
+      </Elements.ListItem>
     ));
-    return (<ul {...rest}>{ elements }</ul>);
+    return (<Elements.List {...rest}>{ elements }</Elements.List>);
   }
   return null;
 };
@@ -24,7 +27,7 @@ const MessageList = (props: object): Node => {
  */
 const Message = (props: object): Node => {
   const { message, ...rest } = props;
-  return (<div {...rest}>{ message }</div>);
+  return (<Elements.View {...rest}>{ message }</Elements.View>);
 };
 
 /**
@@ -32,9 +35,9 @@ const Message = (props: object): Node => {
  */
 const Input = (): func => {
 	let InputField = ({ label, text, type, id, value, handleChange }): Node => (
-		<div className="form-group">
-			<label htmlFor={label}>{text}</label>
-			<input
+		<Elements.View className="form-group">
+			<Elements.Label htmlFor={label}>{text}</Elements.Label>
+			<Elements.Control
 			  type={type}
 			  className="form-control"
 			  id={id}
@@ -42,7 +45,7 @@ const Input = (): func => {
 			  onChange={handleChange}
 			  required
 			/>
-		</div>
+		</Elements.View>
 	);
 	InputField.propTypes = {
 		label: PropTypes.string.isRequired,
@@ -53,6 +56,61 @@ const Input = (): func => {
 		handleChange: PropTypes.func.isRequired,
 	};
 	return InputField;
+};
+
+/**
+ * returns list of routes within switch block
+ */
+const renderRoutes = (routes: Object<any>): Node => (
+  <Switch>
+    {
+		routes
+		  .map(route => (
+			<Route {...route} />
+		))
+	}
+  </Switch>
+);
+
+/**
+ * returns list of links within block
+ */
+const renderLinks = (routes: Object<any>): Node => {
+  return <Elements.List>
+    {
+      routes
+        .map(({ path }, i) =>
+          <Elements.ListItem key={i}>
+            <Link
+              to={`/${path}`}
+              replace={path === currentPath}>
+              {title}
+            </Link>
+          </Elements.ListItem>
+        )
+    }
+  </Elements.List>
+};
+
+/**
+ * returns list of navlinks within block
+ */
+const renderNavLinks = (routes: Object<any>): Node => {
+  return <Elements.List>
+    {
+      routes
+        .map(({ path, className }, i) =>
+          <Elements.ListItem key={i}>
+            <NavLink
+              to={`/${path}`}
+              replace={path === currentPath}
+			  activeClassName={className}>
+              {title}
+            </NavLink>
+          </Elements.ListItem>
+        )
+    }
+  </Elements.List>
 };
 
 /**
@@ -81,12 +139,15 @@ const Styled = (StyledComponent: string): Node => {
  * wrapped html elements
  */
 const Elements = {
+	Navigation: Styled('nav'),
 	View: Styled('div'),
 	Text: Styled('span'),
 	Paragraph: Styled('p'),
+	Link: Styled('a'),
 	List: Styled('ul'),
 	OrderedList: Styled('ol'),
 	ListItem: Styled('li'),
+	Quote: Styled('blockquote'),
 	
 	Head_1: Styled('h1'),
 	Head_2: Styled('h2'),
@@ -110,9 +171,14 @@ const Elements = {
 	
 	Label: Styled('label'),
 	Table: Styled('table'),
+	THead: Styled('thead'),
+	TBody: Styled('tbody'),
+	TRow: Styled('tr'),
+	THeadField: Styled('th'),
+	TBodyField: Styled('td'),
 	Section: Styled('section'),
 	Article: Styled('article'),
-	Aside: Styled('aside'),
+	Side: Styled('aside'),
 	Header: Styled('header'),
 	Footer: Styled('footer')
 };

@@ -28,7 +28,7 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
 	displayName: string = 'BasicToggleButtonControl';
 
 	state: State = {
-		flipped: false
+		flipped: this.props.flipped
 	};
 
 	static defaultProps: Props = {
@@ -40,7 +40,7 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
 	constructor(props: Props): void {
         super(props);
         this.onClick = this.onClick.bind(this);
-        this.state = { flipped: props.flipped };
+        //this.state = { flipped: props.flipped };
     }
 
 	onClick(event: SyntheticEvent<HTMLButtonElement>): func {

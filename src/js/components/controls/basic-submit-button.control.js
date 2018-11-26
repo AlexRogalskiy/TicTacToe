@@ -36,7 +36,7 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 
 	state: State = {
 		store: {
-			messageInProgress: null,
+			messageInProgress: this.props.messageInProgress,
 			submissionInProgress: false,
 			error: false,
 			disabled: false
@@ -54,7 +54,7 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 	constructor(props: Props): void {
         super(props);
 		this.onSubmit = this.onSubmit.bind(this);
-        this.state = { messageInProgress: props.messageInProgress };
+        //this.state = { messageInProgress: props.messageInProgress };
     }
 
 	onSubmit(event: SyntheticEvent<HTMLButtonElement>): func {

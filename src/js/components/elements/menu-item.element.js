@@ -8,6 +8,8 @@ import { style, classes } from 'typestyle';
 
 import IconElement from 'components/elements/icon.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -40,10 +42,10 @@ export default class MenuItemElement extends Component<Props> {
     	const { className, dataClass, onClick, children, ...rest } = this.props;
         const { iconClass, ...restClass } = dataClass;
         return (
-            <li key={key} className={className} onClick={this.onClick(this.props.name)} {...rest}>
+            <Elements.ListItem key={key} className={className} onClick={this.onClick(this.props.name)} {...rest}>
 				<IconElement className={iconClass} />
 				{ children }
-			</li>
+			</Elements.ListItem>
         );
     }
 };

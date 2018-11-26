@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import marked from 'marked';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -29,15 +31,15 @@ export default class CommentElement extends Component<Props> {
     render(): Node {
     	const { className, dataClass, author, children, ...rest } = this.props;
         return (
-            <div className={className} {...rest}>
-                <span className={dataClass.commentAuthorClass}>
+            <Elements.View className={className} {...rest}>
+                <Elements.Text className={dataClass.commentAuthorClass}>
                     {author}
-                </span>
-                <span dangerouslySetInnerHTML={this.rawMarkup()} />
-                <span className={dataClass.commentTextClass}>
+                </Elements.Text>
+                <Elements.Text dangerouslySetInnerHTML={this.rawMarkup()} />
+                <Elements.Text className={dataClass.commentTextClass}>
 					{children}
-				</span>
-            </div>
+				</Elements.Text>
+            </Elements.View>
         );
     }
 };

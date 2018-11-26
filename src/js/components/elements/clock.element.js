@@ -6,6 +6,8 @@
 import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
     message?: string;
@@ -49,11 +51,11 @@ export default class ClockElement extends Component<Props, State> {
   }
   
   render(): Node {
-    const { className, dataClass, message, ...rest } = this.props;
+    const { className, dataClass, date, message, ...rest } = this.props;
     return (
-      <div className={className} {...rest}>
-        <span className={dataClass.clockMessageClass}>{message}</span>
-        <span className={dataClass.clockDateClass}>{this.state.date.toLocaleTimeString()}</span>
+      <Elements.View className={className} {...rest}>
+        <Elements.Text className={dataClass.clockMessageClass}>{message}</Elements.Text>
+        <Elements.Text className={dataClass.clockDateClass}>{this.state.date.toLocaleTimeString()}</Elements.Text>
       </div>
     );
   }

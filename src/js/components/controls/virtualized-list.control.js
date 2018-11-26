@@ -51,7 +51,7 @@ export default class VirtualizedListControl extends Component<Props, State> {
 	};
 
 	state: State = {
-		isDisabled: false
+		isDisabled: this.props.isDisabled
 	};
 	
 	constructor(props: Props): void {

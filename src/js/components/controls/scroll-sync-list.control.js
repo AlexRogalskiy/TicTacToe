@@ -50,7 +50,7 @@ export default class ScrollSyncListControl extends Component<Props, State> {
 	};
 
 	state: State = {
-		isDisabled: false
+		isDisabled: this.props.isDisabled
 	};
 	
 	constructor(props: Props): void {

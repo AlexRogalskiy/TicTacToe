@@ -1,0 +1,62 @@
+const App = () => (
+  <AppLayout>
+    <Route path="/invoices" component={Invoices} />
+  </AppLayout>
+);
+
+const Invoices = () => (
+  <Layout>
+    {/* always show the nav */}
+    <InvoicesNav />
+
+    <Media query={PRETTY_SMALL}>
+      {screenIsSmall =>
+        screenIsSmall ? (
+          // small screen has no redirect
+          <Switch>
+            <Route exact path="/invoices/dashboard" component={Dashboard} />
+            <Route path="/invoices/:id" component={Invoice} />
+          </Switch>
+        ) : (
+          // large screen does!
+          <Switch>
+            <Route exact path="/invoices/dashboard" component={Dashboard} />
+            <Route path="/invoices/:id" component={Invoice} />
+            <Redirect from="/invoices" to="/invoices/dashboard" />
+          </Switch>
+        )
+      }
+    </Media>
+  </Layout>
+);
+
+
+class Routes extends Component {
+    render(){
+        return(
+            <HashRouter>
+                <div className="routes clearfix">
+
+                    <div className="navigation">
+                        <div className="smartPanel">
+                            <ul> 
+                                <li><NavLink to="/schedule"><img src={ScheduleIcon} className="icon" title="Расписание" /></NavLink></li>
+                                <li><NavLink to="/settings"><img src={SettingsIcon} className="icon" title="Настройки" /></NavLink></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                    <div className="content">
+                    
+                        <Route path="/schedule" component={Schedule}/>
+                        <Route path="/settings" component={Settings}/>
+    
+                    </div>
+                </div>
+            </HashRouter>
+        );
+    }
+}
+
+export default Routes;

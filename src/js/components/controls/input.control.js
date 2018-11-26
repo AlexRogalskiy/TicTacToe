@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -23,7 +25,7 @@ export default class InputControl extends Component<Props, State> {
   input: ?HTMLInputElement;
 
   state: State = {
-	  isDisabled: false
+	  isDisabled: this.props.isDisabled
   };
   
   static defaultProps: Props = {
@@ -36,7 +38,7 @@ export default class InputControl extends Component<Props, State> {
 
   constructor(props: Props): void {
     super(props);
-    this.state = { isDisabled: props.isDisabled };
+    //this.state = { isDisabled: props.isDisabled };
   }
   
   render(): Node {
@@ -49,8 +51,8 @@ export default class InputControl extends Component<Props, State> {
     } = this.props;
     rest.className = dataClass.inputClass;
     return (
-      <div className={className}>
-          <input
+      <Elements.View className={className}>
+          <Elements.Control
             ref={input => {
               this.input = input;
             }} 
@@ -58,7 +60,7 @@ export default class InputControl extends Component<Props, State> {
             {...rest}
           />
           {children}
-      </div>
+      </Elements.View>
     );
   }
 };

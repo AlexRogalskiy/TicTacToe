@@ -13,6 +13,7 @@ import Validation from 'react-validation-mixin';
 import BasicImageControl from 'components/controls/basic-image.control';
 import BasicInputControl from 'components/controls/basic-input.control';
 
+import { Elements } from 'libs/elements.lib';
 import { isString } from 'libs/helpers.lib';
 
 import FormsValidator from 'validators/forms.validator';
@@ -124,7 +125,7 @@ class ProfileControl extends Component<Props, State> {
   render(): Node {
     const { className, dataClass, ...rest } = this.props;
     return (
-      <div className={className}>
+      <Elements.View className={className}>
         <BasicImageControl
           name="profileImage"
           ref="profileImage"
@@ -142,9 +143,9 @@ class ProfileControl extends Component<Props, State> {
           dataError={this.state.validity['profileInput']}
           className={dataClass.inputClass}
         >
-          <button onClick={this.chooseFile('profileInput')}>Upload</button>
+          <Elements.Button onClick={this.chooseFile('profileInput')}>Upload</Elements.Button>
         </BasicInputControl>
-      </div>
+      </Elements.View>
     );
   }
 };

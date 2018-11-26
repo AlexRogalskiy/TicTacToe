@@ -6,6 +6,8 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type TableHeader = {
 	id?: string;
@@ -29,14 +31,14 @@ export default class TableHeadElement extends Component<Props> {
   getHeaders(data: Array<TableHeader> = []): Node {
 	 return data.forEach((value, index) => {
 		return (
-			<th key={index}
+			<Elements.THeadField key={index}
 				item={value.key}
 				id={value.id}
 				name={value.name}
 				ref={value.ref}
 				className={value.className}>
 				{value.content}
-			</th>
+			</Elements.THeadField>
 		);
 	 });
   }
@@ -44,9 +46,9 @@ export default class TableHeadElement extends Component<Props> {
   render(): Node {
     const { className, data, ...rest } = this.props;
 	return (
-		<tr className={className} {...rest}>
+		<Elements.TRow className={className} {...rest}>
 			{this.getHeaders(data)}
-		</tr>
+		</Elements.TRow>
 	);
   }
 };

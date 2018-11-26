@@ -12,6 +12,8 @@ import { style, classes } from 'typestyle';
 
 import BasicButtonControl from 'components/controls/basic-button.control';
 import BasicListControl from 'components/controls/basic-list.control';
+
+import { Elements } from 'libs/elements.lib';
 //import { BasicTodoListStyle } from 'components/controls/basicTodoListControl';
 //let Styles = ClassNames.bind(BasicTodoListStyle);
 
@@ -34,7 +36,7 @@ export default class TodoListControl extends Component<Props, State> {
   displayName: string = 'TodoListControl';
 
   state: State = {
-	  items: []
+	  items: this.props.items
   };
 
   static defaultProps: Props = {
@@ -52,7 +54,7 @@ export default class TodoListControl extends Component<Props, State> {
     super(props);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.state = { items: props.items };
+    //this.state = { items: props.items };
   }
 
   addItem(): void {
@@ -72,16 +74,16 @@ export default class TodoListControl extends Component<Props, State> {
     const { className, dataClass, isDisabled, ...rest } = this.props;
     const { buttonClass, listClass, itemClass, ...restClass } = dataClass;
     const elements = this.state.items.map((item, i) => (
-      <div key={item} name={item.name} onClick={() => this.removeItem(i)} className=classes(itemClass, item.className)>
+      <Elements.View key={item} name={item.name} onClick={() => this.removeItem(i)} className=classes(itemClass, item.className)>
         {item.content}
-      </div>
+      </Elements.View>
     ));
 
     return (
-      <div className={className}>
+      <Elements.View className={className}>
         <BasicButtonControl message="Add Item" onClick={this.addItem} className={buttonClass} isDisabled={isDisabled} />
         <BasicListControl items={elements} className={listClass} dataClass={restClass} {...rest} />
-      </div>
+      </Elements.View>
     );
   }
 };

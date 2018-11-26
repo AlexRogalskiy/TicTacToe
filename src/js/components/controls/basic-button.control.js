@@ -10,7 +10,7 @@ import { style, classes } from 'typestyle';
 import Strategy from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
-import { MessageList } from 'libs/elements.lib';
+import { MessageList, Elements } from 'libs/elements.lib';
 import FormsValidator from 'validators/forms.validator';
 
 /* @flow */
@@ -30,7 +30,7 @@ class BasicButtonControl extends Component<Props, State> {
   displayName: string = 'BasicButtonControl';
   
   state: State = {
-	  isDisabled: false
+	  isDisabled: this.props.isDisabled
   };
 
   button: ?HTMLButtonElement;
@@ -52,7 +52,7 @@ class BasicButtonControl extends Component<Props, State> {
     super(props);
     this.onClick = this.onClick.bind(this);
 	this.validatorTypes = FormsValidator[props.validator] || [];
-	this.state = { isDisabled: props.isDisabled };
+	//this.state = { isDisabled: props.isDisabled };
   }
 
   getValidatorData(): State {
@@ -100,14 +100,14 @@ class BasicButtonControl extends Component<Props, State> {
     );
     rest.className = dataClass.inputClass;
     return (
-	 <div className={className}>
-        <div className={controlClassName}>
-			<button ref={button => (this.button = button)} onClick={this.onClick(this.props.name)} disabled={this.state.isDisabled} {...rest}>
+	 <Elements.View className={className}>
+        <Elements.View className={controlClassName}>
+			<Elements.Button ref={button => (this.button = button)} onClick={this.onClick(this.props.name)} disabled={this.state.isDisabled} {...rest}>
 				{children}
-			</button>
-		</div>
+			</Elements.Button>
+		</Elements.View>
 		{ this.renderMessageText(errorMessages, dataClass.errorMessageClass) }
-      </div>
+      </Elements.View>
     );
   }
 };

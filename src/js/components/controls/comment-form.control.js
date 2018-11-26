@@ -16,6 +16,7 @@ import BasicButtonControl from 'controls/basic-button.control';
 
 import FormsValidator from 'validators/forms.validator';
 
+import { Elements } from 'libs/elements.lib';
 import Logger from 'libs/logger.lib';
 
 /* @flow */
@@ -112,15 +113,15 @@ class CommentFormControl extends Component<Props, State> {
     );
 
     return (
-      <form ref={form => (this.form = form)} className={className} onSubmit={() => this.onSubmit(e)}  {...rest}>
-          <div className={controlClassName}>
+      <Elements.Form ref={form => (this.form = form)} className={className} onSubmit={() => this.onSubmit(e)}  {...rest}>
+          <Elements.View className={controlClassName}>
             fields.map((item: object) => {
               return <BasicInputControl item={item} key={item.id} label={item.label} onChange={this.onChange(item.name)} className=classes(fieldClass, item.className) validator={item.validator} dataClass={restClass} />
             });
-          </div>
+          </Elements.View>
           { this.renderMessageText(errorMessages, errorMessageClass) }
           <BasicButtonControl type="submit" message={buttonSubmitMessage} className={buttonSubmitClass} />
-      </form>
+      </Elements.Form>
     );
   }
 };

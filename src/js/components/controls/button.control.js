@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	isDisabled: boolean,;
@@ -30,9 +32,9 @@ export default class BasicButtonControl extends Component<Props> {
       ...rest
     } = this.props;
 	return (
-		<button ref={button => (this.button = button)} disabled={isDisabled} {...rest}>
+		<Elements.Button ref={button => (this.button = button)} disabled={isDisabled} {...rest}>
 			{children}
-		</button>
+		</Elements.Button>
 	);
   }
 };

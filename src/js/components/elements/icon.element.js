@@ -6,6 +6,8 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+import { Elements } from 'libs/elements.lib';
+
 // @flow
 type Props = {
 	message?: string;
@@ -22,7 +24,7 @@ export default class IconElement extends Component<Props> {
   render(): Node {
     const { className, message, ...rest } = this.props;
     return (
-		<span className={className} aria-hidden='true'>{ message }</span>
+		<Elements.Text className={className} aria-hidden='true'>{ message }</Elements.Text>
     );
   }
 };

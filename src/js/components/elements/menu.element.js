@@ -9,6 +9,8 @@ import { style, classes } from 'typestyle';
 import BasicFilterInputControl from 'components/controls/basic-filter-input.control';
 import TextMenuItemElement from 'components/elements/text-menu-item.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type MenuItem = {
 	iconClass?: string;
@@ -28,7 +30,7 @@ export default class MenuElement extends Component<Props, State> {
     displayName: string = 'MenuElement';
 	
 	state: State = {
-		items: []
+		items: this.props.items
 	};
 	
     static defaultProps: Props = {
@@ -38,7 +40,7 @@ export default class MenuElement extends Component<Props, State> {
     constructor(props: Props): void {
         super(props);
         this.filter = this.filter.bind(this);
-		this.state = { items: props.items };
+		//this.state = { items: props.items };
     }
 	
     filter(text: string): void {
@@ -56,12 +58,12 @@ export default class MenuElement extends Component<Props, State> {
             return <TextMenuItemElement item={item} key={item.id} title={item.title} className=classes(menuItemClass, item.className) dataClass={restClass} />
         }.bind(this));
         return (
-            <div className={className} {...rest}>
+            <Elements.View className={className} {...rest}>
                 <BasicFilterInputControl filter={this.filter} />
-                <nav className={menuListClass}>
+                <Elements.Navigation className={menuListClass}>
                     {elements}
-                </nav>
-            </div>
+                </Elements.Navigation>
+            </Elements.View>
         );
     }
 };

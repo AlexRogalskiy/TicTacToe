@@ -1,5 +1,12 @@
-import React, {Component} from 'react';
+'use strict';
+
+/**
+ * Module dependencies
+ */
+import React, { Component, Nodev } from 'react';
 import * as Database from 'components/services/db';
+
+import { Elements } from 'libs/elements.lib';
 
 class HeroList extends Component {
     state = {
@@ -36,40 +43,40 @@ class HeroList extends Component {
         console.dir(hero);
     }
 
-    renderActions = () => {
+    renderActions = (): Node => {
         // TODO
         // return (
-        //     <div className="actions">
+        //     <Elements.View className="actions">
         //         <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => this.editHero(hero)}></i>
         //         <i className="fa fa-trash-o" aria-hidden="true" onClick={() => this.deleteHero(hero)}></i>
-        //     </div>
+        //     </Elements.View>
         // )
         return null
     }
 
-    render() {
+    render(): Node {
         const { heroes, loading } = this.state
         return (
-            <div id="list-box" className="box">
-                <h3>Heroes</h3>
-                <ul id="heroes-list">
-                    {loading && <span>Loading...</span>}
-                    {!loading && heroes.length === 0 && <span>No heroes</span>}
+            <Elements.View id="list-box" className="box">
+                <Elements.Head_3>Heroes</Elements.Head_3>
+                <Elements.List id="heroes-list">
+                    {loading && <Elements.Text>Loading...</Elements.Text>}
+                    {!loading && heroes.length === 0 && <Elements.Text>No heroes</Elements.Text>}
                     {heroes.map(hero => {
                         return (
-                            <li key={hero.name}>
-                                <div className="color-box" style={{
+                            <Elements.ListItem key={hero.name}>
+                                <Elements.View className="color-box" style={{
                                     background: hero.color
-                                }}></div>
-                                <span className="name">
+                                }}></Elements.View>
+                                <Elements.Text className="name">
                                     {hero.name}
-                                </span>
+                                </Elements.Text>
                                 {this.renderActions()}
-                            </li>
+                            </Elements.ListItem>
                         );
                     })}
-                </ul>
-            </div>
+                </Elements.List>
+            </Elements.View>
         );
     }
 }

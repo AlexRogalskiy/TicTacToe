@@ -21,7 +21,7 @@ export default class TextLabelElement extends Component<Props, State> {
   view: ?HTMLElement;
 
   state: State = {
-	  message: null
+	  message: this.props.message
   };
   
   static defaultProps: Props = {
@@ -30,7 +30,7 @@ export default class TextLabelElement extends Component<Props, State> {
 
   constructor(props: Props): void {
     super(props);
-    this.state = { message: props.message };
+    //this.state = { message: props.message };
   }
   
   render(): Node {

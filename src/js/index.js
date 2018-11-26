@@ -31,7 +31,7 @@ const render = (MainComponent: React.ComponentType<{}>, props: Props = {}): void
 
 const wrapper = document.getElementById('root');
 if (wrapper) {
-	//render(AppRouter, { store: TicTacToeStore, wrapper });
-	render(ImageContainer, { store: ImageStore, wrapper });
+	render(AppRouter, { store: TicTacToeStore, wrapper });
+	//render(ImageContainer, { store: ImageStore, wrapper });
 	registerServiceWorker();
 }

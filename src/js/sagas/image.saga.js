@@ -9,10 +9,9 @@ import {
   requestImageSuccess,
   requestImageError
 } from 'actions/image.action';
-import { REQUESTED_IMAGE, REQUESTED_IMAGE_SUCCEEDED, REQUESTED_IMAGE_FAILED, FETCHED_IMAGE } from 'constants/image.constant';
+import { FETCHED_IMAGE } from 'constants/image.constant';
 //import Api from '...';
-import ImageWidget from 'components/widgets/image.widget';
-import type { ImageState, ImageData, Dispatch } from 'types/image.type';
+import type { ImageAction } from 'types/image.type';
 
 //dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId}})
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions

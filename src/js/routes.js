@@ -8,10 +8,13 @@ import ItemView from 'views/item.view';
 import HomeView from 'views/home.view';
 import AboutView from 'views/about.view';
 import ItemsView from 'views/items.view';
+import NotFoundView from 'views/not-found.view';
+
+import { Routes } from 'types/common.type';
 
 const loadData = () => {};
 
-export const routes = [
+export const routes: Routes = [
   {
     path: "/",
     component: MainView,
@@ -35,6 +38,11 @@ export const routes = [
   {
     path: "/items",
     component: ItemsView,
+    loadData: () => loadData()
+  },
+  {
+    path: "**",
+    component: NotFoundView,
     loadData: () => loadData()
   }
 ];

@@ -11,6 +11,7 @@ import { style, classes } from 'typestyle';
 import BasicInputControl from 'components/controls/basic-input.control';
 import BasicListControl from 'components/controls/basic-list.control';
 
+import { Elements } from 'libs/elements.lib';
 //import BasicFilterListStyle from 'css/components/controls/basicFilterListControl';
 //let Styles = ClassNames.bind(BasicFilterListStyle);
 
@@ -75,10 +76,10 @@ export default class BasicFilterListControl extends Component<Props, State> {
         }.bind(this));
 
         return (
-            <div className={className}>
+            <Elements.View className={className}>
                 <BasicInputControl ref="search" name="search" label="search" type="text" onChange={this.onChange('search')} className={inputClass} />
                 <BasicListControl items={elements} className={listClass} dataClass={restClass} {...rest} />
-            </div>
+            </Elements.View>
         );
     }
 };

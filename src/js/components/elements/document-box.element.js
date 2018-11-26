@@ -8,6 +8,8 @@ import { Elements, Stylesheets } from 'libs/elements.lib';
 import StatusBar2Element from 'components/elements/statusbar2.element';
 import HostElement from 'components/elements/host.element';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type DataItem = {
 	description: string;
@@ -37,17 +39,17 @@ export default class DocumentBoxElement extends Component<Props> {
     }
 
     const values = help.values.map((value, ii) => (
-        <span key={value}>
+        <Elements.Text key={value}>
           {ii !== 0 && ' | '}
-          <a href="#" onClick={() => this.props.onChangeValue(value)}>
+          <Elements.Link href="#" onClick={() => this.props.onChangeValue(value)}>
             {value}
-          </a>
-        </span>
+          </Elements.Link>
+        </Elements.Text>
       )
     );
 
     return (
-      <div id="help" ref={view => (this.view = view)}>
+      <Elements.View id="help" ref={view => (this.view = view)}>
         <strong>{this.props.keyword}</strong>
         <br />
         <br />
@@ -55,7 +57,7 @@ export default class DocumentBoxElement extends Component<Props> {
         <br />
         <br />
         Values: {values}
-      </div>
+      </Elements.View>
 	);
   }
 };

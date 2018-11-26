@@ -25,7 +25,7 @@ export default class BasicFilterInputControl extends Component<Props, State> {
   input: ?HTMLInputElement;
   
   	state: State = {
-		isDisabled: false
+		isDisabled: this.props.isDisabled
 	};
 	
   static defaultProps: Props = {
@@ -36,7 +36,7 @@ export default class BasicFilterInputControl extends Component<Props, State> {
     constructor(props: Props): void {
         super(props);
         this.onChange = this.onChange.bind(this);
-		this.state = { isDisabled: props.isDisabled };
+		//this.state = { isDisabled: props.isDisabled };
     }
 	
   onChange(field: string): func {

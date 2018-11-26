@@ -14,7 +14,7 @@ import BlockElement from 'components/elements/block.element';
 import MenuItemElement from 'components/elements/menu-item.element';
 import BasicListControl from 'components/controls/basic-list.control';
 //import { BasicMenuStyle } from 'css/components/elements/basicMenu';
-
+import { Elements } from 'libs/elements.lib';
 //let Styles = ClassNames.bind(BasicMenuStyle);
 
 const defaultTransition = (transitionName: string = 'popoveranim',
@@ -50,7 +50,9 @@ export default class MenuListElement extends Component<Props, State> {
 		activeMenu: null,
 		items: []
 	};
-	
+
+  view: ?HTMLElement;
+  
     static defaultProps: Props = {
 		className: 'menu-list'
         dataClass: { itemClass: 'menu-item', itemIconClass: 'menu-item-icon' },
@@ -83,7 +85,7 @@ export default class MenuListElement extends Component<Props, State> {
                     };
             return (
                     <MenuItemElement item={item} key={item.id} className=classes(itemClass, item.className) dataClass={restClass}>
-                        <label>{item.title}</label>
+                        <Elements.Label>{item.title}</Elements>
                         <BasicListControl items={elems} transition={item.transition ? item.transition : transition} />
                         <CSSTransitionGroup {...mergedTransition}>
                             {this.state.activeMenu === item.id ? 
@@ -97,13 +99,13 @@ export default class MenuListElement extends Component<Props, State> {
                 );
         }
         return (
-                <div className={className} {...rest}>
-                    <nav>
-                        <ul>
+                <Elements.View className={className} ref={view => (this.view = view)} {...rest}>
+                    <Elements.Navigation>
+                        <Elements.List>
                             {elements}
-                        </ul>
-                    </nav>
-                </div>
+                        </Elements.List>
+                    </Elements.Navigation>
+                </Elements.View>
         );
     }
 };

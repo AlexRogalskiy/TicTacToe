@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 import { NavLink }  from 'react-router-dom';
+
+import { Elements } from 'libs/elements.lib';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames/bind';
 //import Logger from 'mixins/logger';
@@ -57,13 +59,13 @@ export default class BasicNavLinkListControl extends Component<Props, State> {
     render(): Node {
         const { className, dataClass, onClick, ...rest } = this.props;
         return (
-            <div className={className} {...rest}>
-                <nav className={dataClass.groupClass} aria-label="breadcrumbs">
+            <Elements.View className={className} {...rest}>
+                <Elements.Navigation className={dataClass.groupClass} aria-label="breadcrumbs">
                     this.state.items.map((item: object) {
 						return <NavLink item={item} key={item.id} to={item.path} onClick={this.onClick(item.name)} className=classes(dataClass.itemClass, item.className)>{item.content}</NavLink>
                     }.bind(this));
-                </nav>
-            <div>
+                </Elements.Navigation>
+            <Elements.View>
         );
     }
 };

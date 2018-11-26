@@ -8,6 +8,8 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import { Transition } from 'react-transition-group';
 
+import { Elements } from 'libs/elements.lib';
+
 const defaultStyle = (duration: number = 300) => {
   transition: `opacity ${duration}ms ease-in-out`,
   opacity: 0
@@ -47,13 +49,13 @@ export default class BlockFadeTransition extends Component<Props> {
 	return (
 		<Transition {...mergedTransition}>
 			{(state) => (
-				<div className={classes(className, block-fade-${state})} style={{
+				<Elements.View className={classes(className, block-fade-${state})} style={{
 					...defaultStyle(duration),
 					...defaultTransitionStyle[state],
 					...transitionStyle[state]
 				}} {...rest}>
 					{children}
-				</div>
+				</Elements.View>
 			)}
 		 </Transition>
 	);

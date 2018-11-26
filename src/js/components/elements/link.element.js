@@ -8,6 +8,8 @@ import React, { Component, Node } from 'react';
 import { style, classes } from 'typestyle';
 import { withRouter } from "react-router";
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -31,7 +33,7 @@ class LinkElement extends Component<Props> {
 			dataClass.currentLinkClass && (router.pathname + router.search + router.hash) === href
 		);
         return (
-            <a onClick={router.redirect(href)} href={href} className={computedClassName} {...rest}>{ children }</a>
+            <Elements.Link onClick={router.redirect(href)} href={href} className={computedClassName} {...rest}>{ children }</Elements.Link>
         );
     }
 };

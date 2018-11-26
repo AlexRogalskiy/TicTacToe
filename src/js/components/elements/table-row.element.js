@@ -6,6 +6,8 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type TableRow = {
 	id?: string;
@@ -29,14 +31,14 @@ export default class TableRowElement extends Component<Props> {
   getRows(data: Array<TableRow> = []): Node {
 	 return data.forEach((value, index) => {
 		return (
-			<td key={index}
+			<Elements.TBodyField key={index}
 			    item={value.key} 
 				id=value.id}
 				name=value.name}
 				ref={value.ref}
 				className={value.className}>
 				{value.content}
-			</td>
+			</Elements.THeadField>
 		);
 	 });
   }
@@ -44,9 +46,9 @@ export default class TableRowElement extends Component<Props> {
   render(): Node {
     const { className, data, ...rest } = this.props;
 	return (
-			<tr className={className} {...rest}>
+			<Elements.TRow className={className} {...rest}>
 				{this.getRows(data)}
-			</tr>
+			</Elements.TRow>
 	);
   }
 };

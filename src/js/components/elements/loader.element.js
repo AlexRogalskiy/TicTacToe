@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -32,15 +34,15 @@ export default class LoaderElement extends Component<Props> {
       inline && dataClass.nestedContainerClass
     );
     return (
-      <div className={className}>
-        <div className={containerClassName} {...rest}>
-          <aside />
-          <aside />
-          <aside />
-          <aside />
-          <aside />
-        </div>
-      </div>
+      <Elements.View className={className}>
+        <Elements.View className={containerClassName} {...rest}>
+          <Elements.Side />
+          <Elements.Side />
+          <Elements.Side />
+          <Elements.Side />
+          <Elements.Side />
+        </Elements.View>
+      </Elements.View>
     );
   }
 };

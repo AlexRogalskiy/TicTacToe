@@ -1,5 +1,12 @@
-import React, {Component} from 'react';
+'use strict';
+
+/**
+ * Module dependencies
+ */
+import React, { Component, Node } from 'react';
 import * as Database from 'components/services/db';
+
+import { Elements } from 'libs/elements.lib';
 
 class HeroInsert extends Component {
     state = {
@@ -24,14 +31,14 @@ class HeroInsert extends Component {
 
     render() {
         return (
-            <div id="insert-box" className="box">
-                <h3>Add Hero</h3>
-                <form onSubmit={this.addHero}>
-                    <input type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} />
-                    <input type="text" placeholder="Color" value={this.state.color} onChange={this.handleColorChange}/>
-                    <button type="submit">Insert a Hero</button>
-                </form>
-            </div>
+            <Elements.View id="insert-box" className="box">
+                <Elements.Head_3>Add Hero</Elements.Head_3>
+                <Elements.Form onSubmit={this.addHero}>
+                    <Elements.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} />
+                    <Elements.Control type="text" placeholder="Color" value={this.state.color} onChange={this.handleColorChange}/>
+                    <Elements.Button type="submit">Insert a Hero</Elements.Button>
+                </Elements.Form>
+            </Elements.View>
         );
     }
 }

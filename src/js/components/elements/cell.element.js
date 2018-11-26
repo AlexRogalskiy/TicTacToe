@@ -7,6 +7,8 @@ import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
 
+import { Elements } from 'libs/elements.lib';
+
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
@@ -20,7 +22,7 @@ export default class CellElement extends Component<Props, State> {
   displayName: string = 'CellElement';
 
   state: State = {
-	isWinner: false
+	isWinner: this.props.isWinner
   };
 	
   static defaultProps: Props = {
@@ -30,7 +32,7 @@ export default class CellElement extends Component<Props, State> {
   
   constructor(props: Props): void {
     super(props);
-	this.state = { isWinner: props.isWinner };
+	//this.state = { isWinner: props.isWinner };
   }
 
   render(): Node {
@@ -44,9 +46,9 @@ export default class CellElement extends Component<Props, State> {
     } = this.props;
     const cellClassName = classes(className, this.state.isWinner && dataClass.winnerClass);
     return (
-      <div onClick={onPress} className={cellClassName} {...rest}>
+      <Elements.View onClick={onPress} className={cellClassName} {...rest}>
         { value }
-      </div>
+      </Elements.View>
     );
   }
 };
