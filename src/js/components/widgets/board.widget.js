@@ -120,7 +120,9 @@ export default class BoardWidget extends Component<Props, State> {
       Logger.debug(
         tag`onStart: <start> with data ${data} from socket with id=${socket.id}`
       );
-      this.setState({ isStart: true, response: data });
+      if(this._mounted) {
+		  this.setState({ isStart: true, response: data });
+	  }
       if (this.props.onStart) {
         this.props.onStart.call(this, data);
       }
@@ -411,13 +413,19 @@ export default class BoardWidget extends Component<Props, State> {
       });
       if (this.props.onFinalize) {
         this.props.onFinalize.call(this, {
-          room: this.state.response.room
+          room: this.state.response && this.state.response.room
         });
       }
     };
   }
+  
+  componentWillUnmount(): void {
+     this._mounted = false;
+  }
 
   componentDidMount(): void {
+	this._mounted = true;
+	
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));

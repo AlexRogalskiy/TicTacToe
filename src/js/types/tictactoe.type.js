@@ -15,9 +15,12 @@ export type Data = {
 };
 
 export type State = {
-	board: Board;
-	cells: Cells;
-	player: Player;
+	router: Object<any>;
+	game: Object<{
+		board: Board,
+		cells: Cells,
+		player: Player
+	}>;
 };
 
 export type Action = BoardAction | CellsAction | PlayerAction;

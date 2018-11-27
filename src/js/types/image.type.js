@@ -3,11 +3,16 @@
 /* @flow */
 export type Dispatch = (action: ImageAction | Promise<ImageAction>) => Promise;
 
-export type ImageState = {
+export type ImageInfo = {
 	url?: string;
-	loading: boolean;
-	error: boolean;
+	loading?: boolean;
+	error?: boolean;
 	message?: string;
+};
+
+export type ImageState = {
+	router: Object<any>;
+	image: Object<ImageInfo>;
 };
 
 export type ImageAction = {

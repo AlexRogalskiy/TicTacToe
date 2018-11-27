@@ -33,6 +33,7 @@ type BoardInfo = {
     date?: string;
 };
 type StateInfo = {
+	router: Object<any>;
     player: Player;
     cells: Cells;
     board: BoardInfo;
@@ -133,19 +134,20 @@ const getStatusMessage = (cells: Cells, player: Player): string => {
   return localStrings.formatString(localStrings.player, player);
 };
 
-const mapStateToProps = (state: State): StateInfo => {
-  return {
-    player: state.player,
-    cells: state.cells,
-    board: getBoard(state.board),
-    winCells: getWinner(state.cells).winningState,
-    roundFinished: isFinished(state.cells),
-    message: getStatusMessage(state.cells, state.player),
-  };
-};
+const mapStateToProps = (state: State): StateInfo => ({
+	//pathname: state.router.pathname,
+	//search: state.router.location.search,
+	//hash: state.router.location.hash,
+	router: state.router,
+    player: state.game.player,
+    cells: state.game.cells,
+    board: getBoard(state.game.board),
+    winCells: getWinner(state.game.cells).winningState,
+    roundFinished: isFinished(state.game.cells),
+    message: getStatusMessage(state.game.cells, state.game.player),
+});
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => {
-  return {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => ({
     onSetCell: (data: Data): void => {
       if (isValidMove(data.cells, data.position)) {
         dispatch(addMove(data));
@@ -162,9 +164,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => {
     },
     onFinalize: (data: Data): void => {
       dispatch(finalizeGame(data));
-    },
-  };
-};
+    }
+});
 
 const TicTacToeBoardContainer = connect(
   mapStateToProps,

@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'; 
+import { push } from 'connected-react-router';
 import {
   requestImage,
   requestImageSuccess,
@@ -48,6 +49,7 @@ const fetchImage = (url: string): any => {
 function* fetchImageSaga(): void {
 	yield takeEvery(FETCHED_IMAGE, fetchImageAsync);
 	//yield takeLatest(FETCHED_IMAGE, fetchImageAsync);
+	//yield put(push('/home'));
 };
 
 function* fetchImageAsync(action: ImageAction): void {

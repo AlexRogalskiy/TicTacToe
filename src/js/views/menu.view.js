@@ -5,15 +5,31 @@
  */
 import React, { Component, Node } from 'react';
 
-import { renderNavLinks } from 'libs/elements.lib';
+import { Elements, renderNavLinks } from 'libs/elements.lib';
 import type { NavLinkItem } from 'types/common.type';
 
-const MenuView = (items: Array<NavLinkItem> = []): Node => {
-	items = [];
-	items.push({ path: '', title: 'Home', className: 'menu-item' });
-	items.push({ path: 'about', title: 'About', className: 'menu-item' });
-	items.push({ path: 'items', title: 'Items', className: 'menu-item' });
-	return renderNavLinks(items);
+/* @flow */
+type Props = {
+	items: Array<NavLinkItem>;
+	children?: Node;
 };
 
-export default MenuView;
+export default class MenuView extends Component<Props> {
+  displayName: string = 'MenuView';
+
+  view: ?HTMLElement;
+  
+  static defaultProps: Props = {
+	  className: 'view',
+	  items: []
+  };
+  
+  render(): Node {
+	  const { staticContext, items, children, ...rest } = this.props;
+	  return (
+		<Elements.View ref={view => (this.view = view)} {...rest}>
+			{ renderNavLinks(items) }
+		</Elements.View>
+	  );
+  }
+};

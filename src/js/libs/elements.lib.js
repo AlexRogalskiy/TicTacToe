@@ -77,7 +77,7 @@ const renderRoutes = (routes: Array<RouteItem> = []): Node => (
  * returns list of links within block
  */
 const renderLinks = (routes: Array<LinkItem> = []): Node => {
-  let currentPath = null;
+  let currentPath = window.location.pathname;
   return <Elements.List>
     {
       routes
@@ -98,7 +98,7 @@ const renderLinks = (routes: Array<LinkItem> = []): Node => {
  * returns list of navlinks within block
  */
 const renderNavLinks = (routes: Array<NavLinkItem> = []): Node => {
-  let currentPath = null;
+  let currentPath = window.location.pathname;
   return <Elements.List>
     {
       routes

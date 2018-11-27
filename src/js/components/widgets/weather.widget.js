@@ -56,11 +56,19 @@ export default class WeatherWidget extends Component<Props, State> {
       Logger.debug(
         tag`onEvent: <event> data ${data} from socket with id=${socket.id}`
       );
-      this.setState({ response: data });
+	  if(this._mounted) {
+		this.setState({ response: data });
+	  }
     };
+  }
+  
+  componentWillUnmount(): void {
+     this._mounted = false;
   }
 
   componentDidMount(): void {
+	this._mounted = true;
+	
     const socket = socketIOClient(this.props.endpoint);
     socket.on('connect', this.onConnect(socket));
     socket.on('disconnect', this.onDisconnect(socket));

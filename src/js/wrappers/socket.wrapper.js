@@ -34,11 +34,21 @@ export default function SocketWrapper<Props: {}>(WrappedComponent: React.Compone
       this.onConnect = this.onConnect.bind(this);
       this.onDisconnect = this.onDisconnect.bind(this);
     }
+	
+	componentWillUnmount(): void {
+		this._mounted = false;
+	}
+	
+	componentDidMount(): void {
+		this._mounted = true;
+	}
 
     onConnect(socket: Object<any>): func {
       return () => {
         Logger.debug(`onConnect: connected by socket with id=${socket.id}`);
-        this.setState({ isConnected: true });
+        if(this._mounted) {
+			this.setState({ isConnected: true });
+		}
       };
     }
 
@@ -47,7 +57,9 @@ export default function SocketWrapper<Props: {}>(WrappedComponent: React.Compone
         Logger.debug(
           `onDisconnect: disconnected from socket with id=${socket.id}`
         );
-        this.setState({ isConnected: false });
+		if(this._mounted) {
+			this.setState({ isConnected: false });
+		}
       };
     }
 

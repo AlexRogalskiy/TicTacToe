@@ -13,10 +13,8 @@ import { Elements } from 'libs/elements.lib';
 /* @flow */
 type Props = {
 	dataClass?: Object<any>;
-	url?: string;
-	loading?: boolean;
-	error?: boolean;
-	message?: string;
+	image?: Object<ImageInfo>;
+	onFetchImage?: func;
 	children?: Node;
 };
 type State = {
@@ -33,8 +31,7 @@ export default class ImageWidget extends Component<Props, State> {
 	static defaultProps: Props = {
       className: 'image',
 	  dataClass: {},
-	  loading: false,
-	  error: false
+	  image: {}
 	};
 	
 	state: State = {
@@ -54,17 +51,24 @@ export default class ImageWidget extends Component<Props, State> {
 	}
   
 	render(): Node {
-		const { className, dataClass, url, loading, error, message, children, staticContext, onFetchImage,  ... rest } = this.props;
+		const { className, dataClass, image, children, staticContext, onFetchImage,  ... rest } = this.props;
 		return (
 		  <Elements.View className={className} ref={view => (this.view = view)} disabled={this.state.isDisabled} {...rest}>
 			<TextControl />
 			<Elements.Button onClick={() => onFetchImage({ url: DEFAULT_FETCH_URL })}>Show Image</Elements.Button>
-			  {loading 
+			  {image.loading 
 				? <Elements.Paragraph>Loading...</Elements.Paragraph>
-				: error
-					? <Elements.Paragraph>Error {message}, try again</Elements.Paragraph>
-					: <Elements.Paragraph><Elements.Image src={url}/></Elements.Paragraph>}
+				: image.error
+					? <Elements.Paragraph>Error {image.message}, try again</Elements.Paragraph>
+					: <Elements.Paragraph><Elements.Image src={image.url}/></Elements.Paragraph>}
 		  </Elements.View>
 		)
 	}
 };
+
+/*import { push } from 'connected-react-router'
+// in component render:
+<div onClick={() => {
+  props.push('/home');
+}}>login</div>
+export default connect(null, { push })(Component);*/
