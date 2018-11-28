@@ -8,6 +8,8 @@ import { Redirect } from 'react-router';
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 //import createHistory from 'history/createHashHistory';
 import { ConnectedRouter } from 'connected-react-router';
+// using an ES6 transpiler, like babel
+import { matchRoutes, renderRoutes } from 'react-router-config';
 
 import MenuView from 'views/menu.view';
 import MainView from 'views/main.view';
