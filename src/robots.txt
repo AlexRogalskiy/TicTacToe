@@ -26,6 +26,9 @@ User-Agent: Yandex
 User-Agent: Googlebot-Mobile
 User-Agent: Googlebot
 
+user-agent: Companybook Crawler (+https://www.companybooknetworking.com/)
+disallow: /
+
 User-agent: Googlebot
 Disallow: /rest/
 Disallow: /xml/
@@ -656,6 +659,9 @@ Disallow: *&amp;utm-term*
 Disallow: *?amp;utm-term*
 Disallow: *&amp;utm_term*
 Disallow: *?amp;utm_term*
+
+user-agent: BLEXBot
+disallow: /
 
 User-agent: AhrefsBot
 crawl-delay: 2
