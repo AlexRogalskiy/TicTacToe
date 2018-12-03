@@ -5,6 +5,8 @@
  */
 import React, { Component, Node } from 'react';
 
+import { Elements } from 'libs/elements.lib';
+
 const rowStyle = {
   color: "#333",
   fontFamily: "monospace",
@@ -24,13 +26,13 @@ type Props = {
 
 
 const PlayListItemView = (props: Props): Node => (
-	<tr style={rowStyle} onClick={props.onClick}>
+	<Elements.TRow style={rowStyle} onClick={props.onClick}>
     {
       props.item.fields.map((field: PlayListItemField): Node => (
-        <td id={props.item.id} className={props.item.className}>props.content</td>
+        <Elements.TBodyField id={props.item.id} className={props.item.className}>props.content</Elements.TBodyField>
       ))
     }
-    </tr>
+    </Elements.TRow>
 );
 
 export default PlayListItemView;

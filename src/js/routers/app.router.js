@@ -10,6 +10,10 @@ import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 // using an ES6 transpiler, like babel
 import { matchRoutes, renderRoutes } from 'react-router-config';
+//const branch = matchRoutes(AppRoute, "/child/23");
+
+// routes
+import AppRoute from 'app-root/routes/app.route';
 
 import MenuView from 'views/menu.view';
 import MainView from 'views/main.view';
@@ -41,11 +45,12 @@ const AppRouter = ({ history }): Node => (
 			<MenuView items={items} />
 			<Elements.View className='App-intro'>
 				<Switch>
-				  <Route path='/' component={MainView} exact />
+				  { renderRoutes(AppRoute) }
+				  { /*	  <Route path='/' component={MainView} exact />
 				  <Route path='/item/:id' component={ItemView} />
 				  <Route path='/home' component={HomeView} />
 				  <Route path='/about' component={AboutView} />
-				  <Route path='/items' component={ItemsView} />
+					  <Route path='/items' component={ItemsView} /> */ }
 				  <RedirectStatusRoute status={301} from='/users' to='/profiles' />
 				  <RedirectStatusRoute status={302} from='/courses' to='/dashboard' />
 				  <Route component={NotFoundView} />

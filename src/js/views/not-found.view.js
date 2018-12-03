@@ -4,13 +4,15 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+
+import { Elements } from 'libs/elements.lib';
 import StatusRoute from 'app-root/routes/status.route';
 
 const NotFoundView = (): Node => (
   <StatusRoute code={404}>
-    <div>
-      <h1>Sorry, can’t find that.</h1>
-    </div>
+    <Elements.View>
+      <Elements.Head_1>Sorry, can’t find that.</Elements.Head_1>
+    </Elements.View>
   </StatusRoute>
 );
 

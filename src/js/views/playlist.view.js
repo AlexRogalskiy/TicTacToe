@@ -4,6 +4,8 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+
+import { Elements } from 'libs/elements.lib';
 import PlaylistItemView from 'views/playlist-item.view';
 
 const headerStyle = {
@@ -23,14 +25,14 @@ type Props = {
 };
 
 const PlaylistView = (props: Props): Node => (
-  <table class={props.className}>
-    <thead style={headerStyle}>
-      <tr>
-        <th>Title</th>
-        <th>Artist</th>
-      </tr>
-    </thead>
-    <tbody>
+  <Elements.Table class={props.className}>
+    <Elements.THead style={headerStyle}>
+      <Elements.TRow>
+        <Elements.THeadField>Title</Elements.THeadField>
+        <Elements.THeadField>Artist</Elements.THeadField>
+      </Elements.TRow>
+    </Elements.THead>
+    <Elements.TBody>
     {
       props.items.map((item: PlayListItem): Node => (
         <PlaylistItemView
@@ -39,8 +41,8 @@ const PlaylistView = (props: Props): Node => (
         />
       ))
     }
-    </tbody>
-  </table>
+    </Elements.TBody>
+  </Elements.Table>
 );
 
 export default PlaylistView;

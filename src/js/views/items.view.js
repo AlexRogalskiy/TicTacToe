@@ -6,23 +6,24 @@
 import React, { Component, Node } from 'react';
 import { Route, Link } from 'react-router-dom';
 
+import { Elements } from 'libs/elements.lib';
 import ItemView from 'views/item.view';
 
-const ItemsView = ({ match }): Node => (
-  <div>
-    <h2>Items</h2>
-    <ul>
-      <li>
+const ItemsView = ({ route, match }): Node => (
+  <Elements.View>
+    <Elements.Head_2>Items</Elements.Head_2>
+    <Elements.List>
+      <Elements.ListItem>
         <Link to={`${match.url}/components`}>Components</Link>
-      </li>
-      <li>
+      </Elements.ListItem>
+      <Elements.ListItem>
         <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-      </li>
-    </ul>
+      </Elements.ListItem>
+    </Elements.List>
 
     <Route path={`${match.path}/:id(\\d+)`} component={ItemView} />
-    <Route path={match.path} render={() => <h3>Please select an item.</h3>} exact />
-  </div>
+    <Route path={match.path} render={() => <Elements.Head_3>Please select an item.</Elements.Head_3>} exact />
+  </Elements.View>
 );
 
 export default ItemsView;

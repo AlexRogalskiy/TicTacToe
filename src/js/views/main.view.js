@@ -24,6 +24,7 @@ const scheme = config.default.scheme;
 
 /* @flow */
 type Props = {
+	route?: Object<any>;
 	children?: Node;
 };
 

@@ -26,6 +26,7 @@ export default class MenuView extends Component<Props> {
   
   render(): Node {
 	  const { staticContext, items, children, ...rest } = this.props;
+	  // props.location = { pathname: '/here', ... }
 	  return (
 		<Elements.View ref={view => (this.view = view)} {...rest}>
 			{ renderNavLinks(items) }

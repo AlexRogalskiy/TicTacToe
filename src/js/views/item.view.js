@@ -4,7 +4,15 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+import { renderRoutes } from 'react-router-config';
 
-const ItemView = ({ match }): Node => <h3>Requested Param: {match.params.id}</h3>
+import { Elements } from 'libs/elements.lib';
+
+const ItemView = ({ route, match }): Node => (
+	<Elements.Head_3>
+		Requested Param: {match.params.id}
+		{ renderRoutes(route.routes, { someProp: "these extra props are optional" }) }
+	</Elements.Head_3>
+);
 
 export default ItemView;
