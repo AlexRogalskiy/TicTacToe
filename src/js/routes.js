@@ -7,6 +7,7 @@ import MainView from 'views/main.view';
 import ItemView from 'views/item.view';
 import HomeView from 'views/home.view';
 import AboutView from 'views/about.view';
+import OrderView from 'views/order.view';
 import ItemsView from 'views/items.view';
 import NoMatchView from 'views/no-match.view';
 
@@ -33,6 +34,11 @@ export const routes: Routes = [
   {
     path: '/about',
     component: AboutView,
+    loadData: () => loadData()
+  },
+  {
+    path: '/order/:direction(asc|desc)',
+    component: OrderView,
     loadData: () => loadData()
   },
   {

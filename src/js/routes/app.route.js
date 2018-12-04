@@ -11,6 +11,7 @@ import AppView from 'views/app.view';
 import MainView from 'views/main.view';
 import HomeView from 'views/home.view';
 import AboutView from 'views/about.view';
+import OrderView from 'views/order.view';
 import ItemsView from 'views/items.view';
 import ItemView from 'views/item.view';
 import SubItemView from 'views/sub-item.view';
@@ -31,6 +32,10 @@ const AppRoute = [
       {
         path: '/about',
         component: AboutView
+      },
+	  {
+        path: '/order/:direction(asc|desc)',
+        component: OrderView
       },
 	  {
         path: '/items',
