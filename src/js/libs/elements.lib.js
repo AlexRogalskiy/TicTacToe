@@ -66,8 +66,8 @@ const renderRoutes = (routes: Array<RouteItem> = []): Node => (
   <Switch>
     {
 		routes
-		  .map(route => (
-			<Route {...route} />
+		  .map((route, i) => (
+			<Route key={i} {...route} />
 		))
 	}
   </Switch>
@@ -84,6 +84,7 @@ const renderLinks = (routes: Array<LinkItem> = []): Node => {
         .map(({ path, title, ...rest }, i) =>
           <Elements.ListItem key={i}>
             <Link
+			  key={i}
               to={`/${path}`}
               replace={path === currentPath}
 			{...rest}>
@@ -106,6 +107,7 @@ const renderNavLinks = (routes: Array<NavLinkItem> = []): Node => {
         .map(({ path, title, className, ...rest }, i) =>
           <Elements.ListItem key={i}>
             <NavLink
+			  key={i}
               to={`/${path}`}
               replace={path === currentPath}
 			  activeClassName={className}

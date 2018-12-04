@@ -13,6 +13,7 @@ export type Dictionary<K,T> = {
 export type RouteItem = {
 	path: string;
 	component?: React.ComponentType<Props>;
+	routes?: Array<RouteItem>;
 	loadData?: func;
 };
 
