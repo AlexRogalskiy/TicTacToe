@@ -11,8 +11,18 @@ import { Elements } from 'libs/elements.lib';
 /* @flow */
 type Props = {
 	route: Object<any>;
-	match: Object<any>;
-	location: Object<any>;
+	match: Object<{
+		path?: string;
+		strict?: boolean;
+		exact?: boolean;
+	}>;
+	location: Object<{
+		key?: string;
+		pathname?: string;
+		search?: string;
+		hash?: string;
+		state?: Object<any>;
+	}>;
 };
 
 const AppView = ({ route, match, location }: Props): Node => (

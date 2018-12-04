@@ -75,6 +75,7 @@ export default function TransitionWrapper<Props: {}>(WrappedComponent: React.Com
     render(): Node {
       return (
         <WrappedComponent
+		  wrappedComponentRef={c => (this.component = c)}
           isMounted={this.state.isMounted}
           isActivated={this.state.isActivated}
           {...this.props}

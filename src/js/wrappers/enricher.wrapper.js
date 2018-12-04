@@ -9,19 +9,19 @@ import React, { Component, Node } from 'react';
 import Logger from 'libs/logger.lib';
 
 export default function EnricherWrapper<Props: {}>(Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { name: string | void }>> {
-	return function wrapper(props: Props) {
-		return <Component {...props} name={'enricher'} />;
+	return function wrapper(props: Props): Node {
+		return <Component wrappedComponentRef={c => (this.component = c)} {...props} name={'wrapper'} />;
 	};
 };
 
 /*
-class MyComponent extends React.Component<{
+class MyComponent extends Component<{
   a: number,
   b: number,
-  name: number,
+  name: string,
 }> {}
 
-const MyEnhancedComponent = Enricher(MyComponent);
+const MyEnhancedComponent = EnricherWrapper(MyComponent);
 
 // We don't need to pass in `foo` even though `MyComponent` requires it.
 

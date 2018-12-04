@@ -36,6 +36,10 @@ export default class MainView extends Component<Props> {
   static defaultProps: Props = {
 	  className: 'view'
   };
+  
+  componentDidUpdate(prevProps: Props): void {
+    const locationChanged = this.props.location !== prevProps.location;
+  }
 
   /*shouldComponentUpdate(nextProps: Object<any>, nextState: Object<any>): boolean {
 		if (this.props.color !== nextProps.color) {

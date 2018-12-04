@@ -64,6 +64,7 @@ export default function LifeCycleWrapper<Props: {}>(WrappedComponent: React.Comp
     render(): Node {
       return (
         <WrappedComponent
+			wrappedComponentRef={c => (this.component = c)}
 			isMounted={this.state.isMounted}
 			{...this.props}
 		/>

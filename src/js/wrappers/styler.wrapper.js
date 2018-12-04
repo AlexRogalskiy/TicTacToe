@@ -25,7 +25,7 @@ export default function StylerWrapper<Props: {}>(WrappedComponent: React.Compone
 			if (Array.isArray(style)) {
 				this.style = Object.assign({}, ...style);
 			}
-			return (<WrappedComponent style={polyfill(style)} {...rest} />);
+			return (<WrappedComponent wrappedComponentRef={c => (this.component = c)} style={polyfill(style)} {...rest} />);
 		}
 	}
 };

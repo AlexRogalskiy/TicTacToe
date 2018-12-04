@@ -13,7 +13,7 @@ type Props = {
 
 export default function AuthWrapper(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
 
-  return class AuthenticatedComponent extends Component<Props> {
+  class AuthenticatedComponent extends Component<Props> {
 	displayName: string = 'AuthWrapper';
 	
     componentWillMount(): void {
@@ -28,10 +28,10 @@ export default function AuthWrapper(WrappedComponent: React.ComponentType<Props>
 
     render(): Node {
       return this.props.isAuthenticated
-        ? <WrappedComponent { ...this.props } />
+        ? <WrappedComponent wrappedComponentRef={c => (this.component = c)} { ...this.props } />
         : null;
     }
-  }
+  };
 
   return withRouter(AuthenticatedComponent);
 };

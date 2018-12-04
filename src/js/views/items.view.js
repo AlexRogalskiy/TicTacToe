@@ -12,8 +12,18 @@ import ItemView from 'views/item.view';
 /* @flow */
 type Props = {
 	route: Object<any>;
-	match: Object<any>;
-	location: Object<any>;
+	match: Object<{
+		path?: string;
+		strict?: boolean;
+		exact?: boolean;
+	}>;
+	location: Object<{
+		key?: string;
+		pathname?: string;
+		search?: string;
+		hash?: string;
+		state?: Object<any>;
+	}>;
 };
 
 const ItemsView = ({ route, match, location }: Props): Node => (
