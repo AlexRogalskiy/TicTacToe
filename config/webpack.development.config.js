@@ -18,10 +18,15 @@ const DEFAULT_PATHS = {
 	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')
 };
 
+/*entry: [
+    'react-hot-loader/patch',
+    path.resolve('src/index.tsx'),
+],*/
+
 const DEVELOPMENT_CONFIG = {
 	mode: 'development',
     entry: path.resolve(DEFAULT_PATHS.JS_SOURCE_DIR, 'index.js'),
-	devtool: 'source-map',
+	devtool: 'eval-source-map',
 	cache: false,
     output: {
 		path: DEFAULT_PATHS.BUILD_DIR,

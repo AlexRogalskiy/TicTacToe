@@ -7,7 +7,14 @@ import React, { Component, Node } from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 
-const RedirectStatusRoute = ({ from, to, status }): Node => (
+/* @flow */
+type Props = {
+	from: string;
+	to: string;
+	status: number;
+};
+
+const RedirectStatusRoute = ({ from, to, status }: Props): Node => (
   <Route
     render={({ staticContext }) => {
       // there is no `staticContext` on the client, so

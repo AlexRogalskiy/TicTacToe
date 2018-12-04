@@ -16,6 +16,7 @@ import { isFunction } from 'libs/helpers.lib';
 import AppReducer from 'reducers/app.reducer';
 
 const history = createBrowserHistory();
+//const composeEnhancer: typeof compose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //const initialState = Immutable.Map();
 //{
 //	basename: '/prefix/'

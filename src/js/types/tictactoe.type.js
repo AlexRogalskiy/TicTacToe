@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module dependencies
+ */
+import { RouterState } from 'connected-react-router';
+
 /* @flow */
 export type Player = string;
 export type Position = number;
@@ -15,7 +20,7 @@ export type Data = {
 };
 
 export type State = {
-	router: Object<any>;
+	router: RouterState;
 	game: Object<{
 		board: Board,
 		cells: Cells,

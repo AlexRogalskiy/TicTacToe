@@ -14,6 +14,7 @@ const headerStyle = {
   fontSize: "32",
 };
 
+/* @flow */
 type PlaylistItem = {
 	id: string;
 	className?: string;

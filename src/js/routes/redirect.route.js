@@ -6,7 +6,12 @@
 import React, { Component, Node } from 'react';
 import { Redirect } from 'react-router';
 
-const RedirectRoute = ({ match }): Node => (
+/* @flow */
+type Props = {
+	match: Object<any>;
+};
+
+const RedirectRoute = ({ match }: Props): Node => (
 	<Redirect to={`${match.path}/${match.params}`} />
 );
 

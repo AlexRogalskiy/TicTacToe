@@ -13,6 +13,7 @@ const rowStyle = {
   fontSize: "32",
 };
 
+/* @flow */
 type PlayListItemField = {
 	id: string;	
 	className?: string;
@@ -23,7 +24,6 @@ type Props = {
 	onClick?: func;
 	children?: Node;
 };
-
 
 const PlayListItemView = (props: Props): Node => (
 	<Elements.TRow style={rowStyle} onClick={props.onClick}>

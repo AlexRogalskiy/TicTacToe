@@ -7,8 +7,9 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 //import { connectRouter } from 'connected-react-router/immutable'
 //import TicTacToeReducer from 'reducers/tictactoe.reducer';
+import { History } from 'history';
 import ImageReducer from 'reducers/image.reducer';
 
-const AppReducer = (history) => combineReducers({ router: connectRouter(history), image: ImageReducer });
+const AppReducer = (history: History) => combineReducers({ router: connectRouter(history), image: ImageReducer });
 
 export default AppReducer;

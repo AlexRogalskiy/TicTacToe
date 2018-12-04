@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 
 /* @flow */
 type Props = {
+	location: Object<any>;
 	children?: Node;
 };
 

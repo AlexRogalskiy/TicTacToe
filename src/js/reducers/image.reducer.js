@@ -34,6 +34,7 @@ const ImageReducer = (state: ImageState = initialState, action: ImageAction = {}
 			message: action.message
 		  };
 		default:
+		  (action: empty);
 		  return state;
 	}
 };

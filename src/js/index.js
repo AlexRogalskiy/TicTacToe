@@ -26,6 +26,8 @@ type Props = {
 	wrapper: Object<HTMLElement>;
 };
 
+const history = createBrowserHistory(); //createHistory({ queryKey: false })
+
 const render = (MainComponent: React.ComponentType<{}>, props: Props = {}): void =>
 	ReactDOM.render(
 	<AppContainer>
@@ -36,8 +38,8 @@ const render = (MainComponent: React.ComponentType<{}>, props: Props = {}): void
     props.wrapper
 );
 
-//const App = () => (<AppRouter history={createHistory({ queryKey: false })} />);
-const App = () => (<AppRouter history={ createBrowserHistory() } />);
+//const App = () => (<AppRouter history={ history } />);
+const App = () => (<AppRouter history={ history } />);
 
 const wrapper = document.getElementById('root');
 if (wrapper) {

@@ -8,41 +8,41 @@ import ItemView from 'views/item.view';
 import HomeView from 'views/home.view';
 import AboutView from 'views/about.view';
 import ItemsView from 'views/items.view';
-import NotFoundView from 'views/not-found.view';
+import NoMatchView from 'views/no-match.view';
 
 import { Routes } from 'types/common.type';
 
-const loadData = () => {};
+const loadData = (): void => {};
 
 export const routes: Routes = [
   {
-    path: "/",
+    path: '/',
     component: MainView,
     loadData: () => loadData()
   },
   {
-    path: "/item/:id",
+    path: '/item/:id',
     component: ItemView,
     loadData: () => loadData()
   },
   {
-    path: "/home",
+    path: '/home',
     component: HomeView,
     loadData: () => loadData()
   },
   {
-    path: "/about",
+    path: '/about',
     component: AboutView,
     loadData: () => loadData()
   },
   {
-    path: "/items",
+    path: '/items',
     component: ItemsView,
     loadData: () => loadData()
   },
   {
-    path: "**",
-    component: NotFoundView,
+    path: '**',
+    component: NoMatchView,
     loadData: () => loadData()
   }
 ];

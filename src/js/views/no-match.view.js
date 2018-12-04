@@ -8,7 +8,7 @@ import React, { Component, Node } from 'react';
 import { Elements } from 'libs/elements.lib';
 import StatusRoute from 'app-root/routes/status.route';
 
-const NotFoundView = (): Node => (
+const NoMatchView = (): Node => (
   <StatusRoute code={404}>
     <Elements.View>
       <Elements.Head_1>Sorry, can’t find that.</Elements.Head_1>
@@ -16,4 +16,4 @@ const NotFoundView = (): Node => (
   </StatusRoute>
 );
 
-export default NotFoundView;
+export default NoMatchView;

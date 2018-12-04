@@ -5,6 +5,8 @@
  */
 import { connect } from 'react-redux';
 import LocalizedStrings from 'react-localization';
+//import { Dispatch } from 'redux';
+//import { RouteComponentProps } from 'react-router';
 
 import {
   addMove,
@@ -15,7 +17,7 @@ import {
 } from 'actions/tictactoe.action';
 import BoardWidget from 'components/widgets/board.widget';
 
-import type { Data, State, Dispatch, Board, Player, Cells, Cell, Position } from 'types/tictactoe.type';
+import type { Data, State, Board, Player, Cells, Cell, Position, Dispatch } from 'types/tictactoe.type';
 import { isNullOrUndefined } from 'libs/helpers.lib';
 import Locale from 'resources/i18n/locale';
 
@@ -41,12 +43,12 @@ type StateInfo = {
     roundFinished: boolean;
     message: string;
 };
-type DispatchInfo = {
-	onSetCell: func;
-	onReset: func;
-	onStart: func;
-	onInitialize: func;
-	onFinalize: func;
+type DispatchProps = {
+	onSetCell: (data: Data) => void;
+	onReset: (data: Data) => void;
+	onStart: (data: Data) => void;
+	onInitialize: (data: Data) => void;
+	onFinalize: (data: Data) => void;
 };
 
 const getWinner = (cells: Cells): GameState => {
@@ -147,24 +149,16 @@ const mapStateToProps = (state: State): StateInfo => ({
     message: getStatusMessage(state.game.cells, state.game.player),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchInfo => ({
-    onSetCell: (data: Data): void => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+    onSetCell: (data: Data) => {
       if (isValidMove(data.cells, data.position)) {
         dispatch(addMove(data));
       }
     },
-    onReset: (data: Data): void => {
-      dispatch(resetGame(data));
-    },
-    onStart: (data: Data): void => {
-      dispatch(startGame(data));
-    },
-    onInitialize: (data: Data): void => {
-      dispatch(initializeGame(data));
-    },
-    onFinalize: (data: Data): void => {
-      dispatch(finalizeGame(data));
-    }
+    onReset: (data: Data) => dispatch(resetGame(data)),
+    onStart: (data: Data) => dispatch(startGame(data)),
+    onInitialize: (data: Data) => dispatch(initializeGame(data)),
+    onFinalize: (data: Data) => dispatch(finalizeGame(data))
 });
 
 const TicTacToeBoardContainer = connect(

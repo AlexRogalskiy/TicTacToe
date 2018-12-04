@@ -73,8 +73,9 @@ const MPlayerReducer = (state: MPlayerState = initialState, action: MPlayerActio
 				currentTrackId: action.track.id
 			};
 		default:
+		    (action: empty);
 			return state;
 	}
-};s
+};
 
 export default MPlayerReducer;

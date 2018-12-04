@@ -9,7 +9,14 @@ import { Route, Link } from 'react-router-dom';
 import { Elements } from 'libs/elements.lib';
 import ItemView from 'views/item.view';
 
-const ItemsView = ({ route, match }): Node => (
+/* @flow */
+type Props = {
+	route: Object<any>;
+	match: Object<any>;
+	location: Object<any>;
+};
+
+const ItemsView = ({ route, match, location }: Props): Node => (
   <Elements.View>
     <Elements.Head_2>Items</Elements.Head_2>
     <Elements.List>
