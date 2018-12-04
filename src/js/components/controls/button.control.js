@@ -11,7 +11,7 @@ import { Elements } from 'libs/elements.lib';
 
 /* @flow */
 type Props = {
-	isDisabled: boolean,;
+	isDisabled: boolean;
 	children?: Node;
 };
 
