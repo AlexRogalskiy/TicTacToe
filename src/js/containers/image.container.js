@@ -15,24 +15,20 @@ import {
   fetchImage
 } from 'actions/image.action';
 import ImageWidget from 'components/widgets/image.widget';
-import type { ImageState, ImageInfo, ImageData } from 'types/image.type';//Dispatch
-
-type DispatchProps = {
-	onFetchImage: (data: ImageData) => void;
-};
+import type { ImageState, ImageInfo, ImageData, DispatchProps } from 'types/image.type';//Dispatch
 
 const mapStateToProps = (state: ImageState): ImageInfo => ({
 	//pathname: state.router.pathname,
 	//search: state.router.location.search,
-	//hash: state.router.location,
+	//hash: state.router.location.hash,
 	router: state.router,
 	image: state.image
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	onFetchImage: (data: ImageData): void  => {
+	onFetchImage: (data: ImageData): void  => dispatch(fetchImage(data))
 		//dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId}})
-		dispatch(fetchImage(data));
+		//dispatch(fetchImage(data));
 		
 		//dispatch(push('/home'))
 		
@@ -43,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 				(data: ImageData) => dispatch(requestImageSuccess(data)),
 				(err: Object<any>) => dispatch(requestImageError(err))
 			);*/
-	}
+	//}
 });
 
 const ImageContainer = connect(

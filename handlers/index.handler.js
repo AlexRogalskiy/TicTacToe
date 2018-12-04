@@ -5,7 +5,7 @@
  */
 const home = (req, res) => {
 	res.render('home');
-	//res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
+	//res.sendFile(path.join(PUBLIC_PATH, 'index.html'));
 	//res.send({ response: "I am alive" }).status(200);
 };
 

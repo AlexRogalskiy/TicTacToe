@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import { combineReducers } from 'redux';
+//import { combineReducers } from 'redux-immutable';
 import { connectRouter } from 'connected-react-router';
 //import { connectRouter } from 'connected-react-router/immutable'
 //import TicTacToeReducer from 'reducers/tictactoe.reducer';

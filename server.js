@@ -8,6 +8,17 @@ import express from 'express';
 import connect from 'connect';
 import fs from 'fs';
 
+//const webpackDevMiddleware = require('webpack-dev-middleware');
+//const webpackHotMiddleware = require('webpack-hot-middleware');
+
+/*const config = require('./webpack.config')
+const compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  historyApiFallback: true,
+}));
+app.use(webpackHotMiddleware(compiler));*/
+
 //import dotenv from 'dotenv';
 //require('dotenv').config({ path: '/full/custom/path/to/your/env/vars', encoding: 'base64', silent: true, debug: process.env.DEBUG })
 /*const db = require('db')

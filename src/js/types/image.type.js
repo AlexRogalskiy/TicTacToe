@@ -8,6 +8,10 @@ import { RouterState } from 'connected-react-router';
 /* @flow */
 export type Dispatch = (action: ImageAction | Promise<ImageAction>) => Promise;
 
+export type DispatchProps = {
+	onFetchImage: (data: ImageData) => void;
+};
+
 export type ImageInfo = {
 	router: RouterState;
 	image: Object<ImageInfo>;

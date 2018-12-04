@@ -6,15 +6,17 @@
 import React, { Component, Node } from 'react';
 //import PropTypes from 'prop-types';
 import { style, classes } from 'typestyle';
+import { RouteComponentProps } from 'react-router';
 
+import { ImageInfo, DispatchProps } from 'types/image.type';
 import TextControl from 'components/controls/text.control';
 import { Elements } from 'libs/elements.lib';
 
 /* @flow */
-type Props = {
+type Props = ImageInfo & DispatchProps & RouteComponentProps<any> & {
 	dataClass?: Object<any>;
-	image?: Object<ImageInfo>;
-	onFetchImage?: func;
+	//image?: Object<ImageInfo>;
+	//onFetchImage?: func;
 	children?: Node;
 };
 type State = {

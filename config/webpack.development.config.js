@@ -18,10 +18,13 @@ const DEFAULT_PATHS = {
 	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')
 };
 
-/*entry: [
+/*
+entry: [
     'react-hot-loader/patch',
-    path.resolve('src/index.tsx'),
-],*/
+    'webpack-hot-middleware/client',
+    path.resolve('src/index.js'),
+],
+*/
 
 const DEVELOPMENT_CONFIG = {
 	mode: 'development',
