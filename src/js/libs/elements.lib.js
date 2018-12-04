@@ -81,11 +81,12 @@ const renderLinks = (routes: Array<LinkItem> = []): Node => {
   return <Elements.List>
     {
       routes
-        .map(({ path, title }, i) =>
+        .map(({ path, title, ...rest }, i) =>
           <Elements.ListItem key={i}>
             <Link
               to={`/${path}`}
-              replace={path === currentPath}>
+              replace={path === currentPath}
+			{...rest}>
               {title}
             </Link>
           </Elements.ListItem>
@@ -102,12 +103,13 @@ const renderNavLinks = (routes: Array<NavLinkItem> = []): Node => {
   return <Elements.List>
     {
       routes
-        .map(({ path, title, className }, i) =>
+        .map(({ path, title, className, ...rest }, i) =>
           <Elements.ListItem key={i}>
             <NavLink
               to={`/${path}`}
               replace={path === currentPath}
-			  activeClassName={className}>
+			  activeClassName={className}
+			{...rest}>
               {title}
             </NavLink>
           </Elements.ListItem>
