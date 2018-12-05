@@ -9,14 +9,20 @@ import { withRouter } from 'react-router';
 
 /* @flow */
 type Props = {
-	location: Object<any>;
+	location: Object<{
+		key?: string;
+		pathname?: string;
+		search?: string;
+		hash?: string;
+		state?: Object<any>;
+	}>;
 	children?: Node;
 };
 
 class ScrollTopRoute extends Component<Props> {
   displayName: string = 'ScrollTopRoute';
 
-  componentDidUpdate(prevProps: Object<any>): void {
+  componentDidUpdate(prevProps: Props): void {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
     }

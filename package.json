@@ -211,6 +211,7 @@
   "sideEffects": "false",
   "browserslist": [
     "last 2 versions",
+	"not dead",
     "Firefox ESR",
     "not ie < 9"
   ],
