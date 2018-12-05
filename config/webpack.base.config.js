@@ -12,12 +12,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 
-const DEFAULT_ROOT_DIR = '..';
+const resolve = (...dirs) => path.resolve(__dirname, '..', ...dirs);
+
 const DEFAULT_PATHS = {
-	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public', 'build'),
-	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
-	HTML_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'views')
+	BUILD_DIR: resolve('public', 'build'),
+	SOURCE_DIR: resolve('src'),
+	JS_SOURCE_DIR: resolve('src', 'js'),
+	HTML_SOURCE_DIR: resolve('src', 'views')
 };
 
 const BASE_CONFIG = {
@@ -35,14 +36,16 @@ const BASE_CONFIG = {
     },
     module: {
 		rules: [
+		    //{ test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/, loader: 'url-loader', options: { limit: 10000, name: utils.assetsPath('media/[name].[hash:7].[ext]') }},
+		    //{ test: /\.vue$/, loader: 'vue-loader', options: vueLoaderConfig },
 		    //{ test: /\.ts$/i, loader: 'ts-loader' },
 			//{test: /\.hbs$/, loader: 'handlebars-loader'},
             //{ test: /\.json$/i, exclude: /(node_modules|bower_components)/, loader: 'json-loader' },
             //{ test: /\.txt$/, use: [{ loader: 'raw-loader', options: { name: '[path]/[name].[ext]' }}] },
 			//{ test: /\.sol/, loader: 'truffle-solidity' },
 			//{test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 4 version!less-loader'},
-			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash].[ext]' }}, { loader: 'image-webpack-loader' }]},
-			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash].[ext]' } }]},
+			{ test: /\.(gif|png|jpe?g|svg)$/i, use: [{ loader: 'url-loader', options: { limit: 8192, name: 'images/[name].[hash:7].[ext]' } }, { loader: 'file-loader', options: { name: 'images/[name].[hash:7].[ext]' }}, { loader: 'image-webpack-loader' }]},
+			{ test: /\.(eot|ttf|otf|woff2?)$/i, use: [{ loader: 'file-loader', options: { name: 'fonts/[name]/[name].[hash:7].[ext]' } }]},
 			{ test: /\.html$/i, include: DEFAULT_PATHS.HTML_SOURCE_DIR, use: [{ loader: 'html-loader?htmlLoaderConfig', options: { minimize: false, removeComments: false, collapseWhitespace: false, ignoreCustomFragments: [/\{\{.*?}}/], root: DEFAULT_PATHS.HTML_SOURCE_DIR, attrs: ['img:src', 'link:href'] } }]}
 		]
     },
@@ -70,6 +73,14 @@ const BASE_CONFIG = {
 			])
 		})*/
 	],
+	node: {
+		setImmediate: false,
+		dgram: 'empty',
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+		child_process: 'empty'
+	},
 	resolve: {
 		modules: [
 			'src',
@@ -77,6 +88,7 @@ const BASE_CONFIG = {
 		],
 		extensions: ['.js', '.json', '.jsx', '.scss', '.sass'],
 		alias: {
+			'@': DEFAULT_PATHS.SOURCE_DIR,
 			'app-root': DEFAULT_PATHS.JS_SOURCE_DIR,
 			'actions': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'actions'),
 			'components': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'components'),

@@ -3,6 +3,8 @@ require('@babel/register')({
 });
 require('babel-polyfill');
 
+//require('src/js/libs/version.lib')()
+
 // Import the entry point of the application.
 if(require.main === module) {
 	require('./server.js')();

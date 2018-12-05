@@ -17,19 +17,21 @@ const { Config } = require('webpack-config');
         return zopfli.gzip(input, compressionOptions, callback);
       }
     })*/
-	
+
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 //const BundleBuddyWebpackPlugin = require("bundle-buddy-webpack-plugin");
 
-const DEFAULT_ROOT_DIR = '..';
+const resolve = (...dirs) => path.resolve(__dirname, '..', ...dirs);
+
 const DEFAULT_PATHS = {
-	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public', 'build'),
-	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
-	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')
+	BUILD_DIR: resolve('public', 'build'),
+	SOURCE_DIR: resolve('src'),
+	JS_SOURCE_DIR: resolve('src', 'js'),
+	SASS_SOURCE_DIR: resolve('src', 'sass')
 };
 
 const PRODUCTION_CONFIG = {
@@ -67,7 +69,46 @@ const PRODUCTION_CONFIG = {
             filename: path.join('css', '[name].css'),
             chunkFilename: path.join('css', '[id].chunk.css'),
         }),
+		new OptimizeCSSPlugin({
+			{ safe: true, map: { inline: false } }
+		}),
+		new HtmlWebpackPlugin({
+			template: path.join(DEFAULT_PATHS.SOURCE_DIR, 'index.html'),
+			template: 'index.html',
+			inject: true,
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true
+			},
+			chunksSortMode: 'dependency'
+		}),
+		new webpack.HashedModuleIdsPlugin(),
+		new webpack.optimize.ModuleConcatenationPlugin(),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			minChunks (module) {
+				return (
+				  module.resource &&
+				  /\.js$/.test(module.resource) &&
+				  module.resource.indexOf(
+					path.join(__dirname, '../node_modules')
+				  ) === 0
+				)
+			}
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'manifest',
+			minChunks: Infinity
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'app',
+			async: 'vendor-async',
+			children: true,
+			minChunks: 3
+		}),
 		new CompressionPlugin({
+			asset: '[path].gz[query]',
 			cache: true,
 			threshold: 8192,
 			minRatio: 0.8,
@@ -91,6 +132,13 @@ const PRODUCTION_CONFIG = {
 				drop_console: true,
 				unsafe: true
 			}
+			uglifyOptions: {
+				compress: {
+					warnings: false
+				}
+			},
+			sourceMap: config.build.productionSourceMap,
+			parallel: true
 		})*/
 		// new BundleBuddyWebpackPlugin()
 	],

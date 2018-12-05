@@ -10,12 +10,13 @@ const { Config } = require('webpack-config');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const DEFAULT_ROOT_DIR = '..';
+const resolve = (...dirs) => path.resolve(__dirname, '..', ...dirs);
+
 const DEFAULT_PATHS = {
-	BUILD_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'public', 'build'),
-	SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src'),
-	JS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'js'),
-	SASS_SOURCE_DIR: path.resolve(__dirname, DEFAULT_ROOT_DIR, 'src', 'sass')
+	BUILD_DIR: resolve('public', 'build'),
+	SOURCE_DIR: resolve('src'),
+	JS_SOURCE_DIR: resolve('src', 'js'),
+	SASS_SOURCE_DIR: resolve('src', 'sass')
 };
 
 /*
@@ -52,6 +53,7 @@ const DEVELOPMENT_CONFIG = {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.IgnorePlugin(/webpack-stats\.json$/),
+		new webpack.NamedModulesPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.DefinePlugin({
 	      	"process.env": {
@@ -77,11 +79,14 @@ const DEVELOPMENT_CONFIG = {
 		clientLogLevel: 'warn',
 		filename: path.join('js', '[name].[hash].js'),
 		contentBase: DEFAULT_PATHS.BUILD_DIR,
+		contentBase: false,
 		disableHostCheck: true,
 		inline: true,
 		compress: true,
 		open: true,
 		historyApiFallback: true,
+		overlay: { warnings: false, errors: true },
+		quiet: true,
         port: 8080,
 		stats: 'errors-only',
 		hot: true,
