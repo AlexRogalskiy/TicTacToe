@@ -96,6 +96,11 @@ const BASE_CONFIG = {
 			'views': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'views'),
 			'wrappers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'wrappers')
 		}
+	},
+	resolveLoader: {
+		modules: [
+			'node_modules'
+		]
 	}
 };
 

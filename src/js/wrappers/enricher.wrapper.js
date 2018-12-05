@@ -10,7 +10,7 @@ import Logger from 'libs/logger.lib';
 
 export default function EnricherWrapper<Props: {}>(Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { name: string | void }>> {
 	return function wrapper(props: Props): Node {
-		return <Component wrappedComponentRef={c => (this.component = c)} {...props} name={'wrapper'} />;
+		return <Component ref={c => (this.component = c)} name={'wrapper'} {...props} />;
 	};
 };
 

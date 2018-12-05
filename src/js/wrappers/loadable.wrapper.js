@@ -42,7 +42,7 @@ export default function LoadableWrapper<Props: {}>(SourceComponent: string, Load
 
     render(): Node {
       return (
-        (this.state.visible && <LoadableComponent wrappedComponentRef={c => (this.component = c)} {...this.props} />)
+        (this.state.visible && <LoadableComponent ref={c => (this.component = c)} {...this.props} />)
       );
     }
   };

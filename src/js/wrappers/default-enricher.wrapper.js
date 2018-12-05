@@ -10,6 +10,6 @@ import Logger from 'libs/logger.lib';
 
 export default function DefaultEnricherWrapper<Props, Component: React.ComponentType<Props>>(WrappedComponent: Component): React.ComponentType<React.ElementConfig<Component>> {
 	return function wrapper(props: Props): Node {
-		return <WrappedComponent wrappedComponentRef={c => (this.component = c)} {...props} />;
+		return <WrappedComponent ref={c => (this.component = c)} {...props} />;
 	};
 };

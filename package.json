@@ -10,6 +10,7 @@
     "prebuild": "npm run clean",
     "build": "webpack --config webpack.config.js --mode development --colors --progress --devtool sourcemap",
     "build-css": "node-sass src/sass/style.scss src/css/style.css",
+    "watch-css": "node-sass src/ -o src/ --watch --recursive",
     "build:umd": "webpack --output-filename index.umd.js",
     "build:umd.min": "webpack --output-filename index.umd.min.js -p",
     "lint": "node node_modules/eslint/bin/eslint --ext .js --config=.eslintrc.json src/js/libs",
@@ -17,7 +18,7 @@
     "dev": "SET ENV_SRC='./.env.development.local' && nodemon start.js",
     "build-dev": "set NODE_ENV=development && npm run build-css && npm run build",
     "build-prod": "set NODE_ENV=production && npm run build-css && npm run build",
-    "start": "webpack-dev-server --hot --mode development --config webpack.config.js --progress --colors --watch --inline --open",
+    "start": "webpack-dev-server --hot --mode development --config webpack.config.js --progress --colors --watch --inline --open --history-api-fallback",
     "test": "mocha --ui tdd --reporter spec --recursive --require babel-polyfill --watch tests/*.test.js",
     "test:watch": "jest --watch",
     "test:libs": "node --require dotenv/config ./tests/node-suite.js",
@@ -118,6 +119,7 @@
     "zombie": "6.1.3"
   },
   "dependencies": {
+    "animated": "0.2.2",
     "axios": "0.18.0",
     "babel-plugin-import-inspector": "2.0.0",
     "babel-polyfill": "6.26.0",
@@ -169,6 +171,7 @@
     "react-redux": "5.0.7",
     "react-router-config": "4.4.0-beta.6",
     "react-router-dom": "4.3.1",
+    "react-router-transition": "1.2.1",
     "react-scripts": "2.1.1",
     "react-toastify": "4.4.3",
     "react-transition-group": "2.5.0",

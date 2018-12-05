@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+
 import { Elements } from 'libs/elements.lib';
 
 /* @flow */
@@ -29,5 +30,9 @@ const AboutView = ({ route, match, location }: Props): Node => (
 		About
 	</Elements.Head_2>
 );
+
+/*AboutView.defaultProps = {
+  defaultPathname: '/',
+};*/
 
 export default AboutView;

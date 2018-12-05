@@ -5,6 +5,9 @@
  */
 import React, { Component, Node } from 'react';
 import { renderRoutes } from 'react-router-config';
+import Loadable from 'react-loadable';
+
+import LoaderElement from 'components/elements/loader.element';
 
 // views
 import AppView from 'views/app.view';
@@ -15,6 +18,55 @@ import OrderView from 'views/order.view';
 import ItemsView from 'views/items.view';
 import ItemView from 'views/item.view';
 import SubItemView from 'views/sub-item.view';
+import NoMatchView from 'views/no-match.view';
+
+/*const AsyncMainView = Loadable({
+    loader: () => import('views/main.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncHomeView = Loadable({
+    loader: () => import('views/home.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncAboutView = Loadable({
+    loader: () => import('views/about.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncOrderView = Loadable({
+    loader: () => import('views/order.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncItemsView = Loadable({
+    loader: () => import('views/items.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncItemView = Loadable({
+    loader: () => import('views/item.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncSubItemView = Loadable({
+    loader: () => import('views/sub-item.view'),
+    loading: LoaderElement,
+	delay: 5000
+});
+
+const AsyncNoMatchView = Loadable({
+    loader: () => import('views/no-match.view'),
+    loading: LoaderElement,
+	delay: 5000
+});*/
 
 const AppRoute = [
   {
@@ -50,6 +102,10 @@ const AppRoute = [
             component: SubItemView
           }
         ]
+      },
+	  {
+        path: '*',
+        component: NoMatchView
       }
     ]
   }

@@ -28,7 +28,7 @@ export default function AuthWrapper(WrappedComponent: React.ComponentType<Props>
 
     render(): Node {
       return this.props.isAuthenticated
-        ? <WrappedComponent wrappedComponentRef={c => (this.component = c)} { ...this.props } />
+        ? <WrappedComponent ref={c => (this.component = c)} { ...this.props } />
         : null;
     }
   };

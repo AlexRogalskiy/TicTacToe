@@ -12,6 +12,6 @@ export default function MapperWrapper<PropsInput: {}, PropsOutput: {}>(mapper: (
 	//return Component => {
 	//};
 	return function wrapper(props: Props): Node {
-		return <Component wrappedComponentRef={c => (this.component = c)} {...props} />;
+		return <Component ref={c => (this.component = c)} {...props} />;
 	};
 }

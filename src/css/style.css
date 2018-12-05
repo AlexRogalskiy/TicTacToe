@@ -659,3 +659,9 @@ body {
 
 .view {
   height: 100%; }
+
+.route-wrapper {
+  position: relative; }
+
+.route-wrapper > div {
+  position: relative; }

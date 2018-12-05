@@ -66,7 +66,7 @@ export default function SocketWrapper<Props: {}>(WrappedComponent: React.Compone
     render(): Node {
       return (
         <WrappedComponent
-		  wrappedComponentRef={c => (this.component = c)}
+		  ref={c => (this.component = c)}
           isConnected={this.state.isConnected}
           onConnect={this.onConnect}
           onDisconnect={this.onDisconnect}
