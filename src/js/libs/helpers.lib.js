@@ -402,11 +402,24 @@ const isStateless = (component: Object<any>): boolean => {
     return !(component.prototype && component.prototype.render);
 };
 
+const reportError = () => {
+	return Promise.resolve({ success: true });
+};
+
 /**
  *  return true if touch event enabled, false - otherwise
  */
 const isTouchDevice = (): boolean => {
 	return 'ontouchstart' in window || 'onmsgesturechange' in window;
+};
+
+const generator = (length: number): string => {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+    return text;
 };
 
 const DateTime = {
@@ -449,5 +462,6 @@ export {
 	stepArray,
 	isStateless,
 	isTouchDevice,
+	generator,
 	DateTime
 };

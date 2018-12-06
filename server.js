@@ -400,6 +400,13 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(async (ctx, next) => {
+	const start = Date.now();
+	await next();
+	const ms = Date.now() - start;
+	ctx.set('X-Response-Time', `${ms}ms`);
+});
+
 // 400
 app.use((err, req, res, next) => {
 	if (err instanceof strategy.Error) {
