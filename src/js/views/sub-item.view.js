@@ -25,9 +25,11 @@ type Props = {
 };
 
 const SubItemView = ({ route, match, location }: Props): Node => (
-	<Elements.Head_5>
-		Requested Param: {match.params.id}
-	</Elements.Head_5>
+	<React.Fragment>
+		<Elements.Head_5>
+			Requested Param: {match.params.id}
+		</Elements.Head_5>
+	</React.Fragment>
 );
 
 export default SubItemView;

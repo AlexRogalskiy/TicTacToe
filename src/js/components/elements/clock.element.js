@@ -18,8 +18,13 @@ type State = {
 	date: Object<date>;
 };
 
+//console.log(this.refs.textInput.value);
+//console.log(this.inputRef.current.value);
+//  viewRef: React.createRef();
 export default class ClockElement extends Component<Props, State> {
   displayName: string = 'ClockElement';
+  
+  view: ?HTMLElement;
   
   state: State = {
 	date: null  
@@ -53,7 +58,7 @@ export default class ClockElement extends Component<Props, State> {
   render(): Node {
     const { className, dataClass, date, message, ...rest } = this.props;
     return (
-      <Elements.View className={className} {...rest}>
+      <Elements.View ref={view => (this.view = view)} className={className} {...rest}>
         <Elements.Text className={dataClass.clockMessageClass}>{message}</Elements.Text>
         <Elements.Text className={dataClass.clockDateClass}>{this.state.date.toLocaleTimeString()}</Elements.Text>
       </div>

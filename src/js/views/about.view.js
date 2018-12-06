@@ -26,9 +26,11 @@ type Props = {
 
 const AboutView = ({ route, match, location }: Props): Node => (
 	// location = { pathname: '/here', ... }
-	<Elements.Head_2>
-		About
-	</Elements.Head_2>
+	<React.Fragment>
+		<Elements.Head_2>
+			About
+		</Elements.Head_2>
+	</React.Fragment>
 );
 
 /*AboutView.defaultProps = {

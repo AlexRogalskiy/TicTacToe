@@ -24,6 +24,7 @@ export type CounterAction = {
 };
 
 export type DispatchProps = {
+	onReset: () => void;
 	onIncrement: () => void;
 	onDecrement: () => void;
 };

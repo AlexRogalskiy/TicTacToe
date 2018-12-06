@@ -26,10 +26,12 @@ type Props = {
 };
 
 const ItemView = ({ route, match, location }: Props): Node => (
-	<Elements.Head_3>
-		Requested Param: {match.params.id}
-		{ renderRoutes(route.routes, { someProp: "these extra props are optional" }) }
-	</Elements.Head_3>
+	<React.Fragment>
+		<Elements.Head_3>
+			Requested Param: {match.params.id}
+			{ renderRoutes(route.routes, { someProp: "these extra props are optional" }) }
+		</Elements.Head_3>
+	</React.Fragment>
 );
 
 export default ItemView;

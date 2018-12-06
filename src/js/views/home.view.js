@@ -24,9 +24,11 @@ type Props = {
 	}>;
 };
 const HomeView = ({ route, match, location }: Props): Node => (
-	<Elements.Head_2>
-		Home
-	</Elements.Head_2>
+	<React.Fragment>
+		<Elements.Head_2>
+			Home
+		</Elements.Head_2>
+	</React.Fragment>
 );
 
 export default HomeView;

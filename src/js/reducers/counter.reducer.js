@@ -1,7 +1,7 @@
 /**
  * Module dependencies
  */
-import { INCREMENT, DECREMENT } from 'constants/counter.constant';
+import { RESET, INCREMENT, DECREMENT } from 'constants/counter.constant';
 import type { CounterState, CounterAction } from 'types/counter.type';
 
 const initialState: CounterState = {
@@ -10,6 +10,10 @@ const initialState: CounterState = {
 
 const CounterReducer = (state: CounterState = initialState, action: CounterAction = {}): CounterState => {
 	switch (action.type) {
+		case RESET:
+			return {
+				count: initialState
+			};
 		case INCREMENT:
 			return {
 				count: state.count + 1
