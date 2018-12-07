@@ -7,6 +7,65 @@ const invLog2 = 1 / Math.log(2);
 const DEFAULT_PROTOCOL_EXCEPTION_LIST = ['127.0.0.1', '0.0.0.0', 'localhost', '::1'];
 
 
+const addCounter = (array: Array<any>): Array<any> => {
+	return [...array, 0];
+};
+
+/**
+ * removes the value from the array by index
+ */
+const removeValue = (array: Array<any>, index: number): Array<any> => {
+	return [
+		...array.slice(0, index),
+		...array.slice(index + 1)
+	];
+};
+
+const incrementCounter = (array: Array<any>, index: number): Array<any> => {
+	return [
+		...array.slice(0, index),
+		array[index] + 1,
+		...array.slice(index + 1)
+	];
+};
+
+const isEquivalent = (a: any, b: any): boolean => {
+    let aProps = Object.getOwnPropertyNames(a);
+    let bProps = Object.getOwnPropertyNames(b);
+	
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+	
+    for (let i = 0; i < aProps.length; i++) {
+        let propName = aProps[i];
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * returns true if value is not null or undefined, false - otherwise
+ */
+//<If condition={ view } then={ editComponent } else={ saveComponent } />
+const If = (props) => {
+  const condition = props.condition || false;
+  const positive = props.then || null;
+  const negative = props.else || null;
+  
+  return condition ? positive : negative;
+};
+
+//const isViewConditionFn = (props) => props.mode === 'view';
+//const withEditContionalRendering = withEither(isViewConditionFn, EditComponent);
+//const EditSaveWithConditionalRendering = withEditContionalRendering(SaveComponent);
+const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (props) =>
+  conditionalRenderingFn(props)
+    ? <EitherComponent { ...props } />
+: <Component { ...props } />;
+
 /**
  * returns true if value is null or undefined, false - otherwise
  */
