@@ -12,15 +12,15 @@ export default class StorageService<Props> {
       storage: {}
   };
 
-  constructor(storage: object): void {
-    this.storage = storage;
+  constructor(props: Props): void {
+    this.storage = props.storage;
   }
   
-  get(key: object): object {
+  get(key: Object<any>): Object<any> {
 	  return this.storage.getItem(key);
   }
   
-  set(key: object, value: object): void {
+  set(key: Object<any>, value: Object<any>): void {
 	  this.storage.setItem(key, value);
   }
 };
