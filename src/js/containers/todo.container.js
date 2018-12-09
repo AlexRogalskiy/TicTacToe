@@ -9,7 +9,7 @@ import { Dispatch } from 'redux';
 
 import { reset, add, remove, toggle } from 'actions/todo.action';
 import TodoListControl from 'components/controls/todo-list.control';
-import TodoSelector from 'selectors/todo.selector';
+import { getVisibleTodoItemsSelector } from 'selectors/todo.selector';
 import type { TodoItem, TodoProps, TodoFilterState, TodoList, DispatchProps } from 'types/todo.type';//Dispatch
 import type { VisibilityFilterData } from 'types/visibility-filter.type';
 import { VISIBILITY_FILTERS } from 'constants/visibility-filter.constant';
@@ -18,7 +18,7 @@ const mapStateToProps = (state: TodoFilterState): TodoProps => ({
 	//pathname: state.router.pathname,
 	//search: state.router.location.search,
 	//hash: state.router.location.hash,
-	list: TodoSelector(state)
+	list: getVisibleTodoItemsSelector(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

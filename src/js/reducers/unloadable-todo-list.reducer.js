@@ -5,27 +5,30 @@
  */
 import undoable, { includeAction } from 'redux-undo';
 
-import { RESET_TODO, ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from 'constants/todo.constant';
-import type { TodoItemState, TodoItemAction, TodoState, TodoAction, TodoItem } from 'types/todo.type';
+import { RESET_TODO, ADD_TODO, REMOVE_TODO, EDIT_TODO, COMPLETE_ALL_TODO, CLEAR_COMPLETED_ALL_TODO, TOGGLE_TODO } from 'constants/todo.constant';
+import type { TodoItemState, TodoState, TodoAction, TodoItem } from 'types/todo.type';
 
-const initialState: TodoItemState = {
+const initialState: TodoState = {
 	list: []
 };
 
 const createTodoItem = (id: string, text: string): TodoItem => ({
-	id,
+	id,//state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
 	text,
 	completed: false
 });
 
+const editTodoItem = (item: TodoItem, id: string): TodoItem => (item.id !== id ? item : { ...item, text: action.text });
 const toggleTodoItem = (item: TodoItem, id: string): TodoItem => (item.id !== id ? item : { ...item, completed: !item.completed });
 
-const TodoReducer = (state: TodoItemState = {}, action: TodoItemAction = {}): TodoItemState => {
+const TodoReducer = (state: TodoItemState = {}, action: TodoAction = {}): TodoItemState => {
   switch (action.type) {
     case ADD_TODO:
 		return createTodoItem(action.id, action.text);
     case TOGGLE_TODO:
 		return toggleTodoItem(state, action.id);
+    case EDIT_TODO:
+		return editTodoItem(state, action.id);
     default:
 	  (action: empty);
       return state;
@@ -35,33 +38,51 @@ const TodoReducer = (state: TodoItemState = {}, action: TodoItemAction = {}): To
 const TodoListReducer = (state: TodoState = initialState, action: TodoAction = {}): TodoState => {
   switch (action.type) {
     case ADD_TODO: 
-      return {
-		  list: [
-			...state.list,
-			TodoReducer(undefined, action)
-		]
-	  };
-    case REMOVE_TODO: 
-	  return {
-		  list: state.list.filter(todo =>
-				(todo.id !== action.id)
-		  )
-	  };
+		return {
+			list: [
+				...state.list,
+				TodoReducer(undefined, action)
+			]
+		};
+    case EDIT_TODO: 
+		return {
+			list: state.map(todo =>
+				TodoReducer(todo, action)
+			)
+		};
     case TOGGLE_TODO:
-      return {
+		return {
 			list: state.list.map(todo =>
 				TodoReducer(todo, action)
 			)
-	  };
+		};
+    case REMOVE_TODO: 
+		return {
+			list: state.list.filter(todo =>
+				(todo.id !== action.id)
+			)
+		};
+    case COMPLETE_ALL_TODO:
+		const areAllMarked = state.list.every(todo => todo.completed)
+		return {
+			list: state.list.map(todo => ({
+				...todo,
+				completed: !areAllMarked
+			}))
+		};
+    case CLEAR_COMPLETED_ALL_TODO:
+		return {
+			list: state.list.filter(todo => todo.completed === false)
+		};
     case RESET_TODO:
-      return initialState;
+		return initialState;
     default:
-	  (action: empty);
-      return state;
-  }
+		(action: empty);
+		return state;
+	}
 };
 
-const UnloadableTodoListReducer = undoable(TodoListReducer, { filter: includeAction([ADD_TODO, TOGGLE_TODO]) });
+const UnloadableTodoListReducer = undoable(TodoListReducer, { filter: includeAction([ADD_TODO, EDIT_TODO, TOGGLE_TODO]) });
 
 export default UnloadableTodoListReducer;
 

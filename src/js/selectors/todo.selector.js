@@ -11,7 +11,7 @@ import { VISIBILITY_FILTERS } from 'constants/visibility-filter.constant';
 
 /* @flow */
 const listSelector = (state: TodoFilterState): TodoList => state.list;
-const filterSelector = (state: TodoFilterState): VisibilityFilterData => state.filter;
+const visibilityFilterSelector = (state: TodoFilterState): VisibilityFilterData => state.filter;
 
 const getVisibleTodoItems = (list: TodoList, filter: VisibilityFilterData): TodoList => {
 	switch (filter) {
@@ -26,12 +26,16 @@ const getVisibleTodoItems = (list: TodoList, filter: VisibilityFilterData): Todo
 	}
 };
 
-export const TodoSelector = createSelector(
-	listSelector,
-	filterSelector,
+export const getVisibleTodoItemsSelector = createSelector(
+	[listSelector, visibilityFilterSelector],
 	getVisibleTodoItems
 );
 
+
+export const getCompletedTodoItemCountSelector = createSelector(
+	[listSelector],
+	list => (list.reduce((count, todo) => todo.completed ? count + 1 : count, 0))
+);
 /*
 // @flow
 
