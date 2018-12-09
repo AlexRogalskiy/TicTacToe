@@ -1,6 +1,7 @@
 import React from 'react'
 import AddTodo from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
+import Footer from './Footer';
 import UndoRedo from '../containers/UndoRedo'
 
 const App = () => (
@@ -22,40 +23,36 @@ const App = () => (
 		  Completed
 		</FilterLink>
 	</p>
+	<Footer />
 	<UndoRedo />
   </div>
 );
 
 export default App;
+
 /*
-import React from 'react'
-import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+// @flow
 
-let AddTodo = ({ dispatch }) => {
-  let input
+import React from 'react';
+import configureStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
 
-  return (
-    <div>
-      <form onSubmit={e => {
-        e.preventDefault()
-        if (!input.value.trim()) {
-          return
-        }
-        dispatch(addTodo(input.value))
-        input.value = ''
-      }}>
-        <input ref={node => {
-          input = node
-        }} />
-        <button type="submit">
-          Add Todo
-        </button>
-      </form>
-    </div>
-  )
-}
-AddTodo = connect()(AddTodo)
+import App from './App';
 
-export default AddTodo
+const setup = (setupProps = {}) => {
+  const store = configureStore()();
+  const wrapper = shallow(<App store={store} />);
+
+  return {
+    store,
+    wrapper
+  };
+};
+
+describe('App', () => {
+  test('renders without crashing', () => {
+    const { wrapper } = setup();
+    expect(wrapper).toMatchSnapshot();
+  });
+});
 */

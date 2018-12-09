@@ -6,28 +6,26 @@
 import undoable, { includeAction } from 'redux-undo';
 
 import { RESET_TODO, ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from 'constants/todo.constant';
-import type { TodoItemState, TodoItemAction, TodoState, TodoAction } from 'types/todo.type';
+import type { TodoItemState, TodoItemAction, TodoState, TodoAction, TodoItem } from 'types/todo.type';
 
 const initialState: TodoItemState = {
 	list: []
 };
 
+const createTodoItem = (id: string, text: string): TodoItem => ({
+	id,
+	text,
+	completed: false
+});
+
+const toggleTodoItem = (item: TodoItem, id: string): TodoItem => (item.id !== id ? item : { ...item, completed: !item.completed });
+
 const TodoReducer = (state: TodoItemState = {}, action: TodoItemAction = {}): TodoItemState => {
   switch (action.type) {
     case ADD_TODO:
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false
-      };
+		return createTodoItem(action.id, action.text);
     case TOGGLE_TODO:
-      if (state.id !== action.id) {
-        return state;
-      };
-      return {
-        ...state,
-        completed: !state.completed
-      };
+		return toggleTodoItem(state, action.id);
     default:
 	  (action: empty);
       return state;

@@ -3,6 +3,8 @@
 /**
  * Module dependencies
  */
+const configure = require('enzyme').configure;
+const adapter = require('enzyme-adapter-react-16');
 require('jest-enzyme');
 	
 const localStorageMock = {
@@ -11,3 +13,5 @@ const localStorageMock = {
   clear: jest.fn()
 };
 global.localStorage = localStorageMock
+
+configure({ adapter: new adapter() })

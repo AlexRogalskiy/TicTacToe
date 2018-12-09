@@ -4,6 +4,7 @@
  * Module dependencies
  */
 import React, { Component, Node } from 'react';
+//import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 
 /* @flow */
 export type Dictionary<K,T> = {

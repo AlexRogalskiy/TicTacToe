@@ -15,8 +15,7 @@ export const reset = (): TodoAction => ({
 export const add = (data: TodoItem): TodoAction => ({
 	type: ADD_TODO,
 	id: nextTodoId++,
-	data.text,
-	data.completed
+	data.text
 });
 
 export const remove = (data: TodoItem): TodoAction => ({

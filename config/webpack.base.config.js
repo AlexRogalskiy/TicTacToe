@@ -101,6 +101,7 @@ const BASE_CONFIG = {
 			'routers': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'routers'),
 			'sagas': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'sagas'),
 			'schemas': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'schemas'),
+			'selectors': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'selectors'),
 			'stores': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'stores'),
 			'types': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'types'),
 			'validators': path.join(DEFAULT_PATHS.JS_SOURCE_DIR, 'validators'),	
