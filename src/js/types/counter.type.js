@@ -9,8 +9,8 @@ import { RouterState } from 'connected-react-router';
 export type Dispatch = (action: CounterAction | Promise<CounterAction>) => Promise;
 
 export type CounterProps = {
-	router: RouterState;
 	count: number;
+	router: RouterState;
 };
 
 export type CounterState = {

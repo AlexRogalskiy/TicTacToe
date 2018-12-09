@@ -70,26 +70,25 @@ export default class CounterControl extends Component<Props, State> {
     super(props);
     this.onUp = this.onUp.bind(this);
     this.onDown = this.onDown.bind(this);
-	//this.state = { isVisible: props.isVisible, isIncreasing: props.isIncreasing, value: props.value };
   }
 
   getValidatorData(): State {
     return this.state;
   }
   
-   componentWillReceiveProps(nextProps: object): void {
+   componentWillReceiveProps(nextProps: Props): void {
 	 	this._logPropsAndState(`nextProps.value: ${nextProps.value}`);
 	 	this.setState({
 	 		isIncreasing: nextProps.value > this.props.value
 	 	});
 	}
 	
-	shouldComponentUpdate(nextProps, nextState) {
+	shouldComponentUpdate(nextProps: Props, nextState: Props): void {
 		this._logPropsAndState(`nextState.value: ${nextState.value}, nextState.isIncreasing: ${nextState.isIncreasing}`);
 		return (nextState.value >= this.props.min && nextState.value <= this.props.max);
 	}
 	
-	componentDidUpdate(prevProps: object, prevState: object): void {
+	componentDidUpdate(prevProps: Props, prevState: Props): void {
 		this._logPropsAndState(`prevState.value: ${prevState.value}, prevState.isIncreasing: ${prevState.isIncreasing}`);
 	}
 	
@@ -189,3 +188,73 @@ export default class CounterControl extends Component<Props, State> {
 		);
   }
 };
+
+
+/*
+import React from 'react'
+import { shallow } from 'enzyme'
+import Counter from './Counter'
+
+function setup(value = 0) {
+  const actions = {
+    onIncrement: jest.fn(),
+    onDecrement: jest.fn()
+  }
+  const component = shallow(
+    <Counter value={value} {...actions} />
+  )
+
+  return {
+    component: component,
+    actions: actions,
+    buttons: component.find('button'),
+    p: component.find('p')
+  }
+}
+
+describe('Counter component', () => {
+  it('should display count', () => {
+    const { p } = setup()
+    expect(p.text()).toMatch(/^Clicked: 0 times/)
+  })
+
+  it('first button should call onIncrement', () => {
+    const { buttons, actions } = setup()
+    buttons.at(0).simulate('click')
+    expect(actions.onIncrement).toBeCalled()
+  })
+
+  it('second button should call onDecrement', () => {
+    const { buttons, actions } = setup()
+    buttons.at(1).simulate('click')
+    expect(actions.onDecrement).toBeCalled()
+  })
+
+  it('third button should not call onIncrement if the counter is even', () => {
+    const { buttons, actions } = setup(42)
+    buttons.at(2).simulate('click')
+    expect(actions.onIncrement).not.toBeCalled()
+  })
+
+  it('third button should call onIncrement if the counter is odd', () => {
+    const { buttons, actions } = setup(43)
+    buttons.at(2).simulate('click')
+    expect(actions.onIncrement).toBeCalled()
+  })
+
+  it('third button should call onIncrement if the counter is odd and negative', () => {
+    const { buttons, actions } = setup(-43)
+    buttons.at(2).simulate('click')
+    expect(actions.onIncrement).toBeCalled()
+  })
+
+  it('fourth button should call onIncrement in a second', (done) => {
+    const { buttons, actions } = setup()
+    buttons.at(3).simulate('click')
+    setTimeout(() => {
+      expect(actions.onIncrement).toBeCalled()
+      done()
+    }, 1000)
+  })
+})
+*/

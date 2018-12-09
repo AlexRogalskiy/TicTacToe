@@ -8,7 +8,7 @@ import { Dispatch } from 'redux';
 //import { RouteComponentProps } from 'react-router';
 
 import { increment, decrement } from 'actions/counter.action';
-import Counter from 'components/controls/counter.control';
+import CounterControl from 'components/controls/counter.control';
 import type { CounterState, CounterProps, DispatchProps } from 'types/counter.type';//Dispatch
 
 const mapStateToProps = (state: CounterState): CounterProps => ({
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 const CounterContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Counter);
+)(CounterControl);
 
 /*const ImageContainer = connect((state: ImageState): ImageState => {
 	return state;
