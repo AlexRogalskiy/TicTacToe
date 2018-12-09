@@ -2,6 +2,7 @@
 
 import React, { type Node } from 'react';
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 export type Props = {
   active: boolean;
@@ -11,12 +12,11 @@ export type Props = {
 };
 
 const LinkTodoControl = ({ active, children, onSetFilter }: Props) => {
-	if (active) {
-		return <span>{children}</span>;
-	}
 	return (
 		<a // eslint-disable-line jsx-a11y/anchor-is-valid
 		  href="#"
+		  className={classnames({ selected: active })}
+		  style={{ cursor: 'pointer' }}
 		  onClick={(event: Event) => {
 			event.preventDefault();
 			onSetFilter();
@@ -26,6 +26,13 @@ const LinkTodoControl = ({ active, children, onSetFilter }: Props) => {
 		</a>
 	);
 };
+
+Link.propTypes = {
+  active: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  setFilter: PropTypes.func.isRequired
+}
+
 
 export default LinkTodoControl;
 
@@ -79,4 +86,48 @@ describe('Link', () => {
     expect(preventDefault).toBeCalled();
   });
 });
+
+
+import React from 'react'
+import { createRenderer } from 'react-test-renderer/shallow';
+import Link from './Link'
+
+const setup = (propOverrides) => {
+  const props = Object.assign({
+    active: false,
+    children: 'All',
+    setFilter: jest.fn()
+  }, propOverrides)
+
+  const renderer = createRenderer();
+  renderer.render(<Link {...props} />)
+  const output = renderer.getRenderOutput()
+
+  return {
+    props: props,
+    output: output,
+  }
+}
+
+describe('component', () => {
+  describe('Link', () => {
+    it('should render correctly', () => {
+      const { output } = setup()
+      expect(output.type).toBe('a')
+      expect(output.props.style.cursor).toBe('pointer')
+      expect(output.props.children).toBe('All')
+    })
+
+    it('should have class selected if active', () => {
+      const { output } = setup({ active: true })
+      expect(output.props.className).toBe('selected')
+    })
+
+    it('should call setFilter on click', () => {
+      const { output, props } = setup()
+      output.props.onClick()
+      expect(props.setFilter).toBeCalled()
+    })
+  })
+})
 */
