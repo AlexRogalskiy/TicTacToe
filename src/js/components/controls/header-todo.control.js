@@ -19,7 +19,7 @@ export type State = {
   value: string
 };
 
-class AddTodoControl extends Component<Props, State> {
+class HeaderTodoControl extends Component<Props, State> {
   input: HTMLInputElement;
   state = {
     value: ''
@@ -49,7 +49,7 @@ class AddTodoControl extends Component<Props, State> {
   }
 };
 
-export default connect()(AddTodoControl);
+export default HeaderTodoControl;
 
 /*
 // @flow

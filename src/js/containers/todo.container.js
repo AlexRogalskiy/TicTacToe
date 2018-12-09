@@ -4,28 +4,29 @@
  * Module dependencies
  */
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Dispatch } from 'redux';
 //import { RouteComponentProps } from 'react-router';
 
 import { reset, add, remove, toggle } from 'actions/todo.action';
+import * as TodoActions from 'actions/todo.action';
 import TodoListControl from 'components/controls/todo-list.control';
 import { getVisibleTodoItemsSelector } from 'selectors/todo.selector';
-import type { TodoItem, TodoProps, TodoFilterState, TodoList, DispatchProps } from 'types/todo.type';//Dispatch
-import type { VisibilityFilterData } from 'types/visibility-filter.type';
-import { VISIBILITY_FILTERS } from 'constants/visibility-filter.constant';
+import type { TodoItem, TodoProps, TodoFilterState, DispatchProps } from 'types/todo.type';//Dispatch
 
 const mapStateToProps = (state: TodoFilterState): TodoProps => ({
 	//pathname: state.router.pathname,
 	//search: state.router.location.search,
 	//hash: state.router.location.hash,
-	list: getVisibleTodoItemsSelector(state)
+	list: getVisibleTodoItemsSelector(state.list)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	onReset:  () => dispatch(reset()),
-	onAdd: 	  (data: TodoItem) => dispatch(add(data)),
-	onRemove: (data: TodoItem) => dispatch(remove(data)),
-	onToggle: (data: TodoItem) => dispatch(toggle(data))
+	//onReset:  () => dispatch(reset()),
+	//onAdd: 	  (data: TodoItem) => dispatch(add(data)),
+	//onRemove: (data: TodoItem) => dispatch(remove(data)),
+	//onToggle: (data: TodoItem) => dispatch(toggle(data))
+	actions: bindActionCreators(TodoActions, dispatch)
 });
 
 const TodoContainer = connect(
