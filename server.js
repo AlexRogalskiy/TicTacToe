@@ -388,6 +388,11 @@ app.use((req, res, next) => {
     //res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Set-Cookie', 'HttpOnly');
+    res.setHeader('X-XSS-Protection', '1; mode-block');
+    res.setHeader('Set-Cookie', 'Secure');
+    res.setHeader('Strict-Transport-Security', '');
 	res.locals._csrfToken = req.csrfToken();
 	next();
 });

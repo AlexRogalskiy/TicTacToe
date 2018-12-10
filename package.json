@@ -4,6 +4,7 @@
   "description": "Tic-Tac-Toe Node JS application",
   "private": true,
   "main": "start.js",
+  "jsnext:main": "public/build/js/bundle.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/AlexRogalskiy/tic-tac-toe"
