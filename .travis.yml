@@ -1,9 +1,21 @@
 language: node_js
 node_js:
   - 6
+install:
+  - npm i -g npm@5.8.0
+  - npm ci
 cache:
   directories:
     - node_modules
 script:
+  - npm run examples:lint
+  - npm run examples:test
   - npm run build
-  - npm test
+  - npm test1
+branches:
+  only:
+    - master
+    - next
+cache:
+  directories:
+    - "$HOME/.npm"

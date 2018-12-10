@@ -4,7 +4,8 @@
 			"@babel/preset-env",
 			{
 				"targets": {
-					"node": "current"
+					"node": "current",
+					"browsers": ["ie >= 11"]
 				},
 				"loose": true,
 				"useBuiltIns": "usage",
@@ -20,6 +21,7 @@
 		}
 	},
 	"plugins": [
+		["@babel/plugin-proposal-object-rest-spread"],
 		["@babel/plugin-proposal-decorators", { "legacy": true }],
 		["@babel/plugin-proposal-class-properties", { "loose": true }],
 		["@babel/plugin-proposal-optional-chaining"],

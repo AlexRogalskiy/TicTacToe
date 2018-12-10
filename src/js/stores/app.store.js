@@ -47,6 +47,7 @@ const sagaMiddleware = createSagaMiddleware();
 const createAppStore = applyMiddleware(routerMiddleware(history), promiseMiddleware, logger, sagaMiddleware)(createStore);
 const AppStore = createAppStore(AppReducer(history));
 
+//AppStore.dispatch(getAllProducts());
 sagaMiddleware.run(fetchImageSaga);
 
 export default AppStore;

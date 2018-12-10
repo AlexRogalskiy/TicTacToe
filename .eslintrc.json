@@ -111,6 +111,7 @@
 		"init-declarations": "error",
 		
 		"jsx-quotes": ["error", "prefer-single"],
+		"jsx-a11y/href-no-hash": "off"
 		"key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
 		"keyword-spacing": ["error", { "before": true, "after": true }],
 		
@@ -343,5 +344,13 @@
 		"wrap-regex": "error",
 		"yield-star-spacing": ["error", "both"],
 		"yoda": ["error", "never"]
-    }
+    },
+	overrides: [
+		{
+		  files: 'test/**/*.js',
+		  env: {
+			jest: true
+		  }
+		}
+	]
 }

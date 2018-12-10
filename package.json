@@ -4,6 +4,24 @@
   "description": "Tic-Tac-Toe Node JS application",
   "private": true,
   "main": "start.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexRogalskiy/tic-tac-toe"
+  },
+  "keywords": [
+    "Tic-Tac-Toe",
+    "Node.js",
+    "Online multiplayer game",
+    "React UI"
+  ],
+  "authors": [
+    "Alexander R <alexander.rogalsky@yandex.ru> (https://linkedin.com/in/alexander-rogalsky-985a4828)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexRogalskiy/tic-tac-toe/issues"
+  },
+  "homepage": "http://localhost:8080/",
   "scripts": {
     "clean": "rimraf public",
     "serve": "node --require dotenv/config start.js",
@@ -28,6 +46,7 @@
     "publish": "npm publish",
     "prettify": "prettier --list-different --write src/js/**/*.{js,json,md}",
     "flow": "flow",
+    "rollup": "rollup -c",
     "postinstall": "flow-typed install",
     "c:start": "concurrently \"npm run c:server\" \"npm run dev\"",
     "c:build": "react-scripts build",
@@ -40,27 +59,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AlexRogalskiy/tic-tac-toe"
-  },
-  "keywords": [
-    "Tic-Tac-Toe",
-    "Node.js",
-    "Online multiplayer game",
-    "React UI"
-  ],
-  "author": "Alexander R <alexander.rogalsky@yandex.ru> (https://linkedin.com/in/alexander-rogalsky-985a4828)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/AlexRogalskiy/tic-tac-toe/issues"
-  },
-  "homepage": "http://localhost:8080/",
   "devDependencies": {
     "@babel/core": "7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.2.0",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "7.0.0",
     "@babel/plugin-transform-async-to-generator": "^7.0.0",
@@ -109,6 +113,7 @@
     "prop-types": "15.6.2",
     "raw-loader": "0.5.1",
     "react-testing-library": "5.3.1",
+    "redux-devtools": "3.4.2",
     "redux-mock-store": "1.5.3",
     "resolve-url-loader": "3.0.0",
     "restler": "3.4.0",
@@ -214,6 +219,21 @@
     "uuid": "3.3.2",
     "vhost": "3.0.2"
   },
+  "npmName": "tic-tac-toe",
+  "npmFileMap": [
+    {
+      "basePath": "/public/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
+  "files": [
+    "public",
+    "lib",
+    "es",
+    "src"
+  ],
   "engines": {
     "node": "^6.0.0",
     "npm": "^5.0.0"
