@@ -3,14 +3,19 @@
 import React, { Component, Node } from 'react';
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import { Link, NavLink } from "react-router-dom";
+import classNames from 'classnames';
 
 import { polyfill } from './helpers.lib';
 import type { RouteItem, LinkItem, NavLinkItem } from 'types/common.type';
 
+type Props = {
+	children?: Node;
+}
+
 /**
  * returns message block
  */
-const MessageList = (props: object): Node => {
+const MessageList = (props: Object<any>): Node => {
   const { messages, messageClass, ...rest } = props;
   if (messages && messages.length) {
     let elements = messages.map((item, index) => (
@@ -21,6 +26,49 @@ const MessageList = (props: object): Node => {
     return (<Elements.List {...rest}>{ elements }</Elements.List>);
   }
   return null;
+};
+
+/**
+ * returns container block
+ */
+const Container = (props: Object<any>): Node => {
+	const { fluid, className, children, ...rest } = props;
+	const _className = classNames({
+		"container": !fluid,
+		"container-fluid": fluid,
+	}, 	className);
+	return (
+		<Elements.View className={_className} {...rest}>
+			{children}
+		</Elements.View>
+	);
+};
+
+/**
+ * returns row block
+ */
+const Row = (props: Object<any>): Node => {
+	const { className, children, ...rest } = props;
+	const _className = classNames("row", className);
+	return (
+		<Elements.View className={_className} {...rest}>
+			{children}
+		</Elements.View>
+	);
+};
+
+/**
+ * returns column block
+ */
+const Column = (props: Object<any>): Node => {
+	const { size, className, children, ...rest } = props;
+	const sizeClasses = (size || []).map((x) => { return `col-${x}`; }).join(' ');
+	const _className = classNames(sizeClasses, className);
+	return (
+		<Elements.View className={_className} {...rest}>
+			{children}
+		</Elements.View>
+	);
 };
 
 /**

@@ -5,7 +5,7 @@
  */
 import React, { Component, Node } from 'react';
 import { Redirect } from 'react-router';
-import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Router, Route, IndexRoute, Switch } from 'react-router-dom';
 //import createHistory from 'history/createHashHistory';
 import { ConnectedRouter } from 'connected-react-router';
 // using an ES6 transpiler, like babel
@@ -109,7 +109,8 @@ const AppRouter = ({ history }: Props): Node => (
 					  <Route path='/item/:id' component={ItemView} />
 					  <Route path='/home' component={HomeView} />
 					  <Route path='/about' component={AboutView} />
-						  <Route path='/items' component={ItemsView} /> */ }
+						  <Route path='/items' component={ItemsView} /> 
+					  <IndexRoute name="home" component={ MainView }/>*/ }
 					  <RedirectStatusRoute status={301} from='/users' to='/profiles' />
 					  <RedirectStatusRoute status={302} from='/courses' to='/dashboard' />
 					  <Route component={NoMatchView} />
