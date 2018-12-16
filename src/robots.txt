@@ -16,6 +16,117 @@ Disallow: /*preview_script_id*
 User-agent: Nutch
 Disallow: /
 
+User-agent: Mediapartners-Google
+# friendly exceptions
+Allow: /aide.htm
+Allow: /aide_pro.htm
+# www2 only
+Allow: /livres
+Allow: /linge_de_maison
+Disallow: /ai
+Disallow: /cp
+Disallow: /support
+Disallow: /dc/decisions_de_justice
+# Adviews
+Disallow: /annonce/
+Disallow: /vi/*.htm
+Disallow: /li
+# Bloquage des Demandes
+Disallow: /*/demandes/
+# all
+Disallow: /*th=0
+Disallow: /aw
+Disallow: /st
+Disallow: /maintenance.html
+Disallow: /pub
+# Blocage des /Recherche (Rav)
+Disallow: /recherche
+Disallow: /boutique/*/*print=0
+Disallow: /popup_siege_social.htm
+Disallow: /dc/popup_siege_social
+Disallow: /*_mediametrie
+Allow: /*
+
+# Googlebot Mobile
+User-agent: Googlebot-Mobile
+Disallow: /popup_siege_social.htm
+Disallow: /dc/popup_siege_social
+# Bloquage des Demandes
+Disallow: /*/demandes/
+Allow: /aide.htm
+Allow: /aide_pro.htm
+# www2 only
+Allow: /livres
+Allow: /linge_de_maison
+Disallow: /ai
+Disallow: /cp
+Disallow: /support
+Disallow: /dc/decisions_de_justice
+# Adviews
+Disallow: /annonce/
+Disallow: /vi/*.htm
+Disallow: /li
+# Bloquage des Demandes
+Disallow: /*/demandes/
+# all
+Disallow: /*th=0
+Disallow: /aw
+Disallow: /st
+Disallow: /maintenance.html
+Disallow: /pub
+# Blocage des /Recherche (Rav)
+Disallow: /recherche
+Disallow: /boutique/*/*print=0
+Disallow: /boutique/*.htm?*ca=*_k&*
+Disallow: /popup_siege_social.htm
+Disallow: /dc/popup_siege_social
+Disallow: /*_mediametrie
+#on autorise boutiques (.htm)
+Allow: /boutique*
+#on autorise les html
+Allow: /*/*.html
+#on bloque les annonces avec et sans parametres
+Disallow: /*/*.htm
+Disallow: /*/bonnes_affaires/
+Allow: /*
+
+User-agent: msnbot
+# friendly exceptions
+Allow: /aide.htm
+Allow: /aide_pro.htm
+# www2 only
+Allow: /livres
+Allow: /linge_de_maison
+Disallow: /ai
+Disallow: /cp
+Disallow: /support
+Disallow: /dc/decisions_de_justice
+# Adviews
+Disallow: /annonce/
+Disallow: /vi/*.htm
+Disallow: /li
+# Bloquage des Demandes
+Disallow: /*/demandes/
+# all
+Disallow: /*th=0
+Disallow: /aw
+Disallow: /st
+Disallow: /maintenance.html
+Disallow: /pub
+# Blocage des /Recherche (Rav)
+Disallow: /recherche
+Disallow: /boutique/*/*print=0
+Disallow: /popup_siege_social.htm
+Disallow: /*_mediametrie
+Allow: /*
+
+# allow archive.org to screenshot all our pages
+User-agent: ia_archiver
+Disallow:
+
+User-agent: Speobot
+Disallow: /
+
 User-agent: MJ12bot
 Crawl-Delay: 10
 
