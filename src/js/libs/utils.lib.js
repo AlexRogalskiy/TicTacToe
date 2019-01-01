@@ -216,6 +216,23 @@ const async requestWithRetry = (url: string, count: number, request: func = Func
   }
 };
 
+/*let service2 = {
+	getProductById: getRequester("getProduct"),
+	postCategory: postRequester("getCategory")
+};*
+/**
+ *  returns method get request wrapper
+ */
+const getRequester = (service: Object<any>, method: string, data: Object<any>: {}): Object<any> => {
+	() => service.get(method, data);
+};
+/**
+ *  returns method post request wrapper
+ */
+const postRequester = (service: Object<any>, method: string, data: Object<any>: {}): Object<any> => {
+	() => service.post(method, data);
+};
+
 /**
  *  returns result functions executeed asynchronously
  */
