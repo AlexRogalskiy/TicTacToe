@@ -10,7 +10,9 @@
 			"modules"				: true,
 			"jsx"					: false
 		},
-		"sourceType": "module"
+		"sourceType": "module",
+		"allowImportExportEverywhere": false,
+		"codeFrame"					 : false
 	},
 	"env": {
 		"es6"						: true,
@@ -35,7 +37,8 @@
 		"babel",
 		"react",
 		"promise",
-		"standard"
+		"standard",
+		"html"
     ],
     "rules": {
 	    "accessor-pairs": "error",
@@ -93,7 +96,9 @@
 		"import/no-duplicates": "error",
 		"import/no-named-default": "error",
 		"import/no-webpack-loader-syntax": "error",
-		
+		"import/no-unresolved"			 : false,
+		"import/extensions"				 : false,
+
 		"indent": ["error", 2, {
 			"SwitchCase": 1,
 			"VariableDeclarator": 1,
