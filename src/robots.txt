@@ -13,8 +13,51 @@ Disallow: /*design_theme_id*
 Disallow: /*preview_theme_id*
 Disallow: /*preview_script_id*
 
+# Google:
+User-agent: Googlebot
+User-agent: Googlebot-News
+User-agent: Googlebot-Image
+User-agent: Googlebot-Video
+User-agent: Googlebot-Mobile
+User-agent: Mediapartners-Google
+User-agent: AdsBot-Google
+User-agent: AdsBot-Google-Mobile-Apps
+Disallow:
+
+# Bing:
+User-agent: Bingbot
+User-agent: MSNBot
+User-agent: MSNBot-Media
+User-agent: AdIdxBot
+User-agent: BingPreview
+Disallow:
+
 User-agent: Nutch
 Disallow: /
+
+User-Agent: Googlebot-Video
+Disallow: 
+
+
+#Disallow for email Collectors
+User-agent: Titan
+Disallow: /
+
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+User-agent: EmailWolf
+Disallow: /
+
+User-agent: ExtractorPro
+Disallow:
+
+
+User-Agent: YandexVideoParser
+Disallow: 
 
 # robots.txt for host: www.pearl.de
 User-agent: *

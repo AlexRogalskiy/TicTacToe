@@ -1,5 +1,7 @@
 language: node_js
 node_js:
+  - 10
+  - 8
   - 6
 install:
   - npm i -g npm@5.8.0
@@ -11,7 +13,8 @@ script:
   - npm run examples:lint
   - npm run examples:test
   - npm run build
-  - npm test1
+  - npm test
+  - npm run lint 
 branches:
   only:
     - master
