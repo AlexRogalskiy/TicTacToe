@@ -11,6 +11,9 @@ import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 import ImageReducer from 'reducers/image.reducer';
 
-const AppReducer = (history: History) => combineReducers({ router: connectRouter(history), image: ImageReducer });
+const AppReducer = (history: History) => combineReducers({
+	router: connectRouter(history),
+	image: ImageReducer
+});
 
 export default AppReducer;

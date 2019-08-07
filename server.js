@@ -87,12 +87,14 @@ const autoRoutes = (): Object<any> => {
 		next();
 	});
 };
+
 const shouldCompress = (req: Object<any>, res: Object<any>): boolean => {
 	if (req.headers['x-no-compression']) {
 		return false;
 	}
 	return compression.filter(req, res);
 };
+
 const initSession = (url: string, interval: number, opts: Object<any>): void => {
 	//const connection = await mongoose.connect(url, opts});
 	//const connection = mongoose.connect(url, opts);
@@ -118,6 +120,7 @@ const initSession = (url: string, interval: number, opts: Object<any>): void => 
 		cookie: { maxAge: credentials.session.maxAge, httpOnly: true, secure: true }
 	}));
 };
+
 const fetchRemoteURL = (url: string, socket: Object<any>, delay: number): void => {
 	Logger.debug(`SERVER: fetch remote API from url=${url} with socket id=${socket.id}`);
 	if (interval) {
@@ -125,6 +128,7 @@ const fetchRemoteURL = (url: string, socket: Object<any>, delay: number): void =
 	}
 	var interval = setInterval(() => getApiAndEmit(url)(socket), delay);
 };
+
 const getApiAndEmit = (url: string): void => {
 	return async socket => {
 		try {
@@ -135,11 +139,13 @@ const getApiAndEmit = (url: string): void => {
 		}
 	};
 };
+
 const startServer = (): void => {
 	server.listen(app.get('port'), () => {
         Logger.debug(`SERVER: running in mode <${app.get('env')}> on host <${app.get('hostname')}>, port <${app.get('port')}>`);
 	});
 };
+
 const printHelpAndExit = (exitcode: number): void => {
 	Logger.debug([
 		'Usage: ' + __filename + ' [-p] <file-to-watch>',
@@ -150,6 +156,7 @@ const printHelpAndExit = (exitcode: number): void => {
 	].join('\n'));
 	process.exit(exitcode);
 };
+
 const getFileData = (filename: string): Object<any> => {
 	return {
 		content: fs.readFileSync(filename, 'utf8'),
@@ -189,6 +196,19 @@ if (allowPublicAccess) {
 //};
 
 const app = express();
+//const router = express.Router();
+/* GET home page. */
+/*router.get("/", function (req, res) {
+    res.render("index", {title: "NetBeans Messages Sample Application"});
+});
+router.get("/api/string/:text", function (req, res) {
+    res.writeHead(200, {
+        "Content-Type": "application/json"
+    });
+    res.write(JSON.stringify({original: req.params.text, reverted: req.params.text.reverse()}));
+    res.end();
+});*/
+
 //routes(app);
 //adminRoutes(app);
 //apiRoutes(app);

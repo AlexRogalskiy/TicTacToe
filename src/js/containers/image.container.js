@@ -26,7 +26,7 @@ const mapStateToProps = (state: ImageState): ImageInfo => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	onFetchImage: (data: ImageData): void  => dispatch(fetchImage(data))
+	onFetchImage: (data: ImageData): void => dispatch(fetchImage(data))
 		//dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId}})
 		//dispatch(fetchImage(data));
 		

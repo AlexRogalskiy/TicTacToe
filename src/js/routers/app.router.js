@@ -22,9 +22,7 @@ import { spring, AnimatedSwitch } from 'react-router-transition';
   }
 `;*/
 
-// routes
-import AppRoute from 'app-root/routes/app.route';
-
+// views
 import MenuView from 'views/menu.view';
 import MainView from 'views/main.view';
 import ItemView from 'views/item.view';
@@ -33,9 +31,12 @@ import AboutView from 'views/about.view';
 import ItemsView from 'views/items.view';
 import NoMatchView from 'views/no-match.view';
 
-import { routes } from 'app-root/routes';
-
+// libs
 import { Elements } from 'libs/elements.lib';
+
+// routes
+import AppRoute from 'app-root/routes/app.route';
+import { routes } from 'app-root/routes';
 import RedirectStatusRoute from 'app-root/routes/redirect-status.route';
 import ScrollTopRoute from 'app-root/routes/scroll-top.route';
 
