@@ -2213,5 +2213,21 @@ Disallow: /?q=user/register/
 Disallow: /?q=user/login/
 Disallow: /?q=user/logout/
 
+User-agent: Wget
+Disallow:/
+
+User-agent: Wget/1.9
+Disallow:/
+
+User-agent: Wget/1.6
+Disallow:/
+
+User-agent: Wget/1.5.3
+Disallow:/
+
+user-agent: AhrefsBot
+Disallow: /
+
+
 Host: pst-labs.ru
 Sitemap: https://www.xxx.com/sitemap_xml/sitemap_index.xml
