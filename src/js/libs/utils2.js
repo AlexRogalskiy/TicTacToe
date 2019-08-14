@@ -729,7 +729,7 @@ export function getAcceptControllingResponse(responses) {
   const suitableDefaultResponse = defaultResponseMediaTypes.length ? defaultResponse : null
 
   return suitable2xxResponse || suitableDefaultResponse
-}
+};
 
 export const createDeepLinkPath = (str) => typeof str == "string" || str instanceof String ? str.trim().replace(/\s/g, "_") : ""
 export const escapeDeepLinkPath = (str) => cssEscape( createDeepLinkPath(str) )
@@ -757,9 +757,53 @@ export function deeplyStripKey(input, keyToStrip, predicate = () => true) {
   })
 
   return obj
-}
+};
+
+Object.size = function(obj) {
+  var key, size = 0;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      size++;
+    }
+  }
+  return size;
+};
 
 
+const Metadata = (function() {
+  function Metadata() {
+    this.metadata = {};
+    this.defaults = {};
+    this.prefix = () => return "default";
+  }
+
+  Metadata.prototype.get = function(key, prefix) {
+    if (prefix == null) {
+      prefix = this.prefix();
+    }
+    if (this.metadata[prefix] === void 0) {
+      this.metadata[prefix] = {};
+    }
+    if (this.metadata[prefix][key] === void 0) {
+      this.metadata[prefix][key] = $.extend(true, {}, this.defaults);
+    }
+    return this.metadata[prefix][key];
+  };
+
+  Metadata.prototype.each = function(func) {
+    var key, ref, results, value;
+    ref = this.metadata[this.prefix()];
+    results = [];
+    for (key in ref) {
+      value = ref[key];
+      results.push(func(key, value));
+    }
+    return results;
+  };
+
+  return Metadata;
+
+})();
 
 // WEBPACK FOOTER //
 // ./src/core/utils.js
