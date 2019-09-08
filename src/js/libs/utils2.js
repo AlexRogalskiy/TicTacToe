@@ -11,8 +11,98 @@ import win from "./window"
 import cssEscape from "css.escape"
 
 const DEFAULT_RESPONSE_KEY = "default"
+const b64_6bit = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const SPLIT_CHAR = ',';
 
 export const isImmutable = (maybe) => Im.Iterable.isIterable(maybe)
+
+class EvenNumbers {
+    constructor(start, end) {
+        this._start = 2 * Math.round(start / 2) - 2;
+        this._end = end;
+    }
+
+    //implementing iterable protocol
+    [Symbol.iterator]() {
+        let [current, end] = [this._start, this._end];
+        return { //returns the iterator object 
+            next() { //implementing next() method
+                if (current <= end) {
+                    current += 2;
+                }
+                if (current > end) {
+                    return { done: true }
+                } else {
+                    return { value: current, done: false }
+                }
+
+            }
+        }
+    }
+};
+
+/*
+let evenNums = new EvenNumbers(5, 11);
+//using for-of loop
+for (let n of evenNums) {
+    console.log(n);
+}
+
+console.log("-----------");
+console.log("using next() method:");
+console.log("-----------");
+let evenIterator = evenNums[Symbol.iterator]();
+while (true) {
+    let obj = evenIterator.next();
+    console.log(obj);
+    if (obj.done) {
+        break;
+    }
+}
+let fruits = ["apple", "banana", "orange"];
+for (let [index, value] of fruits.entries()) {
+    console.log(index + " - " + value);
+}
+let fruits = ["apple", "banana", "orange"];
+for (let index of fruits.keys()) {
+    console.log(index);
+}
+let funcName = "doSomething";
+let t = {
+    [funcName]: function() {
+        console.log('doing something');
+    }
+};
+
+t.doSomething();
+
+let funcName2 = "Display";
+let t2 = {
+    ["do" + funcName2]() { //using ES6 shorthand method syntax
+        console.log('displaying');
+    }
+};
+
+t2.doDisplay();
+
+class X {
+    set prop(value) { this.prop = value }
+}
+let x = new X();
+x.prop = "something";
+*/
+
+export function split(str) {
+    return str.split(SPLIT_CHAR);
+}
+
+export function toHtmlLines(strArray) {
+    return strArray.reduce((s1, s2) => join(s1, s2, '<br>'));
+}
+
+const join = (s1, s2, separator) => {
+  return s1 + separator + s2;
+}
 
 export function isJSONObject (str) {
   try {
@@ -30,7 +120,7 @@ export function isJSONObject (str) {
     // do nothing
   }
 
-  return false
+  return false;
 }
 
 export function objectify (thing) {
@@ -769,6 +859,25 @@ Object.size = function(obj) {
   return size;
 };
 
+// remove punctuation from string
+const stripPunctuation = (str) => str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+
+// count items in the passed array
+const getWordCount = (arr) => arr.length;
+
+// split passed string on spaces to create an array
+const getArr = (str) => str.split(' ');
+
+const b64_12bitTable = () => {
+    let b64_12bit = [];
+    for (var i=0; i<64; i++) {
+        for (var j=0; j<64; j++) {
+            b64_12bit[i*64+j] = b64_6bit[i] + b64_6bit[j];
+        }
+    }
+    b64_12bitTable = function() { return b64_12bit; };
+    return b64_12bit;
+};
 
 const Metadata = (function() {
   function Metadata() {
@@ -776,6 +885,34 @@ const Metadata = (function() {
     this.defaults = {};
     this.prefix = () => return "default";
   }
+
+// applyMixins(Rectangle, [Shape, Component]);
+const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
+    baseCtors.forEach(baseCtor => {
+        Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+            Object.defineProperty(derivedCtor.prototype, name,
+                Object.getOwnPropertyDescriptor(baseCtor.prototype, name));
+        });
+    });
+};
+
+/*
+const createReadOnlySet<T> = (...e: T[]): ReadonlySet<T> => {
+    let s: Set<T> = new Set();
+    e.forEach((value: T, index: number) => {
+        s.add(value)
+    });
+    return s;
+};
+*/
+
+export function getCubicRoot(x) {
+    return Math.cbrt(x);
+};
+
+export function getSquareSum(a, b) {
+    return Math.pow(a, 2) + Math.pow(b, 2);
+};
 
   Metadata.prototype.get = function(key, prefix) {
     if (prefix == null) {
