@@ -215,7 +215,7 @@
     "reselect": "4.0.0",
     "rxdb": "8.0.4",
     "rxjs": "6.3.3",
-    "serve": "10.1.1",
+    "serve": "11.3.2",
     "socket.io": "2.1.1",
     "socket.io-client": "2.1.1",
     "socket.io-json-parser": "2.1.0",
