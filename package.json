@@ -173,7 +173,7 @@
     "immutable": "4.0.0-rc.12",
     "jest-enzyme": "7.0.1",
     "lorem-ipsum": "1.0.6",
-    "marked": "0.5.1",
+    "marked": "1.1.1",
     "mongoose": "5.3.1",
     "morgan": "1.9.1",
     "mz": "2.7.0",
